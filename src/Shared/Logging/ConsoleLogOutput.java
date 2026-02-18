@@ -6,4 +6,9 @@ public class ConsoleLogOutput implements LogOutput
   {
     System.out.println("[" + level + "] " + message);
   }
+
+  @Override public void log(LoggerLevel level, String message, Error exception)
+  {
+    System.out.println("[" + level + "] " + message + " " + exception);
+  }
 }

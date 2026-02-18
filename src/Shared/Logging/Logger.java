@@ -27,4 +27,11 @@ public class Logger
     if (output != null)
        output.log(level, message);
   }
+
+  public void log(LoggerLevel level, String message, Error exception)
+  {
+    if (output != null)
+      output.log(level, message, exception);
+  }
+
 }
