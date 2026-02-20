@@ -1,39 +1,38 @@
 package Shared.Configuration;
 
-import java.math.BigDecimal;
-
 public class AppConfig
 {
   private static AppConfig appConfig;
 
-  private final BigDecimal startingBalance;
-  private final BigDecimal transactionFee;
+  private final int startingBalance;
+  private final double transactionFee;
   private final int updateFrequencyInMs;
-  private final BigDecimal stockResetValue;
+  private final double stockResetValue;
 
-  private AppConfig()
+  private AppConfig(int startingBalance, double transactionFee,
+      int updateFrequencyInMs, double stockResetValue)
   {
-    this.startingBalance = BigDecimal.valueOf(15000);
-    this.transactionFee = BigDecimal.valueOf(0.15);
-    this.updateFrequencyInMs = 1000;
-    this.stockResetValue = BigDecimal.valueOf(150);
+    this.startingBalance = startingBalance;
+    this.transactionFee = transactionFee;
+    this.updateFrequencyInMs = updateFrequencyInMs;
+    this.stockResetValue = stockResetValue;
   }
 
-  public AppConfig getInstance(BigDecimal startingBalance, BigDecimal transactionFee, int updateFrequencyInMs, BigDecimal stockResetValue)
+  public AppConfig getInstance(int startingBalance, double transactionFee, int updateFrequencyInMs, double stockResetValue)
   {
     if (appConfig == null)
     {
-      appConfig = new AppConfig();
+      appConfig = new AppConfig(startingBalance, transactionFee, updateFrequencyInMs, stockResetValue);
     }
     return appConfig;
   }
 
-  public BigDecimal getStartingBalance()
+  public int getStartingBalance()
   {
     return startingBalance;
   }
 
-  public BigDecimal getTransactionFee()
+  public double getTransactionFee()
   {
     return transactionFee;
   }
@@ -43,9 +42,8 @@ public class AppConfig
     return updateFrequencyInMs;
   }
 
-  public BigDecimal getStockResetValue()
+  public double getStockResetValue()
   {
     return stockResetValue;
   }
 }
-
