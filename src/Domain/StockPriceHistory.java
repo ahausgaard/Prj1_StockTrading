@@ -11,9 +11,11 @@ public class StockPriceHistory
   private BigDecimal price;
   private Instant timestamp;
 
-  public StockPriceHistory(UUID id, String stockSymbol)
+  public StockPriceHistory(UUID id, String stockSymbol, BigDecimal price, Instant timestamp)
   {
     this.id = id;
     this.stockSymbol = stockSymbol;
+    this.price = price;
+    this.timestamp = timestamp;
   }
 }

@@ -7,7 +7,9 @@ import java.util.UUID;
 public class Portfolio
 {
   private final UUID id;
-  private BigDecimal currentBalance;
+  private BigDecimal currentBalance = BigDecimal.ZERO;
+
+
 
   public Portfolio(UUID id, BigDecimal currentBalance)
   {
@@ -16,10 +18,7 @@ public class Portfolio
     else
       this.id = id;
 
-    if (this.currentBalance == null)
-      this.currentBalance = BigDecimal.ZERO;
-    else
-      this.currentBalance = currentBalance;
+    this.currentBalance = currentBalance;
   }
 
   public Portfolio(BigDecimal initialBalance) {

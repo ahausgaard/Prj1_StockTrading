@@ -8,9 +8,9 @@ public class OwnedStock
   private final UUID id;
   private final UUID portfolioId;
   private String stockSymbol;
-  private BigDecimal numberOfShares;
+  private double numberOfShares;
 
-  public OwnedStock(UUID id, UUID portfolioId, String stockSymbol, BigDecimal numberOfShares)
+  public OwnedStock(UUID id, UUID portfolioId, String stockSymbol, double numberOfShares)
   {
     if (id == null)
       this.id = UUID.randomUUID();
@@ -23,7 +23,7 @@ public class OwnedStock
   }
 
   public OwnedStock(UUID portfolioId, String stockSymbol) {
-    this(UUID.randomUUID(), portfolioId, stockSymbol, BigDecimal.ZERO);
+    this(UUID.randomUUID(), portfolioId, stockSymbol, 0);
   }
 
   public UUID getId()
@@ -41,7 +41,7 @@ public class OwnedStock
     return stockSymbol;
   }
 
-  public BigDecimal getNumberOfShares()
+  public double getNumberOfShares()
   {
     return numberOfShares;
   }
