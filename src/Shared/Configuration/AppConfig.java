@@ -1,16 +1,18 @@
 package Shared.Configuration;
 
+import java.math.BigDecimal;
+
 public class AppConfig
 {
   private static AppConfig appConfig;
 
-  private final int startingBalance;
-  private final double transactionFee;
+  private final BigDecimal startingBalance;
+  private final BigDecimal transactionFee;
   private final int updateFrequencyInMs;
-  private final double stockResetValue;
+  private final BigDecimal stockResetValue;
 
-  private AppConfig(int startingBalance, double transactionFee,
-      int updateFrequencyInMs, double stockResetValue)
+  private AppConfig(BigDecimal startingBalance, BigDecimal transactionFee,
+      int updateFrequencyInMs, BigDecimal stockResetValue)
   {
     this.startingBalance = startingBalance;
     this.transactionFee = transactionFee;
@@ -18,7 +20,7 @@ public class AppConfig
     this.stockResetValue = stockResetValue;
   }
 
-  public AppConfig getInstance(int startingBalance, double transactionFee, int updateFrequencyInMs, double stockResetValue)
+  public AppConfig getInstance(BigDecimal startingBalance, BigDecimal transactionFee, int updateFrequencyInMs, BigDecimal stockResetValue)
   {
     if (appConfig == null)
     {
@@ -27,12 +29,12 @@ public class AppConfig
     return appConfig;
   }
 
-  public int getStartingBalance()
+  public BigDecimal getStartingBalance()
   {
     return startingBalance;
   }
 
-  public double getTransactionFee()
+  public BigDecimal getTransactionFee()
   {
     return transactionFee;
   }
@@ -42,7 +44,7 @@ public class AppConfig
     return updateFrequencyInMs;
   }
 
-  public double getStockResetValue()
+  public BigDecimal getStockResetValue()
   {
     return stockResetValue;
   }
