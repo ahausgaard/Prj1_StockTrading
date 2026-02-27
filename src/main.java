@@ -1,5 +1,5 @@
-import Shared.Logging.Logger;
-import Shared.Logging.LoggerLevel;
+import shared.logging.Logger;
+import shared.logging.LoggerLevel;
 
 public class main
 {
@@ -8,6 +8,6 @@ public class main
     Logger logger = Logger.getInstance();
     logger.log(LoggerLevel.INFO, "Application started");
     logger.log(LoggerLevel.WARNING, "Stock not found in database");
-    logger.log(LoggerLevel.ERROR, "Failed to save data: ", new Error("LOLSKY") );
+    logger.log(LoggerLevel.ERROR, "Failed to save data: ", new Throwable("LOLSKY") );
   }
 }

@@ -1,4 +1,4 @@
-package Shared.Logging;
+package shared.logging;
 
 public class Logger
 {
@@ -28,7 +28,7 @@ public class Logger
        output.log(level, message);
   }
 
-  public void log(LoggerLevel level, String message, Error exception)
+  public void log(LoggerLevel level, String message, Throwable exception)
   {
     if (output != null)
       output.log(level, message, exception);

@@ -1,4 +1,4 @@
-package Shared.Logging;
+package shared.logging;
 
 public enum LoggerLevel
 {

@@ -1,4 +1,4 @@
-package Shared.Configuration;
+package shared.configuration;
 
 public class AppConfig
 {

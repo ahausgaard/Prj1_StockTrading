@@ -1,6 +1,6 @@
-package Persistence.FileImplementation;
+package persistence.fileImplementation;
 
-import Persistence.Interfaces.UnitOfWork;
+import persistence.interfaces.UnitOfWork;
 
 public class FileUnitOfWork implements UnitOfWork
 {

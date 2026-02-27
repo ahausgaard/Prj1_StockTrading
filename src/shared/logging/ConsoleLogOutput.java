@@ -1,4 +1,4 @@
-package Shared.Logging;
+package shared.logging;
 
 public class ConsoleLogOutput implements LogOutput
 {
@@ -7,7 +7,7 @@ public class ConsoleLogOutput implements LogOutput
     System.out.println("[" + level + "] " + message);
   }
 
-  @Override public void log(LoggerLevel level, String message, Error exception)
+  @Override public void log(LoggerLevel level, String message, Throwable exception)
   {
     System.out.println("[" + level + "] " + message + " " + exception);
   }

@@ -1,7 +1,6 @@
-package Domain;
+package domain;
 
 import java.math.BigDecimal;
-import java.util.Objects;
 import java.util.UUID;
 
 public class Portfolio

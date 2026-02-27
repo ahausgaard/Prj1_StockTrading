@@ -1,4 +1,4 @@
-package Persistence.Interfaces;
+package persistence.interfaces;
 
 public interface StockPriceHistoryDAO
 {
