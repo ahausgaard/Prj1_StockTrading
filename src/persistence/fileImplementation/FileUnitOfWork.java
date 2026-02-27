@@ -2,12 +2,15 @@ package persistence.fileImplementation;
 
 import domain.*;
 import persistence.interfaces.UnitOfWork;
+import shared.logging.Logger;
 import shared.logging.LoggerLevel;
 
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 
 public class FileUnitOfWork implements UnitOfWork
@@ -22,10 +25,13 @@ public class FileUnitOfWork implements UnitOfWork
   public FileUnitOfWork(String directoryPath)
   {
     this.directoryPath = directoryPath;
+    ensureFilesExist(directoryPath);
   }
 
   public List<OwnedStock> getOwnedStocks()
   {
+    if (ownedStocks == null)
+      ownedStocks = new ArrayList<OwnedStock>();
     return ownedStocks;
   }
 
@@ -93,5 +99,31 @@ public class FileUnitOfWork implements UnitOfWork
     portfolios = null;
     stockPriceHistories = null;
     transactions = null;
+  }
+
+  private void ensureFilesExist(String directoryPath)
+  {
+    final Logger logger = Logger.getInstance();
+    List<String> files = List.of(
+        directoryPath + "stocks.txt",
+        directoryPath + "ownedStocks.txt",
+        directoryPath + "portfolios.txt",
+        directoryPath + "stockPriceHistories.txt",
+        directoryPath + "transactions.txt");
+
+    for (String path : files)
+    {
+      try
+      {
+        Path filepath = Paths.get(path);
+        if (!Files.exists(filepath))
+          Files.createFile(filepath);
+      }
+      catch (IOException e)
+      {
+        logger.log(LoggerLevel.ERROR, "Failed to create file: " + path, e);
+        throw new RuntimeException("Failed to create file: " + path, e);
+      }
+    }
   }
 }
