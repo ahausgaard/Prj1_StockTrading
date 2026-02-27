@@ -6,7 +6,7 @@ public class OwnedStock
 {
   private final UUID id;
   private final UUID portfolioId;
-  private String stockSymbol;
+  private final String stockSymbol;
   private double numberOfShares;
 
   public OwnedStock(UUID id, UUID portfolioId, String stockSymbol, double numberOfShares)

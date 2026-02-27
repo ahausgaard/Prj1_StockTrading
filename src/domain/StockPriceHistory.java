@@ -18,4 +18,24 @@ public class StockPriceHistory
     this.price = price;
     this.timestamp = timestamp;
   }
+
+  public UUID getId()
+  {
+    return id;
+  }
+
+  public String getStockSymbol()
+  {
+    return stockSymbol;
+  }
+
+  public BigDecimal getPrice()
+  {
+    return price;
+  }
+
+  public Instant getTimestamp()
+  {
+    return timestamp;
+  }
 }

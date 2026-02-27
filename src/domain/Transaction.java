@@ -28,4 +28,49 @@ public class Transaction
     this.fee = fee;
     this.timestamp = timestamp;
   }
+
+  public UUID getId()
+  {
+    return id;
+  }
+
+  public TransactionType getType()
+  {
+    return type;
+  }
+
+  public UUID getPortfolioId()
+  {
+    return portfolioId;
+  }
+
+  public String getStockSymbol()
+  {
+    return stockSymbol;
+  }
+
+  public BigDecimal getQuantity()
+  {
+    return quantity;
+  }
+
+  public BigDecimal getPricePerShare()
+  {
+    return pricePerShare;
+  }
+
+  public BigDecimal getTotalAmount()
+  {
+    return totalAmount;
+  }
+
+  public BigDecimal getFee()
+  {
+    return fee;
+  }
+
+  public Instant getTimestamp()
+  {
+    return timestamp;
+  }
 }
