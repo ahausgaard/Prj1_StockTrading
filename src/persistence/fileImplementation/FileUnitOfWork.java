@@ -24,27 +24,29 @@ public class FileUnitOfWork implements UnitOfWork
   private List<StockPriceHistory> stockPriceHistories;
   private List<Transaction> transactions;
 
+  private static final Object FILE_WRITE_LOCK = new Object();
+
   public FileUnitOfWork(String directoryPath)
   {
     this.directoryPath = directoryPath;
     ensureFilesExist(directoryPath);
   }
 
-  public List<Stock> getStocks()
+  public synchronized List<Stock> getStocks()
   {
     if (stocks == null)
       loadStocks();
     return stocks;
   }
 
-  public List<OwnedStock> getOwnedStocks()
+  public synchronized List<OwnedStock> getOwnedStocks()
   {
     if (ownedStocks == null)
       loadOwnedStocks();
     return ownedStocks;
   }
 
-  public List<Portfolio> getPortfolios()
+  public synchronized List<Portfolio> getPortfolios()
   {
     if (portfolios == null)
       loadPortfolios();
@@ -52,14 +54,14 @@ public class FileUnitOfWork implements UnitOfWork
   }
 
 
-  public List<StockPriceHistory> getStockPriceHistories()
+  public synchronized List<StockPriceHistory> getStockPriceHistories()
   {
     if (stockPriceHistories == null)
       loadStockPriceHistories();
     return stockPriceHistories;
   }
 
-  public List<Transaction> getTransactions()
+  public synchronized List<Transaction> getTransactions()
   {
     if (transactions == null)
       loadTransactions();
@@ -68,19 +70,68 @@ public class FileUnitOfWork implements UnitOfWork
 
   @Override public void begin()
   {
-    resetLists();
+    clearData();
   }
 
   @Override public void commit()
   {
+    synchronized (FILE_WRITE_LOCK)
+    {
+      if (stocks != null)
+      {
+        List<String> lines = new ArrayList<>();
+        for (Stock stock : stocks)
+        {
+          lines.add(writeStockPSV(stock));
+        }
+        writeAllLines(directoryPath + "stocks.txt", lines);
+      }
 
+      if (ownedStocks != null)
+      {
+        List<String> lines = new ArrayList<>();
+        for (OwnedStock ownedStock : ownedStocks) {
+          lines.add(writeOwnedStockPSV(ownedStock));
+        }
+        writeAllLines(directoryPath + "ownedStocks.txt", lines);
+      }
+
+      if (portfolios != null)
+      {
+        List<String> lines = new ArrayList<>();
+        for (Portfolio portfolio : portfolios) {
+          lines.add(writePortfolioPSV(portfolio));
+        }
+        writeAllLines(directoryPath + "portfolios.txt", lines);
+      }
+
+      if (stockPriceHistories != null)
+      {
+        List<String> lines = new ArrayList<>();
+        for (StockPriceHistory history : stockPriceHistories) {
+          lines.add(writeStockPriceHistoriesPSV(history));
+        }
+        writeAllLines(directoryPath + "stockPriceHistories.txt", lines);
+      }
+
+      if (transactions != null)
+      {
+        List<String> lines = new ArrayList<>();
+        for (Transaction transaction : transactions) {
+          lines.add(writeTransactionsPSV(transaction));
+        }
+        writeAllLines(directoryPath + "transactions.txt", lines);
+      }
+    }
+
+    clearData();
   }
 
   @Override public void rollback()
   {
-    resetLists();
+    clearData();
   }
-  public List<String> readAllLines(String filePath)
+  private List<String> readAllLines(String filePath)
   {
     try
     {
@@ -88,11 +139,25 @@ public class FileUnitOfWork implements UnitOfWork
     }
     catch(IOException e)
     {
+      Logger.getInstance().log(LoggerLevel.ERROR, "Failed to read from file: " + filePath, e);
       throw new RuntimeException("Failed to read from file: " + filePath, e);
     }
   }
 
-  public String writeStockPSV(Stock stock)
+  private void writeAllLines(String filePath, List<String> lines)
+  {
+    try
+    {
+      Files.write(Paths.get(filePath), lines);
+    }
+    catch (IOException e)
+    {
+      Logger.getInstance().log(LoggerLevel.ERROR, "Failed to write to file: " + filePath, e);
+      throw new RuntimeException("Failed to write to file: " + filePath, e);
+    }
+  }
+
+  private String writeStockPSV(Stock stock)
   {
     return
         stock.getSymbol() + "|" +
@@ -101,7 +166,7 @@ public class FileUnitOfWork implements UnitOfWork
         stock.getCurrentPrice();
   }
 
-  public String writeOwnedStockPSV(OwnedStock ownedStock)
+  private String writeOwnedStockPSV(OwnedStock ownedStock)
   {
     return
         ownedStock.getId() + "|" +
@@ -110,14 +175,14 @@ public class FileUnitOfWork implements UnitOfWork
         ownedStock.getNumberOfShares();
   }
 
-  public String writePortfolioPSV(Portfolio portfolio)
+  private String writePortfolioPSV(Portfolio portfolio)
   {
     return
         portfolio.getId() + "|" +
         portfolio.getCurrentBalance();
   }
 
-  public String writeStockPriceHistoriesPSV(StockPriceHistory stockPriceHistory)
+  private String writeStockPriceHistoriesPSV(StockPriceHistory stockPriceHistory)
   {
     return
         stockPriceHistory.getId() + "|" +
@@ -126,7 +191,7 @@ public class FileUnitOfWork implements UnitOfWork
         stockPriceHistory.getTimestamp();
   }
 
-  public String writeTransactionsPSV(Transaction transaction)
+  private String writeTransactionsPSV(Transaction transaction)
   {
     return
         transaction.getId() + "|" +
@@ -140,31 +205,31 @@ public class FileUnitOfWork implements UnitOfWork
         transaction.getTimestamp();
   }
 
-  public Stock readStockPSV(String psv)
+  private Stock readStockPSV(String psv)
   {
     String[] parts = psv.split("\\|");
     return new Stock(parts[0], parts[1], StockState.valueOf(parts[2]), new BigDecimal(parts[3]));
   }
 
-  public OwnedStock readOwnedStockPSV(String psv)
+  private OwnedStock readOwnedStockPSV(String psv)
   {
     String[] parts = psv.split("\\|");
     return new OwnedStock(UUID.fromString(parts[0]), UUID.fromString(parts[1]), parts[2], Double.parseDouble(parts[3]));
   }
 
-  public Portfolio readPortfolioPSV(String psv)
+  private Portfolio readPortfolioPSV(String psv)
   {
     String[] parts = psv.split("\\|");
     return new Portfolio(UUID.fromString(parts[0]), new BigDecimal(parts[1]));
   }
 
-  public StockPriceHistory readStockPriceHistoryPSV(String psv)
+  private StockPriceHistory readStockPriceHistoryPSV(String psv)
   {
     String[] parts = psv.split("\\|");
-    return new StockPriceHistory(UUID.fromString(parts[0]), parts[1], new BigDecimal(parts[3]), Instant.parse(parts[4]));
+    return new StockPriceHistory(UUID.fromString(parts[0]), parts[1], new BigDecimal(parts[2]), Instant.parse(parts[3]));
   }
 
-  public Transaction readTransactionPSV(String psv)
+  private Transaction readTransactionPSV(String psv)
   {
     String[] parts = psv.split("\\|");
     return new Transaction(UUID.fromString(parts[0]),
@@ -178,7 +243,7 @@ public class FileUnitOfWork implements UnitOfWork
         Instant.parse(parts[8]));
   }
 
-  public void loadStocks()
+  private void loadStocks()
   {
     stocks = new ArrayList<>();
     String filePath = directoryPath + "stocks.txt";
@@ -194,7 +259,7 @@ public class FileUnitOfWork implements UnitOfWork
     }
   }
 
-  public void loadOwnedStocks()
+  private void loadOwnedStocks()
   {
     ownedStocks = new ArrayList<>();
     String filePath = directoryPath + "ownedStocks.txt";
@@ -209,7 +274,7 @@ public class FileUnitOfWork implements UnitOfWork
     }
   }
 
-  public void loadPortfolios()
+  private void loadPortfolios()
   {
     portfolios = new ArrayList<>();
     String filePath = directoryPath + "portfolios.txt";
@@ -224,7 +289,7 @@ public class FileUnitOfWork implements UnitOfWork
     }
   }
 
-  public void loadStockPriceHistories()
+  private void loadStockPriceHistories()
   {
     stockPriceHistories = new ArrayList<>();
     String filePath = directoryPath + "stockPriceHistories.txt";
@@ -240,7 +305,7 @@ public class FileUnitOfWork implements UnitOfWork
     }
   }
 
-  public void loadTransactions()
+  private void loadTransactions()
   {
     transactions = new ArrayList<>();
     String filePath = directoryPath + "transactions.txt";
@@ -256,9 +321,7 @@ public class FileUnitOfWork implements UnitOfWork
     }
   }
 
-
-
-  private void resetLists()
+  private void clearData()
   {
     stocks = null;
     ownedStocks = null;
@@ -287,7 +350,7 @@ public class FileUnitOfWork implements UnitOfWork
       }
       catch (IOException e)
       {
-        logger.log(LoggerLevel.ERROR, "Failed to create file: " + path, e);
+        logger.log(LoggerLevel.ERROR, "Failed to create file: " + path);
         throw new RuntimeException("Failed to create file: " + path, e);
       }
     }
