@@ -9,20 +9,19 @@ public class AppConfig
   private final int updateFrequencyInMs;
   private final double stockResetValue;
 
-  private AppConfig(int startingBalance, double transactionFee,
-      int updateFrequencyInMs, double stockResetValue)
+  private AppConfig()
   {
-    this.startingBalance = startingBalance;
-    this.transactionFee = transactionFee;
-    this.updateFrequencyInMs = updateFrequencyInMs;
-    this.stockResetValue = stockResetValue;
+    this.startingBalance = 10000;
+    this.transactionFee = 0.01;
+    this.updateFrequencyInMs = 1000;
+    this.stockResetValue = 500.0;
   }
 
-  public AppConfig getInstance(int startingBalance, double transactionFee, int updateFrequencyInMs, double stockResetValue)
+  public AppConfig getInstance()
   {
     if (appConfig == null)
     {
-      appConfig = new AppConfig(startingBalance, transactionFee, updateFrequencyInMs, stockResetValue);
+      appConfig = new AppConfig();
     }
     return appConfig;
   }
