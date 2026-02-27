@@ -17,14 +17,16 @@ public class AppConfig
     this.stockResetValue = 500.0;
   }
 
-  public AppConfig getInstance()
-  {
-    if (appConfig == null)
-    {
-      appConfig = new AppConfig();
-    }
-    return appConfig;
+  //Bill Pugh Pattern
+  private static class ConfigHolder {
+    private static final AppConfig INSTANCE = new AppConfig();
   }
+
+  public static AppConfig getInstance()
+  {
+    return ConfigHolder.INSTANCE;
+  }
+
 
   public int getStartingBalance()
   {
