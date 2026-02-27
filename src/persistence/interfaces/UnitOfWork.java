@@ -1,9 +1,6 @@
 package persistence.interfaces;
 
-import domain.Portfolio;
-import domain.Stock;
-import domain.StockPriceHistory;
-import domain.Transaction;
+import domain.*;
 
 import java.util.List;
 
@@ -16,5 +13,6 @@ public interface UnitOfWork
   List<Stock> getStocks();
   List<StockPriceHistory> getStockPriceHistories();
   List<Transaction> getTransactions();
+  List<OwnedStock> getOwnedStocks();
 
 }
