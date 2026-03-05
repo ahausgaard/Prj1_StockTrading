@@ -22,6 +22,20 @@ public class OwnedStockFileDAO implements OwnedStockDAO
     uow.getOwnedStocks().add(ownedStock);
   }
 
+  @Override public void update(OwnedStock ownedStock)
+  {
+    List<OwnedStock> allOwnedStocks = uow.getOwnedStocks();
+
+    for (int i = 0; i < allOwnedStocks.size(); i++)
+    {
+      if (allOwnedStocks.get(i).getId().equals(ownedStock.getId()))
+      {
+        allOwnedStocks.set(i, ownedStock);
+        break;
+      }
+    }
+  }
+
   @Override public void delete(UUID id)
   {
     uow.getOwnedStocks().removeIf(os -> os.getId().equals(id));

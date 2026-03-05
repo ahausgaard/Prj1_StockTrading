@@ -14,5 +14,4 @@ public interface UnitOfWork
   List<StockPriceHistory> getStockPriceHistories();
   List<Transaction> getTransactions();
   List<OwnedStock> getOwnedStocks();
-
 }

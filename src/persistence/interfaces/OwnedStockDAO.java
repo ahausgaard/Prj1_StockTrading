@@ -8,6 +8,7 @@ import java.util.UUID;
 public interface OwnedStockDAO
 {
   void create(OwnedStock ownedStock);
+  void update(OwnedStock ownedStock);
   void delete(UUID id);
   OwnedStock getById(UUID id);
   List<OwnedStock> getAll();
