@@ -27,7 +27,6 @@ public class AppConfig
     return ConfigHolder.INSTANCE;
   }
 
-
   public int getStartingBalance()
   {
     return startingBalance;

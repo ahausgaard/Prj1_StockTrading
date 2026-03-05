@@ -11,18 +11,20 @@ public class OwnedStock
 
   public OwnedStock(UUID id, UUID portfolioId, String stockSymbol, double numberOfShares)
   {
-    if (id == null)
-      this.id = UUID.randomUUID();
-    else
-      this.id = id;
-
+    this.id = id;
     this.portfolioId = portfolioId;
     this.stockSymbol = stockSymbol;
     this.numberOfShares = numberOfShares;
   }
 
-  public OwnedStock(UUID portfolioId, String stockSymbol) {
-    this(UUID.randomUUID(), portfolioId, stockSymbol, 0);
+  // Factory method for new OwnedStock (generates new UUID)
+  public static OwnedStock createNew(UUID portfolioId, String stockSymbol, double numberOfShares) {
+    return new OwnedStock(UUID.randomUUID(), portfolioId, stockSymbol, numberOfShares);
+  }
+
+  // Factory method for recreating from storage (uses existing UUID)
+  public static OwnedStock recreateFromStorage(UUID id, UUID portfolioId, String stockSymbol, double numberOfShares) {
+    return new OwnedStock(id, portfolioId, stockSymbol, numberOfShares);
   }
 
   public UUID getId()

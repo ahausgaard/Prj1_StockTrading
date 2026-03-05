@@ -8,22 +8,21 @@ public class Portfolio
   private final UUID id;
   private BigDecimal currentBalance = BigDecimal.ZERO;
 
-
-
   public Portfolio(UUID id, BigDecimal currentBalance)
   {
-    if (id == null)
-      this.id = UUID.randomUUID();
-    else
-      this.id = id;
-
+    this.id = id;
     this.currentBalance = currentBalance;
   }
 
-  public Portfolio(BigDecimal initialBalance) {
-    this(UUID.randomUUID(), initialBalance);
+  // Factory method for new Portfolio (generates new UUID)
+  public static Portfolio createNew(BigDecimal initialBalance) {
+    return new Portfolio(UUID.randomUUID(), initialBalance);
   }
 
+  // Factory method for recreating from storage (uses existing UUID)
+  public static Portfolio recreateFromStorage(UUID id, BigDecimal currentBalance) {
+    return new Portfolio(id, currentBalance);
+  }
 
   public void setCurrentBalance(BigDecimal currentBalance)
   {
@@ -39,8 +38,6 @@ public class Portfolio
   {
     return id;
   }
-
-
 
   @Override public String toString()
   {

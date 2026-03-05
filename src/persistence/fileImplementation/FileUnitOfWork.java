@@ -33,21 +33,21 @@ public class FileUnitOfWork implements UnitOfWork
     ensureFilesExist(directoryPath);
   }
 
-  public synchronized List<Stock> getStocks()
+  public List<Stock> getStocks()
   {
     if (stocks == null)
       loadStocks();
     return stocks;
   }
 
-  public synchronized List<OwnedStock> getOwnedStocks()
+  public List<OwnedStock> getOwnedStocks()
   {
     if (ownedStocks == null)
       loadOwnedStocks();
     return ownedStocks;
   }
 
-  public synchronized List<Portfolio> getPortfolios()
+  public List<Portfolio> getPortfolios()
   {
     if (portfolios == null)
       loadPortfolios();
@@ -55,14 +55,14 @@ public class FileUnitOfWork implements UnitOfWork
   }
 
 
-  public synchronized List<StockPriceHistory> getStockPriceHistories()
+  public List<StockPriceHistory> getStockPriceHistories()
   {
     if (stockPriceHistories == null)
       loadStockPriceHistories();
     return stockPriceHistories;
   }
 
-  public synchronized List<Transaction> getTransactions()
+  public List<Transaction> getTransactions()
   {
     if (transactions == null)
       loadTransactions();

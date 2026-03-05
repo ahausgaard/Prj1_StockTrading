@@ -29,6 +29,10 @@ public class Transaction
     this.timestamp = timestamp;
   }
 
+  public static Transaction createNew(UUID portfolioId, TransactionType type, String stockSymbol, BigDecimal quantity, BigDecimal pricePerShare, BigDecimal totalAmount, BigDecimal fee, Instant timestamp) {
+    return new Transaction(UUID.randomUUID(), portfolioId, type, stockSymbol, quantity, pricePerShare, totalAmount, fee, timestamp);
+  }
+
   public UUID getId()
   {
     return id;

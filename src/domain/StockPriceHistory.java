@@ -19,6 +19,10 @@ public class StockPriceHistory
     this.timestamp = timestamp;
   }
 
+  public static StockPriceHistory createNew(String stockSymbol, BigDecimal price, Instant timestamp) {
+    return new StockPriceHistory(UUID.randomUUID(), stockSymbol, price, timestamp);
+  }
+
   public UUID getId()
   {
     return id;
@@ -38,4 +42,5 @@ public class StockPriceHistory
   {
     return timestamp;
   }
+
 }
