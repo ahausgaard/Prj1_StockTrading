@@ -14,6 +14,7 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.function.Function;
 
 public class FileUnitOfWork implements UnitOfWork
 {
@@ -82,7 +83,7 @@ public class FileUnitOfWork implements UnitOfWork
         List<String> lines = new ArrayList<>();
         for (Stock stock : stocks)
         {
-          lines.add(writeStockPSV(stock));
+          lines.add(stockToPSV(stock));
         }
         writeAllLines(directoryPath + "stocks.txt", lines);
       }
@@ -91,7 +92,7 @@ public class FileUnitOfWork implements UnitOfWork
       {
         List<String> lines = new ArrayList<>();
         for (OwnedStock ownedStock : ownedStocks) {
-          lines.add(writeOwnedStockPSV(ownedStock));
+          lines.add(ownedStockToPSV(ownedStock));
         }
         writeAllLines(directoryPath + "ownedStocks.txt", lines);
       }
@@ -100,7 +101,7 @@ public class FileUnitOfWork implements UnitOfWork
       {
         List<String> lines = new ArrayList<>();
         for (Portfolio portfolio : portfolios) {
-          lines.add(writePortfolioPSV(portfolio));
+          lines.add(portfolioToPSV(portfolio));
         }
         writeAllLines(directoryPath + "portfolios.txt", lines);
       }
@@ -109,7 +110,7 @@ public class FileUnitOfWork implements UnitOfWork
       {
         List<String> lines = new ArrayList<>();
         for (StockPriceHistory history : stockPriceHistories) {
-          lines.add(writeStockPriceHistoriesPSV(history));
+          lines.add(stockPriceHistoriesToPSV(history));
         }
         writeAllLines(directoryPath + "stockPriceHistories.txt", lines);
       }
@@ -118,7 +119,7 @@ public class FileUnitOfWork implements UnitOfWork
       {
         List<String> lines = new ArrayList<>();
         for (Transaction transaction : transactions) {
-          lines.add(writeTransactionsPSV(transaction));
+          lines.add(transactionsToPSV(transaction));
         }
         writeAllLines(directoryPath + "transactions.txt", lines);
       }
@@ -157,7 +158,7 @@ public class FileUnitOfWork implements UnitOfWork
     }
   }
 
-  private String writeStockPSV(Stock stock)
+  private String stockToPSV(Stock stock)
   {
     return
         stock.getSymbol() + "|" +
@@ -166,7 +167,7 @@ public class FileUnitOfWork implements UnitOfWork
         stock.getCurrentPrice();
   }
 
-  private String writeOwnedStockPSV(OwnedStock ownedStock)
+  private String ownedStockToPSV(OwnedStock ownedStock)
   {
     return
         ownedStock.getId() + "|" +
@@ -175,14 +176,14 @@ public class FileUnitOfWork implements UnitOfWork
         ownedStock.getNumberOfShares();
   }
 
-  private String writePortfolioPSV(Portfolio portfolio)
+  private String portfolioToPSV(Portfolio portfolio)
   {
     return
         portfolio.getId() + "|" +
         portfolio.getCurrentBalance();
   }
 
-  private String writeStockPriceHistoriesPSV(StockPriceHistory stockPriceHistory)
+  private String stockPriceHistoriesToPSV(StockPriceHistory stockPriceHistory)
   {
     return
         stockPriceHistory.getId() + "|" +
@@ -191,7 +192,7 @@ public class FileUnitOfWork implements UnitOfWork
         stockPriceHistory.getTimestamp();
   }
 
-  private String writeTransactionsPSV(Transaction transaction)
+  private String transactionsToPSV(Transaction transaction)
   {
     return
         transaction.getId() + "|" +
@@ -243,80 +244,46 @@ public class FileUnitOfWork implements UnitOfWork
         Instant.parse(parts[8]));
   }
 
+  private <T> void loadEntities(String fileName, List<T> targetList, Function<String, T> parser) {
+    targetList.clear();
+    String filePath = directoryPath + fileName;
+    List<String> lines = readAllLines(filePath);
+    for (String line : lines) {
+      if (line != null && !line.trim().isEmpty()) {
+        targetList.add(parser.apply(line));
+      }
+    }
+  }
+
+
   private void loadStocks()
   {
     stocks = new ArrayList<>();
-    String filePath = directoryPath + "stocks.txt";
-    List<String> lines = readAllLines(filePath);
-
-    for (String line : lines)
-    {
-      if (line!= null && !line.trim().isEmpty())
-      {
-        Stock stock = readStockPSV(line);
-        stocks.add(stock);
-      }
-    }
+    loadEntities("stocks.txt",stocks,this::readStockPSV);
   }
 
   private void loadOwnedStocks()
   {
     ownedStocks = new ArrayList<>();
-    String filePath = directoryPath + "ownedStocks.txt";
-    List<String> lines = readAllLines(filePath);
-
-    for (String line : lines)
-    {
-      if (line != null && !line.trim().isEmpty())
-      {
-        ownedStocks.add(readOwnedStockPSV(line));
-      }
-    }
+    loadEntities("ownedStocks.txt",ownedStocks,this::readOwnedStockPSV);
   }
 
   private void loadPortfolios()
   {
     portfolios = new ArrayList<>();
-    String filePath = directoryPath + "portfolios.txt";
-    List<String> lines = readAllLines(filePath);
-
-    for (String line : lines)
-    {
-      if (line != null && !line.trim().isEmpty())
-      {
-        portfolios.add(readPortfolioPSV(line));
-      }
-    }
+    loadEntities("portfolios.txt",portfolios,this::readPortfolioPSV);
   }
 
   private void loadStockPriceHistories()
   {
     stockPriceHistories = new ArrayList<>();
-    String filePath = directoryPath + "stockPriceHistories.txt";
-    List<String> lines = readAllLines(filePath);
-
-    for (String line : lines)
-    {
-      if (line != null && !line.trim().isEmpty())
-      {
-        stockPriceHistories.add(readStockPriceHistoryPSV(line));
-      }
-    }
+    loadEntities("stockPriceHistories.txt",stockPriceHistories,this::readStockPriceHistoryPSV);
   }
 
   private void loadTransactions()
   {
     transactions = new ArrayList<>();
-    String filePath = directoryPath + "transactions.txt";
-    List<String> lines = readAllLines(filePath);
-
-    for (String line : lines)
-    {
-      if (line != null && !line.trim().isEmpty())
-      {
-        transactions.add(readTransactionPSV(line));
-      }
-    }
+    loadEntities("transactions.txt",transactions,this::readTransactionPSV);
   }
 
   private void clearData()
