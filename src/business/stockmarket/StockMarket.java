@@ -24,6 +24,25 @@ public class StockMarket
   public void addExistingStock(Stock stock)
   {
     liveStocks.add(LiveStock.fromExisting(stock));
+    logger.log(LoggerLevel.INFO, "Added existing stock: " + stock.getSymbol());
   }
 
+  public void updateAllLiveStocks()
+  {
+    for (LiveStock liveStock : liveStocks)
+    {
+      liveStock.updatePrice();
+    }
+  }
+
+  // Bill Pugh Singleton implementation
+  private StockMarket() {}
+
+  private static class StockMarketHolder {
+    private static final StockMarket INSTANCE = new StockMarket();
+  }
+
+  public static StockMarket getInstance() {
+    return StockMarketHolder.INSTANCE;
+  }
 }
