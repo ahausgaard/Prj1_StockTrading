@@ -18,8 +18,8 @@ public class Stock
   }
 
   // Factory method for new Stock
-  public static Stock createNew(String symbol, String name, StockState currentState, BigDecimal currentPrice) {
-    return new Stock(symbol, name, currentState, currentPrice);
+  public static Stock createNew(String symbol, String name, BigDecimal currentPrice) {
+    return new Stock(symbol, name, StockState.STEADY, currentPrice);
   }
 
   // Factory method for recreating from storage

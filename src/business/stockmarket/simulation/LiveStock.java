@@ -32,7 +32,7 @@ public class LiveStock
   public static LiveStock fromExisting(Stock existingStock)
   {
     String symbol = existingStock.getSymbol().toUpperCase();
-    LiveStockState liveStockState = StockStateConverter.convert(existingStock.getCurrentState());
+    LiveStockState liveStockState = StockStateConverter.toLiveState(existingStock.getCurrentState());
     BigDecimal currentPrice = existingStock.getCurrentPrice();
 
     return new LiveStock(symbol, liveStockState, currentPrice);
@@ -44,5 +44,4 @@ public class LiveStock
 
     currentPrice = currentPrice.add(priceChange);
   }
-
 }

@@ -8,12 +8,13 @@ import shared.logging.Logger;
 import shared.logging.LoggerLevel;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 public class StockMarket
 {
   private final Logger logger = Logger.getInstance();
-  private List< LiveStock> liveStocks;
+  private List<LiveStock> liveStocks = new ArrayList<>();
 
   public void addNewStock(String stockSymbol)
   {

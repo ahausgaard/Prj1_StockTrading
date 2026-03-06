@@ -10,13 +10,13 @@ public class MarketTickerThread extends Thread
   private final Logger logger;
   private final int updateFrequencyInMs;
   private int currentTick = 0;
-  private boolean running = false;
+  private volatile boolean running = false;
 
   public MarketTickerThread()
   {
+    this.logger = Logger.getInstance();
     this.stockMarket = StockMarket.getInstance();
     this.updateFrequencyInMs = AppConfig.getInstance().getUpdateFrequencyInMs();
-    this.logger = Logger.getInstance();
   }
 
   @Override public void run()
@@ -42,14 +42,15 @@ public class MarketTickerThread extends Thread
     logger.log(LoggerLevel.INFO, "Market ticker stopped.");
   }
 
-  public void stopTicker()
+  public boolean isRunning()
+  {
+    return running;
+  }
+
+  public void stopThread()
   {
     running = false;
     interrupt();
   }
 
-  public boolean isRunning()
-  {
-    return running;
-  }
 }
