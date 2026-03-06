@@ -9,6 +9,7 @@ import shared.logging.LoggerLevel;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class StockMarket
@@ -34,6 +35,11 @@ public class StockMarket
     {
       liveStock.updatePrice();
     }
+  }
+
+  public List<LiveStock> getAllLiveStocks()
+  {
+    return Collections.unmodifiableList(liveStocks);
   }
 
   // Bill Pugh Singleton implementation

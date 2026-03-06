@@ -1,5 +1,6 @@
 import business.stockmarket.MarketTickerThread;
 import business.stockmarket.StockMarket;
+import business.stockmarket.simulation.LiveStock;
 import domain.Stock;
 import shared.logging.Logger;
 import shared.logging.LoggerLevel;
@@ -21,7 +22,7 @@ public class main
 
     //Testing
     try {
-      Thread.sleep(10000);
+      Thread.sleep(5000);
     } catch (InterruptedException e) {
       e.printStackTrace();
     }
@@ -32,7 +33,13 @@ public class main
       e.printStackTrace();
     }
 
-    System.out.println(appleStock.getCurrentPrice());
-    System.out.println(appleStock.getCurrentState());
+    for (LiveStock liveStock : market.getAllLiveStocks())
+    {
+      logger.log(LoggerLevel.INFO, "Stock: " + liveStock.getSymbol() +
+          ", Price: " + liveStock.getCurrentPrice() +
+          ", State: " + liveStock.getCurrentState().getName());
+    }
+
+
   }
 }

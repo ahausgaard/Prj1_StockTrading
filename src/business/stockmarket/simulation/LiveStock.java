@@ -9,15 +9,20 @@ import java.math.BigDecimal;
 
 public class LiveStock
 {
+  private static final long BANKRUPT_PENALTY_MS = 10_000;
+
   private final String symbol;
   private BigDecimal currentPrice;
   private LiveStockState currentState;
+  private final TransitionManager transitionManager;
+  private long bankruptSince = -1;
 
   public LiveStock(String symbol, LiveStockState currentState, BigDecimal currentPrice)
   {
     this.symbol = symbol;
     this.currentState = currentState;
     this.currentPrice = currentPrice;
+    this.transitionManager = new TransitionManager();
   }
 
   //Factories
@@ -40,8 +45,41 @@ public class LiveStock
 
   public void updatePrice()
   {
-    BigDecimal priceChange = currentState.calculatePriceChange();
-
+    BigDecimal priceChange = currentPrice.multiply(currentState.calculatePriceChange());
     currentPrice = currentPrice.add(priceChange);
+
+    // State transition
+    StockState currentStockState = StockStateConverter.toDomainState(currentState);
+    //Bankrupt penalty logic
+    if (currentStockState == StockState.BANKRUPT)
+    {
+      if (bankruptSince < 0)
+      {
+        bankruptSince = System.currentTimeMillis();
+      }
+      if (System.currentTimeMillis() - bankruptSince < BANKRUPT_PENALTY_MS)
+      {
+        return;
+      }
+      bankruptSince = -1; // penalty served, allow transition
+    }
+    StockState nextStockState = transitionManager.getNextState(currentStockState);
+    LiveStockState nextLiveStockState = StockStateConverter.toLiveState(nextStockState);
+    this.currentState = nextLiveStockState;
+  }
+
+  public String getSymbol()
+  {
+    return symbol;
+  }
+
+  public BigDecimal getCurrentPrice()
+  {
+    return currentPrice;
+  }
+
+  public LiveStockState getCurrentState()
+  {
+    return currentState;
   }
 }
