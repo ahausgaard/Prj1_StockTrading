@@ -9,7 +9,7 @@ public interface PortfolioDAO
 {
   void create(Portfolio portfolio);
   void update(Portfolio portfolio);
-  void delete(UUID id);
+  boolean delete(UUID id);
   Portfolio getById(UUID id);
   List<Portfolio> getAll();
 }

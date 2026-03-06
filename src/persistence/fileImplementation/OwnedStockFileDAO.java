@@ -36,9 +36,9 @@ public class OwnedStockFileDAO implements OwnedStockDAO
     }
   }
 
-  @Override public void delete(UUID id)
+  @Override public boolean delete(UUID id)
   {
-    uow.getOwnedStocks().removeIf(os -> os.getId().equals(id));
+    return uow.getOwnedStocks().removeIf(os -> os.getId().equals(id));
   }
 
   @Override public OwnedStock getById(UUID id)

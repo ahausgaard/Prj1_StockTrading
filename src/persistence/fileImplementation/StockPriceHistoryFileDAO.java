@@ -36,9 +36,9 @@ public class StockPriceHistoryFileDAO implements StockPriceHistoryDAO
     }
   }
 
-  @Override public void delete(UUID id)
+  @Override public boolean delete(UUID id)
   {
-    uow.getStockPriceHistories().removeIf(sph -> sph.getId().equals(id));
+    return uow.getStockPriceHistories().removeIf(sph -> sph.getId().equals(id));
   }
 
   @Override public StockPriceHistory getById(UUID id)

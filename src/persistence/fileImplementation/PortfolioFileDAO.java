@@ -37,9 +37,9 @@ public class PortfolioFileDAO implements PortfolioDAO
     }
   }
 
-  @Override public void delete(UUID id)
+  @Override public boolean delete(UUID id)
   {
-    uow.getPortfolios().removeIf(p -> p.getId().equals(id));
+    return uow.getPortfolios().removeIf(p -> p.getId().equals(id));
   }
 
   @Override public Portfolio getById(UUID id)

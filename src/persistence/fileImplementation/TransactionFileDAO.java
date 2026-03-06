@@ -36,9 +36,9 @@ public class TransactionFileDAO implements TransactionDAO
     }
   }
 
-  @Override public void delete(UUID id)
+  @Override public boolean delete(UUID id)
   {
-    uow.getTransactions().removeIf(t -> t.getId().equals(id));
+    return uow.getTransactions().removeIf(t -> t.getId().equals(id));
   }
 
   @Override public Transaction getById(UUID id)

@@ -9,7 +9,7 @@ public interface TransactionDAO
 {
   void create(Transaction transaction);
   void update(Transaction transaction);
-  void delete(UUID id);
+  boolean delete(UUID id);
   Transaction getById(UUID id);
   List<Transaction> getAll();
 }
