@@ -5,6 +5,5 @@ public enum StockState
   STEADY,
   GROWING,
   DECLINING,
-  BANKRUPT,
-  RESET
+  BANKRUPT
 }

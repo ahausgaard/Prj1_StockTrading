@@ -9,8 +9,6 @@ import java.math.BigDecimal;
 
 public class LiveStock
 {
-  private static final long BANKRUPT_PENALTY_MS = 10_000;
-
   private final String symbol;
   private BigDecimal currentPrice;
   private LiveStockState currentState;
@@ -43,6 +41,11 @@ public class LiveStock
     return new LiveStock(symbol, liveStockState, currentPrice);
   }
 
+  public Stock toStock()
+  {
+    return new Stock(symbol, StockStateConverter.toDomainState(currentState), currentPrice);
+  }
+
   public void updatePrice()
   {
     BigDecimal priceChange = currentPrice.multiply(currentState.calculatePriceChange());
@@ -57,11 +60,13 @@ public class LiveStock
       {
         bankruptSince = System.currentTimeMillis();
       }
-      if (System.currentTimeMillis() - bankruptSince < BANKRUPT_PENALTY_MS)
+      if (System.currentTimeMillis() - bankruptSince < AppConfig.getInstance()
+          .getBankruptcyPenaltyMs())
       {
         return;
       }
       bankruptSince = -1; // penalty served, allow transition
+      currentPrice = AppConfig.getInstance().getStartingBalance();
     }
     StockState nextStockState = transitionManager.getNextState(currentStockState);
     LiveStockState nextLiveStockState = StockStateConverter.toLiveState(nextStockState);

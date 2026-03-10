@@ -1,16 +1,15 @@
 package business.stockmarket;
 
 import business.stockmarket.simulation.LiveStock;
-import business.stockmarket.simulation.LiveStockState;
 import domain.Stock;
-import domain.StockState;
 import shared.logging.Logger;
 import shared.logging.LoggerLevel;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import static business.stockmarket.simulation.LiveStock.fromExisting;
 
 public class StockMarket
 {
@@ -25,7 +24,7 @@ public class StockMarket
 
   public void addExistingStock(Stock stock)
   {
-    liveStocks.add(LiveStock.fromExisting(stock));
+    liveStocks.add(fromExisting(stock));
     logger.log(LoggerLevel.INFO, "Added existing stock: " + stock.getSymbol());
   }
 
@@ -37,9 +36,9 @@ public class StockMarket
     }
   }
 
-  public List<LiveStock> getAllLiveStocks()
+  public List<Stock> getAllStocks()
   {
-    return Collections.unmodifiableList(liveStocks);
+    return liveStocks.stream().map(LiveStock::toStock).toList();
   }
 
   // Bill Pugh Singleton implementation

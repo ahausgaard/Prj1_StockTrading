@@ -13,7 +13,6 @@ public class StockStateConverter
       case GROWING   -> new GrowingState();
       case DECLINING -> new DecliningState();
       case BANKRUPT  -> new BankruptState();
-      case RESET     -> new ResetState();
     };
   }
 
@@ -25,7 +24,6 @@ public class StockStateConverter
       case GrowingState   s -> StockState.GROWING;
       case DecliningState s -> StockState.DECLINING;
       case BankruptState  s -> StockState.BANKRUPT;
-      case ResetState     s -> StockState.RESET;
       default -> throw new IllegalArgumentException("Unknown state: " + state.getClass().getSimpleName());
     };
   }

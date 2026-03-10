@@ -10,6 +10,7 @@ public class AppConfig
   private final double transactionFee;
   private final int updateFrequencyInMs;
   private final double stockResetValue;
+  private final long bankruptcyPenaltyMs;
 
   private AppConfig()
   {
@@ -17,6 +18,7 @@ public class AppConfig
     this.transactionFee = 0.01;
     this.updateFrequencyInMs = 1000;
     this.stockResetValue = 500.0;
+    this.bankruptcyPenaltyMs = 10000;
   }
 
   //Bill Pugh Pattern
@@ -47,5 +49,10 @@ public class AppConfig
   public double getStockResetValue()
   {
     return stockResetValue;
+  }
+
+  public long getBankruptcyPenaltyMs()
+  {
+    return bankruptcyPenaltyMs;
   }
 }

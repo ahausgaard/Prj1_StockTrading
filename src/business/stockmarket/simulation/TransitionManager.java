@@ -21,7 +21,6 @@ public class TransitionManager {
         steadyTransitions.put(StockState.GROWING, 0.10);
         steadyTransitions.put(StockState.DECLINING, 0.10);
         steadyTransitions.put(StockState.BANKRUPT, 0.0);
-        steadyTransitions.put(StockState.RESET, 0.0);
         transitionTable.put(StockState.STEADY, steadyTransitions);
 
         Map<StockState, Double> growingTransitions = new EnumMap<>(StockState.class);
@@ -29,7 +28,6 @@ public class TransitionManager {
         growingTransitions.put(StockState.GROWING, 0.75);
         growingTransitions.put(StockState.DECLINING, 0.05);
         growingTransitions.put(StockState.BANKRUPT, 0.0);
-        growingTransitions.put(StockState.RESET, 0.0);
         transitionTable.put(StockState.GROWING, growingTransitions);
 
         Map<StockState, Double> decliningTransitions = new EnumMap<>(StockState.class);
@@ -37,20 +35,16 @@ public class TransitionManager {
         decliningTransitions.put(StockState.GROWING, 0.10);
         decliningTransitions.put(StockState.DECLINING, 0.65);
         decliningTransitions.put(StockState.BANKRUPT, 0.01);
-        decliningTransitions.put(StockState.RESET, 0.0);
         transitionTable.put(StockState.DECLINING, decliningTransitions);
         // Remove Bankrupt and Reset transitions from transitionTable
     }
 
     public StockState getNextState(StockState currentState) {
         if (currentState == StockState.BANKRUPT) {
-            logger.log(LoggerLevel.INFO, "Bankrupt: Penalty timeout. Transitioning to RESET.");
-            return StockState.RESET;
-        }
-        if (currentState == StockState.RESET) {
-            logger.log(LoggerLevel.INFO, "Reset: Transitioning to STEADY.");
+            logger.log(LoggerLevel.INFO, "Bankrupt: Penalty timeout.");
             return StockState.STEADY;
         }
+
         Map<StockState, Double> probabilities = transitionTable.get(currentState);
         if (probabilities == null) {
             logger.log(LoggerLevel.WARNING, "No transition table for state: " + currentState);

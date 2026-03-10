@@ -9,7 +9,6 @@ public class MarketTickerThread extends Thread
   private final StockMarket stockMarket;
   private final Logger logger;
   private final int updateFrequencyInMs;
-  private int currentTick = 0;
   private volatile boolean running = false;
 
   public MarketTickerThread()
@@ -29,8 +28,7 @@ public class MarketTickerThread extends Thread
       {
         Thread.sleep(updateFrequencyInMs);
         stockMarket.updateAllLiveStocks();
-        currentTick++;
-        logger.log(LoggerLevel.INFO, "Market updated. Current tick: " + currentTick);
+        logger.log(LoggerLevel.INFO, "Market updated.");
       }
       catch (InterruptedException e)
       {

@@ -163,7 +163,6 @@ public class FileUnitOfWork implements UnitOfWork
   {
     return
         stock.getSymbol() + "|" +
-        stock.getName() + "|" +
         stock.getCurrentState() + "|" +
         stock.getCurrentPrice();
   }
@@ -210,7 +209,7 @@ public class FileUnitOfWork implements UnitOfWork
   private Stock readStockPSV(String psv)
   {
     String[] parts = psv.split("\\|");
-    return new Stock(parts[0], parts[1], StockState.valueOf(parts[2]), new BigDecimal(parts[3]));
+    return new Stock(parts[0], StockState.valueOf(parts[1]), new BigDecimal(parts[2]));
   }
 
   private OwnedStock readOwnedStockPSV(String psv)

@@ -22,7 +22,7 @@ public class main
 
     //Testing
     try {
-      Thread.sleep(5000);
+      Thread.sleep(10000);
     } catch (InterruptedException e) {
       e.printStackTrace();
     }
@@ -33,12 +33,12 @@ public class main
       e.printStackTrace();
     }
 
-    for (LiveStock liveStock : market.getAllLiveStocks())
+    /*for (LiveStock liveStock : market.getAllLiveStocks())
     {
       logger.log(LoggerLevel.INFO, "Stock: " + liveStock.getSymbol() +
           ", Price: " + liveStock.getCurrentPrice() +
           ", State: " + liveStock.getCurrentState().getName());
-    }
+    }*/
 
 
   }
