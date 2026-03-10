@@ -5,16 +5,16 @@ import domain.Stock;
 import shared.logging.Logger;
 import shared.logging.LoggerLevel;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import static business.stockmarket.simulation.LiveStock.fromExisting;
 
 public class StockMarket
 {
   private final Logger logger = Logger.getInstance();
-  private List<LiveStock> liveStocks = new ArrayList<>();
+  private final List<LiveStock> liveStocks = new CopyOnWriteArrayList<>();
+  private final List<StockMarketObserver> observers = new CopyOnWriteArrayList<>();
 
   public void addNewStock(String stockSymbol)
   {
@@ -34,6 +34,26 @@ public class StockMarket
     {
       liveStock.updatePrice();
     }
+    notifyObservers();
+  }
+
+  private void notifyObservers()
+  {
+    List<Stock> snapshot = getAllStocks();
+    for (StockMarketObserver observer : observers)
+    {
+      observer.update(snapshot);
+    }
+  }
+
+  public void addObserver(StockMarketObserver observer)
+  {
+    observers.add(observer);
+  }
+
+  public void removeObserver(StockMarketObserver observer)
+  {
+    observers.remove(observer);
   }
 
   public List<Stock> getAllStocks()

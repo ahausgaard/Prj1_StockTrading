@@ -1,3 +1,4 @@
+import business.services.StockListenerService;
 import business.stockmarket.MarketTickerThread;
 import business.stockmarket.StockMarket;
 import business.stockmarket.simulation.LiveStock;
@@ -13,10 +14,13 @@ public class main
   {
     Logger logger = Logger.getInstance();
     StockMarket market = StockMarket.getInstance();
-    Stock appleStock = Stock.createNew("AAPL", "Apple Inc.",
-        BigDecimal.valueOf(150.00));
+    Stock appleStock = Stock.createNew("AAPL", BigDecimal.valueOf(150.00));
 
     market.addExistingStock(appleStock);
+
+    StockListenerService listenerService = new StockListenerService();
+    market.addObserver(listenerService);
+
     MarketTickerThread tickerThread = new MarketTickerThread();
     tickerThread.start();
 
