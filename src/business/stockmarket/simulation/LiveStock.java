@@ -15,7 +15,7 @@ public class LiveStock
   private final TransitionManager transitionManager;
   private long bankruptSince = -1;
 
-  public LiveStock(String symbol, LiveStockState currentState, BigDecimal currentPrice)
+  private LiveStock(String symbol, LiveStockState currentState, BigDecimal currentPrice)
   {
     this.symbol = symbol;
     this.currentState = currentState;
@@ -43,7 +43,7 @@ public class LiveStock
 
   public Stock toStock()
   {
-    return new Stock(symbol, StockStateConverter.toDomainState(currentState), currentPrice);
+    return Stock.createFromStorage(symbol, StockStateConverter.toDomainState(currentState), currentPrice);
   }
 
   public void updatePrice()

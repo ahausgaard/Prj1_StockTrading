@@ -8,7 +8,7 @@ public class Stock
   private StockState currentState;
   private BigDecimal currentPrice;
 
-  public Stock(String symbol, StockState currentState, BigDecimal currentPrice)
+  private Stock(String symbol, StockState currentState, BigDecimal currentPrice)
   {
     this.symbol = symbol.toUpperCase();
     this.currentState = currentState;
@@ -16,12 +16,12 @@ public class Stock
   }
 
   // Factory method for new Stock
-  public static Stock createNew(String symbol, String name, BigDecimal currentPrice) {
+  public static Stock createNew(String symbol, BigDecimal currentPrice) {
     return new Stock(symbol, StockState.STEADY, currentPrice);
   }
 
-  // Factory method for recreating from storage
-  public static Stock recreateFromStorage(String symbol, String name, StockState currentState, BigDecimal currentPrice) {
+  // Factory method for creating from storage
+  public static Stock createFromStorage(String symbol, StockState currentState, BigDecimal currentPrice) {
     return new Stock(symbol,  currentState, currentPrice);
   }
 
