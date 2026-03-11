@@ -2,7 +2,6 @@ package persistence.fileImplementation;
 
 import domain.StockPriceHistory;
 import persistence.interfaces.StockPriceHistoryDAO;
-import persistence.interfaces.UnitOfWork;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,9 +9,9 @@ import java.util.UUID;
 
 public class StockPriceHistoryFileDAO implements StockPriceHistoryDAO
 {
-  private final UnitOfWork uow;
+  private final FileUnitOfWork uow;
 
-  public StockPriceHistoryFileDAO(UnitOfWork uow)
+  public StockPriceHistoryFileDAO(FileUnitOfWork uow)
   {
     this.uow = uow;
   }
@@ -24,14 +23,13 @@ public class StockPriceHistoryFileDAO implements StockPriceHistoryDAO
 
   @Override public void update(StockPriceHistory stockPriceHistory)
   {
-    List<StockPriceHistory> allStockPriceHistories = uow.getStockPriceHistories();
-
-    for (int i = 0; i < allStockPriceHistories.size(); i++)
+    List<StockPriceHistory> all = uow.getStockPriceHistories();
+    for (int i = 0; i < all.size(); i++)
     {
-      if (allStockPriceHistories.get(i).getId().equals(stockPriceHistory.getId()))
+      if (all.get(i).getId().equals(stockPriceHistory.getId()))
       {
-        allStockPriceHistories.set(i, stockPriceHistory);
-        break;
+        all.set(i, stockPriceHistory);
+        return;
       }
     }
   }
@@ -43,12 +41,13 @@ public class StockPriceHistoryFileDAO implements StockPriceHistoryDAO
 
   @Override public StockPriceHistory getById(UUID id)
   {
-    return uow.getStockPriceHistories().stream().filter(sph -> sph.getId().equals(id)).findFirst().orElse(null);
+    return uow.getStockPriceHistories().stream()
+        .filter(sph -> sph.getId().equals(id))
+        .findFirst().orElse(null);
   }
 
   @Override public List<StockPriceHistory> getAll()
   {
-    //return copy
     return new ArrayList<>(uow.getStockPriceHistories());
   }
 }

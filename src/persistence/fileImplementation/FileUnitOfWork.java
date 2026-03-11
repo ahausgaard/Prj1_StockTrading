@@ -33,39 +33,33 @@ public class FileUnitOfWork implements UnitOfWork
     ensureFilesExist(directoryPath);
   }
 
-  public List<Stock> getStocks()
+  List<Stock> getStocks()
   {
-    if (stocks == null)
-      loadStocks();
+    if (stocks == null) loadStocks();
     return stocks;
   }
 
-  public List<OwnedStock> getOwnedStocks()
+  List<OwnedStock> getOwnedStocks()
   {
-    if (ownedStocks == null)
-      loadOwnedStocks();
+    if (ownedStocks == null) loadOwnedStocks();
     return ownedStocks;
   }
 
-  public List<Portfolio> getPortfolios()
+  List<Portfolio> getPortfolios()
   {
-    if (portfolios == null)
-      loadPortfolios();
+    if (portfolios == null) loadPortfolios();
     return portfolios;
   }
 
-
-  public List<StockPriceHistory> getStockPriceHistories()
+  List<StockPriceHistory> getStockPriceHistories()
   {
-    if (stockPriceHistories == null)
-      loadStockPriceHistories();
+    if (stockPriceHistories == null) loadStockPriceHistories();
     return stockPriceHistories;
   }
 
-  public List<Transaction> getTransactions()
+  List<Transaction> getTransactions()
   {
-    if (transactions == null)
-      loadTransactions();
+    if (transactions == null) loadTransactions();
     return transactions;
   }
 
@@ -227,7 +221,7 @@ public class FileUnitOfWork implements UnitOfWork
   private StockPriceHistory readStockPriceHistoryPSV(String psv)
   {
     String[] parts = psv.split("\\|");
-    return new StockPriceHistory(UUID.fromString(parts[0]), parts[1], new BigDecimal(parts[2]), Instant.parse(parts[3]));
+    return StockPriceHistory.createFromStorage(UUID.fromString(parts[0]), parts[1], new BigDecimal(parts[2]), Instant.parse(parts[3]));
   }
 
   private Transaction readTransactionPSV(String psv)

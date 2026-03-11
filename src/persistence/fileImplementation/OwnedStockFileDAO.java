@@ -2,7 +2,6 @@ package persistence.fileImplementation;
 
 import domain.OwnedStock;
 import persistence.interfaces.OwnedStockDAO;
-import persistence.interfaces.UnitOfWork;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,9 +9,9 @@ import java.util.UUID;
 
 public class OwnedStockFileDAO implements OwnedStockDAO
 {
-  private final UnitOfWork uow;
+  private final FileUnitOfWork uow;
 
-  public OwnedStockFileDAO(UnitOfWork uow)
+  public OwnedStockFileDAO(FileUnitOfWork uow)
   {
     this.uow = uow;
   }
@@ -24,14 +23,13 @@ public class OwnedStockFileDAO implements OwnedStockDAO
 
   @Override public void update(OwnedStock ownedStock)
   {
-    List<OwnedStock> allOwnedStocks = uow.getOwnedStocks();
-
-    for (int i = 0; i < allOwnedStocks.size(); i++)
+    List<OwnedStock> all = uow.getOwnedStocks();
+    for (int i = 0; i < all.size(); i++)
     {
-      if (allOwnedStocks.get(i).getId().equals(ownedStock.getId()))
+      if (all.get(i).getId().equals(ownedStock.getId()))
       {
-        allOwnedStocks.set(i, ownedStock);
-        break;
+        all.set(i, ownedStock);
+        return;
       }
     }
   }
@@ -43,7 +41,9 @@ public class OwnedStockFileDAO implements OwnedStockDAO
 
   @Override public OwnedStock getById(UUID id)
   {
-    return uow.getOwnedStocks().stream().filter(os -> os.getId().equals(id)).findFirst().orElse(null);
+    return uow.getOwnedStocks().stream()
+        .filter(os -> os.getId().equals(id))
+        .findFirst().orElse(null);
   }
 
   @Override public List<OwnedStock> getAll()

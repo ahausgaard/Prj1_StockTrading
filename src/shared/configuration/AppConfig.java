@@ -11,6 +11,7 @@ public class AppConfig
   private final int updateFrequencyInMs;
   private final double stockResetValue;
   private final long bankruptcyPenaltyMs;
+  private final String dataDirectory;
 
   private AppConfig()
   {
@@ -19,6 +20,7 @@ public class AppConfig
     this.updateFrequencyInMs = 1000;
     this.stockResetValue = 500.0;
     this.bankruptcyPenaltyMs = 10000;
+    this.dataDirectory = "resources/data/";
   }
 
   //Bill Pugh Pattern
@@ -54,5 +56,10 @@ public class AppConfig
   public long getBankruptcyPenaltyMs()
   {
     return bankruptcyPenaltyMs;
+  }
+
+  public String getDataDirectory()
+  {
+    return dataDirectory;
   }
 }

@@ -11,7 +11,7 @@ public class StockPriceHistory
   private BigDecimal price;
   private Instant timestamp;
 
-  public StockPriceHistory(UUID id, String stockSymbol, BigDecimal price, Instant timestamp)
+  private StockPriceHistory(UUID id, String stockSymbol, BigDecimal price, Instant timestamp)
   {
     this.id = id;
     this.stockSymbol = stockSymbol;
@@ -19,8 +19,13 @@ public class StockPriceHistory
     this.timestamp = timestamp;
   }
 
+  //Factory methods
   public static StockPriceHistory createNew(String stockSymbol, BigDecimal price, Instant timestamp) {
     return new StockPriceHistory(UUID.randomUUID(), stockSymbol, price, timestamp);
+  }
+
+  public static StockPriceHistory createFromStorage(UUID id, String stockSymbol, BigDecimal price, Instant timestamp) {
+    return new StockPriceHistory(id, stockSymbol, price, timestamp);
   }
 
   public UUID getId()

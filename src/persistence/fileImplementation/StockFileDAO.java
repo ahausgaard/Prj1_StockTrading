@@ -2,16 +2,15 @@ package persistence.fileImplementation;
 
 import domain.Stock;
 import persistence.interfaces.StockDAO;
-import persistence.interfaces.UnitOfWork;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class StockFileDAO implements StockDAO
 {
-  private final UnitOfWork uow;
+  private final FileUnitOfWork uow;
 
-  public StockFileDAO(UnitOfWork uow)
+  public StockFileDAO(FileUnitOfWork uow)
   {
     this.uow = uow;
   }
@@ -23,14 +22,13 @@ public class StockFileDAO implements StockDAO
 
   @Override public void update(Stock stock)
   {
-    List<Stock> allStocks = uow.getStocks();
-
-    for (int i = 0; i < allStocks.size(); i++)
+    List<Stock> all = uow.getStocks();
+    for (int i = 0; i < all.size(); i++)
     {
-      if (allStocks.get(i).getSymbol().equals(stock.getSymbol()))
+      if (all.get(i).getSymbol().equals(stock.getSymbol()))
       {
-        allStocks.set(i, stock);
-        break;
+        all.set(i, stock);
+        return;
       }
     }
   }
@@ -42,12 +40,13 @@ public class StockFileDAO implements StockDAO
 
   @Override public Stock getBySymbol(String symbol)
   {
-    return uow.getStocks().stream().filter(s -> s.getSymbol().equals(symbol)).findFirst().orElse(null);
+    return uow.getStocks().stream()
+        .filter(s -> s.getSymbol().equals(symbol))
+        .findFirst().orElse(null);
   }
 
   @Override public List<Stock> getAll()
   {
-    //Return copy
     return new ArrayList<>(uow.getStocks());
   }
 }

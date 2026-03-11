@@ -1,9 +1,7 @@
 package persistence.fileImplementation;
 
 import domain.Portfolio;
-import domain.Transaction;
 import persistence.interfaces.PortfolioDAO;
-import persistence.interfaces.UnitOfWork;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,9 +9,9 @@ import java.util.UUID;
 
 public class PortfolioFileDAO implements PortfolioDAO
 {
-  private final UnitOfWork uow;
+  private final FileUnitOfWork uow;
 
-  public PortfolioFileDAO(UnitOfWork uow)
+  public PortfolioFileDAO(FileUnitOfWork uow)
   {
     this.uow = uow;
   }
@@ -25,14 +23,13 @@ public class PortfolioFileDAO implements PortfolioDAO
 
   @Override public void update(Portfolio portfolio)
   {
-    List<Portfolio> allPortfolios = uow.getPortfolios();
-
-    for (int i = 0; i < allPortfolios.size(); i++)
+    List<Portfolio> all = uow.getPortfolios();
+    for (int i = 0; i < all.size(); i++)
     {
-      if (allPortfolios.get(i).getId().equals(portfolio.getId()))
+      if (all.get(i).getId().equals(portfolio.getId()))
       {
-        allPortfolios.set(i, portfolio);
-        break;
+        all.set(i, portfolio);
+        return;
       }
     }
   }
@@ -44,12 +41,13 @@ public class PortfolioFileDAO implements PortfolioDAO
 
   @Override public Portfolio getById(UUID id)
   {
-    return uow.getPortfolios().stream().filter(p -> p.getId().equals(id)).findFirst().orElse(null);
+    return uow.getPortfolios().stream()
+        .filter(p -> p.getId().equals(id))
+        .findFirst().orElse(null);
   }
 
   @Override public List<Portfolio> getAll()
   {
-    //Return copy
     return new ArrayList<>(uow.getPortfolios());
   }
 }

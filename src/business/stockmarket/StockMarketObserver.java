@@ -1,10 +1,8 @@
 package business.stockmarket;
 
-import domain.Stock;
-
-import java.util.List;
+import business.dto.StockUpdateEvent;
 
 public interface StockMarketObserver
 {
-  void update(List<Stock> updatedStocks);
+  void update(StockUpdateEvent event);
 }
