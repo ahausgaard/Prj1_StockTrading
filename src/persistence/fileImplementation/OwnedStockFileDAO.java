@@ -26,7 +26,7 @@ public class OwnedStockFileDAO implements OwnedStockDAO
     List<OwnedStock> all = uow.getOwnedStocks();
     for (int i = 0; i < all.size(); i++)
     {
-      if (all.get(i).getId().equals(ownedStock.getId()))
+      if (all.get(i).getStockSymbol().equals(ownedStock.getStockSymbol()))
       {
         all.set(i, ownedStock);
         return;
@@ -34,15 +34,15 @@ public class OwnedStockFileDAO implements OwnedStockDAO
     }
   }
 
-  @Override public boolean delete(UUID id)
+  @Override public boolean delete(String symbol)
   {
-    return uow.getOwnedStocks().removeIf(os -> os.getId().equals(id));
+    return uow.getOwnedStocks().removeIf(os -> os.getStockSymbol().equals(symbol));
   }
 
-  @Override public OwnedStock getById(UUID id)
+  @Override public OwnedStock getBySymbol(String symbol)
   {
     return uow.getOwnedStocks().stream()
-        .filter(os -> os.getId().equals(id))
+        .filter(os -> os.getStockSymbol().equals(symbol))
         .findFirst().orElse(null);
   }
 
