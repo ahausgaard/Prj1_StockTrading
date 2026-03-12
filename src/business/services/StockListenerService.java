@@ -1,14 +1,13 @@
 package business.services;
 
-import business.dto.StockDTO;
-import business.dto.StockUpdateEvent;
-import business.stockmarket.StockMarketObserver;
+import business.observer.StockDTO;
+import business.observer.StockUpdateEvent;
+import business.observer.StockMarketObserver;
 import domain.Stock;
 import domain.StockPriceHistory;
 import javafx.beans.property.ReadOnlyListProperty;
 import javafx.beans.property.ReadOnlyListWrapper;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import persistence.interfaces.StockDAO;
 import persistence.interfaces.StockPriceHistoryDAO;
 import persistence.interfaces.UnitOfWork;
@@ -36,11 +35,6 @@ public class StockListenerService implements StockMarketObserver
   }
 
   public ReadOnlyListProperty<StockDTO> stocksProperty()
-  {
-    return stocks.getReadOnlyProperty();
-  }
-
-  public ObservableList<StockDTO> getStocks()
   {
     return stocks.getReadOnlyProperty();
   }

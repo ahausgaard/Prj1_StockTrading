@@ -1,4 +1,4 @@
-package business.stockmarket;
+package business.observer;
 
 public interface StockMarketSubject
 {

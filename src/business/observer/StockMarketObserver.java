@@ -1,6 +1,4 @@
-package business.stockmarket;
-
-import business.dto.StockUpdateEvent;
+package business.observer;
 
 public interface StockMarketObserver
 {

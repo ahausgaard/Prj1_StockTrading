@@ -1,8 +1,8 @@
 package business.services;
 
-import business.dto.StockDTO;
-import business.dto.StockUpdateEvent;
-import business.stockmarket.StockMarketObserver;
+import business.observer.StockDTO;
+import business.observer.StockUpdateEvent;
+import business.observer.StockMarketObserver;
 import domain.StockState;
 import shared.logging.Logger;
 import shared.logging.LoggerLevel;

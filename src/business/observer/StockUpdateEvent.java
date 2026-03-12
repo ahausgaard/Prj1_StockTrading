@@ -1,4 +1,4 @@
-package business.dto;
+package business.observer;
 
 import java.util.List;
 

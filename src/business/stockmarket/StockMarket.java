@@ -1,7 +1,9 @@
 package business.stockmarket;
 
-import business.dto.StockDTO;
-import business.dto.StockUpdateEvent;
+import business.observer.StockDTO;
+import business.observer.StockMarketSubject;
+import business.observer.StockUpdateEvent;
+import business.observer.StockMarketObserver;
 import business.stockmarket.simulation.LiveStock;
 import domain.Stock;
 import shared.logging.Logger;
