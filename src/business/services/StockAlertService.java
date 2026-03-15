@@ -26,6 +26,7 @@ public class StockAlertService implements StockMarketObserver
     this.alertThresholdLow = alertThresholdLow;
   }
 
+  //Måske lidt primitiv...
   @Override
   public void update(StockUpdateEvent event)
   {
