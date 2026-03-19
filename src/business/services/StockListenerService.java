@@ -5,9 +5,6 @@ import business.observer.StockUpdateEvent;
 import business.observer.StockMarketObserver;
 import domain.Stock;
 import domain.StockPriceHistory;
-import javafx.beans.property.ReadOnlyListProperty;
-import javafx.beans.property.ReadOnlyListWrapper;
-import javafx.collections.FXCollections;
 import persistence.interfaces.StockDAO;
 import persistence.interfaces.StockPriceHistoryDAO;
 import persistence.interfaces.UnitOfWork;
@@ -15,6 +12,9 @@ import shared.logging.Logger;
 import shared.logging.LoggerLevel;
 
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class StockListenerService implements StockMarketObserver
 {
@@ -22,9 +22,16 @@ public class StockListenerService implements StockMarketObserver
   private final StockPriceHistoryDAO stockPriceHistoryDAO;
   private final StockDAO stockDAO;
   private final UnitOfWork uow;
+  private final List<StockDTO> stocks = new ArrayList<>();
+  private Runnable onStocksUpdated;
 
-  private final ReadOnlyListWrapper<StockDTO> stocks =
-      new ReadOnlyListWrapper<>(FXCollections.observableArrayList());
+  public void setOnStocksUpdated(Runnable callback) {
+    this.onStocksUpdated = callback;
+  }
+
+  public List<StockDTO> getStocks() {
+    return Collections.unmodifiableList(stocks);
+  }
 
   public StockListenerService(StockPriceHistoryDAO stockPriceHistoryDAO, StockDAO stockDAO, UnitOfWork uow)
   {
@@ -34,10 +41,6 @@ public class StockListenerService implements StockMarketObserver
     this.uow = uow;
   }
 
-  public ReadOnlyListProperty<StockDTO> stocksProperty()
-  {
-    return stocks.getReadOnlyProperty();
-  }
 
   @Override
   public void update(StockUpdateEvent event)
@@ -72,6 +75,8 @@ public class StockListenerService implements StockMarketObserver
     uow.commit();
 
 
-    stocks.setAll(event.stocks());
+    stocks.clear();
+    stocks.addAll(event.stocks());
+    if (onStocksUpdated != null) onStocksUpdated.run();
   }
 }

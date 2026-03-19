@@ -17,7 +17,7 @@ import static business.stockmarket.simulation.LiveStock.fromExisting;
 public class StockMarket implements StockMarketSubject
 {
   private final Logger logger = Logger.getInstance();
-  private final List<LiveStock> liveStocks = new CopyOnWriteArrayList<>();
+  private final List<LiveStock> liveStocks = new CopyOnWriteArrayList<>(); //For thread safety
   private final List<StockMarketObserver> observers = new CopyOnWriteArrayList<>();
 
   public void addNewStock(String stockSymbol)
