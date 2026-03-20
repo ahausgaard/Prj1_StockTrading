@@ -47,6 +47,11 @@ public class OwnedStock
     return quantity;
   }
 
+  public void addShares(double amount)
+  {
+    this.quantity += amount;
+  }
+
   @Override public String toString()
   {
     return "OwnedStock{" + "id=" + id + ", portfolioId=" + portfolioId
