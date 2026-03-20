@@ -46,37 +46,47 @@ public class StockListenerService implements StockMarketObserver
   public void update(StockUpdateEvent event)
   {
     Instant now = Instant.now();
-    uow.begin();
 
     event.stocks().forEach(stock ->
     {
-      logger.log(LoggerLevel.INFO,
-          "Stock update — Symbol: " + stock.symbol()
-          + " | Price: " + stock.currentPrice()
-          + " | State: " + stock.state());
-
-      Stock existing = stockDAO.getBySymbol(stock.symbol());
-      if (existing == null)
+      try
       {
-        stockDAO.create(Stock.createNew(stock.symbol(), stock.currentPrice()));
-      }
-      else
-      {
-        stockDAO.update(Stock.createFromStorage(stock.symbol(), stock.state(), stock.currentPrice()));
-      }
+        uow.begin();
 
-      // Record price history
-      stockPriceHistoryDAO.create(StockPriceHistory.createNew(
-          stock.symbol(),
-          stock.currentPrice(),
-          now));
+        logger.log(LoggerLevel.INFO,
+            "Stock update — Symbol: " + stock.symbol()
+            + " | Price: " + stock.currentPrice()
+            + " | State: " + stock.state());
+
+        Stock existing = stockDAO.getBySymbol(stock.symbol());
+        if (existing == null)
+        {
+          stockDAO.create(Stock.createNew(stock.symbol(), stock.currentPrice()));
+        }
+        else
+        {
+          stockDAO.update(Stock.createFromStorage(stock.symbol(), stock.state(), stock.currentPrice()));
+        }
+
+        // Record price history
+        stockPriceHistoryDAO.create(StockPriceHistory.createNew(
+            stock.symbol(),
+            stock.currentPrice(),
+            now));
+
+        uow.commit();
+      }
+      catch (Exception e)
+      {
+        uow.rollback();
+        logger.log(LoggerLevel.WARNING, "Failed to persist stock update for: " + stock.symbol(), e);
+      }
     });
-
-    uow.commit();
 
 
     stocks.clear();
     stocks.addAll(event.stocks());
-    if (onStocksUpdated != null) onStocksUpdated.run();
+    if (onStocksUpdated != null)
+      onStocksUpdated.run();
   }
 }

@@ -29,11 +29,13 @@ public class main
     StockListenerService listenerService = new StockListenerService(stockPriceHistoryDAO, stockDAO, uow);
 
 
-    listenerService.stocksProperty().addListener((ListChangeListener<? super StockDTO>) change ->
+    listenerService.setOnStocksUpdated(() ->
     {
-      System.out.println("--- UI notified: stock list updated ---");
-      listenerService.stocksProperty().forEach(s ->
-          System.out.println("  " + s.symbol() + " | " + s.currentPrice() + " | " + s.state()));
+      System.out.println("Stocks updated:");
+      for (StockDTO stock : listenerService.getStocks())
+      {
+        System.out.println("- " + stock.symbol() + ": " + stock.currentPrice() + " (" + stock.state() + ")");
+      }
     });
 
     market.addObserver(listenerService);
