@@ -1,4 +1,4 @@
-package business.services;
+package business.services.market;
 
 import domain.OwnedStock;
 import persistence.interfaces.OwnedStockDAO;

@@ -7,14 +7,14 @@ public class OwnedStock
   private final UUID id;
   private final UUID portfolioId;
   private final String stockSymbol;
-  private double numberOfShares;
+  private double quantity;
 
-  public OwnedStock(UUID id, UUID portfolioId, String stockSymbol, double numberOfShares)
+  public OwnedStock(UUID id, UUID portfolioId, String stockSymbol, double quantity)
   {
     this.id = id;
     this.portfolioId = portfolioId;
     this.stockSymbol = stockSymbol;
-    this.numberOfShares = numberOfShares;
+    this.quantity = quantity;
   }
 
   // Factory method for new OwnedStock (generates new UUID)
@@ -42,15 +42,15 @@ public class OwnedStock
     return stockSymbol;
   }
 
-  public double getNumberOfShares()
+  public double getQuantity()
   {
-    return numberOfShares;
+    return quantity;
   }
 
   @Override public String toString()
   {
     return "OwnedStock{" + "id=" + id + ", portfolioId=" + portfolioId
         + ", stockSymbol='" + stockSymbol + '\'' + ", numberOfShares="
-        + numberOfShares + '}';
+        + quantity + '}';
   }
 }

@@ -1,4 +1,4 @@
-package business.services;
+package business.services.market;
 
 import business.observer.StockDTO;
 import business.observer.StockUpdateEvent;

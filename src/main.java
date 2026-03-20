@@ -1,9 +1,8 @@
 import business.observer.StockDTO;
-import business.services.StockListenerService;
+import business.services.market.StockListenerService;
 import business.stockmarket.MarketTickerThread;
 import business.stockmarket.StockMarket;
 import domain.Stock;
-import javafx.collections.ListChangeListener;
 import persistence.fileImplementation.FileUnitOfWork;
 import persistence.fileImplementation.StockFileDAO;
 import persistence.fileImplementation.StockPriceHistoryFileDAO;

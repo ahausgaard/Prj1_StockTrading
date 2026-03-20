@@ -167,7 +167,7 @@ public class FileUnitOfWork implements UnitOfWork
         ownedStock.getId() + "|" +
         ownedStock.getPortfolioId() + "|" +
         ownedStock.getStockSymbol() + "|" +
-        ownedStock.getNumberOfShares();
+        ownedStock.getQuantity();
   }
 
   private String portfolioToPSV(Portfolio portfolio)
