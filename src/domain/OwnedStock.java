@@ -52,6 +52,11 @@ public class OwnedStock
     this.quantity += amount;
   }
 
+  public void removeShares(double amount)
+  {
+    this.quantity -= amount;
+  }
+
   @Override public String toString()
   {
     return "OwnedStock{" + "id=" + id + ", portfolioId=" + portfolioId

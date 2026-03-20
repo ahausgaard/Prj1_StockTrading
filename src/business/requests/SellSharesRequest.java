@@ -1,7 +1,9 @@
 package business.requests;
 
+import java.util.UUID;
+
 public record SellSharesRequest(
-    String portfolioId,
+    UUID portfolioId,
     String stockSymbol,
     double quantity)
 {

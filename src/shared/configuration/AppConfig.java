@@ -12,12 +12,13 @@ public class AppConfig
   private final double stockResetValue;
   private final long bankruptcyPenaltyMs;
   private final String dataDirectory;
+  private final BigDecimal minimumTransactionFee;
 
   private AppConfig()
   {
     this.startingBalance = BigDecimal.valueOf(10000);
-    //Currently a flat fee
-    this.transactionFee = 50.0;
+    this.transactionFee = 0.01;
+    this.minimumTransactionFee = BigDecimal.valueOf(15.00);
     this.updateFrequencyInMs = 1000;
     this.stockResetValue = 500.0;
     this.bankruptcyPenaltyMs = 10000;
@@ -42,6 +43,11 @@ public class AppConfig
   public double getTransactionFee()
   {
     return transactionFee;
+  }
+
+  public BigDecimal getMinimumTransactionFee()
+  {
+    return minimumTransactionFee;
   }
 
   public int getUpdateFrequencyInMs()

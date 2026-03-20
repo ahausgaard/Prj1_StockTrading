@@ -54,10 +54,10 @@ public class BuySharesService
       if(stock.getCurrentState() == domain.StockState.BANKRUPT)
         throw new IllegalStateException("Cannot buy shares of a bankrupt stock: " + request.stockSymbol());
 
-      BigDecimal feeRate = BigDecimal.valueOf(AppConfig.getInstance().getTransactionFee());
-
-      //Check balance with BigDecimal
-      if(portfolio.getCurrentBalance().compareTo(stock.getCurrentPrice().multiply(new java.math.BigDecimal(request.quantity())).add(feeRate)) < 0)
+      BigDecimal totalAmount = stock.getCurrentPrice().multiply(new BigDecimal(request.quantity()));
+      BigDecimal fee = TransactionFeeCalculator.calculateFee(totalAmount);
+      BigDecimal totalCost = totalAmount.add(fee);
+      if(portfolio.getCurrentBalance().compareTo(totalCost) < 0)
         throw new IllegalStateException("Insufficient funds in portfolio to complete purchase.");
 
 
@@ -86,11 +86,19 @@ public class BuySharesService
                 + " to new quantity: " + existingOwnedStock.getQuantity());
       }
 
-      BigDecimal totalCost = stock.getCurrentPrice().multiply(new java.math.BigDecimal(request.quantity())).add(feeRate);
       portfolio.setCurrentBalance(portfolio.getCurrentBalance().subtract(totalCost));
       portfolioDAO.update(portfolio);
 
-      transactionDAO.create(Transaction.createNew(request.portfolioId(), TransactionType.BUY, request.stockSymbol(), request.quantity(), stock.getCurrentPrice(), stock.getCurrentPrice().multiply(new java.math.BigDecimal(request.quantity())), feeRate, java.time.Instant.now()));
+      transactionDAO.create(Transaction.createNew(
+        request.portfolioId(),
+        TransactionType.BUY,
+        request.stockSymbol(),
+        request.quantity(),
+        stock.getCurrentPrice(),
+        totalAmount,
+        fee,
+        java.time.Instant.now()
+      ));
 
       uow.commit();
       logger.log(LoggerLevel.INFO,
