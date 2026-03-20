@@ -231,7 +231,7 @@ public class FileUnitOfWork implements UnitOfWork
         UUID.fromString(parts[1]),
         TransactionType.valueOf(parts[2]),
         parts[3],
-        new BigDecimal(parts[4]),
+        Double.parseDouble(parts[4]),
         new BigDecimal(parts[5]),
         new BigDecimal(parts[6]),
         new BigDecimal(parts[7]),

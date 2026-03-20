@@ -10,13 +10,13 @@ public class Transaction
   private final TransactionType type;
   private final UUID portfolioId;
   private final String stockSymbol;
-  private final BigDecimal quantity;
+  private final double quantity;
   private final BigDecimal pricePerShare;
   private final BigDecimal totalAmount;
   private final BigDecimal fee;
   private final Instant timestamp;
 
-  public Transaction(UUID id, UUID portfolioId, TransactionType type, String stockSymbol, BigDecimal quantity, BigDecimal pricePerShare, BigDecimal totalAmount, BigDecimal fee, Instant timestamp )
+  public Transaction(UUID id, UUID portfolioId, TransactionType type, String stockSymbol, double quantity, BigDecimal pricePerShare, BigDecimal totalAmount, BigDecimal fee, Instant timestamp )
   {
     this.id = id;
     this.portfolioId = portfolioId;
@@ -29,7 +29,7 @@ public class Transaction
     this.timestamp = timestamp;
   }
 
-  public static Transaction createNew(UUID portfolioId, TransactionType type, String stockSymbol, BigDecimal quantity, BigDecimal pricePerShare, BigDecimal totalAmount, BigDecimal fee, Instant timestamp) {
+  public static Transaction createNew(UUID portfolioId, TransactionType type, String stockSymbol, double quantity, BigDecimal pricePerShare, BigDecimal totalAmount, BigDecimal fee, Instant timestamp) {
     return new Transaction(UUID.randomUUID(), portfolioId, type, stockSymbol, quantity, pricePerShare, totalAmount, fee, timestamp);
   }
 
@@ -53,7 +53,7 @@ public class Transaction
     return stockSymbol;
   }
 
-  public BigDecimal getQuantity()
+  public double getQuantity()
   {
     return quantity;
   }
