@@ -1,4 +1,4 @@
-package business.observer;
+package business.dto;
 
 import domain.StockState;
 

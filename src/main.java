@@ -1,4 +1,4 @@
-import business.observer.StockDTO;
+import business.dto.StockDTO;
 import business.services.market.StockListenerService;
 import business.stockmarket.MarketTickerThread;
 import business.stockmarket.StockMarket;

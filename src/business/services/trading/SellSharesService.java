@@ -1,6 +1,6 @@
 package business.services.trading;
 
-import business.requests.SellSharesRequest;
+import business.commands.SellSharesRequest;
 import domain.*;
 import persistence.interfaces.*;
 import shared.logging.Logger;

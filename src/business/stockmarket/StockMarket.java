@@ -1,6 +1,6 @@
 package business.stockmarket;
 
-import business.observer.StockDTO;
+import business.dto.StockDTO;
 import business.observer.StockMarketSubject;
 import business.observer.StockUpdateEvent;
 import business.observer.StockMarketObserver;

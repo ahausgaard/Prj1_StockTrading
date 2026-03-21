@@ -1,4 +1,4 @@
-package business.requests;
+package business.commands;
 
 import java.util.UUID;
 
@@ -8,3 +8,4 @@ public record SellSharesRequest(
     double quantity)
 {
 }
+

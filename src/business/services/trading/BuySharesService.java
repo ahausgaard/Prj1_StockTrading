@@ -1,9 +1,8 @@
 package business.services.trading;
 
-import business.requests.BuySharesRequest;
+import business.commands.BuySharesRequest;
 import domain.*;
 import persistence.interfaces.*;
-import shared.configuration.AppConfig;
 import shared.logging.Logger;
 import shared.logging.LoggerLevel;
 

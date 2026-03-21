@@ -1,6 +1,6 @@
 package business.services.market;
 
-import business.observer.StockDTO;
+import business.dto.StockDTO;
 import business.observer.StockUpdateEvent;
 import business.observer.StockMarketObserver;
 import domain.Stock;

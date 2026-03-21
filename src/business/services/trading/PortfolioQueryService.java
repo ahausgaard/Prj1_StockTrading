@@ -1,10 +1,9 @@
 package business.services.trading;
 
-import business.observer.BalanceSnapshotDTO;
-import business.observer.OwnedStockDTO;
-import business.observer.ProfitLossDTO;
-import business.observer.StockDTO;
-import business.observer.TransactionDTO;
+import business.dto.BalanceSnapshotDTO;
+import business.dto.OwnedStockDTO;
+import business.dto.ProfitLossDTO;
+import business.dto.StockDTO;
 import domain.OwnedStock;
 import domain.Portfolio;
 import domain.Stock;
@@ -32,7 +31,8 @@ public class PortfolioQueryService
   private final TransactionDAO transactionDAO;
 
   public PortfolioQueryService(OwnedStockDAO ownedStockDAO,
-      PortfolioDAO portfolioDAO, StockDAO stockDAO, TransactionDAO transactionDAO)
+      PortfolioDAO portfolioDAO, StockDAO stockDAO,
+      TransactionDAO transactionDAO)
   {
     this.logger = Logger.getInstance();
     this.ownedStockDAO = ownedStockDAO;
@@ -41,93 +41,73 @@ public class PortfolioQueryService
     this.transactionDAO = transactionDAO;
   }
 
-
   public List<StockDTO> getAvailableStocks()
   {
     logger.log(LoggerLevel.INFO, "Fetching available stocks.");
     return stockDAO.getAll().stream()
-        .filter(s -> s.getCurrentState() != domain.StockState.BANKRUPT)
-        .map(s -> new StockDTO(s.getSymbol(), s.getCurrentPrice(), s.getCurrentState()))
-        .toList();
+        .filter(s -> s.getCurrentState() != domain.StockState.BANKRUPT).map(
+            s -> new StockDTO(s.getSymbol(), s.getCurrentPrice(),
+                s.getCurrentState())).toList();
   }
 
   public List<OwnedStockDTO> getOwnedStocks(UUID portfolioId)
   {
-    logger.log(LoggerLevel.INFO, "Fetching owned stocks for portfolio: " + portfolioId);
+    logger.log(LoggerLevel.INFO,
+        "Fetching owned stocks for portfolio: " + portfolioId);
     requirePortfolioExists(portfolioId);
 
-    return ownedStockDAO.getByPortfolioId(portfolioId).stream()
-        .map(os -> {
-          Stock stock = stockDAO.getBySymbol(os.getStockSymbol());
-          BigDecimal holdingValue = stock.getCurrentPrice()
-              .multiply(BigDecimal.valueOf(os.getQuantity()));
-          return new OwnedStockDTO(
-              os.getStockSymbol(),
-              os.getQuantity(),
-              stock.getCurrentPrice(),
-              holdingValue,
-              stock.getCurrentState());
-        })
-        .toList();
+    return ownedStockDAO.getByPortfolioId(portfolioId).stream().map(os -> {
+      Stock stock = stockDAO.getBySymbol(os.getStockSymbol());
+      BigDecimal holdingValue = stock.getCurrentPrice()
+          .multiply(BigDecimal.valueOf(os.getQuantity()));
+      return new OwnedStockDTO(os.getStockSymbol(), os.getQuantity(),
+          stock.getCurrentPrice(), holdingValue, stock.getCurrentState());
+    }).toList();
   }
 
   public BigDecimal getBalance(UUID portfolioId)
   {
-    logger.log(LoggerLevel.INFO, "Fetching balance for portfolio: " + portfolioId);
+    logger.log(LoggerLevel.INFO,
+        "Fetching balance for portfolio: " + portfolioId);
     return requirePortfolioExists(portfolioId).getCurrentBalance();
   }
 
-
   public BigDecimal getTotalPortfolioValue(UUID portfolioId)
   {
-    logger.log(LoggerLevel.INFO, "Calculating total portfolio value for: " + portfolioId);
-    BigDecimal balance = requirePortfolioExists(portfolioId).getCurrentBalance();
+    logger.log(LoggerLevel.INFO,
+        "Calculating total portfolio value for: " + portfolioId);
+    BigDecimal balance = requirePortfolioExists(
+        portfolioId).getCurrentBalance();
 
-    BigDecimal holdingsValue = ownedStockDAO.getByPortfolioId(portfolioId).stream()
-        .map(os -> {
-          BigDecimal price = stockDAO.getBySymbol(os.getStockSymbol()).getCurrentPrice();
+    BigDecimal holdingsValue = ownedStockDAO.getByPortfolioId(portfolioId)
+        .stream().map(os -> {
+          BigDecimal price = stockDAO.getBySymbol(os.getStockSymbol())
+              .getCurrentPrice();
           return price.multiply(BigDecimal.valueOf(os.getQuantity()));
-        })
-        .reduce(BigDecimal.ZERO, BigDecimal::add);
+        }).reduce(BigDecimal.ZERO, BigDecimal::add);
 
     return balance.add(holdingsValue);
   }
 
-
-  private Portfolio requirePortfolioExists(UUID portfolioId)
+  public List<Transaction> getTransactionHistory(UUID portfolioId)
   {
-    Portfolio portfolio = portfolioDAO.getById(portfolioId);
-    if (portfolio == null)
-      throw new IllegalArgumentException("Portfolio not found: " + portfolioId);
-    return portfolio;
-  }
-
-  public List<TransactionDTO> getTransactionHistory(UUID portfolioId)
-  {
-    logger.log(LoggerLevel.INFO, "Fetching transaction history for portfolio: " + portfolioId);
+    logger.log(LoggerLevel.INFO,
+        "Fetching transaction history for portfolio: " + portfolioId);
     requirePortfolioExists(portfolioId);
 
     return transactionDAO.getByPortfolioId(portfolioId).stream()
-        .sorted(Comparator.comparing(Transaction::getTimestamp))
-        .map(t -> new TransactionDTO(
-            t.getId(),
-            t.getType(),
-            t.getStockSymbol(),
-            t.getQuantity(),
-            t.getPricePerShare(),
-            t.getTotalAmount(),
-            t.getFee(),
-            t.getTimestamp()))
-        .toList();
+        .sorted(Comparator.comparing(Transaction::getTimestamp)).toList();
   }
+
 
   public List<BalanceSnapshotDTO> getBalanceHistory(UUID portfolioId)
   {
-    logger.log(LoggerLevel.INFO, "Fetching balance history for portfolio: " + portfolioId);
+    logger.log(LoggerLevel.INFO,
+        "Fetching balance history for portfolio: " + portfolioId);
     requirePortfolioExists(portfolioId);
 
-    List<Transaction> sorted = transactionDAO.getByPortfolioId(portfolioId).stream()
-        .sorted(Comparator.comparing(Transaction::getTimestamp))
+    List<Transaction> sorted = transactionDAO.getByPortfolioId(portfolioId)
+        .stream().sorted(Comparator.comparing(Transaction::getTimestamp))
         .toList();
 
     BigDecimal running = AppConfig.getInstance().getStartingBalance();
@@ -142,24 +122,22 @@ public class PortfolioQueryService
         change = t.getTotalAmount().subtract(t.getFee());
 
       running = running.add(change);
-      snapshots.add(new BalanceSnapshotDTO(
-          t.getTimestamp(),
-          running,
-          t.getType(),
-          t.getStockSymbol(),
-          change));
+      snapshots.add(
+          new BalanceSnapshotDTO(t.getTimestamp(), running, t.getType(),
+              t.getStockSymbol(), change));
     }
 
     return snapshots;
   }
 
-
   public ProfitLossDTO getProfitLoss(UUID portfolioId)
   {
-    logger.log(LoggerLevel.INFO, "Calculating profit/loss for portfolio: " + portfolioId);
+    logger.log(LoggerLevel.INFO,
+        "Calculating profit/loss for portfolio: " + portfolioId);
     requirePortfolioExists(portfolioId);
 
-    List<Transaction> transactions = transactionDAO.getByPortfolioId(portfolioId);
+    List<Transaction> transactions = transactionDAO.getByPortfolioId(
+        portfolioId);
 
     BigDecimal totalBuyCost = transactions.stream()
         .filter(t -> t.getType() == TransactionType.BUY)
@@ -171,12 +149,23 @@ public class PortfolioQueryService
         .map(t -> t.getTotalAmount().subtract(t.getFee()))
         .reduce(BigDecimal.ZERO, BigDecimal::add);
 
-    BigDecimal totalFeesSpent = transactions.stream()
-        .map(Transaction::getFee)
+    BigDecimal totalFeesSpent = transactions.stream().map(Transaction::getFee)
         .reduce(BigDecimal.ZERO, BigDecimal::add);
 
     BigDecimal netProfitLoss = totalSellRevenue.subtract(totalBuyCost);
 
-    return new ProfitLossDTO(totalBuyCost, totalSellRevenue, totalFeesSpent, netProfitLoss);
+    return new ProfitLossDTO(totalBuyCost, totalSellRevenue, totalFeesSpent,
+        netProfitLoss);
+  }
+
+
+
+
+  private Portfolio requirePortfolioExists(UUID portfolioId)
+  {
+    Portfolio portfolio = portfolioDAO.getById(portfolioId);
+    if (portfolio == null)
+      throw new IllegalArgumentException("Portfolio not found: " + portfolioId);
+    return portfolio;
   }
 }
