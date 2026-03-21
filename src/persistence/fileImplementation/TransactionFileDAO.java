@@ -50,4 +50,11 @@ public class TransactionFileDAO implements TransactionDAO
   {
     return new ArrayList<>(uow.getTransactions());
   }
+
+  @Override public List<Transaction> getByPortfolioId(UUID portfolioId)
+  {
+    return uow.getTransactions().stream()
+        .filter(t -> t.getPortfolioId().equals(portfolioId))
+        .toList();
+  }
 }

@@ -12,4 +12,5 @@ public interface TransactionDAO
   boolean delete(UUID id);
   Transaction getById(UUID id);
   List<Transaction> getAll();
+  List<Transaction> getByPortfolioId(UUID portfolioId);
 }
