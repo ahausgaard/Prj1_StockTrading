@@ -12,4 +12,5 @@ public interface OwnedStockDAO
   boolean delete(String symbol);
   OwnedStock getBySymbol(String symbol);
   List<OwnedStock> getAll();
+  List<OwnedStock> getByPortfolioId(UUID portfolioId);
 }

@@ -50,4 +50,11 @@ public class OwnedStockFileDAO implements OwnedStockDAO
   {
     return new ArrayList<>(uow.getOwnedStocks());
   }
+
+  @Override public List<OwnedStock> getByPortfolioId(UUID portfolioId)
+  {
+    return uow.getOwnedStocks().stream()
+        .filter(os -> os.getPortfolioId().equals(portfolioId))
+        .toList();
+  }
 }

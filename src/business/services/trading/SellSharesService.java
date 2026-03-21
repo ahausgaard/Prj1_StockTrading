@@ -67,9 +67,14 @@ public class SellSharesService
         throw new IllegalArgumentException("Cannot sell more shares than you own");
 
       existingOwnedStock.removeShares(request.quantity());
-      ownedStockDAO.update(existingOwnedStock);
-      logger.log(LoggerLevel.INFO, "Updated OwnedStock after sale: " + existingOwnedStock.getStockSymbol() + ", New Quantity: " + existingOwnedStock.getQuantity());
-
+      //Delete if quantity reaches zero
+      if (existingOwnedStock.getQuantity() == 0) {
+        ownedStockDAO.delete(existingOwnedStock.getStockSymbol());
+        logger.log(LoggerLevel.INFO, "Deleted OwnedStock after sale: " + existingOwnedStock.getStockSymbol() + " (quantity reached zero)");
+      } else {
+        ownedStockDAO.update(existingOwnedStock);
+        logger.log(LoggerLevel.INFO, "Updated OwnedStock after sale: " + existingOwnedStock.getStockSymbol() + ", New Quantity: " + existingOwnedStock.getQuantity());
+      }
 
       BigDecimal totalSaleValue = stock.getCurrentPrice().multiply(new BigDecimal(request.quantity()));
       BigDecimal fee = TransactionFeeCalculator.calculateFee(totalSaleValue);
