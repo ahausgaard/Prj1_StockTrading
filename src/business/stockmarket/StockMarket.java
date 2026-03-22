@@ -1,7 +1,6 @@
 package business.stockmarket;
 
 import business.dto.StockDTO;
-import business.observer.StockMarketSubject;
 import business.observer.StockUpdateEvent;
 import business.observer.StockMarketObserver;
 import business.stockmarket.simulation.LiveStock;
@@ -14,7 +13,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 import static business.stockmarket.simulation.LiveStock.fromExisting;
 
-public class StockMarket implements StockMarketSubject
+public class StockMarket
 {
   private final Logger logger = Logger.getInstance();
   private final List<LiveStock> liveStocks = new CopyOnWriteArrayList<>(); //For thread safety
@@ -58,13 +57,11 @@ public class StockMarket implements StockMarketSubject
     }
   }
 
-  @Override
   public void addObserver(StockMarketObserver observer)
   {
     observers.add(observer);
   }
 
-  @Override
   public void removeObserver(StockMarketObserver observer)
   {
     observers.remove(observer);
