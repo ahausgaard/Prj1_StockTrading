@@ -8,7 +8,7 @@ public class test
   void shouldAddTwoNumbers()
   {
     int a = 5;
-    int b = 1;
+    int b = 10;
     int expectedSum = 15;
     assertEquals(expectedSum, a + b);
   }
