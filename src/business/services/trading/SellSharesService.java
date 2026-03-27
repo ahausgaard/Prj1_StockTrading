@@ -17,11 +17,11 @@ public class SellSharesService
   private final TransactionDAO transactionDAO;
   private final PortfolioDAO portfolioDAO;
 
-  public SellSharesService(Logger logger, OwnedStockDAO ownedStockDAO,
+  public SellSharesService(OwnedStockDAO ownedStockDAO,
       StockDAO stockDAO, UnitOfWork uow, TransactionDAO transactionDAO,
       PortfolioDAO portfolioDAO)
   {
-    this.logger = logger;
+    this.logger = Logger.getInstance();
     this.ownedStockDAO = ownedStockDAO;
     this.stockDAO = stockDAO;
     this.uow = uow;
@@ -64,7 +64,7 @@ public class SellSharesService
         throw new IllegalArgumentException("Cannot sell shares you do not own.");
 
       if(request.quantity() > existingOwnedStock.getQuantity())
-        throw new IllegalArgumentException("Cannot sell more shares than you own");
+        throw new IllegalArgumentException("Cannot sell more shares than you own.");
 
       existingOwnedStock.removeShares(request.quantity());
       //Delete if quantity reaches zero
@@ -100,6 +100,7 @@ public class SellSharesService
     {
       uow.rollback();
       logger.log(LoggerLevel.ERROR, "Error during stock sale: " + e.getMessage());
+      throw e;
     }
 
   }

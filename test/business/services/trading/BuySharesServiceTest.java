@@ -6,7 +6,6 @@ import domain.Stock;
 import mocks.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import shared.configuration.AppConfig;
 import shared.logging.Logger;
 import shared.logging.LoggerLevel;
 
@@ -184,7 +183,7 @@ public class BuySharesServiceTest
   }
 
   //State & Behaviour
-  @Test void portfolio_update_success()
+  @Test void buyShares_portfolio_update_success()
   {
     BuySharesRequest request = new BuySharesRequest(
         portfolioDAO.getMockPortfolio().getId(), "PNDORA", 10);
@@ -194,7 +193,7 @@ public class BuySharesServiceTest
     assertEquals(10, ownedStockDAO.getAll().get(0).getQuantity());
   }
 
-  @Test void transaction_is_created_with_BUY_type_success()
+  @Test void buyShares_transaction_is_created_with_BUY_type_success()
   {
     BuySharesRequest request = new BuySharesRequest(
         portfolioDAO.getMockPortfolio().getId(), "PNDORA", 10);
@@ -202,7 +201,7 @@ public class BuySharesServiceTest
     assertEquals(true, transactionDAO.getAll().get(0).getType().equals(domain.TransactionType.BUY));
   }
 
-  @Test void stockPurchase_increment_correctly_succes()
+  @Test void buy_shares_ownedStock_increment_correctly_succes()
   {
     BuySharesRequest request = new BuySharesRequest(
         portfolioDAO.getMockPortfolio().getId(), "PNDORA", 10);
@@ -210,7 +209,7 @@ public class BuySharesServiceTest
     assertEquals(10, ownedStockDAO.getAll().get(0).getQuantity());
   }
 
-  @Test void transaction_timestamp_correct_format_success()
+  @Test void buyShares_transaction_timestamp_correct_format_success()
   {
     BuySharesRequest request = new BuySharesRequest(
         portfolioDAO.getMockPortfolio().getId(), "PNDORA", 10);
@@ -221,4 +220,24 @@ public class BuySharesServiceTest
     assertDoesNotThrow(() -> Instant.parse(timestamp.toString()));
   }
 
+  @Test
+  void buyShares_fee_matches_AppConfig() {
+    BuySharesRequest request = new BuySharesRequest(
+        portfolioDAO.getMockPortfolio().getId(), "PNDORA", 10);
+    service.buyShares(request);
+    
+    // Get the created transaction
+    var transaction = transactionDAO.getAll().get(0);
+    BigDecimal totalAmount = new BigDecimal("10.0").multiply(BigDecimal.valueOf(10));
+    double feeRate = shared.configuration.AppConfig.getInstance().getTransactionFee();
+    BigDecimal expectedFee = totalAmount.multiply(BigDecimal.valueOf(feeRate));
+    BigDecimal minimumFee = shared.configuration.AppConfig.getInstance().getMinimumTransactionFee();
+
+    if (expectedFee.compareTo(minimumFee) < 0) {
+      expectedFee = minimumFee;
+    }
+
+    assertEquals(0, transaction.getFee().compareTo(expectedFee),
+        "Transaction fee should match AppConfig value");
+  }
 }
