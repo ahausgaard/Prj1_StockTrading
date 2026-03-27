@@ -6,6 +6,9 @@ import domain.Stock;
 import mocks.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import shared.configuration.AppConfig;
+import shared.logging.Logger;
+import shared.logging.LoggerLevel;
 
 import java.math.BigDecimal;
 
@@ -20,6 +23,7 @@ public class BuySharesServiceTest
   private MockPortfolioDAO portfolioDAO;
   private MockTransactionDAO transactionDAO;
   private BuySharesService service;
+  private Logger logger;
 
   @BeforeEach void setup()
   {
@@ -28,18 +32,171 @@ public class BuySharesServiceTest
     uow = new MockUnitOfWork();
     portfolioDAO = new MockPortfolioDAO();
     transactionDAO = new MockTransactionDAO();
+    this.logger = Logger.getInstance();
 
-    stockDAO.setMockStock(Stock.createNew("PNDORA", new BigDecimal("150.0")));
-    portfolioDAO.setMockPortfolio(Portfolio.createNew(new BigDecimal("10000.0")));
+    stockDAO.setMockStock(Stock.createNew("PNDORA", new BigDecimal("10.0")));
+    portfolioDAO.setMockPortfolio(
+        Portfolio.createNew(new BigDecimal("10100.0")));
 
-    service = new BuySharesService(stockDAO, ownedStockDAO, portfolioDAO, transactionDAO, uow);
+    service = new BuySharesService(stockDAO, ownedStockDAO, portfolioDAO,
+        transactionDAO, uow);
 
   }
 
-  @Test void buyShares()
+  //Zero and One
+  @Test void buyShares_oneValidShare_success()
   {
-    BuySharesRequest request = new BuySharesRequest(portfolioDAO.getMockPortfolio().getId(), "PNDORA", 1);
+    BuySharesRequest request = new BuySharesRequest(
+        portfolioDAO.getMockPortfolio().getId(), "PNDORA", 1);
     service.buyShares(request);
-    assertEquals(1,uow.getCommitCount());
+    assertEquals(1, uow.getCommitCount());
+  }
+
+  @Test void buyShares_0_throwsException()
+  {
+    BuySharesRequest request = new BuySharesRequest(
+        portfolioDAO.getMockPortfolio().getId(), "PNDORA", 0);
+    Exception exception = assertThrows(IllegalArgumentException.class,
+        () -> service.buyShares(request));
+    assertEquals("Number of shares must be greater than zero.",
+        exception.getMessage());
+  }
+
+  @Test void buyShares_new_stock_success()
+  {
+    BuySharesRequest request = new BuySharesRequest(
+        portfolioDAO.getMockPortfolio().getId(), "PNDORA", 1);
+    service.buyShares(request);
+    assertEquals(1, uow.getCommitCount());
+    assertEquals(0, ownedStockDAO.getAll().size());
+  }
+
+  @Test void buyShares_owned_stock_success()
+  {
+    BuySharesRequest request = new BuySharesRequest(
+        portfolioDAO.getMockPortfolio().getId(), "PNDORA", 1);
+    service.buyShares(request);
+    assertEquals(1, uow.getCommitCount());
+    assertEquals(1, ownedStockDAO.getAll().size());
+    assertEquals(1, ownedStockDAO.getAll().get(0).getQuantity());
+
+    service.buyShares(request);
+    assertEquals(2, uow.getCommitCount());
+    assertEquals(1, ownedStockDAO.getAll().size());
+    assertEquals(2, ownedStockDAO.getAll().get(0).getQuantity());
+  }
+
+  //Boundaries
+  @Test void buyShares_large_amount_success()
+  {
+    BuySharesRequest request = new BuySharesRequest(
+        portfolioDAO.getMockPortfolio().getId(), "PNDORA", 100);
+    service.buyShares(request);
+    assertEquals(100, ownedStockDAO.getAll().get(0).getQuantity());
+  }
+
+  @Test void buyShares_spend_entire_portfolio_balance_success()
+  {
+    BuySharesRequest request = new BuySharesRequest(
+        portfolioDAO.getMockPortfolio().getId(), "PNDORA", 1000);
+    service.buyShares(request);
+    assertEquals(0, portfolioDAO.getMockPortfolio().getCurrentBalance()
+        .compareTo(BigDecimal.ZERO));
+    assertEquals(1000, ownedStockDAO.getAll().get(0).getQuantity());
+  }
+
+  @Test void buyShares_spend_1cent_too_much_throwsException()
+  {
+    BuySharesRequest request = new BuySharesRequest(
+        portfolioDAO.getMockPortfolio().getId(), "PNDORA", 1000.0009901);
+    logger.log(LoggerLevel.INFO,
+        "Current portfolio balance: " + portfolioDAO.getMockPortfolio()
+            .getCurrentBalance() + ", Total price: "
+            + request.quantity() * 10.1);
+    Exception exception = assertThrows(IllegalStateException.class,
+        () -> service.buyShares(request));
+    assertEquals("Insufficient funds in portfolio to complete purchase.",
+        exception.getMessage());
+  }
+
+  //Interface & Exceptions
+  @Test void buyShares_negative_quantity_throwsException()
+  {
+    BuySharesRequest request = new BuySharesRequest(
+        portfolioDAO.getMockPortfolio().getId(), "PNDORA", -10);
+    Exception exception = assertThrows(IllegalArgumentException.class,
+        () -> service.buyShares(request));
+    assertEquals("Number of shares must be greater than zero.",
+        exception.getMessage());
+  }
+  
+  @Test void buyShares_bankrupt_stock_throwsException()
+  {
+    stockDAO.setMockStock(Stock.createFromStorage("PNDORA", domain.StockState.BANKRUPT, new BigDecimal("10.0")));
+
+    BuySharesRequest request = new BuySharesRequest(
+        portfolioDAO.getMockPortfolio().getId(), "PNDORA", 10);
+
+    Exception exception = assertThrows(IllegalStateException.class,
+        () -> service.buyShares(request));
+    assertEquals("Cannot buy shares of a bankrupt stock: PNDORA",
+        exception.getMessage());
+  }
+
+  @Test void buyShares_insufficientFunds_throwsException()
+  {
+    BuySharesRequest request = new BuySharesRequest(
+        portfolioDAO.getMockPortfolio().getId(), "PNDORA", 10000);
+    Exception exception = assertThrows(IllegalStateException.class,
+        () -> service.buyShares(request));
+    assertEquals("Insufficient funds in portfolio to complete purchase.",
+        exception.getMessage());
+  }
+
+  @Test void buyShares_with_null_symbol_throwsException()
+  {
+    BuySharesRequest request = new BuySharesRequest(
+        portfolioDAO.getMockPortfolio().getId(), null, 100);
+    Exception exception = assertThrows(IllegalArgumentException.class,
+        () -> service.buyShares(request));
+    assertEquals("Stock symbol must not be empty.",
+        exception.getMessage());
+  }
+
+  @Test void buyShares_with_empty_string_symbol_throwsException()
+  {
+    BuySharesRequest request = new BuySharesRequest(
+        portfolioDAO.getMockPortfolio().getId(), "", 100);
+    Exception exception = assertThrows(IllegalArgumentException.class,
+        () -> service.buyShares(request));
+    assertEquals("Stock symbol must not be empty.",
+        exception.getMessage());
+  }
+
+  @Test void buyShares_symbol_not_found_throwsException()
+  {
+    BuySharesRequest request = new BuySharesRequest(
+        portfolioDAO.getMockPortfolio().getId(), "TEST", 100);
+    Exception exception = assertThrows(IllegalArgumentException.class,
+        () -> service.buyShares(request));
+    assertEquals("Stock with symbol TEST not found.", exception.getMessage());
+  }
+
+  //State & Behaviour
+  @Test void portfolio_update_success()
+  {
+    BuySharesRequest request = new BuySharesRequest(
+        portfolioDAO.getMockPortfolio().getId(), "PNDORA", 10);
+    service.buyShares(request);
+    assertEquals(1, uow.getCommitCount());
+    assertEquals(1, ownedStockDAO.getAll().size());
+    assertEquals(10, ownedStockDAO.getAll().get(0).getQuantity());
+  }
+
+  @Test void transaction_is_created_with_BUY_type_success()
+  {
+    BuySharesRequest request = new BuySharesRequest(
+        portfolioDAO.getMockPortfolio().getId(), "PNDORA", 10);
+    service.buyShares(request);
   }
 }

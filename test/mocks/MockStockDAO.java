@@ -14,6 +14,11 @@ public class MockStockDAO implements StockDAO
     this.mockStock = mockStock;
   }
 
+  public Stock getMockStock()
+  {
+    return mockStock;
+  }
+
   @Override public void create(Stock stock)
   {
 

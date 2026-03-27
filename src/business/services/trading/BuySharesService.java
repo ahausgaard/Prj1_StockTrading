@@ -39,6 +39,9 @@ public class BuySharesService
 
     try
     {
+      if (request.stockSymbol() == null || request.stockSymbol().equals(""))
+        throw new IllegalArgumentException("Stock symbol must not be empty.");
+
       Stock stock = stockDAO.getBySymbol(request.stockSymbol());
       if (stock == null)
         throw new IllegalArgumentException("Stock with symbol " + request.stockSymbol() + " not found.");
@@ -110,6 +113,7 @@ public class BuySharesService
       uow.rollback();
       logger.log(LoggerLevel.ERROR,
           "Error during stock purchase: " + e.getMessage());
+      throw e;
     }
   }
 }
