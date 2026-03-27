@@ -11,6 +11,7 @@ import shared.logging.Logger;
 import shared.logging.LoggerLevel;
 
 import java.math.BigDecimal;
+import java.time.Instant;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -198,5 +199,26 @@ public class BuySharesServiceTest
     BuySharesRequest request = new BuySharesRequest(
         portfolioDAO.getMockPortfolio().getId(), "PNDORA", 10);
     service.buyShares(request);
+    assertEquals(true, transactionDAO.getAll().get(0).getType().equals(domain.TransactionType.BUY));
   }
+
+  @Test void stockPurchase_increment_correctly_succes()
+  {
+    BuySharesRequest request = new BuySharesRequest(
+        portfolioDAO.getMockPortfolio().getId(), "PNDORA", 10);
+    service.buyShares(request);
+    assertEquals(10, ownedStockDAO.getAll().get(0).getQuantity());
+  }
+
+  @Test void transaction_timestamp_correct_format_success()
+  {
+    BuySharesRequest request = new BuySharesRequest(
+        portfolioDAO.getMockPortfolio().getId(), "PNDORA", 10);
+    service.buyShares(request);
+
+    Instant timestamp = transactionDAO.getAll().getFirst().getTimestamp();
+    assertNotNull(timestamp);
+    assertDoesNotThrow(() -> Instant.parse(timestamp.toString()));
+  }
+
 }
