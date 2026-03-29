@@ -4,7 +4,6 @@ import business.dto.BalanceSnapshotDTO;
 import business.dto.OwnedStockDTO;
 import business.dto.ProfitLossDTO;
 import business.dto.StockDTO;
-import domain.OwnedStock;
 import domain.Portfolio;
 import domain.Stock;
 import domain.Transaction;
@@ -13,7 +12,6 @@ import persistence.interfaces.OwnedStockDAO;
 import persistence.interfaces.PortfolioDAO;
 import persistence.interfaces.StockDAO;
 import persistence.interfaces.TransactionDAO;
-import shared.configuration.AppConfig;
 import shared.logging.Logger;
 import shared.logging.LoggerLevel;
 
@@ -110,7 +108,16 @@ public class PortfolioQueryService
         .stream().sorted(Comparator.comparing(Transaction::getTimestamp))
         .toList();
 
-    BigDecimal running = AppConfig.getInstance().getStartingBalance();
+    // Reconstruct the initial balance by reversing all transaction effects
+    BigDecimal totalChange = sorted.stream().map(t -> {
+      if (t.getType() == TransactionType.BUY)
+        return t.getTotalAmount().add(t.getFee()).negate();
+      else
+        return t.getTotalAmount().subtract(t.getFee());
+    }).reduce(BigDecimal.ZERO, BigDecimal::add);
+
+    Portfolio portfolio = requirePortfolioExists(portfolioId);
+    BigDecimal running = portfolio.getCurrentBalance().subtract(totalChange);
     java.util.List<BalanceSnapshotDTO> snapshots = new java.util.ArrayList<>();
 
     for (Transaction t : sorted)
