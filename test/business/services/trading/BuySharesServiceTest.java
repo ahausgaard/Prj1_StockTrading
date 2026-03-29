@@ -198,10 +198,10 @@ public class BuySharesServiceTest
     BuySharesRequest request = new BuySharesRequest(
         portfolioDAO.getMockPortfolio().getId(), "PNDORA", 10);
     service.buyShares(request);
-    assertEquals(true, transactionDAO.getAll().get(0).getType().equals(domain.TransactionType.BUY));
+    assertTrue(transactionDAO.getAll().get(0).getType().equals(domain.TransactionType.BUY));
   }
 
-  @Test void buy_shares_ownedStock_increment_correctly_succes()
+  @Test void buyShares_ownedStock_increment_correctly_succes()
   {
     BuySharesRequest request = new BuySharesRequest(
         portfolioDAO.getMockPortfolio().getId(), "PNDORA", 10);

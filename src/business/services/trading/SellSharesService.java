@@ -41,6 +41,10 @@ public class SellSharesService
     try
     {
       Stock stock = stockDAO.getBySymbol(request.stockSymbol());
+
+      if (request.stockSymbol() == null || request.stockSymbol().isEmpty())
+        throw new IllegalArgumentException("Stock symbol must not be empty.");
+
       if (stock == null)
         throw new IllegalArgumentException("Stock with symbol " + request.stockSymbol() + " not found.");
 

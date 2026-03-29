@@ -39,7 +39,7 @@ public class BuySharesService
 
     try
     {
-      if (request.stockSymbol() == null || request.stockSymbol().equals(""))
+      if (request.stockSymbol() == null || request.stockSymbol().isEmpty())
         throw new IllegalArgumentException("Stock symbol must not be empty.");
 
       Stock stock = stockDAO.getBySymbol(request.stockSymbol());

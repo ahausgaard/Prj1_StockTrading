@@ -4,12 +4,14 @@ import business.commands.BuySharesRequest;
 import business.commands.SellSharesRequest;
 import domain.Portfolio;
 import domain.Stock;
+import domain.TransactionType;
 import mocks.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import shared.logging.Logger;
 
 import java.math.BigDecimal;
+import java.time.Instant;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -58,10 +60,44 @@ public class SellSharesServiceTest
     assertEquals(1, sellCount);
   }
 
+  @Test void sellShares_sell_half_share_success()
+  {
+    SellSharesRequest request = new SellSharesRequest(
+        portfolioDAO.getMockPortfolio().getId(), "PNDORA", 0.5);
+    service.sellShares(request);
+  }
+
+  @Test void sellShares_sell_all_success()
+  {
+    SellSharesRequest request = new SellSharesRequest(
+        portfolioDAO.getMockPortfolio().getId(), "PNDORA", 10);
+    service.sellShares(request);
+  }
+
+  @Test void sellShares_sell_more_than_owned_throwsException()
+  {
+    SellSharesRequest request = new SellSharesRequest(
+        portfolioDAO.getMockPortfolio().getId(), "PNDORA", 11);
+    Exception exception = assertThrows(IllegalArgumentException.class,
+        () -> service.sellShares(request));
+    assertEquals("Cannot sell more shares than you own.",
+        exception.getMessage());
+  }
+
   @Test void sellShares_sell_0_throwsException()
   {
     SellSharesRequest request = new SellSharesRequest(
         portfolioDAO.getMockPortfolio().getId(), "PNDORA", 0);
+    Exception exception = assertThrows(IllegalArgumentException.class,
+        () -> service.sellShares(request));
+    assertEquals("Number of shares must be greater than zero.",
+        exception.getMessage());
+  }
+
+  @Test void sellShares_sell_negative_amount_throwsException()
+  {
+    SellSharesRequest request = new SellSharesRequest(
+        portfolioDAO.getMockPortfolio().getId(), "PNDORA", -5);
     Exception exception = assertThrows(IllegalArgumentException.class,
         () -> service.sellShares(request));
     assertEquals("Number of shares must be greater than zero.",
@@ -77,6 +113,120 @@ public class SellSharesServiceTest
     assertEquals("Cannot sell shares you do not own.",
         exception.getMessage());
   }
+
+  @Test void sellShares_bankrupt_stock_throwsException()
+  {
+    stockDAO.setMockStock(Stock.createFromStorage("PNDORA", domain.StockState.BANKRUPT, new BigDecimal("10.0")));
+
+    SellSharesRequest request = new SellSharesRequest(
+        portfolioDAO.getMockPortfolio().getId(), "PNDORA", 10);
+
+    Exception exception = assertThrows(IllegalStateException.class,
+        () -> service.sellShares(request));
+    assertEquals("Cannot sell shares of a bankrupt stock: PNDORA",
+        exception.getMessage());
+  }
+
+  @Test void sellShares_with_null_symbol_throwsException()
+  {
+    SellSharesRequest request = new SellSharesRequest(
+        portfolioDAO.getMockPortfolio().getId(), null, 100);
+    Exception exception = assertThrows(IllegalArgumentException.class,
+        () -> service.sellShares(request));
+    assertEquals("Stock symbol must not be empty.",
+        exception.getMessage());
+  }
+
+  @Test void sellShares_with_empty_string_symbol_throwsException()
+  {
+    SellSharesRequest request = new SellSharesRequest(
+        portfolioDAO.getMockPortfolio().getId(), "", 100);
+    Exception exception = assertThrows(IllegalArgumentException.class,
+        () -> service.sellShares(request));
+    assertEquals("Stock symbol must not be empty.",
+        exception.getMessage());
+  }
+
+  @Test void sellShares_symbol_not_found_throwsException()
+  {
+    SellSharesRequest request = new SellSharesRequest(
+        portfolioDAO.getMockPortfolio().getId(), "TEST", 100);
+    Exception exception = assertThrows(IllegalArgumentException.class,
+        () -> service.sellShares(request));
+    assertEquals("Stock with symbol TEST not found.", exception.getMessage());
+  }
+
+  //State & Behaviour
+  @Test void sellShares_portfolio_update_success()
+  {
+    SellSharesRequest request = new SellSharesRequest(
+        portfolioDAO.getMockPortfolio().getId(), "PNDORA", 5);
+    service.sellShares(request);
+    assertEquals(2, uow.getCommitCount());
+    assertEquals(1, ownedStockDAO.getAll().size());
+    assertEquals(5, ownedStockDAO.getAll().get(0).getQuantity());
+  }
+
+  @Test void sellShares_transaction_is_created_with_SELL_type_success()
+  {
+    SellSharesRequest request = new SellSharesRequest(
+        portfolioDAO.getMockPortfolio().getId(), "PNDORA", 10);
+    service.sellShares(request);
+    assertTrue(transactionDAO.getAll().get(1).getType().equals(TransactionType.SELL));
+  }
+
+  @Test void sellShares_ownedStock_decrement_correctly_success()
+  {
+    SellSharesRequest request = new SellSharesRequest(
+        portfolioDAO.getMockPortfolio().getId(), "PNDORA", 9);
+    service.sellShares(request);
+    assertEquals(1, ownedStockDAO.getAll().get(0).getQuantity());
+  }
+
+  @Test void sellShares_transaction_timestamp_correct_format_success()
+  {
+    SellSharesRequest request = new SellSharesRequest(
+        portfolioDAO.getMockPortfolio().getId(), "PNDORA", 10);
+    service.sellShares(request);
+
+    Instant timestamp = transactionDAO.getAll().getFirst().getTimestamp();
+    assertNotNull(timestamp);
+    assertDoesNotThrow(() -> Instant.parse(timestamp.toString()));
+  }
+
+  @Test
+  void sellShares_fee_matches_AppConfig() {
+    SellSharesRequest request = new SellSharesRequest(
+        portfolioDAO.getMockPortfolio().getId(), "PNDORA", 10);
+    service.sellShares(request);
+
+    // Get the created transaction
+    var transaction = transactionDAO.getAll().get(1);
+    BigDecimal totalAmount = new BigDecimal("10.0").multiply(BigDecimal.valueOf(10));
+    double feeRate = shared.configuration.AppConfig.getInstance().getTransactionFee();
+    BigDecimal expectedFee = totalAmount.multiply(BigDecimal.valueOf(feeRate));
+    BigDecimal minimumFee = shared.configuration.AppConfig.getInstance().getMinimumTransactionFee();
+
+    if (expectedFee.compareTo(minimumFee) < 0) {
+      expectedFee = minimumFee;
+    }
+
+    assertEquals(0, transaction.getFee().compareTo(expectedFee),
+        "Transaction fee should match AppConfig value");
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
   }
 
 
