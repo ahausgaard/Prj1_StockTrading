@@ -48,7 +48,7 @@ public class SellSharesServiceTest
     buyService.buyShares(buyRequest);
   }
 
-  @Test void sellShares_sell_one_share_success()
+  @Test void sellShares_oneShare_decrementsQuantityAndCreatesTransaction()
   {
     SellSharesRequest request = new SellSharesRequest(
         portfolioDAO.getMockPortfolio().getId(), "PNDORA", 1);
@@ -60,14 +60,14 @@ public class SellSharesServiceTest
     assertEquals(1, sellCount);
   }
 
-  @Test void sellShares_sell_half_share_success()
+  @Test void sellShares_fractionalShare_completes()
   {
     SellSharesRequest request = new SellSharesRequest(
         portfolioDAO.getMockPortfolio().getId(), "PNDORA", 0.5);
     service.sellShares(request);
   }
 
-  @Test void sellShares_sell_all_success()
+  @Test void sellShares_allShares_completes()
   {
     SellSharesRequest request = new SellSharesRequest(
         portfolioDAO.getMockPortfolio().getId(), "PNDORA", 10);
@@ -157,7 +157,7 @@ public class SellSharesServiceTest
   }
 
   //State & Behaviour
-  @Test void sellShares_portfolio_update_success()
+  @Test void sellShares_validSale_updatesPortfolioAndDecreasesQuantity()
   {
     SellSharesRequest request = new SellSharesRequest(
         portfolioDAO.getMockPortfolio().getId(), "PNDORA", 5);
@@ -167,7 +167,7 @@ public class SellSharesServiceTest
     assertEquals(5, ownedStockDAO.getAll().get(0).getQuantity());
   }
 
-  @Test void sellShares_transaction_is_created_with_SELL_type_success()
+  @Test void sellShares_validSale_createsTransactionWithSellType()
   {
     SellSharesRequest request = new SellSharesRequest(
         portfolioDAO.getMockPortfolio().getId(), "PNDORA", 10);
@@ -175,7 +175,7 @@ public class SellSharesServiceTest
     assertTrue(transactionDAO.getAll().get(1).getType().equals(TransactionType.SELL));
   }
 
-  @Test void sellShares_ownedStock_decrement_correctly_success()
+  @Test void sellShares_partialSale_setsCorrectRemainingQuantity()
   {
     SellSharesRequest request = new SellSharesRequest(
         portfolioDAO.getMockPortfolio().getId(), "PNDORA", 9);
@@ -183,7 +183,7 @@ public class SellSharesServiceTest
     assertEquals(1, ownedStockDAO.getAll().get(0).getQuantity());
   }
 
-  @Test void sellShares_transaction_timestamp_correct_format_success()
+  @Test void sellShares_validSale_transactionTimestampIsValidInstant()
   {
     SellSharesRequest request = new SellSharesRequest(
         portfolioDAO.getMockPortfolio().getId(), "PNDORA", 10);

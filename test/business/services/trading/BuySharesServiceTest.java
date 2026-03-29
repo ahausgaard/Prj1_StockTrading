@@ -44,7 +44,7 @@ public class BuySharesServiceTest
   }
 
   //Zero and One
-  @Test void buyShares_oneValidShare_success()
+  @Test void buyShares_oneValidShare_commitsTransaction()
   {
     BuySharesRequest request = new BuySharesRequest(
         portfolioDAO.getMockPortfolio().getId(), "PNDORA", 1);
@@ -62,7 +62,7 @@ public class BuySharesServiceTest
         exception.getMessage());
   }
 
-  @Test void buyShares_new_stock_success()
+  @Test void buyShares_newStock_createsOwnedStockEntry()
   {
     BuySharesRequest request = new BuySharesRequest(
         portfolioDAO.getMockPortfolio().getId(), "PNDORA", 1);
@@ -71,7 +71,7 @@ public class BuySharesServiceTest
     assertEquals(0, ownedStockDAO.getAll().size());
   }
 
-  @Test void buyShares_owned_stock_success()
+  @Test void buyShares_alreadyOwnedStock_incrementsQuantityWithoutDuplicate()
   {
     BuySharesRequest request = new BuySharesRequest(
         portfolioDAO.getMockPortfolio().getId(), "PNDORA", 1);
@@ -87,7 +87,7 @@ public class BuySharesServiceTest
   }
 
   //Boundaries
-  @Test void buyShares_large_amount_success()
+  @Test void buyShares_largeQuantity_updatesOwnedStockQuantity()
   {
     BuySharesRequest request = new BuySharesRequest(
         portfolioDAO.getMockPortfolio().getId(), "PNDORA", 100);
@@ -95,7 +95,7 @@ public class BuySharesServiceTest
     assertEquals(100, ownedStockDAO.getAll().get(0).getQuantity());
   }
 
-  @Test void buyShares_spend_entire_portfolio_balance_success()
+  @Test void buyShares_exactBalance_zerosPortfolioBalance()
   {
     BuySharesRequest request = new BuySharesRequest(
         portfolioDAO.getMockPortfolio().getId(), "PNDORA", 1000);
@@ -183,7 +183,7 @@ public class BuySharesServiceTest
   }
 
   //State & Behaviour
-  @Test void buyShares_portfolio_update_success()
+  @Test void buyShares_validPurchase_updatesPortfolioAndOwnedStock()
   {
     BuySharesRequest request = new BuySharesRequest(
         portfolioDAO.getMockPortfolio().getId(), "PNDORA", 10);
@@ -193,7 +193,7 @@ public class BuySharesServiceTest
     assertEquals(10, ownedStockDAO.getAll().get(0).getQuantity());
   }
 
-  @Test void buyShares_transaction_is_created_with_BUY_type_success()
+  @Test void buyShares_validPurchase_createsTransactionWithBuyType()
   {
     BuySharesRequest request = new BuySharesRequest(
         portfolioDAO.getMockPortfolio().getId(), "PNDORA", 10);
@@ -201,7 +201,7 @@ public class BuySharesServiceTest
     assertTrue(transactionDAO.getAll().get(0).getType().equals(domain.TransactionType.BUY));
   }
 
-  @Test void buyShares_ownedStock_increment_correctly_succes()
+  @Test void buyShares_validPurchase_setsCorrectOwnedStockQuantity()
   {
     BuySharesRequest request = new BuySharesRequest(
         portfolioDAO.getMockPortfolio().getId(), "PNDORA", 10);
@@ -209,7 +209,7 @@ public class BuySharesServiceTest
     assertEquals(10, ownedStockDAO.getAll().get(0).getQuantity());
   }
 
-  @Test void buyShares_transaction_timestamp_correct_format_success()
+  @Test void buyShares_validPurchase_transactionTimestampIsValidInstant()
   {
     BuySharesRequest request = new BuySharesRequest(
         portfolioDAO.getMockPortfolio().getId(), "PNDORA", 10);
