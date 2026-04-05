@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="presentation.controllers.MainMenuController"
+            prefHeight="600.0" prefWidth="900.0">
+
+    <center>
+        <VBox alignment="CENTER" spacing="20">
+            <padding>
+                <Insets top="50" right="50" bottom="50" left="50"/>
+            </padding>
+
+            <Label text="Stock Trading Game">
+                <font>
+                    <Font size="32.0"/>
+                </font>
+            </Label>
+
+            <Button fx:id="newGameButton" text="New Game"
+                    onAction="#onNewGame"
+                    prefWidth="200" prefHeight="40"/>
+
+            <Button fx:id="loadGameButton" text="Load Game"
+                    onAction="#onLoadGame"
+                    prefWidth="200" prefHeight="40"/>
+
+            <Button fx:id="exitButton" text="Exit"
+                    onAction="#onExit"
+                    prefWidth="200" prefHeight="40"/>
+        </VBox>
+    </center>
+
+</BorderPane>

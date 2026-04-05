@@ -168,6 +168,15 @@ public class PortfolioQueryService
 
 
 
+  public UUID getDefaultPortfolioId()
+  {
+    logger.log(LoggerLevel.INFO, "Fetching default portfolio ID.");
+    List<Portfolio> all = portfolioDAO.getAll();
+    if (all.isEmpty())
+      throw new IllegalStateException("No portfolio exists.");
+    return all.get(0).getId();
+  }
+
   private Portfolio requirePortfolioExists(UUID portfolioId)
   {
     Portfolio portfolio = portfolioDAO.getById(portfolioId);
