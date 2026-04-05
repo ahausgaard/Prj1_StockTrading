@@ -40,7 +40,7 @@ public class ApplicationContext
     {
         AppConfig config = AppConfig.getInstance();
 
-        // --- Persistence layer ---
+        // Persistence Layer
         this.uow = new FileUnitOfWork(config.getDataDirectory());
         this.stockDAO = new StockFileDAO(uow);
         this.ownedStockDAO = new OwnedStockFileDAO(uow);
@@ -48,7 +48,7 @@ public class ApplicationContext
         this.transactionDAO = new TransactionFileDAO(uow);
         this.stockPriceHistoryDAO = new StockPriceHistoryFileDAO(uow);
 
-        // --- Trading services ---
+        // Tading Services
         this.buySharesService = new BuySharesService(
                 stockDAO, ownedStockDAO, portfolioDAO, transactionDAO, uow);
         this.sellSharesService = new SellSharesService(
@@ -59,7 +59,7 @@ public class ApplicationContext
         this.portfolioQueryService = new PortfolioQueryService(
                 ownedStockDAO, portfolioDAO, stockDAO, transactionDAO);
 
-        // --- Market services ---
+        // Market Services
         this.stockListenerService = new StockListenerService(
                 stockPriceHistoryDAO, stockDAO, uow);
         this.stockBankruptService = new StockBankruptService(
@@ -69,16 +69,16 @@ public class ApplicationContext
                 BigDecimal.valueOf(1000),
                 BigDecimal.valueOf(10));
 
-        // --- Register observers on the stock market ---
+        // Observer Registration
         StockMarket market = StockMarket.getInstance();
         market.addObserver(stockListenerService);
         market.addObserver(stockAlertService);
 
-        // --- Presentation ---
+        // Presentation
         this.controllerFactory = new ControllerFactory(this);
     }
 
-    // --- Getters ---
+    // Getters
 
     public ControllerFactory getControllerFactory()
     {
