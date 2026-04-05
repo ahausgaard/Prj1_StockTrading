@@ -32,6 +32,11 @@ public class MockPortfolioDAO implements PortfolioDAO
 
   @Override public boolean delete(UUID id)
   {
+    if (mockPortfolio != null && mockPortfolio.getId().equals(id))
+    {
+      mockPortfolio = null;
+      return true;
+    }
     return false;
   }
 
@@ -42,6 +47,6 @@ public class MockPortfolioDAO implements PortfolioDAO
 
   @Override public List<Portfolio> getAll()
   {
-    return List.of();
+    return mockPortfolio != null ? List.of(mockPortfolio) : List.of();
   }
 }

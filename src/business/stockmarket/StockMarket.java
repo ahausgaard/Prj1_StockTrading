@@ -72,6 +72,12 @@ public class StockMarket
     return liveStocks.stream().map(LiveStock::toStock).toList();
   }
 
+  public void clearStocks()
+  {
+    liveStocks.clear();
+    logger.log(LoggerLevel.INFO, "All live stocks cleared from market.");
+  }
+
   // Bill Pugh Singleton implementation
   private StockMarket() {}
 
