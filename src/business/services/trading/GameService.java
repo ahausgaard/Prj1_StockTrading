@@ -185,8 +185,7 @@ public class GameService
 
   private void initializeDefaultStocks()
   {
-    BigDecimal defaultPrice =
-        BigDecimal.valueOf(AppConfig.getInstance().getStockResetValue());
+    BigDecimal defaultPrice = AppConfig.getInstance().getStockResetValue();
 
     for (String symbol : DEFAULT_STOCK_SYMBOLS)
     {

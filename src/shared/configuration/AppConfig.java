@@ -9,7 +9,7 @@ public class AppConfig
   private final BigDecimal startingBalance;
   private final double transactionFee;
   private final int updateFrequencyInMs;
-  private final double stockResetValue;
+  private final BigDecimal stockResetValue;
   private final long bankruptcyPenaltyMs;
   private final String dataDirectory;
   private final BigDecimal minimumTransactionFee;
@@ -20,7 +20,7 @@ public class AppConfig
     this.transactionFee = 0.01;
     this.minimumTransactionFee = BigDecimal.valueOf(15.00);
     this.updateFrequencyInMs = 1000;
-    this.stockResetValue = 500.0;
+    this.stockResetValue = BigDecimal.valueOf(500.0);
     this.bankruptcyPenaltyMs = 10000;
     this.dataDirectory = "resources/data/";
   }
@@ -55,7 +55,7 @@ public class AppConfig
     return updateFrequencyInMs;
   }
 
-  public double getStockResetValue()
+  public BigDecimal getStockResetValue()
   {
     return stockResetValue;
   }

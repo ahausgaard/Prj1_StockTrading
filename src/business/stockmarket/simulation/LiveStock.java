@@ -27,7 +27,7 @@ public class LiveStock
   public static LiveStock createNew(String symbol)
   {
     LiveStockState currentState = new SteadyState();
-    BigDecimal currentPrice = AppConfig.getInstance().getStartingBalance();
+    BigDecimal currentPrice = AppConfig.getInstance().getStockResetValue();
 
     return new LiveStock(symbol, currentState, currentPrice);
   }
