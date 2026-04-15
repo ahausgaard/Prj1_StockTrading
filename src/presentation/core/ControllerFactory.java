@@ -44,10 +44,6 @@ public class ControllerFactory implements Callback<Class<?>, Object>
                     context.getSellSharesService());
             return new PortfolioController(viewModel);
         }
-        if (type == StockMarketController.class)
-        {
-            return new StockMarketController();
-        }
 
         // Fallback
         try
