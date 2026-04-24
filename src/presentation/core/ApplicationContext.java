@@ -48,7 +48,7 @@ public class ApplicationContext
         this.transactionDAO = new TransactionFileDAO(uow);
         this.stockPriceHistoryDAO = new StockPriceHistoryFileDAO(uow);
 
-        // Tading Services
+        // Trading Services
         this.buySharesService = new BuySharesService(
                 stockDAO, ownedStockDAO, portfolioDAO, transactionDAO, uow);
         this.sellSharesService = new SellSharesService(

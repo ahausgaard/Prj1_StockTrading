@@ -1,4 +1,4 @@
-package mocks;
+package unit.mocks;
 
 import domain.StockPriceHistory;
 import persistence.interfaces.StockPriceHistoryDAO;

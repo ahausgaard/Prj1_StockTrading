@@ -1,15 +1,15 @@
-package business.services.trading;
+package unit.business.services.trading;
 
 import business.stockmarket.StockMarket;
 import domain.OwnedStock;
 import domain.Stock;
 import domain.Portfolio;
 import domain.StockPriceHistory;
-import mocks.*;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import shared.configuration.AppConfig;
+import unit.mocks.*;
 
 import java.math.BigDecimal;
 import java.time.Instant;

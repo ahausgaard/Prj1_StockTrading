@@ -1,12 +1,12 @@
-package business.services.trading;
+package unit.business.services.trading;
 
 import business.commands.BuySharesRequest;
 import domain.Portfolio;
 import domain.Stock;
-import mocks.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import shared.logging.Logger;
+import unit.mocks.*;
 
 import java.math.BigDecimal;
 
