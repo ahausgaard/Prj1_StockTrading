@@ -83,6 +83,20 @@ public class GameService
     }
   }
 
+  public void shutdown()
+  {
+    logger.log(LoggerLevel.INFO, "Shutting down...");
+    try
+    {
+      saveGame();
+    }
+    catch (Exception e)
+    {
+      logger.log(LoggerLevel.ERROR, "Error during shutdown save: " + e.getMessage());
+      stopMarketTicker();
+    }
+  }
+
   public void saveGame()
   {
     logger.log(LoggerLevel.INFO, "Saving game...");

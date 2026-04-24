@@ -78,6 +78,11 @@ public class ApplicationContext
         this.controllerFactory = new ControllerFactory(this);
     }
 
+    public void shutdown()
+    {
+        gameService.shutdown();
+    }
+
     // Getters
 
     public ControllerFactory getControllerFactory()
