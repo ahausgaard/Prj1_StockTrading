@@ -17,10 +17,10 @@ public class BuySharesService
   private final UnitOfWork uow;
   private final TransactionDAO transactionDAO;
   private final PortfolioDAO portfolioDAO;
-  //private final FeeStrategy feeStrategy;
+  private FeeStrategy feeStrategy;
 
   public BuySharesService(StockDAO stockDAO, OwnedStockDAO ownedStockDAO,
-      PortfolioDAO portfolioDAO, TransactionDAO transactionDAO, UnitOfWork uow)
+      PortfolioDAO portfolioDAO, TransactionDAO transactionDAO, UnitOfWork uow, FeeStrategy feeStrategy)
   {
     this.logger = Logger.getInstance();
     this.stockDAO = stockDAO;
@@ -28,7 +28,12 @@ public class BuySharesService
     this.portfolioDAO = portfolioDAO;
     this.transactionDAO = transactionDAO;
     this.uow = uow;
-    //this.feeStrategy = feeStrategy;
+    this.feeStrategy = feeStrategy;
+  }
+
+  public void setFeeStrategy(FeeStrategy feeStrategy)
+  {
+    this.feeStrategy = feeStrategy;
   }
 
   public void buyShares(BuySharesRequest request)
@@ -60,7 +65,7 @@ public class BuySharesService
         throw new IllegalStateException("Cannot buy shares of a bankrupt stock: " + request.stockSymbol());
 
       BigDecimal totalAmount = stock.getCurrentPrice().multiply(new BigDecimal(request.quantity()));
-      BigDecimal fee = TransactionFeeCalculator.calculateFee(totalAmount);
+      BigDecimal fee = feeStrategy.calculateFee(totalAmount);
       BigDecimal totalCost = totalAmount.add(fee);
       if(portfolio.getCurrentBalance().compareTo(totalCost) < 0)
         throw new IllegalStateException("Insufficient funds in portfolio to complete purchase.");

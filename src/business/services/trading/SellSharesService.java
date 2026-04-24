@@ -1,6 +1,7 @@
 package business.services.trading;
 
 import business.commands.SellSharesRequest;
+import business.services.trading.fees.FeeStrategy;
 import domain.*;
 import persistence.interfaces.*;
 import shared.logging.Logger;
@@ -16,10 +17,11 @@ public class SellSharesService
   private final UnitOfWork uow;
   private final TransactionDAO transactionDAO;
   private final PortfolioDAO portfolioDAO;
+  private FeeStrategy feeStrategy;
 
   public SellSharesService(OwnedStockDAO ownedStockDAO,
       StockDAO stockDAO, UnitOfWork uow, TransactionDAO transactionDAO,
-      PortfolioDAO portfolioDAO)
+      PortfolioDAO portfolioDAO, FeeStrategy feeStrategy)
   {
     this.logger = Logger.getInstance();
     this.ownedStockDAO = ownedStockDAO;
@@ -27,6 +29,12 @@ public class SellSharesService
     this.uow = uow;
     this.transactionDAO = transactionDAO;
     this.portfolioDAO = portfolioDAO;
+    this.feeStrategy = feeStrategy;
+  }
+
+  public void setFeeStrategy(FeeStrategy feeStrategy)
+  {
+    this.feeStrategy = feeStrategy;
   }
 
   public void sellShares(SellSharesRequest request)
@@ -81,7 +89,7 @@ public class SellSharesService
       }
 
       BigDecimal totalSaleValue = stock.getCurrentPrice().multiply(new BigDecimal(request.quantity()));
-      BigDecimal fee = TransactionFeeCalculator.calculateFee(totalSaleValue);
+      BigDecimal fee = feeStrategy.calculateFee(totalSaleValue);
       BigDecimal netSaleValue = totalSaleValue.subtract(fee);
       portfolio.setCurrentBalance(portfolio.getCurrentBalance().add(netSaleValue));
       portfolioDAO.update(portfolio);
