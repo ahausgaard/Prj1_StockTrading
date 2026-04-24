@@ -5,18 +5,19 @@ import business.services.trading.fees.FeeStrategy;
 import business.services.trading.fees.FlatFeeStrategy;
 import business.services.trading.fees.PercentageFeeStrategy;
 import business.services.trading.fees.PercentageMinimumFeeStrategy;
+import presentation.core.ApplicationContext;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class NewGameSettingsViewModel
 {
-    private final GameService gameService;
+    private final ApplicationContext context;
     private final Map<String, FeeStrategy> availableStrategies = new LinkedHashMap<>();
 
-    public NewGameSettingsViewModel(GameService gameService)
+    public NewGameSettingsViewModel(ApplicationContext context)
     {
-        this.gameService = gameService;
+        this.context = context;
         availableStrategies.put("Flat Fee", new FlatFeeStrategy());
         availableStrategies.put("Percentage Fee", new PercentageFeeStrategy());
         availableStrategies.put("Percentage and minimum fee", new PercentageMinimumFeeStrategy());
@@ -34,8 +35,9 @@ public class NewGameSettingsViewModel
 
     public void startGame(String selectedStrategyName)
     {
-        // TODO: apply selected fee strategy before starting
-        gameService.restartGame();
+        FeeStrategy selected = availableStrategies.get(selectedStrategyName);
+        context.setFeeStrategy(selected);
+        context.getGameService().restartGame();
     }
 }
 
