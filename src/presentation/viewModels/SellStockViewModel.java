@@ -17,6 +17,7 @@ public class SellStockViewModel
     private final StringProperty stockSymbol = new SimpleStringProperty("");
     private final ObjectProperty<BigDecimal> currentPrice = new SimpleObjectProperty<>(BigDecimal.ZERO);
     private final IntegerProperty quantity = new SimpleIntegerProperty(1);
+    private final IntegerProperty maxQuantity = new SimpleIntegerProperty(Integer.MAX_VALUE);
     private final ObjectProperty<BigDecimal> fee = new SimpleObjectProperty<>(BigDecimal.ZERO);
     private final ObjectProperty<BigDecimal> estimatedProceeds = new SimpleObjectProperty<>(BigDecimal.ZERO);
     private final StringProperty statusMessage = new SimpleStringProperty("");
@@ -38,6 +39,12 @@ public class SellStockViewModel
                 .filter(s -> s.symbol().equals(symbol))
                 .findFirst()
                 .ifPresent(s -> currentPrice.set(s.currentPrice()));
+
+        UUID portfolioId = portfolioQueryService.getDefaultPortfolioId();
+        portfolioQueryService.getOwnedStocks(portfolioId).stream()
+                .filter(os -> os.symbol().equals(symbol))
+                .findFirst()
+                .ifPresent(os -> maxQuantity.set((int) os.quantity()));
 
         recalculate();
     }
@@ -74,6 +81,7 @@ public class SellStockViewModel
     public StringProperty stockSymbolProperty()                         { return stockSymbol; }
     public ObjectProperty<BigDecimal> currentPriceProperty()            { return currentPrice; }
     public IntegerProperty quantityProperty()                           { return quantity; }
+    public IntegerProperty maxQuantityProperty()                        { return maxQuantity; }
     public ObjectProperty<BigDecimal> feeProperty()                     { return fee; }
     public ObjectProperty<BigDecimal> estimatedProceedsProperty()       { return estimatedProceeds; }
     public StringProperty statusMessageProperty()                       { return statusMessage; }

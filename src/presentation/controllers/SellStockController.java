@@ -56,6 +56,13 @@ public class SellStockController implements AcceptsStringArgument
     public void setArgument(String stockSymbol)
     {
         viewModel.setStockSymbol(stockSymbol);
+
+        int max = viewModel.maxQuantityProperty().get();
+        SpinnerValueFactory.IntegerSpinnerValueFactory factory =
+                (SpinnerValueFactory.IntegerSpinnerValueFactory) quantitySpinner.getValueFactory();
+        factory.setMax(max);
+        if (factory.getValue() > max)
+            factory.setValue(max);
     }
 
     @FXML
