@@ -2,6 +2,8 @@ package unit.business.services.trading;
 
 import business.commands.BuySharesRequest;
 import business.commands.SellSharesRequest;
+import business.services.trading.BuySharesService;
+import business.services.trading.SellSharesService;
 import domain.Portfolio;
 import domain.Stock;
 import domain.TransactionType;

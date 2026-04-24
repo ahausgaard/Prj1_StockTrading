@@ -91,8 +91,7 @@ public class GameServiceTest
   @Test void startGame_noExistingStocks_stocksAtResetPrice()
   {
     service.startGame();
-    BigDecimal expectedPrice =
-        BigDecimal.valueOf(AppConfig.getInstance().getStockResetValue());
+    BigDecimal expectedPrice = AppConfig.getInstance().getStockResetValue();
     for (Stock stock : stockDAO.getAll())
     {
       assertEquals(0, stock.getCurrentPrice().compareTo(expectedPrice));
