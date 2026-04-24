@@ -1,6 +1,7 @@
 package business.services.trading;
 
 import business.commands.BuySharesRequest;
+import business.services.trading.fees.FeeStrategy;
 import domain.*;
 import persistence.interfaces.*;
 import shared.logging.Logger;
@@ -16,6 +17,7 @@ public class BuySharesService
   private final UnitOfWork uow;
   private final TransactionDAO transactionDAO;
   private final PortfolioDAO portfolioDAO;
+  //private final FeeStrategy feeStrategy;
 
   public BuySharesService(StockDAO stockDAO, OwnedStockDAO ownedStockDAO,
       PortfolioDAO portfolioDAO, TransactionDAO transactionDAO, UnitOfWork uow)
@@ -26,6 +28,7 @@ public class BuySharesService
     this.portfolioDAO = portfolioDAO;
     this.transactionDAO = transactionDAO;
     this.uow = uow;
+    //this.feeStrategy = feeStrategy;
   }
 
   public void buyShares(BuySharesRequest request)

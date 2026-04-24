@@ -21,8 +21,7 @@ public class MainMenuController
     @FXML
     private void onNewGame()
     {
-        viewModel.newGame();
-        ViewManager.showView("StockPriceChart");
+        ViewManager.openModalWindow("NewGameSettings", "New Game");
     }
 
     @FXML

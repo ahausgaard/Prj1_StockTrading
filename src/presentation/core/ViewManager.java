@@ -8,6 +8,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class ViewManager
@@ -136,5 +137,30 @@ public class ViewManager
     public static ControllerFactory getControllerFactory()
     {
         return controllerFactory;
+    }
+
+    public static void openModalWindow(String viewName, String title)
+    {
+        try
+        {
+            URL resource = ViewManager.class.getResource(FXML_DIR + viewName + ".fxml");
+            if (resource == null)
+                throw new IOException("FXML resource not found: " + FXML_DIR + viewName + ".fxml");
+
+            FXMLLoader loader = new FXMLLoader(resource);
+            loader.setControllerFactory(controllerFactory);
+            Parent root = loader.load();
+
+            Stage stage = new Stage();
+            stage.setTitle(title);
+            stage.setScene(new Scene(root));
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.showAndWait();
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            new Alert(AlertType.ERROR, "Error opening window '" + viewName + "': " + e.getMessage()).show();
+        }
     }
 }
