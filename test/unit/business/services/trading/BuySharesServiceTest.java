@@ -1,6 +1,7 @@
 package unit.business.services.trading;
 
 import business.commands.BuySharesRequest;
+import business.services.trading.BuySharesService;
 import domain.Portfolio;
 import domain.Stock;
 import org.junit.jupiter.api.BeforeEach;

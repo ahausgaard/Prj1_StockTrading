@@ -1,5 +1,6 @@
 package unit.business.services.trading;
 
+import business.services.trading.GameService;
 import business.stockmarket.StockMarket;
 import domain.OwnedStock;
 import domain.Stock;
