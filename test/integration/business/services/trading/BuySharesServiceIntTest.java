@@ -84,6 +84,19 @@ public class BuySharesServiceIntTest
     assertEquals(TransactionType.BUY, transactions.getFirst().getType());
   }
 
+  @Test void buyShares_exisitingOwnedStock_accumulatesQuantity() throws IOException
+  {
+    service.buyShares(new BuySharesRequest(portfolio.getId(), "PNDORA", 5));
+    service.buyShares(new BuySharesRequest(portfolio.getId(), "PNDORA",3));
+
+    uow.begin();
+    List<OwnedStock> ownedStocks = ownedStockDAO.getAll();
+    uow.commit();
+
+    assertEquals(1, ownedStocks.size());
+    assertEquals(8,ownedStocks.getFirst().getQuantity(), "Quantities should accumulate for existing owned stock.");
+  }
+
   @Test void buyShares_insufficientFunds_fails() throws IOException
   {
     BuySharesRequest request = new BuySharesRequest(portfolio.getId(), "PNDORA", 200);
@@ -156,6 +169,21 @@ public class BuySharesServiceIntTest
     assertEquals(0, ownedStocks.size());
     assertEquals(new BigDecimal("10000.00"), updatedPortfolio.getCurrentBalance());
     assertEquals(0, transactions.size());
+  }
+
+  @Test void buyShares_portfolioNotFound_fail() throws IOException
+  {
+    BuySharesRequest request = new BuySharesRequest(java.util.UUID.randomUUID(), "PNDORA", 1);
+
+    assertThrows(IllegalArgumentException.class, () -> service.buyShares(request));
+
+    uow.begin();
+    List<OwnedStock> ownedStocks = ownedStockDAO.getAll();
+    uow.commit();
+
+    assertEquals(0, ownedStocks.size());
+
+
   }
 
 
