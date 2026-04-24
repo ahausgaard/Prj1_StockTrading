@@ -5,6 +5,7 @@ import business.services.market.StockBankruptService;
 import business.services.market.StockListenerService;
 import business.services.trading.*;
 import business.services.trading.fees.FeeStrategy;
+import business.services.trading.fees.PercentageFeeStrategy;
 import business.stockmarket.StockMarket;
 import persistence.fileImplementation.*;
 import persistence.interfaces.*;
@@ -28,7 +29,7 @@ public class ApplicationContext
     private final SellSharesService sellSharesService;
     private final GameService gameService;
     private final PortfolioQueryService portfolioQueryService;
-    private FeeStrategy feeStrategy;
+    private FeeStrategy feeStrategy = new PercentageFeeStrategy();
 
     // Market services
     private final StockListenerService stockListenerService;
@@ -132,8 +133,10 @@ public class ApplicationContext
         return feeStrategy;
     }
 
-    public void setFreeStrategy(FeeStrategy feeStrategy)
+    public void setFeeStrategy(FeeStrategy feeStrategy)
     {
         this.feeStrategy = feeStrategy;
+        this.buySharesService.setFeeStrategy(feeStrategy);
+        this.sellSharesService.setFeeStrategy(feeStrategy);
     }
 }
