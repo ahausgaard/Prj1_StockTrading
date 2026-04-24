@@ -2,6 +2,7 @@ package presentation.viewModels;
 
 import business.services.trading.GameService;
 import business.services.trading.fees.FeeStrategy;
+import business.services.trading.fees.FlatFeeStrategy;
 import business.services.trading.fees.PercentageFeeStrategy;
 
 import java.util.LinkedHashMap;
@@ -16,6 +17,7 @@ public class NewGameSettingsViewModel
     {
         this.gameService = gameService;
         availableStrategies.put("Percentage Fee", new PercentageFeeStrategy());
+        availableStrategies.put("Flat Fee", new FlatFeeStrategy());
     }
 
     public java.util.Set<String> getStrategyNames()

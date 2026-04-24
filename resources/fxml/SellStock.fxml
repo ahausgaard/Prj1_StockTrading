@@ -11,7 +11,7 @@
 
 <VBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
-      fx:controller="presentation.controllers.BuyStockController"
+      fx:controller="presentation.controllers.SellStockController"
       spacing="15" alignment="CENTER"
       prefWidth="400" prefHeight="300">
 
@@ -19,7 +19,7 @@
         <Insets top="20" right="25" bottom="20" left="25"/>
     </padding>
 
-    <Label text="Buy Stock">
+    <Label text="Sell Stock">
         <font>
             <Font size="20.0"/>
         </font>
@@ -41,8 +41,8 @@
         <Label text="Fee:" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
         <Label fx:id="feeLabel" text="-" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
 
-        <Label text="Estimated Cost:" GridPane.columnIndex="0" GridPane.rowIndex="4"/>
-        <Label fx:id="estimatedCostLabel" text="-" GridPane.columnIndex="1" GridPane.rowIndex="4">
+        <Label text="Estimated Proceeds:" GridPane.columnIndex="0" GridPane.rowIndex="4"/>
+        <Label fx:id="estimatedProceedsLabel" text="-" GridPane.columnIndex="1" GridPane.rowIndex="4">
             <font><Font name="System Bold" size="14.0"/></font>
         </Label>
     </GridPane>
@@ -50,7 +50,7 @@
     <Label fx:id="statusLabel" textFill="RED"/>
 
     <HBox alignment="CENTER" spacing="15">
-        <Button text="Buy" onAction="#onBuy" prefWidth="100" prefHeight="30"/>
+        <Button text="Sell" onAction="#onSell" prefWidth="100" prefHeight="30"/>
         <Button text="Cancel" onAction="#onCancel" prefWidth="100" prefHeight="30"/>
     </HBox>
 

@@ -1,14 +1,14 @@
 package presentation.controllers;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ComboBox;
 import javafx.stage.Stage;
 import presentation.core.ViewManager;
 import presentation.viewModels.NewGameSettingsViewModel;
 
 public class NewGameSettingsController
 {
-    @FXML private ChoiceBox<String> feeStrategyChoiceBox;
+    @FXML private ComboBox<String> feeStrategyComboBox;
 
     private final NewGameSettingsViewModel viewModel;
 
@@ -20,14 +20,14 @@ public class NewGameSettingsController
     @FXML
     private void initialize()
     {
-        feeStrategyChoiceBox.getItems().addAll(viewModel.getStrategyNames());
-        feeStrategyChoiceBox.setValue(viewModel.getDefaultStrategyName());
+        feeStrategyComboBox.getItems().addAll(viewModel.getStrategyNames());
+        feeStrategyComboBox.setValue(viewModel.getDefaultStrategyName());
     }
 
     @FXML
     private void onStartGame()
     {
-        String selected = feeStrategyChoiceBox.getValue();
+        String selected = feeStrategyComboBox.getValue();
         viewModel.startGame(selected);
         closeWindow();
         ViewManager.showView("StockPriceChart");
@@ -41,7 +41,7 @@ public class NewGameSettingsController
 
     private void closeWindow()
     {
-        Stage stage = (Stage) feeStrategyChoiceBox.getScene().getWindow();
+        Stage stage = (Stage) feeStrategyComboBox.getScene().getWindow();
         stage.close();
     }
 }

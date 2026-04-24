@@ -1,33 +1,33 @@
 package presentation.viewModels;
 
-import business.commands.BuySharesRequest;
-import business.services.trading.BuySharesService;
+import business.commands.SellSharesRequest;
 import business.services.trading.PortfolioQueryService;
+import business.services.trading.SellSharesService;
 import business.services.trading.TransactionFeeCalculator;
 import javafx.beans.property.*;
 
 import java.math.BigDecimal;
 import java.util.UUID;
 
-public class BuyStockViewModel
+public class SellStockViewModel
 {
-    private final BuySharesService buySharesService;
+    private final SellSharesService sellSharesService;
     private final PortfolioQueryService portfolioQueryService;
 
     private final StringProperty stockSymbol = new SimpleStringProperty("");
     private final ObjectProperty<BigDecimal> currentPrice = new SimpleObjectProperty<>(BigDecimal.ZERO);
     private final IntegerProperty quantity = new SimpleIntegerProperty(1);
-    private final ObjectProperty<BigDecimal> estimatedCost = new SimpleObjectProperty<>(BigDecimal.ZERO);
     private final ObjectProperty<BigDecimal> fee = new SimpleObjectProperty<>(BigDecimal.ZERO);
+    private final ObjectProperty<BigDecimal> estimatedProceeds = new SimpleObjectProperty<>(BigDecimal.ZERO);
     private final StringProperty statusMessage = new SimpleStringProperty("");
 
-    public BuyStockViewModel(BuySharesService buySharesService,
+    public SellStockViewModel(SellSharesService sellSharesService,
             PortfolioQueryService portfolioQueryService)
     {
-        this.buySharesService = buySharesService;
+        this.sellSharesService = sellSharesService;
         this.portfolioQueryService = portfolioQueryService;
 
-        quantity.addListener((obs, oldVal, newVal) -> recalculateEstimatedCost());
+        quantity.addListener((obs, oldVal, newVal) -> recalculate());
     }
 
     public void setStockSymbol(String symbol)
@@ -39,18 +39,18 @@ public class BuyStockViewModel
                 .findFirst()
                 .ifPresent(s -> currentPrice.set(s.currentPrice()));
 
-        recalculateEstimatedCost();
+        recalculate();
     }
 
-    public boolean buy()
+    public boolean sell()
     {
         try
         {
             UUID portfolioId = portfolioQueryService.getDefaultPortfolioId();
-            BuySharesRequest request = new BuySharesRequest(
+            SellSharesRequest request = new SellSharesRequest(
                     portfolioId, stockSymbol.get(), quantity.get());
-            buySharesService.buyShares(request);
-            statusMessage.set("Purchase successful!");
+            sellSharesService.sellShares(request);
+            statusMessage.set("Sale successful!");
             return true;
         }
         catch (Exception e)
@@ -60,22 +60,22 @@ public class BuyStockViewModel
         }
     }
 
-    private void recalculateEstimatedCost()
+    private void recalculate()
     {
         BigDecimal total = currentPrice.get()
                 .multiply(BigDecimal.valueOf(quantity.get()));
         BigDecimal calculatedFee = TransactionFeeCalculator.calculateFee(total);
         fee.set(calculatedFee);
-        estimatedCost.set(total.add(calculatedFee));
+        estimatedProceeds.set(total.subtract(calculatedFee));
     }
 
-    //Properties
+    // Properties
 
-    public StringProperty stockSymbolProperty()                    { return stockSymbol; }
-    public ObjectProperty<BigDecimal> currentPriceProperty()       { return currentPrice; }
-    public IntegerProperty quantityProperty()                      { return quantity; }
-    public ObjectProperty<BigDecimal> estimatedCostProperty()      { return estimatedCost; }
-    public ObjectProperty<BigDecimal> feeProperty()                { return fee; }
-    public StringProperty statusMessageProperty()                  { return statusMessage; }
+    public StringProperty stockSymbolProperty()                         { return stockSymbol; }
+    public ObjectProperty<BigDecimal> currentPriceProperty()            { return currentPrice; }
+    public IntegerProperty quantityProperty()                           { return quantity; }
+    public ObjectProperty<BigDecimal> feeProperty()                     { return fee; }
+    public ObjectProperty<BigDecimal> estimatedProceedsProperty()       { return estimatedProceeds; }
+    public StringProperty statusMessageProperty()                       { return statusMessage; }
 }
 

@@ -9,20 +9,20 @@ import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.stage.Stage;
 import presentation.core.AcceptsStringArgument;
-import presentation.viewModels.BuyStockViewModel;
+import presentation.viewModels.SellStockViewModel;
 
-public class BuyStockController implements AcceptsStringArgument
+public class SellStockController implements AcceptsStringArgument
 {
-    private final BuyStockViewModel viewModel;
+    private final SellStockViewModel viewModel;
 
     @FXML private Label symbolLabel;
     @FXML private Label priceLabel;
     @FXML private Spinner<Integer> quantitySpinner;
     @FXML private Label feeLabel;
-    @FXML private Label estimatedCostLabel;
+    @FXML private Label estimatedProceedsLabel;
     @FXML private Label statusLabel;
 
-    public BuyStockController(BuyStockViewModel viewModel)
+    public SellStockController(SellStockViewModel viewModel)
     {
         this.viewModel = viewModel;
     }
@@ -38,14 +38,14 @@ public class BuyStockController implements AcceptsStringArgument
                 Bindings.createStringBinding(
                         () -> String.format("%.2f", viewModel.currentPriceProperty().get()),
                         viewModel.currentPriceProperty()));
-        estimatedCostLabel.textProperty().bind(
-                Bindings.createStringBinding(
-                        () -> String.format("%.2f", viewModel.estimatedCostProperty().get()),
-                        viewModel.estimatedCostProperty()));
         feeLabel.textProperty().bind(
                 Bindings.createStringBinding(
                         () -> String.format("%.2f", viewModel.feeProperty().get()),
                         viewModel.feeProperty()));
+        estimatedProceedsLabel.textProperty().bind(
+                Bindings.createStringBinding(
+                        () -> String.format("%.2f", viewModel.estimatedProceedsProperty().get()),
+                        viewModel.estimatedProceedsProperty()));
         statusLabel.textProperty().bind(viewModel.statusMessageProperty());
 
         quantitySpinner.valueProperty().addListener((obs, oldVal, newVal) ->
@@ -59,12 +59,12 @@ public class BuyStockController implements AcceptsStringArgument
     }
 
     @FXML
-    private void onBuy()
+    private void onSell()
     {
-        boolean success = viewModel.buy();
+        boolean success = viewModel.sell();
         if (success)
         {
-            new Alert(AlertType.INFORMATION, "Purchase successful!").showAndWait();
+            new Alert(AlertType.INFORMATION, "Sale successful!").showAndWait();
             closeWindow();
         }
     }

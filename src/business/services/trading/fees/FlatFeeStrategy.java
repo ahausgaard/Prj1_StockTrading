@@ -4,8 +4,11 @@ import java.math.BigDecimal;
 
 public class FlatFeeStrategy implements FeeStrategy
 {
-  @Override public BigDecimal calculateFee(BigDecimal transactionAmount)
-  {
-    return null;
-  }
+    private static final BigDecimal FLAT_FEE = new BigDecimal("15.00");
+
+    @Override
+    public BigDecimal calculateFee(BigDecimal transactionAmount)
+    {
+        return FLAT_FEE;
+    }
 }

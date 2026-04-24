@@ -18,7 +18,6 @@ public class PortfolioController
     @FXML private TableColumn<OwnedStockDTO, String> priceColumn;
     @FXML private TableColumn<OwnedStockDTO, String> valueColumn;
     @FXML private TableColumn<OwnedStockDTO, String> stateColumn;
-    @FXML private Spinner<Integer> sellQuantitySpinner;
     @FXML private Button sellButton;
     @FXML private Label liquidityLabel;
     @FXML private Label totalValueLabel;
@@ -46,9 +45,6 @@ public class PortfolioController
 
         holdingsTable.setItems(viewModel.getOwnedStocks());
 
-        sellQuantitySpinner.setValueFactory(
-                new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 10000, 1));
-
         liquidityLabel.textProperty().bind(viewModel.liquidityTextProperty());
         totalValueLabel.textProperty().bind(viewModel.totalValueTextProperty());
         profitLossLabel.textProperty().bind(viewModel.profitLossTextProperty());
@@ -70,8 +66,8 @@ public class PortfolioController
             return;
         }
 
-        int quantity = sellQuantitySpinner.getValue();
-        viewModel.sell(selected.symbol(), quantity);
+        ViewManager.openModalWindow("SellStock", "Sell Stock", selected.symbol());
+        viewModel.refresh();
     }
 
     @FXML

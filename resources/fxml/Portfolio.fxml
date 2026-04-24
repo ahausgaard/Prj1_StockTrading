@@ -2,7 +2,6 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Spinner?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.BorderPane?>
@@ -48,8 +47,6 @@
                 </columns>
             </TableView>
             <HBox spacing="15" alignment="CENTER_LEFT">
-                <Label text="Sell Quantity:"/>
-                <Spinner fx:id="sellQuantitySpinner" prefWidth="120" editable="true"/>
                 <Button fx:id="sellButton" text="Sell Selected" onAction="#onSell" prefWidth="140" prefHeight="30"/>
             </HBox>
             <Label fx:id="statusLabel" textFill="RED"/>

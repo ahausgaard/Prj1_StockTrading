@@ -49,6 +49,13 @@ public class ControllerFactory implements Callback<Class<?>, Object>
             NewGameSettingsViewModel viewModel = new NewGameSettingsViewModel(context.getGameService());
             return new NewGameSettingsController(viewModel);
         }
+        if (type == SellStockController.class)
+        {
+            SellStockViewModel viewModel = new SellStockViewModel(
+                    context.getSellSharesService(),
+                    context.getPortfolioQueryService());
+            return new SellStockController(viewModel);
+        }
 
         // Fallback
         try

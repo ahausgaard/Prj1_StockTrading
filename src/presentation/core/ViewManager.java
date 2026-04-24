@@ -155,6 +155,37 @@ public class ViewManager
             stage.setTitle(title);
             stage.setScene(new Scene(root));
             stage.initModality(Modality.APPLICATION_MODAL);
+            if (mainLayout.getScene() != null && mainLayout.getScene().getWindow() != null)
+                stage.initOwner(mainLayout.getScene().getWindow());
+            stage.showAndWait();
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            new Alert(AlertType.ERROR, "Error opening window '" + viewName + "': " + e.getMessage()).show();
+        }
+    }
+
+    public static void openModalWindow(String viewName, String title, String argument)
+    {
+        try
+        {
+            URL resource = ViewManager.class.getResource(FXML_DIR + viewName + ".fxml");
+            if (resource == null)
+                throw new IOException("FXML resource not found: " + FXML_DIR + viewName + ".fxml");
+
+            FXMLLoader loader = new FXMLLoader(resource);
+            loader.setControllerFactory(controllerFactory);
+            Parent root = loader.load();
+            AcceptsStringArgument controller = (AcceptsStringArgument) loader.getController();
+            controller.setArgument(argument);
+
+            Stage stage = new Stage();
+            stage.setTitle(title);
+            stage.setScene(new Scene(root));
+            stage.initModality(Modality.APPLICATION_MODAL);
+            if (mainLayout.getScene() != null && mainLayout.getScene().getWindow() != null)
+                stage.initOwner(mainLayout.getScene().getWindow());
             stage.showAndWait();
         }
         catch (Exception e)
