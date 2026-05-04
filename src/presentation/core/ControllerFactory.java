@@ -34,7 +34,8 @@ public class ControllerFactory implements Callback<Class<?>, Object>
         {
             BuyStockViewModel viewModel = new BuyStockViewModel(
                     context.getBuySharesService(),
-                    context.getPortfolioQueryService());
+                    context.getPortfolioQueryService(),
+                    context.getFeeStrategy());
             return new BuyStockController(viewModel);
         }
         if (type == PortfolioController.class)
@@ -46,14 +47,15 @@ public class ControllerFactory implements Callback<Class<?>, Object>
         }
         if (type == NewGameSettingsController.class)
         {
-            NewGameSettingsViewModel viewModel = new NewGameSettingsViewModel(context.getGameService());
+            NewGameSettingsViewModel viewModel = new NewGameSettingsViewModel(context);
             return new NewGameSettingsController(viewModel);
         }
         if (type == SellStockController.class)
         {
             SellStockViewModel viewModel = new SellStockViewModel(
                     context.getSellSharesService(),
-                    context.getPortfolioQueryService());
+                    context.getPortfolioQueryService(),
+                    context.getFeeStrategy());
             return new SellStockController(viewModel);
         }
 

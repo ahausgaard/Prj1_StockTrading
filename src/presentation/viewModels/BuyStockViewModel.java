@@ -3,7 +3,7 @@ package presentation.viewModels;
 import business.commands.BuySharesRequest;
 import business.services.trading.BuySharesService;
 import business.services.trading.PortfolioQueryService;
-import business.services.trading.TransactionFeeCalculator;
+import business.services.trading.fees.FeeStrategy;
 import javafx.beans.property.*;
 
 import java.math.BigDecimal;
@@ -13,6 +13,7 @@ public class BuyStockViewModel
 {
     private final BuySharesService buySharesService;
     private final PortfolioQueryService portfolioQueryService;
+    private final FeeStrategy feeStrategy;
 
     private final StringProperty stockSymbol = new SimpleStringProperty("");
     private final ObjectProperty<BigDecimal> currentPrice = new SimpleObjectProperty<>(BigDecimal.ZERO);
@@ -22,10 +23,12 @@ public class BuyStockViewModel
     private final StringProperty statusMessage = new SimpleStringProperty("");
 
     public BuyStockViewModel(BuySharesService buySharesService,
-            PortfolioQueryService portfolioQueryService)
+            PortfolioQueryService portfolioQueryService,
+            FeeStrategy feeStrategy)
     {
         this.buySharesService = buySharesService;
         this.portfolioQueryService = portfolioQueryService;
+        this.feeStrategy = feeStrategy;
 
         quantity.addListener((obs, oldVal, newVal) -> recalculateEstimatedCost());
     }
@@ -64,7 +67,7 @@ public class BuyStockViewModel
     {
         BigDecimal total = currentPrice.get()
                 .multiply(BigDecimal.valueOf(quantity.get()));
-        BigDecimal calculatedFee = TransactionFeeCalculator.calculateFee(total);
+        BigDecimal calculatedFee = feeStrategy.calculateFee(total);
         fee.set(calculatedFee);
         estimatedCost.set(total.add(calculatedFee));
     }

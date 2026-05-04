@@ -29,7 +29,7 @@ public class ApplicationContext
     private final SellSharesService sellSharesService;
     private final GameService gameService;
     private final PortfolioQueryService portfolioQueryService;
-    private FeeStrategy feeStrategy = new PercentageFeeStrategy();
+    private FeeStrategy feeStrategy;
 
     // Market services
     private final StockListenerService stockListenerService;
@@ -42,6 +42,7 @@ public class ApplicationContext
     public ApplicationContext()
     {
         AppConfig config = AppConfig.getInstance();
+        this.feeStrategy = new PercentageFeeStrategy(config.getTransactionFee());
 
         // Persistence Layer
         this.uow = new FileUnitOfWork(config.getDataDirectory());

@@ -1,11 +1,11 @@
 package presentation.viewModels;
 
-import business.services.trading.GameService;
 import business.services.trading.fees.FeeStrategy;
 import business.services.trading.fees.FlatFeeStrategy;
 import business.services.trading.fees.PercentageFeeStrategy;
 import business.services.trading.fees.PercentageMinimumFeeStrategy;
 import presentation.core.ApplicationContext;
+import shared.configuration.AppConfig;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -18,9 +18,12 @@ public class NewGameSettingsViewModel
     public NewGameSettingsViewModel(ApplicationContext context)
     {
         this.context = context;
-        availableStrategies.put("Flat Fee", new FlatFeeStrategy());
-        availableStrategies.put("Percentage Fee", new PercentageFeeStrategy());
-        availableStrategies.put("Percentage and minimum fee", new PercentageMinimumFeeStrategy());
+        AppConfig config = AppConfig.getInstance();
+        availableStrategies.put("Flat Fee", new FlatFeeStrategy(config.getMinimumTransactionFee()));
+        availableStrategies.put("Percentage Fee", new PercentageFeeStrategy(config.getTransactionFee()));
+        availableStrategies.put("Percentage and minimum fee", new PercentageMinimumFeeStrategy(
+                config.getTransactionFee(),
+                config.getMinimumTransactionFee()));
     }
 
     public java.util.Set<String> getStrategyNames()
@@ -40,5 +43,3 @@ public class NewGameSettingsViewModel
         context.getGameService().restartGame();
     }
 }
-
-

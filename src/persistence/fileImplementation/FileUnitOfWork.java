@@ -18,7 +18,7 @@ import java.util.function.Function;
 
 public class FileUnitOfWork implements UnitOfWork
 {
-  private final String directoryPath;
+  private final Path dataDirectory;
   private List<OwnedStock> ownedStocks;
   private List<Portfolio> portfolios;
   private List<Stock> stocks;
@@ -29,8 +29,8 @@ public class FileUnitOfWork implements UnitOfWork
 
   public FileUnitOfWork(String directoryPath)
   {
-    this.directoryPath = directoryPath;
-    ensureFilesExist(directoryPath);
+    this.dataDirectory = Path.of(directoryPath).normalize();
+    ensureFilesExist();
   }
 
   List<Stock> getStocks()
@@ -79,7 +79,7 @@ public class FileUnitOfWork implements UnitOfWork
         {
           lines.add(stockToPSV(stock));
         }
-        writeAllLines(directoryPath + "stocks.txt", lines);
+        writeAllLines(dataDirectory.resolve("stocks.txt"), lines);
       }
 
       if (ownedStocks != null)
@@ -88,7 +88,7 @@ public class FileUnitOfWork implements UnitOfWork
         for (OwnedStock ownedStock : ownedStocks) {
           lines.add(ownedStockToPSV(ownedStock));
         }
-        writeAllLines(directoryPath + "ownedStocks.txt", lines);
+        writeAllLines(dataDirectory.resolve("ownedStocks.txt"), lines);
       }
 
       if (portfolios != null)
@@ -97,7 +97,7 @@ public class FileUnitOfWork implements UnitOfWork
         for (Portfolio portfolio : portfolios) {
           lines.add(portfolioToPSV(portfolio));
         }
-        writeAllLines(directoryPath + "portfolios.txt", lines);
+        writeAllLines(dataDirectory.resolve("portfolios.txt"), lines);
       }
 
       if (stockPriceHistories != null)
@@ -106,7 +106,7 @@ public class FileUnitOfWork implements UnitOfWork
         for (StockPriceHistory history : stockPriceHistories) {
           lines.add(stockPriceHistoriesToPSV(history));
         }
-        writeAllLines(directoryPath + "stockPriceHistories.txt", lines);
+        writeAllLines(dataDirectory.resolve("stockPriceHistories.txt"), lines);
       }
 
       if (transactions != null)
@@ -115,7 +115,7 @@ public class FileUnitOfWork implements UnitOfWork
         for (Transaction transaction : transactions) {
           lines.add(transactionsToPSV(transaction));
         }
-        writeAllLines(directoryPath + "transactions.txt", lines);
+        writeAllLines(dataDirectory.resolve("transactions.txt"), lines);
       }
     }
 
@@ -127,11 +127,11 @@ public class FileUnitOfWork implements UnitOfWork
     clearData();
   }
   
-  private List<String> readAllLines(String filePath)
+  private List<String> readAllLines(Path filePath)
   {
     try
     {
-      return Files.readAllLines(Paths.get(filePath));
+      return Files.readAllLines(filePath);
     }
     catch(IOException e)
     {
@@ -140,11 +140,11 @@ public class FileUnitOfWork implements UnitOfWork
     }
   }
 
-  private void writeAllLines(String filePath, List<String> lines)
+  private void writeAllLines(Path filePath, List<String> lines)
   {
     try
     {
-      Files.write(Paths.get(filePath), lines);
+      Files.write(filePath, lines);
     }
     catch (IOException e)
     {
@@ -240,7 +240,7 @@ public class FileUnitOfWork implements UnitOfWork
 
   private <T> void loadEntities(String fileName, List<T> targetList, Function<String, T> parser) {
     targetList.clear();
-    String filePath = directoryPath + fileName;
+    Path filePath = dataDirectory.resolve(fileName);
     List<String> lines = readAllLines(filePath);
     for (String line : lines) {
       if (line != null && !line.trim().isEmpty()) {
@@ -289,28 +289,38 @@ public class FileUnitOfWork implements UnitOfWork
     transactions = null;
   }
 
-  private void ensureFilesExist(String directoryPath)
+  private void ensureFilesExist()
   {
     final Logger logger = Logger.getInstance();
     List<String> files = List.of(
-        directoryPath + "stocks.txt",
-        directoryPath + "ownedStocks.txt",
-        directoryPath + "portfolios.txt",
-        directoryPath + "stockPriceHistories.txt",
-        directoryPath + "transactions.txt");
+        "stocks.txt",
+        "ownedStocks.txt",
+        "portfolios.txt",
+        "stockPriceHistories.txt",
+        "transactions.txt");
 
-    for (String path : files)
+    try
     {
+      Files.createDirectories(dataDirectory);
+    }
+    catch (IOException e)
+    {
+      logger.log(LoggerLevel.ERROR, "Failed to create data directory: " + dataDirectory, e);
+      throw new RuntimeException("Failed to create data directory: " + dataDirectory, e);
+    }
+
+    for (String fileName : files)
+    {
+      Path filePath = dataDirectory.resolve(fileName);
       try
       {
-        Path filepath = Paths.get(path);
-        if (!Files.exists(filepath))
-          Files.createFile(filepath);
+        if (!Files.exists(filePath))
+          Files.createFile(filePath);
       }
       catch (IOException e)
       {
-        logger.log(LoggerLevel.ERROR, "Failed to create file: " + path);
-        throw new RuntimeException("Failed to create file: " + path, e);
+        logger.log(LoggerLevel.ERROR, "Failed to create file: " + filePath);
+        throw new RuntimeException("Failed to create file: " + filePath, e);
       }
     }
   }
