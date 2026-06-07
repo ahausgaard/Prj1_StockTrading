@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MVVM Pattern Præsentation</title>
+    <style>
+      /* Minimalistisk CSS */
+      :root {
+        --bg-color: #ffffff;
+        --text-color: #222222;
+        --muted-color: #666666;
+        --code-bg: #f4f4f4;
+        --accent-color: #db2777; /* Pink/Rose accentfarve */
+      }
+
+      body, html {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        background-color: var(--bg-color);
+        color: var(--text-color);
+        overflow: hidden;
+      }
+
+      .slide {
+        display: none;
+        width: 100vw;
+        height: 100vh;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        box-sizing: border-box;
+        padding: 4rem 10vw;
+      }
+
+      .slide.active {
+        display: flex;
+      }
+
+      h1 {
+        font-size: 4rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+        letter-spacing: -0.05em;
+      }
+
+      h2 {
+        font-size: 2.5rem;
+        font-weight: 600;
+        margin-bottom: 2rem;
+        color: var(--text-color);
+        border-bottom: 3px solid var(--accent-color);
+        padding-bottom: 10px;
+        display: inline-block;
+      }
+
+      h3 {
+        font-size: 1.5rem;
+        font-weight: 500;
+        color: var(--muted-color);
+        margin-top: 0;
+        margin-bottom: 3rem;
+      }
+
+      p, li {
+        font-size: 1.5rem;
+        line-height: 1.6;
+        margin-bottom: 1rem;
+        color: #444;
+      }
+
+      ul {
+        padding-left: 2rem;
+      }
+
+      pre {
+        background-color: var(--code-bg);
+        padding: 1.5rem;
+        border-radius: 4px;
+        font-family: "JetBrains Mono", Consolas, monospace;
+        font-size: 1.2rem;
+        overflow-x: auto;
+        width: 100%;
+        border-left: 4px solid var(--accent-color);
+        margin-top: 1rem;
+      }
+
+      code {
+        font-family: inherit;
+      }
+
+      .grid-2 {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 4rem;
+        width: 100%;
+      }
+
+      .quote {
+        font-size: 2.5rem;
+        font-style: italic;
+        color: var(--muted-color);
+        border-left: 8px solid var(--code-bg);
+        padding-left: 2rem;
+        margin: 2rem 0;
+      }
+
+      /* UML Diagram Styling */
+      .uml-container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        margin-top: 3rem;
+        background: #fdf2f8;
+        padding: 2rem;
+        border-radius: 8px;
+        border: 1px solid #fbcfe8;
+      }
+      .uml-box {
+        background: white;
+        border: 3px solid var(--accent-color);
+        padding: 1.5rem;
+        text-align: center;
+        border-radius: 8px;
+        width: 25%;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+      }
+      .uml-box h4 { margin: 0 0 1rem 0; font-size: 1.5rem; color: var(--accent-color); }
+      .uml-box p { font-size: 1rem; margin: 0; }
+      .uml-arrow {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        flex: 1;
+        color: var(--muted-color);
+        font-weight: bold;
+      }
+
+      /* Navigation hint */
+      .hint {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        font-size: 0.9rem;
+        color: #aaa;
+      }
+    </style>
+</head>
+<body>
+
+<div class="hint">Brug piletasterne &rarr;</div>
+
+<div class="slide active">
+    <h1>MVVM Pattern</h1>
+    <h3>Model-View-ViewModel: Skab testbare brugergrænseflader</h3>
+    <p style="color: #aaa; margin-top: 4rem;">Software Design og Test</p>
+</div>
+
+<div class="slide">
+    <h2>Del A: Hvad er formålet med MVVM?</h2>
+    <div class="quote">
+        "Ingen Code-Behind. UI er dumt, logikken er smart."
+    </div>
+    <p>MVVM er et arkitekturmønster primært brugt til brugergrænseflader (f.eks. WPF, .NET MAUI, Blazor og moderne Web Frameworks).</p>
+    <p><strong>Formålet er adskillelse:</strong> At afkoble den grafiske brugerflade (View) totalt fra forretningslogikken og dataene (Model). Dette gøres ved at introducere en mellemmand (ViewModel).</p>
+</div>
+
+<div class="slide">
+    <h2>Mønstrets UML-struktur</h2>
+    <p>Den vigtigste regel i MVVM er <strong>afhængigheds-retningen</strong>. Viewet kender ViewModel. ViewModel kender Model. <em>Men pilen peger aldrig tilbage!</em></p>
+
+    <div class="uml-container">
+        <div class="uml-box">
+            <h4>View</h4>
+            <p>XAML / HTML<br>Knapper, tekstfelter.</p>
+        </div>
+        <div class="uml-arrow">
+            <span>DataBinding &rarr;</span>
+            <span>&larr; INotifyPropertyChanged</span>
+            <span>Commands &rarr;</span>
+        </div>
+        <div class="uml-box" style="border-color: #0ea5e9;">
+            <h4 style="color: #0ea5e9;">ViewModel</h4>
+            <p>Præsentationslogik.<br>Holder tilstanden.</p>
+        </div>
+        <div class="uml-arrow">
+            <span>Opdaterer &rarr;</span>
+            <span>&larr; Events/Data</span>
+        </div>
+        <div class="uml-box" style="border-color: #10b981;">
+            <h4 style="color: #10b981;">Model</h4>
+            <p>Forretningslogik.<br>Databaser, domæne.</p>
+        </div>
+    </div>
+</div>
+
+<div class="slide">
+    <h2>Filosofien bag: DataBinding & Magi</h2>
+    <p>Hvordan kommunikerer de, når ViewModel ikke må kende View'et (f.eks. ikke må skrive `txtNavn.Text = "Jens"`)?</p>
+    <ul>
+        <li><strong>DataBinding:</strong> View'et "abonnerer" på properties i ViewModel.</li>
+        <li><strong>Observer Pattern i praksis:</strong> ViewModel implementerer et interface (ofte <code>INotifyPropertyChanged</code>). Når en variabel ændres i logikken, råber ViewModel "Hej, Navn er opdateret!".</li>
+        <li>View'et hører dette og opdaterer automatisk skærmen.</li>
+    </ul>
+</div>
+
+<div class="slide">
+    <h2>Del B: Hvordan ser det ud UDEN MVVM?</h2>
+    <p>Før MVVM brugte man "Code-Behind" (Smart UI anti-mønsteret).</p>
+    <pre><code>// MainWindow.xaml.cs (View og Logik er blandet sammen!)
+public partial class MainWindow : Window {
+
+    // Knap-klik er direkte bundet til UI'et
+    private void btnGem_Click(object sender, RoutedEventArgs e) {
+        // Tæt kobling til UI-elementer
+        string kundenavn = txtNavn.Text;
+
+        // Direkte databasekald i UI laget
+        Database.Gem(kundenavn);
+
+        lblStatus.Text = "Gemt!";
+    }
+}</code></pre>
+    <p><strong>Konsekvens:</strong> Det er umuligt at Unit Teste `btnGem_Click`, for testen vil forsøge at åbne et rigtigt grafisk vindue.</p>
+</div>
+
+<div class="slide">
+    <h2>Del B: Implementering af ViewModel</h2>
+    <p>Vi flytter logikken over i en ren C#-klasse. Den har <em>ingen</em> referencer til UI-komponenter.</p>
+    <pre><code>// KundeViewModel.cs (Uddrag)
+public class KundeViewModel : INotifyPropertyChanged {
+    private string _navn;
+
+    // En property som Viewet kan "Binde" til
+    public string Navn {
+        get => _navn;
+        set {
+            _navn = value;
+            // Magien! Giver Viewet besked om at opdatere skærmen
+            OnPropertyChanged(nameof(Navn));
+        }
+    }
+
+    // Kommando i stedet for Click-event
+    public ICommand GemCommand { get; }
+
+    public KundeViewModel() {
+        GemCommand = new RelayCommand(GemKunde);
+    }
+}</code></pre>
+</div>
+
+<div class="slide">
+    <h2>Del B: Implementering af View (XAML)</h2>
+    <p>View'et består nu næsten kun af opsætning (markup). Al "Code-Behind" er slettet.</p>
+    <pre><code>&lt;!-- MainWindow.xaml --&gt;
+&lt;Window.DataContext&gt;
+    &lt;local:KundeViewModel /&gt; &lt;!-- Her sættes koblingen --&gt;
+&lt;/Window.DataContext&gt;
+
+&lt;StackPanel&gt;
+    &lt;!-- Databinding af tekst. "UpdateSourceTrigger" opdaterer live --&gt;
+    &lt;TextBox Text="{Binding Navn, UpdateSourceTrigger=PropertyChanged}" /&gt;
+
+    &lt;!-- Tekstblokken reagerer automatisk på OnPropertyChanged --&gt;
+    &lt;TextBlock Text="{Binding Navn}" /&gt;
+
+    &lt;!-- Binder til ICommand i stedet for at bruge Click="btn_Click" --&gt;
+    &lt;Button Command="{Binding GemCommand}" Content="Gem Kunde" /&gt;
+&lt;/StackPanel&gt;</code></pre>
+</div>
+
+<div class="slide">
+    <h2>Hvorfor er dette så genialt til Test?</h2>
+    <div class="grid-2">
+        <div>
+            <h3 style="color: var(--accent-color)">Problem før MVVM:</h3>
+            <p>Hvis vi ville teste logikken bag en "Gem"-knap, skulle test-suiten klikke på en rigtig skærm. Det kaldes E2E (End-to-End) test og er utroligt langsomt og ustabilt.</p>
+        </div>
+        <div>
+            <h3 style="color: var(--accent-color)">Løsning med MVVM:</h3>
+            <p>ViewModel er bare en almindelig C# klasse! I vores Unit Test kan vi bare skrive:</p>
+            <p style="font-family: monospace; font-size: 1.1rem; background: #eee; padding: 10px;">
+                var vm = new KundeViewModel();<br>
+                vm.Navn = "Jens";<br>
+                vm.GemCommand.Execute(null);<br>
+                Assert.True(db.ErGemt);
+            </p>
+        </div>
+    </div>
+</div>
+
+<div class="slide">
+    <h2>Den kritiske vinkel: Faldgruben ved MVVM</h2>
+    <p><strong>Boilerplate-kode og kompleksitet.</strong></p>
+    <p>MVVM kræver utrolig meget opsætning (boilerplate). For blot at vise en tekst og trykke på en knap, skal man oprette implementeringer af `INotifyPropertyChanged`, `ICommand` og skrive bindings i XAML.</p>
+    <p>Til en lille, simpel applikation, hvor man bare vil beregne to tal, kan MVVM føles som over-engineering. Men i det øjeblik appen skal vedligeholdes af et team eller unit-testes, betaler det sig selv hjem tifoldigt.</p>
+</div>
+
+<div class="slide">
+    <h2>Opsummering</h2>
+    <ul>
+        <li><strong>Separation:</strong> Afkobler UI fra Forretningslogik. Designeren kan arbejde i XAML, mens koderen arbejder i C# ViewModel.</li>
+        <li><strong>DataBinding:</strong> Er hjertet i MVVM. Ændringer flyder automatisk mellem UI og logik via Observer-mønstret (INotifyPropertyChanged).</li>
+        <li><strong>Testbarhed:</strong> Fordi ViewModel ikke indeholder UI-elementer, kan alt, hvad brugeren gør, unit-testes lynhurtigt i isolation.</li>
+    </ul>
+    <h3 style="margin-top: 4rem;">Spørgsmål?</h3>
+</div>
+
+<script>
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.slide');
+
+    function showSlide(index) {
+        slides.forEach((slide, i) => {
+            slide.classList.remove('active');
+            if (i === index) {
+                slide.classList.add('active');
+            }
+        });
+    }
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'ArrowDown') {
+            e.preventDefault();
+            if (currentSlide < slides.length - 1) {
+                currentSlide++;
+                showSlide(currentSlide);
+            }
+        } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+            e.preventDefault();
+            if (currentSlide > 0) {
+                currentSlide--;
+                showSlide(currentSlide);
+            }
+        }
+    });
+</script>
+</body>
+</html>

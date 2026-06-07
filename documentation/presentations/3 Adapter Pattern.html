@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adapter Pattern Præsentation</title>
+    <style>
+      /* Minimalistisk CSS */
+      :root {
+        --bg-color: #ffffff;
+        --text-color: #222222;
+        --muted-color: #666666;
+        --code-bg: #f4f4f4;
+        --accent-color: #d97706; /* En ny accentfarve (rav/orange) til dette emne */
+      }
+
+      body, html {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        background-color: var(--bg-color);
+        color: var(--text-color);
+        overflow: hidden;
+      }
+
+      .slide {
+        display: none;
+        width: 100vw;
+        height: 100vh;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        box-sizing: border-box;
+        padding: 4rem 10vw;
+      }
+
+      .slide.active {
+        display: flex;
+      }
+
+      h1 {
+        font-size: 4rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+        letter-spacing: -0.05em;
+      }
+
+      h2 {
+        font-size: 2.5rem;
+        font-weight: 600;
+        margin-bottom: 2rem;
+        color: var(--text-color);
+        border-bottom: 3px solid var(--accent-color);
+        padding-bottom: 10px;
+        display: inline-block;
+      }
+
+      h3 {
+        font-size: 1.5rem;
+        font-weight: 500;
+        color: var(--muted-color);
+        margin-top: 0;
+        margin-bottom: 3rem;
+      }
+
+      p, li {
+        font-size: 1.5rem;
+        line-height: 1.6;
+        margin-bottom: 1rem;
+        color: #444;
+      }
+
+      ul {
+        padding-left: 2rem;
+      }
+
+      pre {
+        background-color: var(--code-bg);
+        padding: 1.5rem;
+        border-radius: 4px;
+        font-family: "JetBrains Mono", Consolas, monospace;
+        font-size: 1.2rem;
+        overflow-x: auto;
+        width: 100%;
+        border-left: 4px solid var(--accent-color);
+        margin-top: 1rem;
+      }
+
+      code {
+        font-family: inherit;
+      }
+
+      .quote {
+        font-size: 2.5rem;
+        font-style: italic;
+        color: var(--muted-color);
+        border-left: 8px solid var(--code-bg);
+        padding-left: 2rem;
+        margin: 2rem 0;
+      }
+
+      /* Navigation hint */
+      .hint {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        font-size: 0.9rem;
+        color: #aaa;
+      }
+    </style>
+</head>
+<body>
+
+<div class="hint">Brug piletasterne &rarr;</div>
+
+<div class="slide active">
+    <h1>Adapter Pattern</h1>
+    <h3>Få inkompatible systemer til at tale sammen</h3>
+    <p style="color: #aaa; margin-top: 4rem;">Software Design og Test</p>
+</div>
+
+<div class="slide">
+    <h2>Hvilket problem løser dette?</h2>
+    <ul>
+        <li><strong>Inkompatible interfaces:</strong> Du har to systemer, der burde kunne arbejde sammen, men deres metoder og datatyper passer ikke overens.</li>
+        <li><strong>Tredjeparts-biblioteker:</strong> Du vil bruge et eksternt API, men du har ikke adgang til kildekoden, så du kan ikke bare rette det til at passe ind i dit system.</li>
+        <li><strong>Legacy Kode:</strong> Du opgraderer et system, men er nødt til at understøtte en gammel kernekomponent, som ikke må ændres.</li>
+    </ul>
+</div>
+
+<div class="slide">
+    <h2>Filosofien bag</h2>
+    <div class="quote">
+        "Sæt et mellemstik i stikkontakten."
+    </div>
+    <p><strong>Wrapper-tankegangen.</strong></p>
+    <p>Tænk på en rejseadapter: Dit danske stik passer ikke i den amerikanske stikkontakt. Du bygger ikke en ny bærbar, og du trækker ikke nye ledninger i væggen. Du sætter blot en adapter imellem, der oversætter formattet.</p>
+</div>
+
+<div class="slide">
+    <h2>Løsningen i praksis (Designet)</h2>
+    <p>Vi opdeler systemet i tre roller:</p>
+    <ul>
+        <li><strong>Target (Interfacet):</strong> Sådan som *vores* system forventer at snakke med komponenten.</li>
+        <li><strong>Adaptee (Den Inkompatible):</strong> Den tredjeparts-klasse, vi gerne vil bruge, men som taler "det forkerte sprog".</li>
+        <li><strong>Adapter:</strong> Klassen i midten. Den implementerer *Target* og kalder i smug på *Adaptee*.</li>
+    </ul>
+</div>
+
+<div class="slide">
+    <h2>Eksempel: Med Design (Det rene snit)</h2>
+    <pre><code>// 1. Vores Target Interface (Vores systems sprog)
+public interface IBetaling {
+    void GennemførBetaling(decimal beløb);
+}
+
+// 2. Adaptee: 3. parts API (Kan ikke rettes!)
+public class StripeExternalAPI {
+    public void Charge(float amount, string currency) { /* ... */ }
+}
+
+// 3. Adapteren (Oversætteren)
+public class StripeAdapter : IBetaling {
+    private StripeExternalAPI _stripe = new StripeExternalAPI();
+
+    public void GennemførBetaling(decimal beløb) {
+        // Oversætter fra vores system til eksternt format
+        _stripe.Charge((float)beløb, "DKK");
+    }
+}</code></pre>
+</div>
+
+<div class="slide">
+    <h2>Hvordan ser det ud UDEN designet?</h2>
+    <p>Uden adapteren bløder tredjepartskoden direkte ind i vores forretningslogik.</p>
+    <pre><code>public class OrdreBehandler {
+    // TÆT KOBLING: Vores forretningslogik er låst til Stripe!
+    private StripeExternalAPI _api = new StripeExternalAPI();
+
+    public void AfslutOrdre(Ordre ordre) {
+        // Kernesystemet tvinges til at kende eksterne datatyper
+        float stripeAmount = (float)ordre.TotalPris;
+        string valuta = "DKK";
+
+        _api.Charge(stripeAmount, valuta);
+    }
+}</code></pre>
+</div>
+
+<div class="slide">
+    <h2>Konsekvensen</h2>
+    <p><strong>Vendor Lock-in og Skrøbelighed.</strong></p>
+    <p>Hvad sker der, hvis Stripe ændrer deres metode fra <code>Charge()</code> til <code>ProcessPayment()</code> i næste version? Eller hvad hvis virksomheden beslutter at skifte til PayPal?</p>
+    <p>U

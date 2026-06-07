@@ -4,6 +4,7 @@ import business.commands.BuySharesRequest;
 import business.commands.SellSharesRequest;
 import business.services.trading.BuySharesService;
 import business.services.trading.SellSharesService;
+import business.services.trading.fees.FeeStrategy;
 import domain.Portfolio;
 import domain.Stock;
 import domain.TransactionType;
@@ -27,6 +28,7 @@ public class SellSharesServiceTest
   private SellSharesService service;
   private BuySharesService buyService;
   private Logger logger;
+  private FeeStrategy feeStrategy;
 
   @BeforeEach void setup()
   {
@@ -44,8 +46,8 @@ public class SellSharesServiceTest
     BuySharesRequest buyRequest = new BuySharesRequest(
         portfolioDAO.getMockPortfolio().getId(), "PNDORA", 10);
 
-    buyService = new BuySharesService(stockDAO, ownedStockDAO, portfolioDAO, transactionDAO, uow);
-    service = new SellSharesService(ownedStockDAO, stockDAO, uow, transactionDAO, portfolioDAO);
+    buyService = new BuySharesService(stockDAO, ownedStockDAO, portfolioDAO, transactionDAO, uow, feeStrategy);
+    service = new SellSharesService(ownedStockDAO, stockDAO, uow, transactionDAO, portfolioDAO, feeStrategy);
 
     buyService.buyShares(buyRequest);
   }

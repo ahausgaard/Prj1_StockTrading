@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Observer Pattern Præsentation</title>
+    <style>
+      /* Minimalistisk CSS */
+      :root {
+        --bg-color: #ffffff;
+        --text-color: #222222;
+        --muted-color: #666666;
+        --code-bg: #f4f4f4;
+      }
+
+      body, html {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        background-color: var(--bg-color);
+        color: var(--text-color);
+        overflow: hidden; /* Forhindrer scroll, fungerer som slides */
+      }
+
+      .slide {
+        display: none;
+        width: 100vw;
+        height: 100vh;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        box-sizing: border-box;
+        padding: 4rem 10vw;
+      }
+
+      .slide.active {
+        display: flex;
+      }
+
+      h1 {
+        font-size: 4rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+        letter-spacing: -0.05em;
+      }
+
+      h2 {
+        font-size: 2.5rem;
+        font-weight: 600;
+        margin-bottom: 2rem;
+        color: var(--text-color);
+      }
+
+      h3 {
+        font-size: 1.5rem;
+        font-weight: 500;
+        color: var(--muted-color);
+        margin-top: 0;
+        margin-bottom: 3rem;
+      }
+
+      p, li {
+        font-size: 1.5rem;
+        line-height: 1.6;
+        margin-bottom: 1rem;
+        color: #444;
+      }
+
+      ul {
+        padding-left: 2rem;
+      }
+
+      pre {
+        background-color: var(--code-bg);
+        padding: 1.5rem;
+        border-radius: 4px;
+        font-family: "JetBrains Mono", Consolas, monospace;
+        font-size: 1.2rem;
+        overflow-x: auto;
+        width: 100%;
+        border-left: 4px solid #ccc;
+      }
+
+      code {
+        font-family: inherit;
+      }
+
+      .quote {
+        font-size: 2.5rem;
+        font-style: italic;
+        color: var(--muted-color);
+        border-left: 8px solid var(--code-bg);
+        padding-left: 2rem;
+        margin: 2rem 0;
+      }
+
+      /* Navigation hint */
+      .hint {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        font-size: 0.9rem;
+        color: #aaa;
+      }
+    </style>
+</head>
+<body>
+
+<div class="hint">Brug piletasterne &rarr;</div>
+
+<div class="slide active">
+    <h1>Observer Pattern</h1>
+    <h3>Fra tæt kobling til reaktivt design</h3>
+    <p style="color: #aaa; margin-top: 4rem;">Software Design og Test</p>
+</div>
+
+<div class="slide">
+    <h2>Hvilket problem løser dette?</h2>
+    <ul>
+        <li><strong>Tæt kobling:</strong> Klasser er afhængige af for mange andre specifikke klasser.</li>
+        <li><strong>Polling ("Er vi der snart?"):</strong> UI'et tjekker konstant om data har ændret sig. Det spilder CPU og ressourcer.</li>
+        <li><strong>Spaghetti-kode:</strong> Hver gang vi tilføjer en ny feature, skal vi rette i kerne-logikken.</li>
+    </ul>
+</div>
+
+<div class="slide">
+    <h2>Filosofien bag</h2>
+    <div class="quote">
+        "Don't call us, we'll call you."
+    </div>
+    <p><strong>The Hollywood Principle (Publisher/Subscriber)</strong></p>
+    <p>Vi vender ansvaret om: Det er udgiveren (Subject), der råber op når der er nyt, i stedet for at lytterne (Observers) skal spørge.</p>
+</div>
+
+<div class="slide">
+    <h2>Løsningen i praksis (Designet)</h2>
+    <p>Vi opdeler systemet i to roller:</p>
+    <ul>
+        <li><strong>Subject:</strong> Har dataen. Kender kun til en liste af abstrakte lyttere.</li>
+        <li><strong>Observer:</strong> Lytter efter ændringer via et standardiseret interface.</li>
+    </ul>
+    <p>Når data ændres, løber Subject listen igennem og kalder `Update()`.</p>
+</div>
+
+<div class="slide">
+    <h2>Eksempel: Med Design (Løs Kobling)</h2>
+    <pre><code>public interface IObserver {
+    void Update(int temperatur);
+}
+
+public class Vejrstation {
+    private List&lt;IObserver&gt; _lyttere = new List&lt;IObserver&gt;();
+
+    public void Tilføj(IObserver lytter) => _lyttere.Add(lytter);
+
+    public void NytVejr(int grader) {
+        // Råber ud til alle, uden at kende deres type!
+        foreach (var lytter in _lyttere) {
+            lytter.Update(grader);
+        }
+    }
+}</code></pre>
+</div>
+
+<div class="slide">
+    <h2>Hvordan ser det ud UDEN designet?</h2>
+    <pre><code>public class Vejrstation {
+    // TÆT KOBLING: Vejrstationen kender specifikke klasser
+    private EmailTjeneste _email = new EmailTjeneste();
+    private SmsTjeneste _sms = new SmsTjeneste();
+    private DashboardUI _ui = new DashboardUI();
+
+    public void NytVejr(int grader) {
+        _email.SendMail(grader);
+        _sms.SendSms(grader);
+        _ui.Opdater(grader);
+    }
+}</code></pre>
+</div>
+
+<div class="slide">
+    <h2>Konsekvensen</h2>
+    <p>Uden mønsteret bryder vi <strong>Open/Closed Principle</strong>.</p>
+    <p>Hvis vi skal tilføje en mobil-app notifikation, skal vi åbne <code>Vejrstation.cs</code> og rette i koden. Hvis email-serveren crasher, risikerer vi at hele vejr-opdateringen fejler.</p>
+</div>
+
+<div class="slide">
+    <h2>Gør det koden mere testbar?</h2>
+    <p><strong>Ja! Massivt.</strong></p>
+    <p>Fordi <code>Vejrstation</code> kun afhænger af <code>IObserver</code> interfacet, kan vi teste den helt isoleret:</p>
+    <ul>
+        <li>Vi opretter en <strong>MockObserver</strong> i vores Unit Test.</li>
+        <li>Vi kalder <code>NytVejr(25)</code>.</li>
+        <li>Vi verificerer simpelt: Blev Mock'en kaldt én gang med værdien 25?</li>
+        <li>Ingen afhængigheder til rigtige emails eller databaser!</li>
+    </ul>
+</div>
+
+<div class="slide">
+    <h2>Den kritiske vinkel: Faldgruber</h2>
+    <p><strong>The Lapsed Listener Problem (Memory Leaks)</strong></p>
+    <p>Hvis en UI-komponent lukkes, men glemmer at afmelde sig fra Subject (via `Remove()`/`Detach()`), bliver Subject ved med at holde en reference til komponenten i hukommelsen.</p>
+    <p>Dette forhindrer Garbage Collectoren i at rydde op.</p>
+</div>
+
+<div class="slide">
+    <h2>Opsummering</h2>
+    <ul>
+        <li><strong>Decoupling:</strong> Subject og Observers kan ændres uafhængigt.</li>
+        <li><strong>Reaktivitet:</strong> Systemet reagerer kun på ændringer, ingen ineffektiv polling.</li>
+        <li><strong>Testbarhed:</strong> Nem isolation og mocking af lyttere.</li>
+    </ul>
+    <h3 style="margin-top: 4rem;">Spørgsmål?</h3>
+</div>
+
+<script>
+    // Simpel JavaScript til at skifte slides
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.slide');
+
+    function showSlide(index) {
+        slides.forEach((slide, i) => {
+            slide.classList.remove('active');
+            if (i === index) {
+                slide.classList.add('active');
+            }
+        });
+    }
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'ArrowDown') {
+            e.preventDefault();
+            if (currentSlide < slides.length - 1) {
+                currentSlide++;
+                showSlide(currentSlide);
+            }
+        } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+            e.preventDefault();
+            if (currentSlide > 0) {
+                currentSlide--;
+                showSlide(currentSlide);
+            }
+        }
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trelagsarkitektur & Transaction Script</title>
+    <style>
+      /* Minimalistisk CSS */
+      :root {
+        --bg-color: #ffffff;
+        --text-color: #222222;
+        --muted-color: #666666;
+        --code-bg: #f4f4f4;
+        --accent-color: #005088;
+      }
+
+      body, html {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        background-color: var(--bg-color);
+        color: var(--text-color);
+        overflow: hidden;
+      }
+
+      .slide {
+        display: none;
+        width: 100vw;
+        height: 100vh;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        box-sizing: border-box;
+        padding: 4rem 10vw;
+      }
+
+      .slide.active {
+        display: flex;
+      }
+
+      h1 {
+        font-size: 4rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+        letter-spacing: -0.05em;
+      }
+
+      h2 {
+        font-size: 2.5rem;
+        font-weight: 600;
+        margin-bottom: 2rem;
+        color: var(--text-color);
+        border-bottom: 3px solid var(--accent-color);
+        padding-bottom: 10px;
+        display: inline-block;
+      }
+
+      h3 {
+        font-size: 1.5rem;
+        font-weight: 500;
+        color: var(--muted-color);
+        margin-top: 0;
+        margin-bottom: 3rem;
+      }
+
+      p, li {
+        font-size: 1.5rem;
+        line-height: 1.6;
+        margin-bottom: 1rem;
+        color: #444;
+      }
+
+      ul {
+        padding-left: 2rem;
+      }
+
+      pre {
+        background-color: var(--code-bg);
+        padding: 1.5rem;
+        border-radius: 4px;
+        font-family: "JetBrains Mono", Consolas, monospace;
+        font-size: 1.2rem;
+        overflow-x: auto;
+        width: 100%;
+        border-left: 4px solid var(--accent-color);
+        margin-top: 1rem;
+      }
+
+      code {
+        font-family: inherit;
+      }
+
+      .grid-2 {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 4rem;
+        width: 100%;
+      }
+
+      /* Navigation hint */
+      .hint {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        font-size: 0.9rem;
+        color: #aaa;
+      }
+
+      .layer-box {
+        border: 2px solid var(--accent-color);
+        padding: 1rem;
+        margin-bottom: 1rem;
+        text-align: center;
+        font-weight: bold;
+        border-radius: 8px;
+        background-color: #f8fafc;
+      }
+    </style>
+</head>
+<body>
+
+<div class="hint">Brug piletasterne &rarr;</div>
+
+<div class="slide active">
+    <h1>Trelagsarkitektur & Transaction Script</h1>
+    <h3>Struktur og logik i moderne software</h3>
+    <p style="color: #aaa; margin-top: 4rem;">Software Design og Test</p>
+</div>
+
+<div class="slide">
+    <h2>To begreber, ét system</h2>
+    <div class="grid-2">
+        <div>
+            <h3 style="color: var(--accent-color)">1. Trelagsarkitektur</h3>
+            <p><strong>Det makroskopiske mønster.</strong></p>
+            <p>Bestemmer <em>hvor</em> koden skal bo. Deler applikationen op i ansvarsområder (UI, Logik, Database).</p>
+        </div>
+        <div>
+            <h3 style="color: var(--accent-color)">2. Transaction Script</h3>
+            <p><strong>Det mikroskopiske mønster.</strong></p>
+            <p>Bestemmer <em>hvordan</em> forretningslogikken skrives. Én metode håndterer én fuld handling fra start til slut.</p>
+        </div>
+    </div>
+</div>
+
+<div class="slide">
+    <h2>Trelagsarkitektur (Separation of Concerns)</h2>
+    <div style="width: 60%; margin: 0 auto;">
+        <div class="layer-box">1. Præsentationslag (UI / API)<br><span style="font-size: 1rem; font-weight: normal;">Viser data og tager imod input. Ingen logik!</span></div>
+        <div style="text-align: center;">&darr;</div>
+        <div class="layer-box" style="background-color: #e0f2fe;">2. Logiklag (Business Logic)<br><span style="font-size: 1rem; font-weight: normal;">Hjernen. Her bor vores Transaction Scripts.</span></div>
+        <div style="text-align: center;">&darr;</div>
+        <div class="layer-box">3. Datalag (Data Access Layer)<br><span style="font-size: 1rem; font-weight: normal;">Gemmer og henter fra databasen via SQL/ORM.</span></div>
+    </div>
+</div>
+
+<div class="slide">
+    <h2>Filosofien bag Transaction Script</h2>
+    <p>I stedet for komplekse objekt-netværk, er logikken <strong>procedural</strong>.</p>
+    <ul>
+        <li>En brugerhandling = Ét script (én metode).</li>
+        <li>Scriptet orkestrerer hele processen: Validering &rarr; Beregning &rarr; Gem &rarr; Returner svar.</li>
+        <li><strong>Fordel:</strong> Lynhurtigt at udvikle, nemt at læse fra top til bund.</li>
+    </ul>
+</div>
+
+<div class="slide">
+    <h2>Løsningen i kode: Trelag + Script</h2>
+    <pre><code>// 1. UI Laget (Modtager anmodningen)
+public IActionResult KøbVare(int vareId, int kundeId) {
+    _ordreService.GennemførKøb(vareId, kundeId); // Kalder BLL
+    return View("Succes");
+}
+
+// 2. Logik Laget (Transaction Script)
+public void GennemførKøb(int vareId, int kundeId) {
+    var vare = _db.HentVare(vareId);           // Spørg DAL
+    if (vare.Lager == 0) throw new Exception(); // Validering
+
+    decimal pris = vare.Pris * 1.25m;           // Beregning (Moms)
+
+    _db.TrækPenge(kundeId, pris);               // Spørg DAL
+    _db.OpdaterLager(vareId, -1);               // Spørg DAL
+}</code></pre>
+</div>
+
+<div class="slide">
+    <h2>Hvordan ser det ud UDEN designet?</h2>
+    <p>Anti-mønsteret: <strong>The Smart UI / Pærevælling</strong>.</p>
+    <pre><code>// Alt ligger direkte i knap-klikket i brugergrænsefladen!
+private void btnKøb_Click(object sender, EventArgs e) {
+    // 1. Opret SQL Forbindelse i UI
+    SqlConnection conn = new SqlConnection("Server=myServer...");
+
+    // 2. Skriv rå logik og SQL sammen
+    SqlCommand cmd = new SqlCommand("SELECT Lager FROM Varer...", conn);
+    int lager = (int)cmd.ExecuteScalar();
+
+    if (lager > 0) {
+        decimal pris = int.Parse(txtPris.Text) * 1.25m;
+        // Kør ny SQL for at opdatere...
+        MessageBox.Show("Købt for " + pris);
+    }
+}</code></pre>
+</div>
+
+<div class="slide">
+    <h2>Konsekvensen af "Smart UI"</h2>
+    <ul>
+        <li><strong>Umuligt at genbruge:</strong> Hvad hvis vi vil lave en mobil-app? Logikken er låst fast i hjemmesidens knap.</li>
+        <li><strong>Sikkerhedsrisiko:</strong> SQL-forbindelser direkte fra præsentationslaget er farligt.</li>
+        <li><strong>Test-mareridt:</strong> Hvordan skriver man en Unit Test for et knap-klik, der kræver en live database?</li>
+    </ul>
+</div>
+
+<div class="slide">
+    <h2>Testbarhed i Trelagsarkitektur</h2>
+    <p>Ved at adskille lagene kan vi <strong>isolere vores logik</strong> i testfasen.</p>
+    <p>I vores test af <code>GennemførKøb()</code> transaction-scriptet, bytter vi det rigtige Datalag ud med et <strong>Mock Datalag</strong>.</p>
+    <ul>
+        <li>Vi tester, at momsen regnes rigtigt, uden at røre en rigtig database.</li>
+        <li>Koden bliver robust, og tests kører på millisekunder.</li>
+    </ul>
+</div>
+
+<div class="slide">
+    <h2>Den kritiske vinkel: Faldgruben</h2>
+    <p>Transaction Script er fantastisk til simple systemer, men fejler når kompleksiteten stiger.</p>
+    <div class="grid-2">
+        <div>
+            <h3>Problemet:</h3>
+            <p><strong>Kode-duplikering.</strong> Hvis vi har 10 forskellige scripts, der skal beregne moms eller VIP-rabatter, ender vi med at kopiere/indsætte logik overalt. Det giver "Spaghetti-kode".</p>
+        </div>
+        <div>
+            <h3>Løsningen:</h3>
+            <p>Når systemet bliver for stort, skifter man typisk Transaction Script ud med en <strong>Domain Model</strong>, hvor logikken kapsles ind i intelligente objekter (f.eks. en `Ordre` klasse).</p>
+        </div>
+    </div>
+</div>
+
+<div class="slide">
+    <h2>Opsummering</h2>
+    <ul>
+        <li><strong>Trelagsarkitektur:</strong> Deler koden i UI, Logik og Data. Giver overblik og genbrugelighed.</li>
+        <li><strong>Transaction Script:</strong> Simpel, procedural organisering af logik. Én handling = ét script.</li>
+        <li><strong>Testbarhed:</strong> Lagdelingen tillader os at mocke databasen og teste forretningsreglerne isoleret.</li>
+    </ul>
+    <h3 style="margin-top: 4rem;">Spørgsmål?</h3>
+</div>
+
+<script>
+    // Simpel JavaScript til at skifte slides
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.slide');
+
+    function showSlide(index) {
+        slides.forEach((slide, i) => {
+            slide.classList.remove('active');
+            if (i === index) {
+                slide.classList.add('active');
+            }
+        });
+    }
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'ArrowDown') {
+            e.preventDefault();
+            if (currentSlide < slides.length - 1) {
+                currentSlide++;
+                showSlide(currentSlide);
+            }
+        } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+            e.preventDefault();
+            if (currentSlide > 0) {
+                currentSlide--;
+                showSlide(currentSlide);
+            }
+        }
+    });
+</script>
+</body>
+</html>

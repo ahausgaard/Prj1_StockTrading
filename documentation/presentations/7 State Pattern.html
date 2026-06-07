@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>State Pattern Præsentation</title>
+    <style>
+      /* Minimalistisk CSS */
+      :root {
+        --bg-color: #ffffff;
+        --text-color: #222222;
+        --muted-color: #666666;
+        --code-bg: #f4f4f4;
+        --accent-color: #7c3aed; /* Lilla / Violet accentfarve */
+      }
+
+      body, html {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        background-color: var(--bg-color);
+        color: var(--text-color);
+        overflow: hidden;
+      }
+
+      .slide {
+        display: none;
+        width: 100vw;
+        height: 100vh;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        box-sizing: border-box;
+        padding: 4rem 10vw;
+      }
+
+      .slide.active {
+        display: flex;
+      }
+
+      h1 {
+        font-size: 4rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+        letter-spacing: -0.05em;
+      }
+
+      h2 {
+        font-size: 2.5rem;
+        font-weight: 600;
+        margin-bottom: 2rem;
+        color: var(--text-color);
+        border-bottom: 3px solid var(--accent-color);
+        padding-bottom: 10px;
+        display: inline-block;
+      }
+
+      h3 {
+        font-size: 1.5rem;
+        font-weight: 500;
+        color: var(--muted-color);
+        margin-top: 0;
+        margin-bottom: 3rem;
+      }
+
+      p, li {
+        font-size: 1.5rem;
+        line-height: 1.6;
+        margin-bottom: 1rem;
+        color: #444;
+      }
+
+      ul {
+        padding-left: 2rem;
+      }
+
+      pre {
+        background-color: var(--code-bg);
+        padding: 1.5rem;
+        border-radius: 4px;
+        font-family: "JetBrains Mono", Consolas, monospace;
+        font-size: 1.2rem;
+        overflow-x: auto;
+        width: 100%;
+        border-left: 4px solid var(--accent-color);
+        margin-top: 1rem;
+      }
+
+      code {
+        font-family: inherit;
+      }
+
+      .grid-2 {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 4rem;
+        width: 100%;
+      }
+
+      .quote {
+        font-size: 2.5rem;
+        font-style: italic;
+        color: var(--muted-color);
+        border-left: 8px solid var(--code-bg);
+        padding-left: 2rem;
+        margin: 2rem 0;
+      }
+
+      /* UML Diagram Styling */
+      .uml-wrapper {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background: #f3e8ff;
+        padding: 2rem;
+        border-radius: 8px;
+        border: 1px solid #d8b4fe;
+        margin-top: 2rem;
+      }
+      .uml-top {
+        display: flex;
+        width: 100%;
+        justify-content: space-around;
+        align-items: center;
+      }
+      .uml-box {
+        background: white;
+        border: 3px solid var(--accent-color);
+        padding: 1.5rem;
+        text-align: center;
+        border-radius: 8px;
+        width: 250px;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+      }
+      .uml-box h4 { margin: 0 0 1rem 0; font-size: 1.5rem; color: var(--accent-color); }
+      .uml-box p { font-size: 1rem; margin: 0; font-family: monospace; }
+
+      .uml-arrow {
+        display: flex;
+        align-items: center;
+        font-weight: bold;
+        color: var(--muted-color);
+      }
+      .uml-bottom {
+        display: flex;
+        justify-content: space-around;
+        width: 80%;
+        margin-top: 3rem;
+        position: relative;
+      }
+      .uml-bottom::before {
+        content: "↑ Implementerer";
+        position: absolute;
+        top: -30px;
+        color: var(--muted-color);
+        font-weight: bold;
+      }
+      .uml-box-concrete {
+        background: white;
+        border: 2px dashed var(--accent-color);
+        padding: 1rem;
+        border-radius: 8px;
+        text-align: center;
+      }
+
+      /* Navigation hint */
+      .hint {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        font-size: 0.9rem;
+        color: #aaa;
+      }
+    </style>
+</head>
+<body>
+
+<div class="hint">Brug piletasterne &rarr;</div>
+
+<div class="slide active">
+    <h1>State Pattern</h1>
+    <h3>Sikker tilstandsstyring uden if/else-spaghetti</h3>
+    <p style="color: #aaa; margin-top: 4rem;">Software Design og Test</p>
+</div>
+
+<div class="slide">
+    <h2>Del A: Hvad er formålet med mønstret?</h2>
+    <div class="quote">
+        "Lad objektet skifte adfærd, når dets interne tilstand ændres."
+    </div>
+    <p>State Pattern er et adfærdsmønster. Det bruges til at bygge <strong>State Machines (Tilstandsmaskiner)</strong>.</p>
+    <p>Formålet er at isolere den logik, der hører til en bestemt tilstand (f.eks. om et dokument er en "Kladde", "Til Godkendelse" eller "Udgivet"). Objektet ser ud til at skifte sin klasse undervejs i programmet.</p>
+</div>
+
+<div class="slide">
+    <h2>Mønstrets UML-struktur</h2>
+    <div class="uml-wrapper">
+        <div class="uml-top">
+            <div class="uml-box" style="border-color: #333;">
+                <h4 style="color: #333;">Context (Ordre)</h4>
+                <p>IState _tilstand;<br><br>Request() {<br>&nbsp;&nbsp;_tilstand.Handle();<br>}</p>
+            </div>
+            <div class="uml-arrow">
+                &rarr; <i>Har en</i> &rarr;
+            </div>
+            <div class="uml-box">
+                <h4>&lt;&lt;Interface&gt;&gt; IState</h4>
+                <p>Handle();</p>
+            </div>
+        </div>
+        <div class="uml-bottom">
+            <div class="uml-box-concrete">State A<br><span style="font-size: 0.8rem">(F.eks. Oprettet)</span></div>
+            <div class="uml-box-concrete">State B<br><span style="font-size: 0.8rem">(F.eks. Betalt)</span></div>
+            <div class="uml-box-concrete">State C<br><span style="font-size: 0.8rem">(F.eks. Afsendt)</span></div>
+        </div>
+    </div>
+</div>
+
+<div class="slide">
+    <h2>Del B: Hvordan ser det ud UDEN mønstret?</h2>
+    <p>Uden State Pattern ender klasser med komplekse livscyklusser med gigantiske, uoverskuelige <code>switch</code>-statements, der bryder <em>Single Responsibility Principle</em>.</p>
+    <pre><code>public class Ordre {
+    private string _tilstand = "Oprettet"; // "Betalt", "Afsendt"
+
+    public void Betal() {
+        if (_tilstand == "Oprettet") {
+            // Godkend betaling
+            _tilstand = "Betalt";
+        }
+        else if (_tilstand == "Betalt") {
+            throw new Exception("Ordren er allerede betalt!");
+        }
+        else if (_tilstand == "Afsendt") {
+            throw new Exception("Ordren er allerede afsendt!");
+        }
+    }
+}</code></pre>
+</div>
+
+<div class="slide">
+    <h2>Del B: Implementering - Interfacet og Context</h2>
+    <p>Vi starter med at definere Interfacet og give vores Ordre (Context) en tilstand, den kan ændre på.</p>
+    <pre><code>// Interfacet: Definerer hvad man kan gøre med ordren
+public interface IOrdreTilstand {
+    void Betal(Ordre context);
+    void Afsend(Ordre context);
+}
+
+// Context: Selve Ordren
+public class Ordre {
+    public IOrdreTilstand Tilstand { get; set; }
+
+    public Ordre() {
+        Tilstand = new NyOrdreTilstand(); // Start-tilstand
+    }
+
+    // Ordren delegerer arbejdet videre til sin nuværende tilstand!
+    public void Betal() => Tilstand.Betal(this);
+    public void Afsend() => Tilstand.Afsend(this);
+}</code></pre>
+</div>
+
+<div class="slide">
+    <h2>Del B: Implementering - Konkrete Tilstande</h2>
+    <p>Vi bryder nu if-statements op i separate, testbare klasser.</p>
+    <pre><code>public class NyOrdreTilstand : IOrdreTilstand {
+    public void Betal(Ordre context) {
+        Console.WriteLine("Betaling modtaget.");
+        // Tilstanden udskifter sig selv med den næste tilstand!
+        context.Tilstand = new BetaltTilstand();
+    }
+
+    public void Afsend(Ordre context) {
+        throw new Exception("Kan ikke afsende ubetalt ordre!");
+    }
+}
+
+public class BetaltTilstand : IOrdreTilstand {
+    public void Betal(Ordre context) => throw new Exception("Allerede betalt.");
+
+    public void Afsend(Ordre context) {
+        Console.WriteLine("Pakken er sendt afsted.");
+        context.Tilstand = new AfsendtTilstand();
+    }
+}</code></pre>
+</div>
+
+<div class="slide">
+    <h2>Hvor og hvordan er det brugt? (Del B)</h2>
+    <div class="grid-2">
+        <div>
+            <h3 style="color: var(--accent-color)">Anvendelsesscenarier</h3>
+            <ul>
+                <li><strong>E-commerce Ordrer:</strong> (Ny &rarr; Betalt &rarr; Plukket &rarr; Sendt).</li>
+                <li><strong>Spiludvikling (AI):</strong> En fjende-NPC skifter mellem <code>IdleState</code>, <code>ChaseState</code>, og <code>AttackState</code> afhængigt af afstanden til spilleren.</li>
+                <li><strong>Hardware/Automater:</strong> En kaffemaskine, en hæveautomat eller en elevator.</li>
+            </ul>
+        </div>
+        <div>
+            <h3 style="color: var(--accent-color)">Gør det koden mere testbar?</h3>
+            <p><strong>Ja!</strong> I stedet for at skrive én massiv Unit Test for `Ordre`-klassen, kan vi nu skrive små, isolerede tests for `NyOrdreTilstand` og bekræfte, at den kaster de rigtige exceptions og skifter til den korrekte næste tilstand.</p>
+        </div>
+    </div>
+</div>
+
+<div class="slide">
+    <h2>Filosofien: Polymorfi frem for Betingelser</h2>
+    <p>State-mønstret udnytter objektorienteret programmerings kernekoncept: <strong>Polymorfi</strong> (at objekter kan antage flere former).</p>
+    <p>I stedet for at koden spørger: <em>"Hvilken tilstand er jeg i, og hvad skal jeg så gøre?"</em>, siger Context blot: <em>"Gør dit job!"</em> til den aktuelle tilstandsobjekt.</p>
+    <p>Det gør det ekstremt nemt at overholde <strong>Open/Closed Principle</strong>. Hvis vi får brug for en <code>RefunderetTilstand</code>, opretter vi bare en ny klasse – vi behøver ikke rette i den eksisterende kode.</p>
+</div>
+
+<div class="slide">
+    <h2>Den kritiske vinkel: Faldgruben</h2>
+    <p><strong>Eksplosion af klasser og Over-engineering.</strong></p>
+    <p>Hvis dit system kun har to tilstande (f.eks. "Tændt" / "Slukket"), og logikken for at skifte er meget simpel (f.eks. ændre en boolean), er State-mønstret "overkill". Det tvinger dig til at oprette adskillige klasser for at gøre noget, der kunne være løst med en simpel <code>if</code>-sætning.</p>
+    <p>Brug det kun, når tilstandene dikterer markant forskellig <em>adfærd</em>.</p>
+</div>
+
+<div class="slide">
+    <h2>Opsummering</h2>
+    <ul>
+        <li><strong>Mønstret:</strong> Erstatter komplekse if/else og switch-statements med dedikerede State-klasser.</li>
+        <li><strong>State Machine:</strong> Context-objektet har en reference til den aktuelle IState, og State-klasserne orkestrerer selv overgangen til næste tilstand.</li>
+        <li><strong>Vedligeholdelse:</strong> Ny adfærd tilføjes som nye klasser (Open/Closed), hvilket gør koden ren og isoleret.</li>
+    </ul>
+    <h3 style="margin-top: 4rem;">Spørgsmål?</h3>
+</div>
+
+<script>
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.slide');
+
+    function showSlide(index) {
+        slides.forEach((slide, i) => {
+            slide.classList.remove('active');
+            if (i === index) {
+                slide.classList.add('active');
+            }
+        });
+    }
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'ArrowDown') {
+            e.preventDefault();
+            if (currentSlide < slides.length - 1) {
+                currentSlide++;
+                showSlide(currentSlide);
+            }
+        } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+            e.preventDefault();
+            if (currentSlide > 0) {
+                currentSlide--;
+                showSlide(currentSlide);
+            }
+        }
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Strategy Pattern Præsentation</title>
+    <style>
+      /* Minimalistisk CSS */
+      :root {
+        --bg-color: #ffffff;
+        --text-color: #222222;
+        --muted-color: #666666;
+        --code-bg: #f4f4f4;
+        --accent-color: #0891b2; /* Cyan/Teal accentfarve */
+      }
+
+      body, html {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        background-color: var(--bg-color);
+        color: var(--text-color);
+        overflow: hidden;
+      }
+
+      .slide {
+        display: none;
+        width: 100vw;
+        height: 100vh;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        box-sizing: border-box;
+        padding: 4rem 10vw;
+      }
+
+      .slide.active {
+        display: flex;
+      }
+
+      h1 {
+        font-size: 4rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+        letter-spacing: -0.05em;
+      }
+
+      h2 {
+        font-size: 2.5rem;
+        font-weight: 600;
+        margin-bottom: 2rem;
+        color: var(--text-color);
+        border-bottom: 3px solid var(--accent-color);
+        padding-bottom: 10px;
+        display: inline-block;
+      }
+
+      h3 {
+        font-size: 1.5rem;
+        font-weight: 500;
+        color: var(--muted-color);
+        margin-top: 0;
+        margin-bottom: 3rem;
+      }
+
+      p, li {
+        font-size: 1.5rem;
+        line-height: 1.6;
+        margin-bottom: 1rem;
+        color: #444;
+      }
+
+      ul {
+        padding-left: 2rem;
+      }
+
+      pre {
+        background-color: var(--code-bg);
+        padding: 1.5rem;
+        border-radius: 4px;
+        font-family: "JetBrains Mono", Consolas, monospace;
+        font-size: 1.2rem;
+        overflow-x: auto;
+        width: 100%;
+        border-left: 4px solid var(--accent-color);
+        margin-top: 1rem;
+      }
+
+      code {
+        font-family: inherit;
+      }
+
+      .grid-2 {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 4rem;
+        width: 100%;
+      }
+
+      .quote {
+        font-size: 2.5rem;
+        font-style: italic;
+        color: var(--muted-color);
+        border-left: 8px solid var(--code-bg);
+        padding-left: 2rem;
+        margin: 2rem 0;
+      }
+
+      /* UML Diagram Styling */
+      .uml-wrapper {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background: #ecfeff;
+        padding: 2rem;
+        border-radius: 8px;
+        border: 1px solid #a5f3fc;
+        margin-top: 2rem;
+      }
+      .uml-top {
+        display: flex;
+        width: 100%;
+        justify-content: space-around;
+        align-items: center;
+      }
+      .uml-box {
+        background: white;
+        border: 3px solid var(--accent-color);
+        padding: 1.5rem;
+        text-align: center;
+        border-radius: 8px;
+        width: 250px;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+      }
+      .uml-box h4 { margin: 0 0 1rem 0; font-size: 1.5rem; color: var(--accent-color); }
+      .uml-box p { font-size: 1rem; margin: 0; font-family: monospace; }
+
+      .uml-arrow {
+        display: flex;
+        align-items: center;
+        font-weight: bold;
+        color: var(--muted-color);
+      }
+      .uml-bottom {
+        display: flex;
+        justify-content: space-around;
+        width: 80%;
+        margin-top: 3rem;
+        position: relative;
+      }
+      .uml-bottom::before {
+        content: "↑ Implementerer";
+        position: absolute;
+        top: -30px;
+        color: var(--muted-color);
+        font-weight: bold;
+      }
+      .uml-box-concrete {
+        background: white;
+        border: 2px dashed var(--accent-color);
+        padding: 1rem;
+        border-radius: 8px;
+        text-align: center;
+      }
+
+      /* Navigation hint */
+      .hint {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        font-size: 0.9rem;
+        color: #aaa;
+      }
+    </style>
+</head>
+<body>
+
+<div class="hint">Brug piletasterne &rarr;</div>
+
+<div class="slide active">
+    <h1>Strategy Pattern</h1>
+    <h3>Indkapsling og udskiftning af algoritmer</h3>
+    <p style="color: #aaa; margin-top: 4rem;">Software Design og Test</p>
+</div>
+
+<div class="slide">
+    <h2>Del A: Hvad er formålet med mønstret?</h2>
+    <div class="quote">
+        "Definer en familie af algoritmer, indkapsl dem, og gør dem udskiftelige."
+    </div>
+    <p>Strategy Pattern er et adfærdsmønster, der lader dig ændre en klasses adfærd eller algoritme <em>at runtime</em>.</p>
+    <p>I stedet for at en klasse (Context) implementerer flere forskellige måder at gøre en ting på (f.eks. beregne fragt, sortere lister, eller komprimere filer), delegerer den ansvaret for <em>hvordan</em> opgaven løses til et selvstændigt strategi-objekt.</p>
+</div>
+
+<div class="slide">
+    <h2>Mønstrets UML-struktur</h2>
+    <div class="uml-wrapper">
+        <div class="uml-top">
+            <div class="uml-box" style="border-color: #333;">
+                <h4 style="color: #333;">Context (Kurv)</h4>
+                <p>IStrategy _strategi;<br><br>Execute() {<br>&nbsp;&nbsp;_strategi.DoWork();<br>}</p>
+            </div>
+            <div class="uml-arrow">
+                &rarr; <i>Har en</i> &rarr;
+            </div>
+            <div class="uml-box">
+                <h4>&lt;&lt;Interface&gt;&gt; IStrategy</h4>
+                <p>DoWork();</p>
+            </div>
+        </div>
+        <div class="uml-bottom">
+            <div class="uml-box-concrete">Strategy A<br><span style="font-size: 0.8rem">(GLS Fragt)</span></div>
+            <div class="uml-box-concrete">Strategy B<br><span style="font-size: 0.8rem">(PostNord)</span></div>
+            <div class="uml-box-concrete">Strategy C<br><span style="font-size: 0.8rem">(Afhentning)</span></div>
+        </div>
+    </div>
+</div>
+
+<div class="slide">
+    <h2>Del B: Hvordan ser det ud UDEN mønstret?</h2>
+    <p>Ligesom med State-mønstret resulterer manglen på Strategy typisk i gigantiske <code>switch</code>-statements (Brud på <em>Open/Closed Principle</em>).</p>
+    <pre><code>public class Indkøbskurv {
+    public decimal BeregnFragt(string kurer, double vægt) {
+        if (kurer == "GLS") {
+            return 39.00m + (decimal)vægt * 2;
+        }
+        else if (kurer == "PostNord") {
+            return 49.00m + (decimal)vægt * 3;
+        }
+        else if (kurer == "Afhentning") {
+            return 0.00m;
+        }
+        throw new Exception("Ukendt kurer!");
+    }
+}</code></pre>
+</div>
+
+<div class="slide">
+    <h2>Del B: Implementering - Strategierne</h2>
+    <p>Vi indkapsler hver beregningsalgoritme i sin egen klasse via et fælles interface.</p>
+    <pre><code>// Interfacet: Definerer handlingen
+public interface IFragtStrategi {
+    decimal Beregn(double vægt);
+}
+
+// Konkrete strategier (Algoritmerne)
+public class GlsStrategi : IFragtStrategi {
+    public decimal Beregn(double vægt) => 39.00m + (decimal)vægt * 2;
+}
+
+public class PostNordStrategi : IFragtStrategi {
+    public decimal Beregn(double vægt) => 49.00m + (decimal)vægt * 3;
+}</code></pre>
+</div>
+
+<div class="slide">
+    <h2>Del B: Implementering - Context (Brugen)</h2>
+    <p>Vores Indkøbskurv (Context) kender nu kun til interfacet. Den får "indsprøjtet" strategien udefra (Ofte via <em>Dependency Injection</em>).</p>
+    <pre><code>public class Indkøbskurv {
+    private IFragtStrategi _fragtStrategi;
+
+    // Strategien kan sættes eller skiftes at runtime
+    public void SætFragtStrategi(IFragtStrategi strategi) {
+        _fragtStrategi = strategi;
+    }
+
+    public decimal UdregnTotal(double vægt) {
+        // Kurven ved ikke HVORDAN fragten beregnes, den beder bare om det
+        decimal fragtPris = _fragtStrategi.Beregn(vægt);
+        return 100.00m + fragtPris; // Varepris + Fragt
+    }
+}</code></pre>
+</div>
+
+<div class="slide">
+    <h2>Hvor og hvordan er det brugt? (Del B)</h2>
+    <div class="grid-2">
+        <div>
+            <h3 style="color: var(--accent-color)">Anvendelsesscenarier</h3>
+            <ul>
+                <li><strong>Betalingsgateways:</strong> Brugeren vælger <code>PayPalStrategy</code>, <code>CreditCardStrategy</code> eller <code>MobilePayStrategy</code> ved udtjekning.</li>
+                <li><strong>Sortering (LINQ i C#):</strong> <code>.OrderBy(x => x.Navn)</code>. Den underliggende algoritme kan skiftes mellem QuickSort eller MergeSort baseret på listens størrelse.</li>
+                <li><strong>Filkomprimering:</strong> Gem som .ZIP, .RAR, .TAR.</li>
+            </ul>
+        </div>
+        <div>
+            <h3 style="color: var(--accent-color)">Testbarhed</h3>
+            <p>Strategier er drømmen for en tester. Algoritmerne for at beregne PostNord-fragt kan unit-testes totalt uafhængigt af indkøbskurven. Samtidig kan indkøbskurven testes isoleret ved hjælp af en simpel <code>MockFragtStrategi</code>.</p>
+        </div>
+    </div>
+</div>
+
+<div class="slide">
+    <h2>Klassisk spørgsmål: Strategy vs. State</h2>
+    <p>Deres UML-diagrammer er næsten identiske! Men forskellen ligger i <strong>Intentionen</strong>:</p>
+    <div class="grid-2">
+        <div style="background: #f0fdf4; padding: 1.5rem; border: 1px solid #bbf7d0; border-radius: 8px;">
+            <h4 style="margin-top: 0;">State Pattern</h4>
+            <p>Tilstandsobjektet skifter <em>sig selv</em> ud. Objektet reagerer på, hvad der sker med det (f.eks. Ordren bliver betalt, så <em>State</em> skifter koden til `BetaltTilstand`). <strong>Lukket økosystem.</strong></p>
+        </div>
+        <div style="background: #eff6ff; padding: 1.5rem; border: 1px solid #bfdbfe; border-radius: 8px;">
+            <h4 style="margin-top: 0;">Strategy Pattern</h4>
+            <p>Strategiobjektet skifter aldrig sig selv. Det er <em>Klienten</em> (brugeren/systemet), der udefra bestemmer: "Brug denne strategi nu". <strong>Udskiftelige værktøjer.</strong></p>
+        </div>
+    </div>
+</div>
+
+<div class="slide">
+    <h2>Den kritiske vinkel: Faldgruben</h2>
+    <p><strong>Klienten skal kende implementeringerne.</strong></p>
+    <p>For at kunne udskifte en strategi, er brugeren (f.eks. UI'et) ofte nødt til at kende til de forskellige strategier for at kunne give den rigtige videre til Context.</p>
+    <p>Dette overfører ofte logikken om *hvilken* strategi der skal vælges op i brugergrænsefladen, hvilket skaber en anden form for tæt kobling. Dette løses typisk ved at kombinere Strategy-mønstret med et <strong>Factory-mønster</strong>, der tager sig af at oprette den korrekte strategi.</p>
+</div>
+
+<div class="slide">
+    <h2>Opsummering</h2>
+    <ul>
+        <li><strong>Composition over Inheritance:</strong> Giver adfærd til en klasse via en variabel, i stedet for at skulle nedarve fra klassen for at ændre metoder.</li>
+        <li><strong>Open/Closed Principle:</strong> Nye algoritmer kræver blot en ny klasse, uden at rette i eksisterende kode.</li>
+        <li><strong>Klient-drevet:</strong> Det er brugeren eller systemet udefra, der bestemmer, hvilken "værktøjs-strategi" der er bedst til opgaven lige nu.</li>
+    </ul>
+    <h3 style="margin-top: 4rem;">Spørgsmål?</h3>
+</div>
+
+<script>
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.slide');
+
+    function showSlide(index) {
+        slides.forEach((slide, i) => {
+            slide.classList.remove('active');
+            if (i === index) {
+                slide.classList.add('active');
+            }
+        });
+    }
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'ArrowDown') {
+            e.preventDefault();
+            if (currentSlide < slides.length - 1) {
+                currentSlide++;
+                showSlide(currentSlide);
+            }
+        } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+            e.preventDefault();
+            if (currentSlide > 0) {
+                currentSlide--;
+                showSlide(currentSlide);
+            }
+        }
+    });
+</script>
+</body>
+</html>

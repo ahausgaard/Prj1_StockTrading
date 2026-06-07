@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Software Testing Præsentation</title>
+  <style>
+    /* Minimalistisk CSS */
+    :root {
+      --bg-color: #ffffff;
+      --text-color: #222222;
+      --muted-color: #666666;
+      --code-bg: #f4f4f4;
+      --accent-color: #059669; /* Grøn (Test Passed) accentfarve */
+    }
+
+    body, html {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      overflow: hidden;
+    }
+
+    .slide {
+      display: none;
+      width: 100vw;
+      height: 100vh;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      box-sizing: border-box;
+      padding: 4rem 10vw;
+    }
+
+    .slide.active {
+      display: flex;
+    }
+
+    h1 {
+      font-size: 4rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      letter-spacing: -0.05em;
+    }
+
+    h2 {
+      font-size: 2.5rem;
+      font-weight: 600;
+      margin-bottom: 2rem;
+      color: var(--text-color);
+      border-bottom: 3px solid var(--accent-color);
+      padding-bottom: 10px;
+      display: inline-block;
+    }
+
+    h3 {
+      font-size: 1.5rem;
+      font-weight: 500;
+      color: var(--muted-color);
+      margin-top: 0;
+      margin-bottom: 3rem;
+    }
+
+    p, li {
+      font-size: 1.5rem;
+      line-height: 1.6;
+      margin-bottom: 1rem;
+      color: #444;
+    }
+
+    ul {
+      padding-left: 2rem;
+    }
+
+    pre {
+      background-color: var(--code-bg);
+      padding: 1.5rem;
+      border-radius: 4px;
+      font-family: "JetBrains Mono", Consolas, monospace;
+      font-size: 1.2rem;
+      overflow-x: auto;
+      width: 100%;
+      border-left: 4px solid var(--accent-color);
+      margin-top: 1rem;
+    }
+
+    code {
+      font-family: inherit;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      width: 100%;
+    }
+
+    .quote {
+      font-size: 2.5rem;
+      font-style: italic;
+      color: var(--muted-color);
+      border-left: 8px solid var(--code-bg);
+      padding-left: 2rem;
+      margin: 2rem 0;
+    }
+
+    /* V-Model specifik styling */
+    .v-model-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      width: 100%;
+      margin-top: 2rem;
+    }
+    .v-side { display: flex; flex-direction: column; gap: 1rem; width: 45%; }
+    .v-box {
+      padding: 1rem;
+      border: 2px solid var(--accent-color);
+      border-radius: 8px;
+      text-align: center;
+      font-weight: bold;
+      background-color: #f0fdf4;
+    }
+    .v-box.left { border-color: #3b82f6; background-color: #eff6ff; }
+
+    /* Navigation hint */
+    .hint {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      font-size: 0.9rem;
+      color: #aaa;
+    }
+  </style>
+</head>
+<body>
+
+<div class="hint">Brug piletasterne &rarr;</div>
+
+<div class="slide active">
+  <h1>Software Testing</h1>
+  <h3>Del A: V-Modellen & Del B: Teststrategier</h3>
+  <p style="color: #aaa; margin-top: 4rem;">Software Design og Test</p>
+</div>
+
+<div class="slide">
+  <h2>Del A: Hvad er V-modellen?</h2>
+  <div class="quote">
+    "For hver udviklingsfase findes en tilsvarende testfase."
+  </div>
+  <p>V-modellen er en udvidelse af vandfaldsmodellen.</p>
+  <p>I stedet for at udvikle alt først, og teste det hele til sidst, planlægger man tests parallelt med designet. Den venstre side (Design/Verifikation) spejler direkte den højre side (Test/Validering).</p>
+</div>
+
+<div class="slide">
+  <h2>V-modellens Niveauer</h2>
+  <div class="v-model-container">
+    <div class="v-side">
+      <h3 style="text-align: center; color: #3b82f6;">Venstre: Design (Verifikation)</h3>
+      <div class="v-box left">1. Kravspecifikation (Requirements)</div>
+      <div class="v-box left">2. System Arkitektur</div>
+      <div class="v-box left">3. Komponent Design</div>
+      <div class="v-box left">4. Modul / Logik Design</div>
+    </div>
+    <div style="font-size: 3rem; margin-top: 10rem;">&xrarr;</div>
+    <div class="v-side">
+      <h3 style="text-align: center; color: var(--accent-color);">Højre: Test (Validering)</h3>
+      <div class="v-box">1. Accepttest (Gør systemet det kunden vil?)</div>
+      <div class="v-box">2. Systemtest (Virker hele systemet samlet?)</div>
+      <div class="v-box">3. Integrationstest (Snakker modulerne sammen?)</div>
+      <div class="v-box">4. Unit Test (Virker den enkelte metode?)</div>
+    </div>
+  </div>
+  <p style="text-align: center; width: 100%; margin-top: 2rem; font-weight: bold;">I bunden af V'et finder vi selve KODNINGEN.</p>
+</div>
+
+<div class="slide">
+  <h2>Del B: Unit Test vs. Integration Test</h2>
+  <div class="grid-2">
+    <div>
+      <h3 style="color: var(--accent-color)">Unit Test (Enhedstest)</h3>
+      <ul>
+        <li>Tester den mindste del af koden (f.eks. én metode).</li>
+        <li><strong>Total isolation:</strong> Ingen rigtige databaser, filer eller eksterne API'er.</li>
+        <li>Lynhurtig. Eksekverer på millisekunder.</li>
+      </ul>
+    </div>
+    <div>
+      <h3 style="color: var(--accent-color)">Integration Test</h3>
+      <ul>
+        <li>Tester om to eller flere moduler fungerer <em>sammen</em>.</li>
+        <li><strong>Interaktion:</strong> F.eks. Forretningslogik der snakker med en rigtig database via Entity Framework.</li>
+        <li>Langsommere, men fanger konfigurationsfejl.</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="slide">
+  <h2>Strategi for Unit Test: Grænseværdier</h2>
+  <p>En af de stærkeste strategier til unit test kaldes <strong>Boundary Value Analysis</strong> (Grænseværdianalyse).</p>
+  <p>I stedet for at teste tilfældige tal, fokuserer vi på kanterne af de lovlige værdier (Equivalence Partitions), fordi det er her, programmører oftest laver fejl (f.eks. `<` i stedet for `<=`).</p>
+  <p><em>Eksempel: Adgang forbudt under 18 år.</em><br>
+    Vi tester grænserne: <strong>17</strong> (skal fejle), <strong>18</strong> (skal lykkes), og <strong>19</strong> (skal lykkes).</p>
+</div>
+
+<div class="slide">
+  <h2>Eksempel: Unit Test i kode (Boundary Value)</h2>
+  <pre><code>// Logikken vi tester
+public bool IsEligibleForDiscount(int age) {
+    return age >= 65; // Pensionistrabat
+}
+
+// Testen (XUnit syntax)
+[Theory]
+[InlineData(64, false)] // Lige under grænsen
+[InlineData(65, true)]  // Lige på grænsen
+[InlineData(66, true)]  // Lige over grænsen
+public void Discount_CalculatesBoundaryValuesCorrectly(int age, bool expected) {
+    // Arrange
+    var calculator = new DiscountCalculator();
+
+    // Act
+    bool result = calculator.IsEligibleForDiscount(age);
+
+    // Assert
+    Assert.Equal(expected, result);
+}</code></pre>
+</div>
+
+<div class="slide">
+  <h2>Strategi for Integration Test: Bottom-up</h2>
+  <p>Når vi skal teste hvordan moduler snakker sammen, kan vi bruge en <strong>Bottom-Up</strong> (Nedefra-og-op) strategi.</p>
+  <ul>
+    <li>Vi starter med at teste de underste lag i vores arkitektur (f.eks. Database Repositories).</li>
+    <li>Når vi er sikre på, at databasen virker, bygger vi Forretningslogikken (BLL) ovenpå og tester dem samlet.</li>
+    <li><strong>Fordel:</strong> Vi fanger database/infrastruktur-fejl tidligt, før de forplanter sig til UI'et. Mocks er unødvendige for det nederste lag.</li>
+  </ul>
+</div>
+
+<div class="slide">
+  <h2>Eksempel: Integration Test i kode</h2>
+  <p>Her tester vi Service-laget SAMMEN MED en ægte (ofte in-memory eller test-specifik) database.</p>
+  <pre><code>[Fact]
+public void GennemførKøb_TrækkerPengeFraRigtigDatabase() {
+    // Arrange: Sæt rigtig DB op (In-Memory eller Test Container)
+    var dbContext = new TestDbContext("IntegrationTestDB");
+    dbContext.Kunder.Add(new Kunde { Id = 1, Saldo = 500 });
+    dbContext.SaveChanges();
+
+    // Inject rigtig DB i servicen
+    var ordreService = new OrdreService(dbContext);
+
+    // Act
+    ordreService.GennemførKøb(kundeId: 1, pris: 200);
+
+    // Assert: Tjek databasen for ændringer
+    var opdateretKunde = dbContext.Kunder.Find(1);
+    Assert.Equal(300, opdateretKunde.Saldo);
+}</code></pre>
+</div>
+
+<div class="slide">
+  <h2>Den kritiske vinkel: Faldgruben</h2>
+  <p><strong>Overlapping Tests (Test-duplikering)</strong></p>
+  <p>Mange teams ender med at teste nøjagtig det samme i deres Integration Tests som de allerede har gjort i deres Unit Tests. Dette fører til en utrolig langsom test-suite (ofte kaldet "The Ice Cream Cone anti-pattern").</p>
+  <p><em>Husk reglen:</em> Unit tests tjekker al din komplekse forretningslogik (ifs, loops, math). Integration tests tjekker KUN, om "ledningerne" mellem systemerne er sat rigtigt sammen.</p>
+</div>
+
+<div class="slide">
+  <h2>Opsummering</h2>
+  <ul>
+    <li><strong>V-modellen:</strong> Forbinder krav og design på venstre side med konkrete testfaser på højre side.</li>
+    <li><strong>Unit Test Strategi:</strong> Brug Boundary Value Analysis til effektivt at teste kerne-logikken isoleret.</li>
+    <li><strong>Integration Test Strategi:</strong> Brug Bottom-up til at sikre, at dit Data Access lag og logiklag kan snakke fejlfrit sammen.</li>
+  </ul>
+  <h3 style="margin-top: 4rem;">Spørgsmål?</h3>
+</div>
+
+<script>
+  let currentSlide = 0;
+  const slides = document.querySelectorAll('.slide');
+
+  function showSlide(index) {
+    slides.forEach((slide, i) => {
+      slide.classList.remove('active');
+      if (i === index) {
+        slide.classList.add('active');
+      }
+    });
+  }
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'ArrowDown') {
+      e.preventDefault();
+      if (currentSlide < slides.length - 1) {
+        currentSlide++;
+        showSlide(currentSlide);
+      }
+    } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+      e.preventDefault();
+      if (currentSlide > 0) {
+        currentSlide--;
+        showSlide(currentSlide);
+      }
+    }
+  });
+</script>
+</body>
+</html>
