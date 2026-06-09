@@ -115,7 +115,7 @@
 </div>
 
 <div class="slide">
-    <h2>Hvad problem løser State?</h2>
+    <h2>Hvilket problem løser State Pattern?</h2>
     <ul>
         <li><strong>Massive if/switch statements</strong> — Hver tilstand har egen logik</li>
         <li><strong>Uoverskueligt flow</strong> — Vanskelig at følge tilstands-overgange</li>
@@ -132,11 +132,7 @@
     -->
 </div>
 
-<div class="slide">
-    <h2>Filosofien bag</h2>
-    <div class="quote">
-        "Lad objektet skifte adfærd når dets interne tilstand ændres."
-    </div>
+
     <!--
         State Pattern handler om at modellere systemers tilstandsovergange (State Machines).
 
@@ -146,7 +142,6 @@
         Hver tilstand styrer sin egen adfærd og hvem den kan blive.
         Objektet delegerer arbejdet til sin aktuelle tilstand.
     -->
-</div>
 
 <div class="slide">
     <h2>Design</h2>
@@ -160,7 +155,7 @@
     <p style="color: #666; margin-bottom: 1.5rem;"><strong>Concrete States: src/business/stockmarket/simulation/</strong></p>
     <!--
         I dit projekt:
-        - StockState interface: defineerer hvad alle states skal gøre (updatePrice, getState)
+        - StockState interface: definerer hvad alle states skal gøre (updatePrice, getState)
         - LiveStock: Context - holder på currentState og delegerer updatePrice()
         - GrowingState, DecliningState, SteadyState, BankruptState: Konkrete tilstands-klasser
 
@@ -171,23 +166,35 @@
 
 <div class="slide">
     <h2>Hvordan ser det ud UDEN State?</h2>
-    <pre><code>// Massive if/else uden State Pattern
+    <pre><code>// Massive switch uden State Pattern - uoverskueligt!
 public class LiveStockBad {
     public void updatePrice() {
-        if (currentState == StockState.LIVE) {
-            price = price.multiply(new BigDecimal("1.03")); // +3%
+        switch (currentState) {
+            case LIVE:
+                price = price.multiply(new BigDecimal("1.03")); // +3%
+                break;
+            case GROWING:
+                price = price.multiply(new BigDecimal("1.05")); // +5%
+                if (volatility > 0.3) currentState = StockState.DECLINING;
+                if (volatility < 0.05) currentState = StockState.STEADY;
+                break;
+            case DECLINING:
+                price = price.multiply(new BigDecimal("0.95")); // -5%
+                if (volatility < 0.15) currentState = StockState.STEADY;
+                if (price.compareTo(BigDecimal.valueOf(0.5)) < 0)
+                    currentState = StockState.BANKRUPT;
+                break;
+            case STEADY:
+                price = price.multiply(new BigDecimal("1.01")); // +1%
+                if (volatility > 0.2) currentState = StockState.GROWING;
+                if (volatility < -0.2) currentState = StockState.DECLINING;
+                break;
+            case BANKRUPT:
+                price = BigDecimal.ZERO; // Kan aldrig vende tilbage
+                break;
+            default:
+                throw new IllegalStateException("Unknown state");
         }
-        else if (currentState == StockState.BANKRUPT) {
-            price = BigDecimal.ZERO;
-        }
-        else if (currentState == StockState.GROWING) {
-            price = price.multiply(new BigDecimal("1.05")); // +5%
-            // Sjekk for transition...
-            if (volatilityHighNow) {
-                currentState = StockState.DECLINING;
-            }
-        }
-        // ... 10 mere else-if statements
     }
 }
     </code></pre>

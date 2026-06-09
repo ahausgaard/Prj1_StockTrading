@@ -115,11 +115,11 @@
 </div>
 
 <div class="slide">
-    <h2>Hvad problem løser MVVM?</h2>
+    <h2>Hvilket problem løser MVVM?</h2>
     <ul>
-        <li><strong>Tæt kobling</strong> — UI-logik direkte i event handlers</li>
-        <li><strong>Utest-bare UI</strong> — Kan ikke unit-teste GUI uden simulator</li>
-        <li><strong>Ufleksible views</strong> — Data og UI blandet sammen</li>
+        <li><strong>Tæt kobling</strong></li>
+        <li><strong>Testning i UI</strong></li>
+        <li><strong>Ufleksible views</strong></li>
     </ul>
     <!--
         MVVM løser Smart UI anti-pattern hvor logikken sidder i code-behind.
@@ -129,24 +129,48 @@
 </div>
 
 <div class="slide">
-    <h2>Filosofien bag</h2>
-    <div class="quote">
-        "Ingen Code-Behind. UI er dumt, logikken er smart."
-    </div>
+    <h2>MVVM vs. 3-lagsarkitektur</h2>
+    <ul>
+        <li><strong>3-lag:</strong> Services testbar, men UI-logik blandet i Controllers</li>
+        <li><strong>MVVM:</strong> ViewModels er UI-agnostiske, 100% testbar uden JavaFX simulator</li>
+        <li><strong>Data binding:</strong> 3-lag bruger manual opdatering; MVVM har automatisk binding</li>
+        <li><strong>Reusability:</strong> Samme ViewModel kan bruges af flere Views</li>
+    </ul>
     <!--
-        MVVM betyder:
-        - View: Ren presentation (FXML, HTML)
-        - ViewModel: Præsentationslogik, tilstandsholdelse
-        - Model: Forretningslogik, services, databaser
-
-        Afhængighed: View → ViewModel → Model
-        Aldrig tilbage! Model kender ikke ViewModel, ViewModel kender ikke View
+        Kort: MVVM løser "smart UI" problemet hvor logik sidder i Controllers.
+        ViewModels betyder at ALT kan unit-testes uden simulator.
     -->
 </div>
 
 <div class="slide">
     <h2>Design</h2>
     <img src="../diagrams/mvvmCD.svg" alt="MVVM Pattern UML Diagram" style="width: 90%; height: auto; margin-top: 2rem;" />
+    <!--
+        Beskriv diagrammet således:
+
+        KONCEPTUELT:
+        - View (JavaFX): Ren presentation - knapper, labels, tekstfelter
+        - ViewModel: Præsentationslogik - holder data som View binder til
+        - Model: Forretningslogik - Services (BuySharesService, etc)
+
+        FLOW:
+        1. Bruger klikker knap i View
+        2. View delegerer til ViewModel-metode
+        3. ViewModel udfører logik og kalder Services fra Model
+        4. Services returnerer data til ViewModel
+        5. ViewModel opdaterer sin tilstand
+        6. View binder til ViewModel-data og opdateres automatisk
+
+        KOBLINGEN:
+        - View → ViewModel: One-way binding (events) eller two-way (tekstfelter)
+        - ViewModel → Model: Kalder Services direkte
+        - Model → ViewModel: Returnerer data som Services kalder
+        - Model ← → ViewModel: ViewModel ved intet om View
+
+        NØGLEPUNKT:
+        ViewModels er UI-agnostiske - de kunne bruges af en web-app, mobil-app, osv.
+        Services ved intet om JavaFX - de kunne bruges af hvem som helst.
+    -->
 </div>
 
 <div class="slide">
@@ -193,30 +217,38 @@ public class BuyStockControllerBad {
 <div class="slide">
     <h2>Implementering MED MVVM</h2>
     <p style="color: #666; margin-bottom: 1.5rem;"><strong>Se: src/presentation/viewModels/BuyStockViewModel.java</strong></p>
-    <pre><code>// ViewModel: Ren logik, ingen UI-elementer
+    <pre><code>// ViewModel: Properties for binding, ingen UI-elementer
 public class BuyStockViewModel {
-    private final BuySharesService buyService;
-    private final PortfolioQueryService queryService;
+    private final BuySharesService buySharesService;
+    private final PortfolioQueryService portfolioQueryService;
 
-    // Data som View'et binder til
-    private StockDTO selectedStock;
-    private int quantity;
-    private BigDecimal estimatedCost;
+    // JavaFX Properties - binder til View
+    private final StringProperty stockSymbol = new SimpleStringProperty("");
+    private final IntegerProperty quantity = new SimpleIntegerProperty(1);
+    private final ObjectProperty<BigDecimal> estimatedCost =
+        new SimpleObjectProperty<>(BigDecimal.ZERO);
 
-    public void buyShares() {
-        // Logik uden JavaFX-referencer!
-        BuySharesRequest request = new BuySharesRequest(
-            portfolioId, selectedStock.symbol(), quantity);
+    public BuyStockViewModel(BuySharesService buySharesService,
+            PortfolioQueryService portfolioQueryService, FeeStrategy feeStrategy) {
+        this.buySharesService = buySharesService;
+        this.portfolioQueryService = portfolioQueryService;
 
-        buyService.buyShares(request);
-        updatePortfolioData();
+        // Auto-recalculate når quantity ændres
+        quantity.addListener((obs, old, newVal) -> recalculateEstimatedCost());
     }
 
-    public void calculateEstimatedCost() {
-        // Rene beregninger
-        estimatedCost = selectedStock.currentPrice()
-            .multiply(BigDecimal.valueOf(quantity))
-            .multiply(new BigDecimal("1.01")); // +1% gebyr
+    public boolean buy() {
+        // Logik uden JavaFX-referencer!
+        BuySharesRequest request = new BuySharesRequest(
+            portfolioId, stockSymbol.get(), quantity.get());
+        buySharesService.buyShares(request);
+        return true;
+    }
+
+    // Properties for binding
+    public IntegerProperty quantityProperty() { return quantity; }
+    public ObjectProperty<BigDecimal> estimatedCostProperty() {
+        return estimatedCost;
     }
 }
     </code></pre>
