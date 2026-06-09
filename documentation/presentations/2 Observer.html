@@ -108,8 +108,6 @@
 </head>
 <body>
 
-<div class="hint">Brug piletasterne &rarr;</div>
-
 <div class="slide active">
     <h1>Observer Pattern</h1>
     <h3>Fra tæt kobling til reaktivt design</h3>
@@ -119,9 +117,9 @@
 <div class="slide">
     <h2>Hvilket problem løser dette?</h2>
     <ul>
-        <li><strong>Tæt kobling:</strong> Klasser er afhængige af for mange andre specifikke klasser.</li>
-        <li><strong>Polling ("Er vi der snart?"):</strong> UI'et tjekker konstant om data har ændret sig. Det spilder CPU og ressourcer.</li>
-        <li><strong>Spaghetti-kode:</strong> Hver gang vi tilføjer en ny feature, skal vi rette i kerne-logikken.</li>
+        <li><strong>Tæt kobling</strong></li>
+        <li><strong>Polling ("Er vi der snart?")</strong></li>
+        <img src="https://dan4kent.wordpress.com/wp-content/uploads/2012/02/are-we-there-yet-simpsons.jpg?w=640" alt="Simpsons are we there yet" />
     </ul>
 </div>
 
@@ -131,52 +129,55 @@
         "Don't call us, we'll call you."
     </div>
     <p><strong>The Hollywood Principle (Publisher/Subscriber)</strong></p>
-    <p>Vi vender ansvaret om: Det er udgiveren (Subject), der råber op når der er nyt, i stedet for at lytterne (Observers) skal spørge.</p>
 </div>
 
 <div class="slide">
-    <h2>Løsningen i praksis (Designet)</h2>
-    <p>Vi opdeler systemet i to roller:</p>
+    <h2>Observer & SOLID Principperne</h2>
     <ul>
-        <li><strong>Subject:</strong> Har dataen. Kender kun til en liste af abstrakte lyttere.</li>
-        <li><strong>Observer:</strong> Lytter efter ændringer via et standardiseret interface.</li>
+        <li><strong>Single Responsibility Principle:</strong> StockMarket, StockListenerService, StockAlertService.</li>
+
+        <li><strong>Open/Closed Principle</strong> </li>
+
+        <li><strong>Dependency Inversion Principle</strong> StockMarket -> (StockMarketObserver interface) </li>
+
+        <!--Observer Pattern er en praktisk implementering af DIP og OCP!</p> -->
+    </ul>
+</div>
+
+<div class="slide">
+    <h2>Design</h2>
+    <ul>
+        <li><strong>Subject</strong> </li> <!-- Har dataen. Kender kun til en liste af abstrakte lyttere. -->
+        <li><strong>Observer:</strong> </li> <!-- Lytter efter ændringer via et standardiseret interface. -->
     </ul>
     <p>Når data ændres, løber Subject listen igennem og kalder `Update()`.</p>
 </div>
 
 <div class="slide">
-    <h2>Eksempel: Med Design (Løs Kobling)</h2>
-    <pre><code>public interface IObserver {
-    void Update(int temperatur);
-}
-
-public class Vejrstation {
-    private List&lt;IObserver&gt; _lyttere = new List&lt;IObserver&gt;();
-
-    public void Tilføj(IObserver lytter) => _lyttere.Add(lytter);
-
-    public void NytVejr(int grader) {
-        // Råber ud til alle, uden at kende deres type!
-        foreach (var lytter in _lyttere) {
-            lytter.Update(grader);
-        }
-    }
-}</code></pre>
+    <h2>Eksempel:</h2>
+    <p> StockMarketObserver og Publisher</p>
 </div>
 
 <div class="slide">
     <h2>Hvordan ser det ud UDEN designet?</h2>
-    <pre><code>public class Vejrstation {
-    // TÆT KOBLING: Vejrstationen kender specifikke klasser
-    private EmailTjeneste _email = new EmailTjeneste();
-    private SmsTjeneste _sms = new SmsTjeneste();
-    private DashboardUI _ui = new DashboardUI();
+    <pre><code>public class StockMarket {
+    // TÆT KOBLING: StockMarket kender specifikke services
+    private StockListenerService listener;
+    private StockAlertService alertService;
+    private StockBankruptService bankruptService;
+    private PortfolioQueryService portfolioService;
 
-    public void NytVejr(int grader) {
-        _email.SendMail(grader);
-        _sms.SendSms(grader);
-        _ui.Opdater(grader);
+    public void updateAllLiveStocks() {
+        for (LiveStock stock : liveStocks) {
+            stock.updatePrice();
+        }
+        // Nu skal StockMarket håndtere ALLE opdateringer selv!
+        listener.persistUpdate(stock);
+        alertService.checkThresholds(stock);
+        bankruptService.handleIfBankrupt(stock);
+        portfolioService.updateBalances(stock);
     }
+}
 }</code></pre>
 </div>
 
@@ -212,7 +213,6 @@ public class Vejrstation {
         <li><strong>Reaktivitet:</strong> Systemet reagerer kun på ændringer, ingen ineffektiv polling.</li>
         <li><strong>Testbarhed:</strong> Nem isolation og mocking af lyttere.</li>
     </ul>
-    <h3 style="margin-top: 4rem;">Spørgsmål?</h3>
 </div>
 
 <script>
