@@ -4,6 +4,8 @@ import business.commands.BuySharesRequest;
 import business.services.trading.BuySharesService;
 import business.services.trading.PortfolioQueryService;
 import business.services.trading.SellSharesService;
+import business.services.trading.fees.FeeStrategy;
+import business.services.trading.fees.PercentageFeeStrategy;
 import domain.Portfolio;
 import domain.Stock;
 import org.junit.jupiter.api.BeforeEach;
@@ -24,6 +26,7 @@ public class PortfolioQueryServiceTest {
     private MockTransactionDAO transactionDAO;
     private SellSharesService sellService;
     private BuySharesService buyService;
+    private FeeStrategy feeStrategy;
     private Logger logger;
 
     @BeforeEach void setup() {
@@ -32,6 +35,7 @@ public class PortfolioQueryServiceTest {
         uow = new MockUnitOfWork();
         portfolioDAO = new MockPortfolioDAO();
         transactionDAO = new MockTransactionDAO();
+        feeStrategy = new PercentageFeeStrategy(0.01);
         this.logger = Logger.getInstance();
 
         stockDAO.setMockStock(Stock.createNew("PNDORA", new BigDecimal("10.0")));
@@ -39,8 +43,8 @@ public class PortfolioQueryServiceTest {
         portfolioDAO.setMockPortfolio(Portfolio.createNew(new BigDecimal("10100.0")));
         BuySharesRequest buyRequest = new BuySharesRequest(portfolioDAO.getMockPortfolio().getId(), "PNDORA", 10);
 
-        buyService = new BuySharesService(stockDAO, ownedStockDAO, portfolioDAO, transactionDAO, uow);
-        sellService = new SellSharesService(ownedStockDAO, stockDAO, uow, transactionDAO, portfolioDAO);
+        buyService = new BuySharesService(stockDAO, ownedStockDAO, portfolioDAO, transactionDAO, uow, feeStrategy);
+        sellService = new SellSharesService(ownedStockDAO, stockDAO, uow, transactionDAO, portfolioDAO, feeStrategy);
 
         buyService.buyShares(buyRequest);
         queryService = new PortfolioQueryService(ownedStockDAO, portfolioDAO, stockDAO, transactionDAO);

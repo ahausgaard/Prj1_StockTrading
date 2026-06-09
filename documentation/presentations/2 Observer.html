@@ -134,11 +134,11 @@
 <div class="slide">
     <h2>Observer & SOLID Principperne</h2>
     <ul>
-        <li><strong>Single Responsibility Principle:</strong> StockMarket, StockListenerService, StockAlertService.</li>
+        <li><strong>Single Responsibility Principle:</strong> </br>StockMarket, StockListenerService, StockAlertService.</li>
 
         <li><strong>Open/Closed Principle</strong> </li>
 
-        <li><strong>Dependency Inversion Principle</strong> StockMarket -> (StockMarketObserver interface) </li>
+        <li><strong>Dependency Inversion Principle:</strong></br> StockMarket -> (StockMarketObserver interface) </li>
 
         <!--Observer Pattern er en praktisk implementering af DIP og OCP!</p> -->
     </ul>
@@ -146,16 +146,16 @@
 
 <div class="slide">
     <h2>Design</h2>
-    <ul>
-        <li><strong>Subject</strong> </li> <!-- Har dataen. Kender kun til en liste af abstrakte lyttere. -->
-        <li><strong>Observer:</strong> </li> <!-- Lytter efter ændringer via et standardiseret interface. -->
-    </ul>
-    <p>Når data ændres, løber Subject listen igennem og kalder `Update()`.</p>
+    <img src="../diagrams/observerCD.svg" alt="Observer Pattern UML Diagram" style="width: 90%; height: auto; margin-top: 2rem;" />
 </div>
 
 <div class="slide">
-    <h2>Eksempel:</h2>
-    <p> StockMarketObserver og Publisher</p>
+    <h2>Implementering:</h2>
+    <p> StockMarket-Subject og Observer</p>
+    <!-- "Observer Pattern implementeres gennem StockMarketObserver interfacet.
+     StockMarket er Subject, den vedligeholder en liste af observers og notificerer dem via update() når lagersituationen ændrer sig.
+     Konkret har vi StockListenerService som persisterer opdateringer, og StockAlertService som udløser advarsler. På denne måde er StockMarket LØST koblet fra disse services - den afhænger kun af interfacet, ikke konkrete implementeringer.
+     Det gør systemet mere fleksibelt og testbart." -->
 </div>
 
 <div class="slide">
@@ -170,48 +170,77 @@
     public void updateAllLiveStocks() {
         for (LiveStock stock : liveStocks) {
             stock.updatePrice();
-        }
+
         // Nu skal StockMarket håndtere ALLE opdateringer selv!
         listener.persistUpdate(stock);
         alertService.checkThresholds(stock);
         bankruptService.handleIfBankrupt(stock);
         portfolioService.updateBalances(stock);
+        }
     }
 }
 }</code></pre>
 </div>
 
+
 <div class="slide">
-    <h2>Konsekvensen</h2>
-    <p>Uden mønsteret bryder vi <strong>Open/Closed Principle</strong>.</p>
-    <p>Hvis vi skal tilføje en mobil-app notifikation, skal vi åbne <code>Vejrstation.cs</code> og rette i koden. Hvis email-serveren crasher, risikerer vi at hele vejr-opdateringen fejler.</p>
+    <h2>Testbarhed MED Observer</h2>
+    <p style="color: #666; margin-bottom: 1.5rem;"><strong>Se: test/unit/business/stockmarket/StockMarketTest.java</strong></p>
+    <pre><code>@Test void testStockMarketNotifiesObservers() {
+    // Arrange: Create a mock observer
+    MockObserver mockObserver = new MockObserver();
+    market.addObserver(mockObserver);
+    market.addNewStock("AAPL");
+
+    // Act: Update all live stocks
+    market.updateAllLiveStocks();
+
+    // Assert: Verify that the observer was notified
+    assertTrue(mockObserver.wasNotified());
+    assertEquals(1, mockObserver.getCallCount());
+    // Ingen dependencies til rigtige DAOs, services eller databaser!
+}
+
+// MockObserver - implementer StockMarketObserver interface
+private static class MockObserver implements StockMarketObserver {
+    private int callCount = 0;
+
+    public void update(StockUpdateEvent event) {
+        callCount++;
+    }
+}
+    </code></pre>
 </div>
 
 <div class="slide">
-    <h2>Gør det koden mere testbar?</h2>
-    <p><strong>Ja! Massivt.</strong></p>
-    <p>Fordi <code>Vejrstation</code> kun afhænger af <code>IObserver</code> interfacet, kan vi teste den helt isoleret:</p>
-    <ul>
-        <li>Vi opretter en <strong>MockObserver</strong> i vores Unit Test.</li>
-        <li>Vi kalder <code>NytVejr(25)</code>.</li>
-        <li>Vi verificerer simpelt: Blev Mock'en kaldt én gang med værdien 25?</li>
-        <li>Ingen afhængigheder til rigtige emails eller databaser!</li>
-    </ul>
-</div>
+    <h2>Faldgruber</h2>
+    <p><strong>The Lapsed Listener Problem</strong></p>
+    <!--
+        Hvis en observer lukkes, men glemmer at afmelde sig fra Subject
+        (via removeObserver()), bliver Subject ved med at holde en reference
+        til den døde observer i hukommelsen.
 
-<div class="slide">
-    <h2>Den kritiske vinkel: Faldgruber</h2>
-    <p><strong>The Lapsed Listener Problem (Memory Leaks)</strong></p>
-    <p>Hvis en UI-komponent lukkes, men glemmer at afmelde sig fra Subject (via `Remove()`/`Detach()`), bliver Subject ved med at holde en reference til komponenten i hukommelsen.</p>
-    <p>Dette forhindrer Garbage Collectoren i at rydde op.</p>
+        Dette forhindrer Garbage Collector i at rydde op → Memory Leak!
+
+        Løsning: Altid kalde removeObserver() når observer er færdig.
+    -->
 </div>
 
 <div class="slide">
     <h2>Opsummering</h2>
     <ul>
-        <li><strong>Decoupling:</strong> Subject og Observers kan ændres uafhængigt.</li>
-        <li><strong>Reaktivitet:</strong> Systemet reagerer kun på ændringer, ingen ineffektiv polling.</li>
-        <li><strong>Testbarhed:</strong> Nem isolation og mocking af lyttere.</li>
+        <li>✅ <strong>Løs kobling</strong>
+            <!-- StockMarket afhænger kun af StockMarketObserver interface -->
+        </li>
+        <li>✅ <strong>Open/Closed</strong>
+            <!-- Tilføj nye observers uden at ændre StockMarket -->
+        </li>
+        <li>✅ <strong>Testbar</strong>
+            <!-- Mock observers i tests – ingen afhængigheder -->
+        </li>
+        <li>✅ <strong>Reaktiv</strong>
+            <!-- Ingen polling – observers notificeres automatisk -->
+        </li>
     </ul>
 </div>
 

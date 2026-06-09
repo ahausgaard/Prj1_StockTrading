@@ -2,6 +2,8 @@ package integration.business.services.trading;
 
 import business.commands.BuySharesRequest;
 import business.services.trading.BuySharesService;
+import business.services.trading.fees.FeeStrategy;
+import business.services.trading.fees.PercentageFeeStrategy;
 import domain.*;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -26,6 +28,7 @@ public class BuySharesServiceIntTest
   private OwnedStockFileDAO ownedStockDAO;
   private PortfolioFileDAO portfolioDAO;
   private TransactionFileDAO transactionDAO;
+  private FeeStrategy feeStrategy;
   private BuySharesService service;
   private Portfolio portfolio;
   private Stock stock;
@@ -40,7 +43,8 @@ public class BuySharesServiceIntTest
     portfolioDAO = new PortfolioFileDAO(uow);
     ownedStockDAO = new OwnedStockFileDAO(uow);
     transactionDAO = new TransactionFileDAO(uow);
-    service = new BuySharesService(stockDAO, ownedStockDAO, portfolioDAO, transactionDAO, uow);
+    feeStrategy = new PercentageFeeStrategy(0.01);
+    service = new BuySharesService(stockDAO, ownedStockDAO, portfolioDAO, transactionDAO, uow, feeStrategy);
 
     //Initial data
     stock = Stock.createNew("PNDORA", new BigDecimal("100.00"));

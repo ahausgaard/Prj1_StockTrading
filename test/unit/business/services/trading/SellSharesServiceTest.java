@@ -5,6 +5,7 @@ import business.commands.SellSharesRequest;
 import business.services.trading.BuySharesService;
 import business.services.trading.SellSharesService;
 import business.services.trading.fees.FeeStrategy;
+import business.services.trading.fees.PercentageFeeStrategy;
 import domain.Portfolio;
 import domain.Stock;
 import domain.TransactionType;
@@ -37,6 +38,7 @@ public class SellSharesServiceTest
     uow = new MockUnitOfWork();
     portfolioDAO = new MockPortfolioDAO();
     transactionDAO = new MockTransactionDAO();
+    feeStrategy = new PercentageFeeStrategy(0.01);
     this.logger = Logger.getInstance();
 
     stockDAO.setMockStock(Stock.createNew("PNDORA", new BigDecimal("10.0")));

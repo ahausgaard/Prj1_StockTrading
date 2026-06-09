@@ -1,0 +1,117 @@
+@startuml Observer Pattern - StockMarket
+
+!define ABSTRACT_COLOR #FFE6E6
+!define CONCRETE_COLOR #E6F3FF
+!define EVENT_COLOR #E6FFE6
+
+' Define colors for different element types
+skinparam classBackgroundColor<<interface>> ABSTRACT_COLOR
+skinparam classBackgroundColor<<concrete>> CONCRETE_COLOR
+skinparam classBackgroundColor<<event>> EVENT_COLOR
+
+' ===== INTERFACE =====
+interface StockMarketObserver <<interface>> {
+  {abstract} +update(event: StockUpdateEvent): void
+}
+
+' ===== SUBJECT (Publisher) =====
+class StockMarket <<concrete>> {
+  - logger: Logger
+  - liveStocks: List<LiveStock>
+  - observers: List<StockMarketObserver>
+  --
+  + addObserver(observer: StockMarketObserver): void
+  + removeObserver(observer: StockMarketObserver): void
+  - notifyObservers(): void
+  + updateAllLiveStocks(): void
+  + addNewStock(stockSymbol: String): void
+  + addExistingStock(stock: Stock): void
+  + getAllStocks(): List<Stock>
+  + clearStocks(): void
+  + {static} getInstance(): StockMarket
+}
+
+' ===== EVENT (Data Transfer) =====
+class StockUpdateEvent <<event>> {
+  - stocks: List<StockDTO>
+  --
+  + stocks(): List<StockDTO>
+}
+
+' ===== CONCRETE OBSERVERS =====
+class StockAlertService <<concrete>> implements StockMarketObserver {
+  - logger: Logger
+  - bankruptService: StockBankruptService
+  - alertThresholdHigh: BigDecimal
+  - alertThresholdLow: BigDecimal
+  --
+  + StockAlertService(bankruptService, high, low)
+  + update(event: StockUpdateEvent): void
+}
+
+class StockListenerService <<concrete>> implements StockMarketObserver {
+  - logger: Logger
+  - stockPriceHistoryDAO: StockPriceHistoryDAO
+  - stockDAO: StockDAO
+  - uow: UnitOfWork
+  - stocks: List<StockDTO>
+  - onStocksUpdated: Runnable
+  --
+  + StockListenerService(priceHistoryDAO, stockDAO, uow)
+  + update(event: StockUpdateEvent): void
+  + setOnStocksUpdated(callback: Runnable): void
+  + getStocks(): List<StockDTO>
+}
+
+' ===== DTO (Data) =====
+class StockDTO {
+  - symbol: String
+  - currentPrice: BigDecimal
+  - state: StockState
+}
+
+' ===== RELATIONSHIPS =====
+StockMarket "1" o-- "*" StockMarketObserver : notifies
+StockMarket --> StockUpdateEvent : creates
+StockUpdateEvent --> StockDTO : contains
+StockAlertService --> StockBankruptService : delegates
+StockListenerService --> StockPriceHistoryDAO : uses
+StockListenerService --> StockDAO : uses
+StockListenerService --> UnitOfWork : uses
+
+' ===== NOTES =====
+note right of StockMarket
+  **Subject / Publisher**
+  Maintains list of observers
+  Notifies all observers when
+  stock prices are updated
+end note
+
+note bottom of StockMarketObserver
+  **Observer Interface**
+  All concrete observers
+  must implement update()
+end note
+
+note right of StockAlertService
+  **Concrete Observer**
+  Monitors stock prices
+  Triggers alerts when thresholds
+  are met or bankruptcy occurs
+end note
+
+note right of StockListenerService
+  **Concrete Observer**
+  Persists stock updates
+  Maintains history
+  Notifies UI via callback
+end note
+
+note bottom of StockUpdateEvent
+  **Event / Data Transfer Object**
+  Contains the data sent
+  from publisher to observers
+  Uses Java Record
+end note
+
+@enduml

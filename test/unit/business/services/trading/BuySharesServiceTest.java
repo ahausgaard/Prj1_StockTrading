@@ -2,6 +2,8 @@ package unit.business.services.trading;
 
 import business.commands.BuySharesRequest;
 import business.services.trading.BuySharesService;
+import business.services.trading.fees.FeeStrategy;
+import business.services.trading.fees.PercentageFeeStrategy;
 import domain.Portfolio;
 import domain.Stock;
 import org.junit.jupiter.api.BeforeEach;
@@ -23,6 +25,7 @@ public class BuySharesServiceTest
   private MockUnitOfWork uow;
   private MockPortfolioDAO portfolioDAO;
   private MockTransactionDAO transactionDAO;
+  private FeeStrategy feeStrategy;
   private BuySharesService service;
   private Logger logger;
 
@@ -33,6 +36,7 @@ public class BuySharesServiceTest
     uow = new MockUnitOfWork();
     portfolioDAO = new MockPortfolioDAO();
     transactionDAO = new MockTransactionDAO();
+    feeStrategy = new PercentageFeeStrategy(0.01);
     this.logger = Logger.getInstance();
 
     stockDAO.setMockStock(Stock.createNew("PNDORA", new BigDecimal("10.0")));
@@ -40,7 +44,7 @@ public class BuySharesServiceTest
         Portfolio.createNew(new BigDecimal("10100.0")));
 
     service = new BuySharesService(stockDAO, ownedStockDAO, portfolioDAO,
-        transactionDAO, uow);
+        transactionDAO, uow, feeStrategy);
 
   }
 
