@@ -11,7 +11,6 @@
         --text-color: #222222;
         --muted-color: #666666;
         --code-bg: #f4f4f4;
-        --accent-color: #db2777; /* Pink/Rose accentfarve */
       }
 
       body, html {
@@ -52,9 +51,6 @@
         font-weight: 600;
         margin-bottom: 2rem;
         color: var(--text-color);
-        border-bottom: 3px solid var(--accent-color);
-        padding-bottom: 10px;
-        display: inline-block;
       }
 
       h3 {
@@ -84,19 +80,11 @@
         font-size: 1.2rem;
         overflow-x: auto;
         width: 100%;
-        border-left: 4px solid var(--accent-color);
-        margin-top: 1rem;
+        border-left: 4px solid #ccc;
       }
 
       code {
         font-family: inherit;
-      }
-
-      .grid-2 {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 4rem;
-        width: 100%;
       }
 
       .quote {
@@ -106,38 +94,6 @@
         border-left: 8px solid var(--code-bg);
         padding-left: 2rem;
         margin: 2rem 0;
-      }
-
-      /* UML Diagram Styling */
-      .uml-container {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        width: 100%;
-        margin-top: 3rem;
-        background: #fdf2f8;
-        padding: 2rem;
-        border-radius: 8px;
-        border: 1px solid #fbcfe8;
-      }
-      .uml-box {
-        background: white;
-        border: 3px solid var(--accent-color);
-        padding: 1.5rem;
-        text-align: center;
-        border-radius: 8px;
-        width: 25%;
-        box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-      }
-      .uml-box h4 { margin: 0 0 1rem 0; font-size: 1.5rem; color: var(--accent-color); }
-      .uml-box p { font-size: 1rem; margin: 0; }
-      .uml-arrow {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        flex: 1;
-        color: var(--muted-color);
-        font-weight: bold;
       }
 
       /* Navigation hint */
@@ -152,163 +108,210 @@
 </head>
 <body>
 
-<div class="hint">Brug piletasterne &rarr;</div>
-
 <div class="slide active">
     <h1>MVVM Pattern</h1>
-    <h3>Model-View-ViewModel: Skab testbare brugergrænseflader</h3>
+    <h3>Model-View-ViewModel: UI arkitektur for testabilitet</h3>
     <p style="color: #aaa; margin-top: 4rem;">Software Design og Test</p>
 </div>
 
 <div class="slide">
-    <h2>Hvorfor MVVM?</h2>
+    <h2>Hvad problem løser MVVM?</h2>
+    <ul>
+        <li><strong>Tæt kobling</strong> — UI-logik direkte i event handlers</li>
+        <li><strong>Utest-bare UI</strong> — Kan ikke unit-teste GUI uden simulator</li>
+        <li><strong>Ufleksible views</strong> — Data og UI blandet sammen</li>
+    </ul>
+    <!--
+        MVVM løser Smart UI anti-pattern hvor logikken sidder i code-behind.
+        Uden MVVM: Knaptryk → Handler har databasekald → Umuligt at teste
+        Med MVVM: Knaptryk → ViewModel-kommando → Services → Testbar i isolation
+    -->
+</div>
+
+<div class="slide">
+    <h2>Filosofien bag</h2>
     <div class="quote">
         "Ingen Code-Behind. UI er dumt, logikken er smart."
     </div>
-    <p>MVVM er et arkitekturmønster primært brugt til brugergrænseflader (f.eks. WPF, .NET MAUI, Blazor og moderne Web Frameworks).</p>
-    <p><strong>Formålet er adskillelse:</strong> At afkoble den grafiske brugerflade (View) totalt fra forretningslogikken og dataene (Model). Dette gøres ved at introducere en mellemmand (ViewModel).</p>
+    <!--
+        MVVM betyder:
+        - View: Ren presentation (FXML, HTML)
+        - ViewModel: Præsentationslogik, tilstandsholdelse
+        - Model: Forretningslogik, services, databaser
+
+        Afhængighed: View → ViewModel → Model
+        Aldrig tilbage! Model kender ikke ViewModel, ViewModel kender ikke View
+    -->
 </div>
 
 <div class="slide">
-    <h2>Mønstrets UML-struktur</h2>
-    <p>Den vigtigste regel i MVVM er <strong>afhængigheds-retningen</strong>. Viewet kender ViewModel. ViewModel kender Model. <em>Men pilen peger aldrig tilbage!</em></p>
-
-    <div class="uml-container">
-        <div class="uml-box">
-            <h4>View</h4>
-            <p>XAML / HTML<br>Knapper, tekstfelter.</p>
-        </div>
-        <div class="uml-arrow">
-            <span>DataBinding &rarr;</span>
-            <span>&larr; INotifyPropertyChanged</span>
-            <span>Commands &rarr;</span>
-        </div>
-        <div class="uml-box" style="border-color: #0ea5e9;">
-            <h4 style="color: #0ea5e9;">ViewModel</h4>
-            <p>Præsentationslogik.<br>Holder tilstanden.</p>
-        </div>
-        <div class="uml-arrow">
-            <span>Opdaterer &rarr;</span>
-            <span>&larr; Events/Data</span>
-        </div>
-        <div class="uml-box" style="border-color: #10b981;">
-            <h4 style="color: #10b981;">Model</h4>
-            <p>Forretningslogik.<br>Databaser, domæne.</p>
-        </div>
-    </div>
+    <h2>Design</h2>
+    <img src="../diagrams/mvvmCD.svg" alt="MVVM Pattern UML Diagram" style="width: 90%; height: auto; margin-top: 2rem;" />
 </div>
 
 <div class="slide">
-    <h2>Filosofien bag: DataBinding & Magi</h2>
-    <p>Hvordan kommunikerer de, når ViewModel ikke må kende View'et (f.eks. ikke må skrive `txtNavn.Text = "Jens"`)?</p>
-    <ul>
-        <li><strong>DataBinding:</strong> View'et "abonnerer" på properties i ViewModel.</li>
-        <li><strong>Observer Pattern i praksis:</strong> ViewModel implementerer et interface (ofte <code>INotifyPropertyChanged</code>). Når en variabel ændres i logikken, råber ViewModel "Hej, Navn er opdateret!".</li>
-        <li>View'et hører dette og opdaterer automatisk skærmen.</li>
-    </ul>
+    <h2>Implementering:</h2>
+    <p style="color: #666; margin-bottom: 1.5rem;"><strong>View: src/presentation/controllers/ (JavaFX Controllers)</strong></p>
+    <p style="color: #666; margin-bottom: 1.5rem;"><strong>ViewModel: src/presentation/viewModels/</strong></p>
+    <p style="color: #666; margin-bottom: 1.5rem;"><strong>Model: src/business/services/</strong></p>
+    <!--
+        I dit projekt:
+        - View-lag: BuyStockController, PortfolioController, etc.
+        - ViewModel-lag: BuyStockViewModel, PortfolioViewModel, etc.
+        - Model-lag: BuySharesService, PortfolioQueryService, GameService
+
+        Controllers håndterer JavaFX events og delegerer til ViewModel.
+        ViewModels holder tilstand og kalder Services.
+        Services er ren forretningslogik uden UI-referencer.
+    -->
 </div>
 
 <div class="slide">
-    <h2>Del B: Hvordan ser det ud UDEN MVVM?</h2>
-    <p>Før MVVM brugte man "Code-Behind" (Smart UI anti-mønsteret).</p>
-    <pre><code>// MainWindow.xaml.cs (View og Logik er blandet sammen!)
-public partial class MainWindow : Window {
+    <h2>Hvordan ser det ud UDEN MVVM?</h2>
+    <pre><code>// Tæt kobling: Logik i Controller
+public class BuyStockControllerBad {
+    @FXML private TextField quantityField;
+    @FXML private Label balanceLabel;
 
-    // Knap-klik er direkte bundet til UI'et
-    private void btnGem_Click(object sender, RoutedEventArgs e) {
-        // Tæt kobling til UI-elementer
-        string kundenavn = txtNavn.Text;
+    @FXML
+    private void onBuyButtonClicked() {
+        // Direkte databasekald i event handler!
+        String symbol = getSelectedStock();
+        int qty = Integer.parseInt(quantityField.getText());
 
-        // Direkte databasekald i UI laget
-        Database.Gem(kundenavn);
+        database.updatePortfolio(...);
+        database.createTransaction(...);
 
-        lblStatus.Text = "Gemt!";
+        // Direkte UI manipulation
+        balanceLabel.setText("Nu opdateret!");
     }
-}</code></pre>
-    <p><strong>Konsekvens:</strong> Det er umuligt at Unit Teste `btnGem_Click`, for testen vil forsøge at åbne et rigtigt grafisk vindue.</p>
+    // Umuligt at unit-teste uden en JavaFX test-simulator!
+}
+    </code></pre>
 </div>
 
 <div class="slide">
-    <h2>Del B: Implementering af ViewModel</h2>
-    <p>Vi flytter logikken over i en ren C#-klasse. Den har <em>ingen</em> referencer til UI-komponenter.</p>
-    <pre><code>// KundeViewModel.cs (Uddrag)
-public class KundeViewModel : INotifyPropertyChanged {
-    private string _navn;
+    <h2>Implementering MED MVVM</h2>
+    <p style="color: #666; margin-bottom: 1.5rem;"><strong>Se: src/presentation/viewModels/BuyStockViewModel.java</strong></p>
+    <pre><code>// ViewModel: Ren logik, ingen UI-elementer
+public class BuyStockViewModel {
+    private final BuySharesService buyService;
+    private final PortfolioQueryService queryService;
 
-    // En property som Viewet kan "Binde" til
-    public string Navn {
-        get => _navn;
-        set {
-            _navn = value;
-            // Magien! Giver Viewet besked om at opdatere skærmen
-            OnPropertyChanged(nameof(Navn));
-        }
+    // Data som View'et binder til
+    private StockDTO selectedStock;
+    private int quantity;
+    private BigDecimal estimatedCost;
+
+    public void buyShares() {
+        // Logik uden JavaFX-referencer!
+        BuySharesRequest request = new BuySharesRequest(
+            portfolioId, selectedStock.symbol(), quantity);
+
+        buyService.buyShares(request);
+        updatePortfolioData();
     }
 
-    // Kommando i stedet for Click-event
-    public ICommand GemCommand { get; }
-
-    public KundeViewModel() {
-        GemCommand = new RelayCommand(GemKunde);
+    public void calculateEstimatedCost() {
+        // Rene beregninger
+        estimatedCost = selectedStock.currentPrice()
+            .multiply(BigDecimal.valueOf(quantity))
+            .multiply(new BigDecimal("1.01")); // +1% gebyr
     }
-}</code></pre>
+}
+    </code></pre>
 </div>
 
 <div class="slide">
-    <h2>Del B: Implementering af View (XAML)</h2>
-    <p>View'et består nu næsten kun af opsætning (markup). Al "Code-Behind" er slettet.</p>
-    <pre><code>&lt;!-- MainWindow.xaml --&gt;
-&lt;Window.DataContext&gt;
-    &lt;local:KundeViewModel /&gt; &lt;!-- Her sættes koblingen --&gt;
-&lt;/Window.DataContext&gt;
+    <h2>Controller har KUN DataBinding</h2>
+    <p style="color: #666; margin-bottom: 1.5rem;"><strong>Se: src/presentation/controllers/BuyStockController.java</strong></p>
+    <pre><code>// Controller: Bindkle mellem View og ViewModel
+public class BuyStockController {
+    @FXML private TextField quantityField;
+    @FXML private Label estimatedCostLabel;
+    @FXML private Button buyButton;
 
-&lt;StackPanel&gt;
-    &lt;!-- Databinding af tekst. "UpdateSourceTrigger" opdaterer live --&gt;
-    &lt;TextBox Text="{Binding Navn, UpdateSourceTrigger=PropertyChanged}" /&gt;
+    private BuyStockViewModel viewModel;
 
-    &lt;!-- Tekstblokken reagerer automatisk på OnPropertyChanged --&gt;
-    &lt;TextBlock Text="{Binding Navn}" /&gt;
+    @FXML
+    public void initialize() {
+        // Binding: Når quantity ændrer sig, opdater cost
+        quantityField.textProperty().addListener((obs, old, newValue) -> {
+            viewModel.setQuantity(Integer.parseInt(newValue));
+            viewModel.calculateEstimatedCost();
+            estimatedCostLabel.setText(
+                viewModel.getEstimatedCost().toString());
+        });
 
-    &lt;!-- Binder til ICommand i stedet for at bruge Click="btn_Click" --&gt;
-    &lt;Button Command="{Binding GemCommand}" Content="Gem Kunde" /&gt;
-&lt;/StackPanel&gt;</code></pre>
+        // Knaptryk delegeres til ViewModel
+        buyButton.setOnAction(e -> viewModel.buyShares());
+    }
+    // Ingen forretningslogik, KUN UI og binding!
+}
+    </code></pre>
 </div>
 
 <div class="slide">
-    <h2>Hvorfor er dette så genialt til Test?</h2>
-    <div class="grid-2">
-        <div>
-            <h3 style="color: var(--accent-color)">Problem før MVVM:</h3>
-            <p>Hvis vi ville teste logikken bag en "Gem"-knap, skulle test-suiten klikke på en rigtig skærm. Det kaldes E2E (End-to-End) test og er utroligt langsomt og ustabilt.</p>
-        </div>
-        <div>
-            <h3 style="color: var(--accent-color)">Løsning med MVVM:</h3>
-            <p>ViewModel er bare en almindelig C# klasse! I vores Unit Test kan vi bare skrive:</p>
-            <p style="font-family: monospace; font-size: 1.1rem; background: #eee; padding: 10px;">
-                var vm = new KundeViewModel();<br>
-                vm.Navn = "Jens";<br>
-                vm.GemCommand.Execute(null);<br>
-                Assert.True(db.ErGemt);
-            </p>
-        </div>
-    </div>
+    <h2>Testbarhed MED MVVM</h2>
+    <pre><code>// Unit test: Tester ViewModel uden JavaFX!
+@Test void buyStockViewModel_calculatesCostCorrectly() {
+    BuyStockViewModel vm = new BuyStockViewModel(
+        mockBuyService, mockQueryService);
+
+    vm.setSelectedStock(new StockDTO("PNDORA",
+        new BigDecimal("100"), StockState.LIVE));
+    vm.setQuantity(5);
+
+    vm.calculateEstimatedCost();
+
+    // 5 * 100 * 1.01 = 505
+    assertEquals(new BigDecimal("505.00"),
+        vm.getEstimatedCost());
+}
+
+@Test void buyStockViewModel_executesServiceCall() {
+    vm.buyShares();
+
+    verify(mockBuyService).buyShares(
+        any(BuySharesRequest.class));
+}
+// Ingen GUI simulator nødvendig, lynhurtigt!
+    </code></pre>
 </div>
 
 <div class="slide">
-    <h2>Den kritiske vinkel: Faldgruben ved MVVM</h2>
-    <p><strong>Boilerplate-kode og kompleksitet.</strong></p>
-    <p>MVVM kræver utrolig meget opsætning (boilerplate). For blot at vise en tekst og trykke på en knap, skal man oprette implementeringer af `INotifyPropertyChanged`, `ICommand` og skrive bindings i XAML.</p>
-    <p>Til en lille, simpel applikation, hvor man bare vil beregne to tal, kan MVVM føles som over-engineering. Men i det øjeblik appen skal vedligeholdes af et team eller unit-testes, betaler det sig selv hjem tifoldigt.</p>
+    <h2>Faldgruber</h2>
+    <p><strong>Boilerplate-kompleksitet</strong></p>
+    <!--
+        MVVM kræver meget opsætning for selv simple features:
+        - ViewModel klasse
+        - Binding setup i Controller
+        - Data binding properties
+        - Observer-pattern implementering
+
+        For meget små apps kan det føles over-engineered.
+        MEN: Når appen vokser eller skal vedligeholdes af team, sparer det enormt tid.
+
+        Det er den klassiske trade-off: Mere setup front-loaded for bedre maintainability.
+    -->
 </div>
 
 <div class="slide">
     <h2>Opsummering</h2>
     <ul>
-        <li><strong>Separation:</strong> Afkobler UI fra Forretningslogik. Designeren kan arbejde i XAML, mens koderen arbejder i C# ViewModel.</li>
-        <li><strong>DataBinding:</strong> Er hjertet i MVVM. Ændringer flyder automatisk mellem UI og logik via Observer-mønstret (INotifyPropertyChanged).</li>
-        <li><strong>Testbarhed:</strong> Fordi ViewModel ikke indeholder UI-elementer, kan alt, hvad brugeren gør, unit-testes lynhurtigt i isolation.</li>
+        <li>✅ <strong>Separation</strong>
+            <!-- View, ViewModel, Model er klart adskilte -->
+        </li>
+        <li>✅ <strong>Data Binding</strong>
+            <!-- Automatisk synkronisering mellem UI og logik -->
+        </li>
+        <li>✅ <strong>Testbar</strong>
+            <!-- ViewModel kan unit-testes uden JavaFX simulator -->
+        </li>
+        <li>✅ <strong>Vedligeholdelig</strong>
+            <!-- UI-ændringer påvirker ikke logik, og omvendt -->
+        </li>
     </ul>
-    <h3 style="margin-top: 4rem;">Spørgsmål?</h3>
 </div>
 
 <script>

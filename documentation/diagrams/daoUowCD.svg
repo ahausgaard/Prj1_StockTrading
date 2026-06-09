@@ -1,0 +1,2760 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?plantuml 1.2026.2?><svg
+   contentStyleType="text/css"
+   data-diagram-type="CLASS"
+   height="1166px"
+   preserveAspectRatio="none"
+   style="width:1801px;height:1166px;background:#FFFFFF;"
+   version="1.1"
+   viewBox="0 0 1801 1166"
+   width="1801px"
+   zoomAndPan="magnify"
+   id="svg122"
+   sodipodi:docname="daoUowCD.svg"
+   inkscape:version="1.4.3 (0d15f75, 2025-12-25)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview122"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="1.5566038"
+     inkscape:cx="900.67879"
+     inkscape:cy="583"
+     inkscape:window-width="3840"
+     inkscape:window-height="2054"
+     inkscape:window-x="-11"
+     inkscape:window-y="-11"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg122" />
+  <defs
+     id="defs1" />
+  <g
+     id="g122">
+    <!--class UnitOfWork-->
+    <g
+       class="entity"
+       data-qualified-name="UnitOfWork"
+       data-source-line="11"
+       id="ent0002">
+      <rect
+         fill="#FFE6E6"
+         height="109.3066"
+         rx="2.5"
+         ry="2.5"
+         style="stroke:#181818;stroke-width:0.5;"
+         width="117.0273"
+         x="885"
+         y="245"
+         id="rect1" />
+      <ellipse
+         cx="905.7103"
+         cy="265.9263"
+         fill="#B4A7E5"
+         rx="11"
+         ry="11"
+         style="stroke:#181818;stroke-width:1;"
+         id="ellipse1" />
+      <path
+         d="M906.6634,262.5669 L906.6634,269.2231 L908.3821,269.2231 Q908.9915,269.2231 909.2571,269.4575 Q909.5228,269.6919 909.5228,270.0825 Q909.5228,270.4575 909.2571,270.6919 Q908.9915,270.9263 908.3821,270.9263 L903.2415,270.9263 Q902.6321,270.9263 902.3665,270.6919 Q902.1009,270.4575 902.1009,270.0669 Q902.1009,269.6919 902.3665,269.4575 Q902.6321,269.2231 903.2415,269.2231 L904.9603,269.2231 L904.9603,262.5669 L903.2415,262.5669 Q902.6321,262.5669 902.3665,262.3325 Q902.1009,262.0981 902.1009,261.7075 Q902.1009,261.3325 902.3665,261.0981 Q902.6321,260.8638 903.2415,260.8638 L908.3821,260.8638 Q908.9915,260.8638 909.2571,261.0981 Q909.5228,261.3325 909.5228,261.7075 Q909.5228,262.0981 909.2571,262.3325 Q908.9915,262.5669 908.3821,262.5669 L906.6634,262.5669 Z "
+         fill="#000000"
+         id="path1" />
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="12"
+         font-style="italic"
+         lengthAdjust="spacing"
+         textLength="59.373"
+         x="927.4616"
+         y="262.0645"
+         id="text1">«interface»</text>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="14"
+         font-style="italic"
+         lengthAdjust="spacing"
+         textLength="72.3379"
+         x="920.9792"
+         y="278.7764"
+         id="text2">UnitOfWork</text>
+      <line
+         style="stroke:#181818;stroke-width:0.5;"
+         x1="886"
+         x2="1001.0273"
+         y1="286.8525"
+         y2="286.8525"
+         id="line2" />
+      <line
+         style="stroke:#181818;stroke-width:0.5;"
+         x1="886"
+         x2="1001.0273"
+         y1="294.8525"
+         y2="294.8525"
+         id="line3" />
+      <g
+         data-visibility-modifier="PUBLIC_METHOD"
+         id="g3">
+        <ellipse
+           cx="896"
+           cy="308.9282"
+           fill="#84BE84"
+           rx="3"
+           ry="3"
+           style="stroke:#038048;stroke-width:1;"
+           id="ellipse3" />
+      </g>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="14"
+         font-style="italic"
+         lengthAdjust="spacing"
+         textLength="77.041"
+         x="905"
+         y="312.9277"
+         id="text3">begin(): void</text>
+      <g
+         data-visibility-modifier="PUBLIC_METHOD"
+         id="g4">
+        <ellipse
+           cx="896"
+           cy="326.0796"
+           fill="#84BE84"
+           rx="3"
+           ry="3"
+           style="stroke:#038048;stroke-width:1;"
+           id="ellipse4" />
+      </g>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="14"
+         font-style="italic"
+         lengthAdjust="spacing"
+         textLength="87.8965"
+         x="905"
+         y="330.0791"
+         id="text4">commit(): void</text>
+      <g
+         data-visibility-modifier="PUBLIC_METHOD"
+         id="g5">
+        <ellipse
+           cx="896"
+           cy="343.231"
+           fill="#84BE84"
+           rx="3"
+           ry="3"
+           style="stroke:#038048;stroke-width:1;"
+           id="ellipse5" />
+      </g>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="14"
+         font-style="italic"
+         lengthAdjust="spacing"
+         textLength="91.0273"
+         x="905"
+         y="347.2305"
+         id="text5">rollback(): void</text>
+    </g>
+    <!--class StockDAO-->
+    <g
+       class="entity"
+       data-qualified-name="StockDAO"
+       data-source-line="18"
+       id="ent0003">
+      <rect
+         fill="#FFE6E6"
+         height="143.6094"
+         rx="2.5"
+         ry="2.5"
+         style="stroke:#181818;stroke-width:0.5;"
+         width="249.2959"
+         x="286"
+         y="703"
+         id="rect5" />
+      <ellipse
+         cx="373.7222"
+         cy="723.9263"
+         fill="#B4A7E5"
+         rx="11"
+         ry="11"
+         style="stroke:#181818;stroke-width:1;"
+         id="ellipse6" />
+      <path
+         d="M374.6753,720.5669 L374.6753,727.2231 L376.394,727.2231 Q377.0034,727.2231 377.269,727.4575 Q377.5347,727.6919 377.5347,728.0825 Q377.5347,728.4575 377.269,728.6919 Q377.0034,728.9263 376.394,728.9263 L371.2534,728.9263 Q370.644,728.9263 370.3784,728.6919 Q370.1128,728.4575 370.1128,728.0669 Q370.1128,727.6919 370.3784,727.4575 Q370.644,727.2231 371.2534,727.2231 L372.9722,727.2231 L372.9722,720.5669 L371.2534,720.5669 Q370.644,720.5669 370.3784,720.3325 Q370.1128,720.0981 370.1128,719.7075 Q370.1128,719.3325 370.3784,719.0981 Q370.644,718.8638 371.2534,718.8638 L376.394,718.8638 Q377.0034,718.8638 377.269,719.0981 Q377.5347,719.3325 377.5347,719.7075 Q377.5347,720.0981 377.269,720.3325 Q377.0034,720.5669 376.394,720.5669 L374.6753,720.5669 Z "
+         fill="#000000"
+         id="path6" />
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="12"
+         font-style="italic"
+         lengthAdjust="spacing"
+         textLength="59.373"
+         x="397.2114"
+         y="720.0645"
+         id="text6">«interface»</text>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="14"
+         font-style="italic"
+         lengthAdjust="spacing"
+         textLength="65.3516"
+         x="394.2222"
+         y="736.7764"
+         id="text7">StockDAO</text>
+      <line
+         style="stroke:#181818;stroke-width:0.5;"
+         x1="287"
+         x2="534.2959"
+         y1="744.8525"
+         y2="744.8525"
+         id="line7" />
+      <line
+         style="stroke:#181818;stroke-width:0.5;"
+         x1="287"
+         x2="534.2959"
+         y1="752.8525"
+         y2="752.8525"
+         id="line8" />
+      <g
+         data-visibility-modifier="PUBLIC_METHOD"
+         id="g8">
+        <ellipse
+           cx="297"
+           cy="766.9282"
+           fill="#84BE84"
+           rx="3"
+           ry="3"
+           style="stroke:#038048;stroke-width:1;"
+           id="ellipse8" />
+      </g>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="14"
+         font-style="italic"
+         lengthAdjust="spacing"
+         textLength="157.165"
+         x="306"
+         y="770.9277"
+         id="text8">create(stock: Stock): void</text>
+      <g
+         data-visibility-modifier="PUBLIC_METHOD"
+         id="g9">
+        <ellipse
+           cx="297"
+           cy="784.0796"
+           fill="#84BE84"
+           rx="3"
+           ry="3"
+           style="stroke:#038048;stroke-width:1;"
+           id="ellipse9" />
+      </g>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="14"
+         font-style="italic"
+         lengthAdjust="spacing"
+         textLength="223.2959"
+         x="306"
+         y="788.0791"
+         id="text9">getBySymbol(symbol: String): Stock</text>
+      <g
+         data-visibility-modifier="PUBLIC_METHOD"
+         id="g10">
+        <ellipse
+           cx="297"
+           cy="801.231"
+           fill="#84BE84"
+           rx="3"
+           ry="3"
+           style="stroke:#038048;stroke-width:1;"
+           id="ellipse10" />
+      </g>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="14"
+         font-style="italic"
+         lengthAdjust="spacing"
+         textLength="125.2754"
+         x="306"
+         y="805.2305"
+         id="text10">getAll(): List&lt;Stock&gt;</text>
+      <g
+         data-visibility-modifier="PUBLIC_METHOD"
+         id="g11">
+        <ellipse
+           cx="297"
+           cy="818.3823"
+           fill="#84BE84"
+           rx="3"
+           ry="3"
+           style="stroke:#038048;stroke-width:1;"
+           id="ellipse11" />
+      </g>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="14"
+         font-style="italic"
+         lengthAdjust="spacing"
+         textLength="161.0752"
+         x="306"
+         y="822.3818"
+         id="text11">update(stock: Stock): void</text>
+      <g
+         data-visibility-modifier="PUBLIC_METHOD"
+         id="g12">
+        <ellipse
+           cx="297"
+           cy="835.5337"
+           fill="#84BE84"
+           rx="3"
+           ry="3"
+           style="stroke:#038048;stroke-width:1;"
+           id="ellipse12" />
+      </g>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="14"
+         font-style="italic"
+         lengthAdjust="spacing"
+         textLength="169.627"
+         x="306"
+         y="839.5332"
+         id="text12">delete(symbol: String): void</text>
+    </g>
+    <!--class PortfolioDAO-->
+    <g
+       class="entity"
+       data-qualified-name="PortfolioDAO"
+       data-source-line="26"
+       id="ent0004">
+      <rect
+         fill="#FFE6E6"
+         height="126.458"
+         rx="2.5"
+         ry="2.5"
+         style="stroke:#181818;stroke-width:0.5;"
+         width="220.5508"
+         x="570"
+         y="712"
+         id="rect12" />
+      <ellipse
+         cx="635.1772"
+         cy="732.9263"
+         fill="#B4A7E5"
+         rx="11"
+         ry="11"
+         style="stroke:#181818;stroke-width:1;"
+         id="ellipse13" />
+      <path
+         d="M636.1304,729.5669 L636.1304,736.2231 L637.8491,736.2231 Q638.4585,736.2231 638.7241,736.4575 Q638.9897,736.6919 638.9897,737.0825 Q638.9897,737.4575 638.7241,737.6919 Q638.4585,737.9263 637.8491,737.9263 L632.7085,737.9263 Q632.0991,737.9263 631.8335,737.6919 Q631.5679,737.4575 631.5679,737.0669 Q631.5679,736.6919 631.8335,736.4575 Q632.0991,736.2231 632.7085,736.2231 L634.4272,736.2231 L634.4272,729.5669 L632.7085,729.5669 Q632.0991,729.5669 631.8335,729.3325 Q631.5679,729.0981 631.5679,728.7075 Q631.5679,728.3325 631.8335,728.0981 Q632.0991,727.8638 632.7085,727.8638 L637.8491,727.8638 Q638.4585,727.8638 638.7241,728.0981 Q638.9897,728.3325 638.9897,728.7075 Q638.9897,729.0981 638.7241,729.3325 Q638.4585,729.5669 637.8491,729.5669 L636.1304,729.5669 Z "
+         fill="#000000"
+         id="path13" />
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="12"
+         font-style="italic"
+         lengthAdjust="spacing"
+         textLength="59.373"
+         x="666.8389"
+         y="729.0645"
+         id="text13">«interface»</text>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="14"
+         font-style="italic"
+         lengthAdjust="spacing"
+         textLength="81.6963"
+         x="655.6772"
+         y="745.7764"
+         id="text14">PortfolioDAO</text>
+      <line
+         style="stroke:#181818;stroke-width:0.5;"
+         x1="571"
+         x2="789.5508"
+         y1="753.8525"
+         y2="753.8525"
+         id="line14" />
+      <line
+         style="stroke:#181818;stroke-width:0.5;"
+         x1="571"
+         x2="789.5508"
+         y1="761.8525"
+         y2="761.8525"
+         id="line15" />
+      <g
+         data-visibility-modifier="PUBLIC_METHOD"
+         id="g15">
+        <ellipse
+           cx="581"
+           cy="775.9282"
+           fill="#84BE84"
+           rx="3"
+           ry="3"
+           style="stroke:#038048;stroke-width:1;"
+           id="ellipse15" />
+      </g>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="14"
+         font-style="italic"
+         lengthAdjust="spacing"
+         textLength="190.6406"
+         x="590"
+         y="779.9277"
+         id="text15">create(portfolio: Portfolio): void</text>
+      <g
+         data-visibility-modifier="PUBLIC_METHOD"
+         id="g16">
+        <ellipse
+           cx="581"
+           cy="793.0796"
+           fill="#84BE84"
+           rx="3"
+           ry="3"
+           style="stroke:#038048;stroke-width:1;"
+           id="ellipse16" />
+      </g>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="14"
+         font-style="italic"
+         lengthAdjust="spacing"
+         textLength="168.834"
+         x="590"
+         y="797.0791"
+         id="text16">getById(id: UUID): Portfolio</text>
+      <g
+         data-visibility-modifier="PUBLIC_METHOD"
+         id="g17">
+        <ellipse
+           cx="581"
+           cy="810.231"
+           fill="#84BE84"
+           rx="3"
+           ry="3"
+           style="stroke:#038048;stroke-width:1;"
+           id="ellipse17" />
+      </g>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="14"
+         font-style="italic"
+         lengthAdjust="spacing"
+         textLength="141.6201"
+         x="590"
+         y="814.2305"
+         id="text17">getAll(): List&lt;Portfolio&gt;</text>
+      <g
+         data-visibility-modifier="PUBLIC_METHOD"
+         id="g18">
+        <ellipse
+           cx="581"
+           cy="827.3823"
+           fill="#84BE84"
+           rx="3"
+           ry="3"
+           style="stroke:#038048;stroke-width:1;"
+           id="ellipse18" />
+      </g>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="14"
+         font-style="italic"
+         lengthAdjust="spacing"
+         textLength="194.5508"
+         x="590"
+         y="831.3818"
+         id="text18">update(portfolio: Portfolio): void</text>
+    </g>
+    <!--class OwnedStockDAO-->
+    <g
+       class="entity"
+       data-qualified-name="OwnedStockDAO"
+       data-source-line="33"
+       id="ent0005">
+      <rect
+         fill="#FFE6E6"
+         height="143.6094"
+         rx="2.5"
+         ry="2.5"
+         style="stroke:#181818;stroke-width:0.5;"
+         width="312.3438"
+         x="1482.5"
+         y="703"
+         id="rect18" />
+      <ellipse
+         cx="1579.5669"
+         cy="723.9263"
+         fill="#B4A7E5"
+         rx="11"
+         ry="11"
+         style="stroke:#181818;stroke-width:1;"
+         id="ellipse19" />
+      <path
+         d="M1580.52,720.5669 L1580.52,727.2231 L1582.2388,727.2231 Q1582.8481,727.2231 1583.1138,727.4575 Q1583.3794,727.6919 1583.3794,728.0825 Q1583.3794,728.4575 1583.1138,728.6919 Q1582.8481,728.9263 1582.2388,728.9263 L1577.0981,728.9263 Q1576.4888,728.9263 1576.2231,728.6919 Q1575.9575,728.4575 1575.9575,728.0669 Q1575.9575,727.6919 1576.2231,727.4575 Q1576.4888,727.2231 1577.0981,727.2231 L1578.8169,727.2231 L1578.8169,720.5669 L1577.0981,720.5669 Q1576.4888,720.5669 1576.2231,720.3325 Q1575.9575,720.0981 1575.9575,719.7075 Q1575.9575,719.3325 1576.2231,719.0981 Q1576.4888,718.8638 1577.0981,718.8638 L1582.2388,718.8638 Q1582.8481,718.8638 1583.1138,719.0981 Q1583.3794,719.3325 1583.3794,719.7075 Q1583.3794,720.0981 1583.1138,720.3325 Q1582.8481,720.5669 1582.2388,720.5669 L1580.52,720.5669 Z "
+         fill="#000000"
+         id="path19" />
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="12"
+         font-style="italic"
+         lengthAdjust="spacing"
+         textLength="59.373"
+         x="1625.2354"
+         y="720.0645"
+         id="text19">«interface»</text>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="14"
+         font-style="italic"
+         lengthAdjust="spacing"
+         textLength="109.71"
+         x="1600.0669"
+         y="736.7764"
+         id="text20">OwnedStockDAO</text>
+      <line
+         style="stroke:#181818;stroke-width:0.5;"
+         x1="1483.5"
+         x2="1793.8438"
+         y1="744.8525"
+         y2="744.8525"
+         id="line20" />
+      <line
+         style="stroke:#181818;stroke-width:0.5;"
+         x1="1483.5"
+         x2="1793.8438"
+         y1="752.8525"
+         y2="752.8525"
+         id="line21" />
+      <g
+         data-visibility-modifier="PUBLIC_METHOD"
+         id="g21">
+        <ellipse
+           cx="1493.5"
+           cy="766.9282"
+           fill="#84BE84"
+           rx="3"
+           ry="3"
+           style="stroke:#038048;stroke-width:1;"
+           id="ellipse21" />
+      </g>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="14"
+         font-style="italic"
+         lengthAdjust="spacing"
+         textLength="245.1162"
+         x="1502.5"
+         y="770.9277"
+         id="text21">create(ownedStock: OwnedStock): void</text>
+      <g
+         data-visibility-modifier="PUBLIC_METHOD"
+         id="g22">
+        <ellipse
+           cx="1493.5"
+           cy="784.0796"
+           fill="#84BE84"
+           rx="3"
+           ry="3"
+           style="stroke:#038048;stroke-width:1;"
+           id="ellipse22" />
+      </g>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="14"
+         font-style="italic"
+         lengthAdjust="spacing"
+         textLength="169.6338"
+         x="1502.5"
+         y="788.0791"
+         id="text22">getAll(): List&lt;OwnedStock&gt;</text>
+      <g
+         data-visibility-modifier="PUBLIC_METHOD"
+         id="g23">
+        <ellipse
+           cx="1493.5"
+           cy="801.231"
+           fill="#84BE84"
+           rx="3"
+           ry="3"
+           style="stroke:#038048;stroke-width:1;"
+           id="ellipse23" />
+      </g>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="14"
+         font-style="italic"
+         lengthAdjust="spacing"
+         textLength="286.3438"
+         x="1502.5"
+         y="805.2305"
+         id="text23">getByPortfolioId(id: UUID): List&lt;OwnedStock&gt;</text>
+      <g
+         data-visibility-modifier="PUBLIC_METHOD"
+         id="g24">
+        <ellipse
+           cx="1493.5"
+           cy="818.3823"
+           fill="#84BE84"
+           rx="3"
+           ry="3"
+           style="stroke:#038048;stroke-width:1;"
+           id="ellipse24" />
+      </g>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="14"
+         font-style="italic"
+         lengthAdjust="spacing"
+         textLength="249.0264"
+         x="1502.5"
+         y="822.3818"
+         id="text24">update(ownedStock: OwnedStock): void</text>
+      <g
+         data-visibility-modifier="PUBLIC_METHOD"
+         id="g25">
+        <ellipse
+           cx="1493.5"
+           cy="835.5337"
+           fill="#84BE84"
+           rx="3"
+           ry="3"
+           style="stroke:#038048;stroke-width:1;"
+           id="ellipse25" />
+      </g>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="14"
+         font-style="italic"
+         lengthAdjust="spacing"
+         textLength="169.627"
+         x="1502.5"
+         y="839.5332"
+         id="text25">delete(symbol: String): void</text>
+    </g>
+    <!--class TransactionDAO-->
+    <g
+       class="entity"
+       data-qualified-name="TransactionDAO"
+       data-source-line="41"
+       id="ent0006">
+      <rect
+         fill="#FFE6E6"
+         height="109.3066"
+         rx="2.5"
+         ry="2.5"
+         style="stroke:#181818;stroke-width:0.5;"
+         width="306.1162"
+         x="1141.5"
+         y="720.5"
+         id="rect25" />
+      <ellipse
+         cx="1238.5669"
+         cy="741.4263"
+         fill="#B4A7E5"
+         rx="11"
+         ry="11"
+         style="stroke:#181818;stroke-width:1;"
+         id="ellipse26" />
+      <path
+         d="M1239.52,738.0669 L1239.52,744.7231 L1241.2388,744.7231 Q1241.8481,744.7231 1242.1138,744.9575 Q1242.3794,745.1919 1242.3794,745.5825 Q1242.3794,745.9575 1242.1138,746.1919 Q1241.8481,746.4263 1241.2388,746.4263 L1236.0981,746.4263 Q1235.4888,746.4263 1235.2231,746.1919 Q1234.9575,745.9575 1234.9575,745.5669 Q1234.9575,745.1919 1235.2231,744.9575 Q1235.4888,744.7231 1236.0981,744.7231 L1237.8169,744.7231 L1237.8169,738.0669 L1236.0981,738.0669 Q1235.4888,738.0669 1235.2231,737.8325 Q1234.9575,737.5981 1234.9575,737.2075 Q1234.9575,736.8325 1235.2231,736.5981 Q1235.4888,736.3638 1236.0981,736.3638 L1241.2388,736.3638 Q1241.8481,736.3638 1242.1138,736.5981 Q1242.3794,736.8325 1242.3794,737.2075 Q1242.3794,737.5981 1242.1138,737.8325 Q1241.8481,738.0669 1241.2388,738.0669 L1239.52,738.0669 Z "
+         fill="#000000"
+         id="path26" />
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="12"
+         font-style="italic"
+         lengthAdjust="spacing"
+         textLength="59.373"
+         x="1281.1216"
+         y="737.5645"
+         id="text26">«interface»</text>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="14"
+         font-style="italic"
+         lengthAdjust="spacing"
+         textLength="103.4824"
+         x="1259.0669"
+         y="754.2764"
+         id="text27">TransactionDAO</text>
+      <line
+         style="stroke:#181818;stroke-width:0.5;"
+         x1="1142.5"
+         x2="1446.6162"
+         y1="762.3525"
+         y2="762.3525"
+         id="line27" />
+      <line
+         style="stroke:#181818;stroke-width:0.5;"
+         x1="1142.5"
+         x2="1446.6162"
+         y1="770.3525"
+         y2="770.3525"
+         id="line28" />
+      <g
+         data-visibility-modifier="PUBLIC_METHOD"
+         id="g28">
+        <ellipse
+           cx="1152.5"
+           cy="784.4282"
+           fill="#84BE84"
+           rx="3"
+           ry="3"
+           style="stroke:#038048;stroke-width:1;"
+           id="ellipse28" />
+      </g>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="14"
+         font-style="italic"
+         lengthAdjust="spacing"
+         textLength="231.1025"
+         x="1161.5"
+         y="788.4277"
+         id="text28">create(transaction: Transaction): void</text>
+      <g
+         data-visibility-modifier="PUBLIC_METHOD"
+         id="g29">
+        <ellipse
+           cx="1152.5"
+           cy="801.5796"
+           fill="#84BE84"
+           rx="3"
+           ry="3"
+           style="stroke:#038048;stroke-width:1;"
+           id="ellipse29" />
+      </g>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="14"
+         font-style="italic"
+         lengthAdjust="spacing"
+         textLength="163.4063"
+         x="1161.5"
+         y="805.5791"
+         id="text29">getAll(): List&lt;Transaction&gt;</text>
+      <g
+         data-visibility-modifier="PUBLIC_METHOD"
+         id="g30">
+        <ellipse
+           cx="1152.5"
+           cy="818.731"
+           fill="#84BE84"
+           rx="3"
+           ry="3"
+           style="stroke:#038048;stroke-width:1;"
+           id="ellipse30" />
+      </g>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="14"
+         font-style="italic"
+         lengthAdjust="spacing"
+         textLength="280.1162"
+         x="1161.5"
+         y="822.7305"
+         id="text30">getByPortfolioId(id: UUID): List&lt;Transaction&gt;</text>
+    </g>
+    <!--class FileUnitOfWork-->
+    <g
+       class="entity"
+       data-qualified-name="FileUnitOfWork"
+       data-source-line="48"
+       id="ent0007">
+      <rect
+         fill="#E6F3FF"
+         height="195.0635"
+         rx="2.5"
+         ry="2.5"
+         style="stroke:#181818;stroke-width:0.5;"
+         width="281.9854"
+         x="819.5"
+         y="431"
+         id="rect30" />
+      <ellipse
+         cx="908.7944"
+         cy="451.9263"
+         fill="#ADD1B2"
+         rx="11"
+         ry="11"
+         style="stroke:#181818;stroke-width:1;"
+         id="ellipse31" />
+      <path
+         d="M911.5601,447.8013 Q911.7163,447.5825 911.9038,447.4731 Q912.0913,447.3638 912.3101,447.3638 Q912.6851,447.3638 912.9194,447.6294 Q913.1538,447.8794 913.1538,448.4888 L913.1538,449.9419 Q913.1538,450.5513 912.9194,450.8169 Q912.6851,451.0825 912.3101,451.0825 Q911.9663,451.0825 911.7632,450.8794 Q911.5601,450.6919 911.4507,450.1763 Q911.4038,449.8169 911.2163,449.6294 Q910.8882,449.2544 910.2788,449.0356 Q909.6694,448.8169 909.0444,448.8169 Q908.2788,448.8169 907.6382,449.145 Q907.0132,449.4731 906.5132,450.2231 Q906.0288,450.9731 906.0288,452.0044 L906.0288,453.0981 Q906.0288,454.3325 906.9194,455.1606 Q907.8101,455.9731 909.4038,455.9731 Q910.3413,455.9731 910.9976,455.7231 Q911.3882,455.5669 911.8101,455.1294 Q912.0757,454.8638 912.2163,454.7856 Q912.3726,454.7075 912.5757,454.7075 Q912.9038,454.7075 913.1538,454.9731 Q913.4194,455.2231 913.4194,455.5669 Q913.4194,455.9106 913.0757,456.3169 Q912.5757,456.895 911.7788,457.2231 Q910.7007,457.6763 909.4038,457.6763 Q907.8882,457.6763 906.6851,457.0513 Q905.7007,456.5513 905.0132,455.4888 Q904.3257,454.4106 904.3257,453.1294 L904.3257,451.9731 Q904.3257,450.645 904.9351,449.5044 Q905.5601,448.3481 906.6538,447.7388 Q907.7476,447.1138 908.9819,447.1138 Q909.7163,447.1138 910.3569,447.2856 Q911.0132,447.4419 911.5601,447.8013 Z "
+         fill="#000000"
+         id="path31" />
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="12"
+         font-style="italic"
+         lengthAdjust="spacing"
+         textLength="59.373"
+         x="947.0562"
+         y="448.0645"
+         id="text31">«concrete»</text>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="14"
+         lengthAdjust="spacing"
+         textLength="94.8965"
+         x="929.2944"
+         y="464.7764"
+         id="text32">FileUnitOfWork</text>
+      <line
+         style="stroke:#181818;stroke-width:0.5;"
+         x1="820.5"
+         x2="1100.4854"
+         y1="472.8525"
+         y2="472.8525"
+         id="line32" />
+      <g
+         data-visibility-modifier="PRIVATE_FIELD"
+         id="g32">
+        <rect
+           fill="none"
+           height="6"
+           style="stroke:#C82930;stroke-width:1;"
+           width="6"
+           x="827.5"
+           y="483.9282"
+           id="rect32" />
+      </g>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="14"
+         lengthAdjust="spacing"
+         textLength="136.1445"
+         x="839.5"
+         y="490.9277"
+         id="text33">stockDAO: StockDAO</text>
+      <g
+         data-visibility-modifier="PRIVATE_FIELD"
+         id="g33">
+        <rect
+           fill="none"
+           height="6"
+           style="stroke:#C82930;stroke-width:1;"
+           width="6"
+           x="827.5"
+           y="501.0796"
+           id="rect33" />
+      </g>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="14"
+         lengthAdjust="spacing"
+         textLength="169.6201"
+         x="839.5"
+         y="508.0791"
+         id="text34">portfolioDAO: PortfolioDAO</text>
+      <g
+         data-visibility-modifier="PRIVATE_FIELD"
+         id="g34">
+        <rect
+           fill="none"
+           height="6"
+           style="stroke:#C82930;stroke-width:1;"
+           width="6"
+           x="827.5"
+           y="518.231"
+           id="rect34" />
+      </g>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="14"
+         lengthAdjust="spacing"
+         textLength="224.0957"
+         x="839.5"
+         y="525.2305"
+         id="text35">ownedStockDAO: OwnedStockDAO</text>
+      <g
+         data-visibility-modifier="PRIVATE_FIELD"
+         id="g35">
+        <rect
+           fill="none"
+           height="6"
+           style="stroke:#C82930;stroke-width:1;"
+           width="6"
+           x="827.5"
+           y="535.3823"
+           id="rect35" />
+      </g>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="14"
+         lengthAdjust="spacing"
+         textLength="210.082"
+         x="839.5"
+         y="542.3818"
+         id="text36">transactionDAO: TransactionDAO</text>
+      <line
+         style="stroke:#181818;stroke-width:1;"
+         x1="820.5"
+         x2="1100.4854"
+         y1="549.458"
+         y2="549.458"
+         id="line36" />
+      <g
+         data-visibility-modifier="PUBLIC_METHOD"
+         id="g36">
+        <ellipse
+           cx="830.5"
+           cy="563.5337"
+           fill="#84BE84"
+           rx="3"
+           ry="3"
+           style="stroke:#038048;stroke-width:1;"
+           id="ellipse36" />
+      </g>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="14"
+         lengthAdjust="spacing"
+         textLength="167.2686"
+         x="839.5"
+         y="567.5332"
+         id="text37">getStockDAO(): StockDAO</text>
+      <g
+         data-visibility-modifier="PUBLIC_METHOD"
+         id="g37">
+        <ellipse
+           cx="830.5"
+           cy="580.6851"
+           fill="#84BE84"
+           rx="3"
+           ry="3"
+           style="stroke:#038048;stroke-width:1;"
+           id="ellipse37" />
+      </g>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="14"
+         lengthAdjust="spacing"
+         textLength="199.958"
+         x="839.5"
+         y="584.6846"
+         id="text38">getPortfolioDAO(): PortfolioDAO</text>
+      <g
+         data-visibility-modifier="PUBLIC_METHOD"
+         id="g38">
+        <ellipse
+           cx="830.5"
+           cy="597.8364"
+           fill="#84BE84"
+           rx="3"
+           ry="3"
+           style="stroke:#038048;stroke-width:1;"
+           id="ellipse38" />
+      </g>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="14"
+         lengthAdjust="spacing"
+         textLength="255.9854"
+         x="839.5"
+         y="601.8359"
+         id="text39">getOwnedStockDAO(): OwnedStockDAO</text>
+      <g
+         data-visibility-modifier="PUBLIC_METHOD"
+         id="g39">
+        <ellipse
+           cx="830.5"
+           cy="614.9878"
+           fill="#84BE84"
+           rx="3"
+           ry="3"
+           style="stroke:#038048;stroke-width:1;"
+           id="ellipse39" />
+      </g>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="14"
+         lengthAdjust="spacing"
+         textLength="243.5303"
+         x="839.5"
+         y="618.9873"
+         id="text40">getTransactionDAO(): TransactionDAO</text>
+    </g>
+    <!--class StockFileDAO-->
+    <g
+       class="entity"
+       data-qualified-name="StockFileDAO"
+       data-source-line="60"
+       id="ent0009">
+      <rect
+         fill="#E6F3FF"
+         height="126.458"
+         rx="2.5"
+         ry="2.5"
+         style="stroke:#181818;stroke-width:0.5;"
+         width="249.2959"
+         x="286"
+         y="908"
+         id="rect40" />
+      <ellipse
+         cx="362.4429"
+         cy="928.9263"
+         fill="#ADD1B2"
+         rx="11"
+         ry="11"
+         style="stroke:#181818;stroke-width:1;"
+         id="ellipse40" />
+      <path
+         d="M365.2085,924.8013 Q365.3647,924.5825 365.5522,924.4731 Q365.7397,924.3638 365.9585,924.3638 Q366.3335,924.3638 366.5679,924.6294 Q366.8022,924.8794 366.8022,925.4888 L366.8022,926.9419 Q366.8022,927.5513 366.5679,927.8169 Q366.3335,928.0825 365.9585,928.0825 Q365.6147,928.0825 365.4116,927.8794 Q365.2085,927.6919 365.0991,927.1763 Q365.0522,926.8169 364.8647,926.6294 Q364.5366,926.2544 363.9272,926.0356 Q363.3179,925.8169 362.6929,925.8169 Q361.9272,925.8169 361.2866,926.145 Q360.6616,926.4731 360.1616,927.2231 Q359.6772,927.9731 359.6772,929.0044 L359.6772,930.0981 Q359.6772,931.3325 360.5679,932.1606 Q361.4585,932.9731 363.0522,932.9731 Q363.9897,932.9731 364.646,932.7231 Q365.0366,932.5669 365.4585,932.1294 Q365.7241,931.8638 365.8647,931.7856 Q366.021,931.7075 366.2241,931.7075 Q366.5522,931.7075 366.8022,931.9731 Q367.0679,932.2231 367.0679,932.5669 Q367.0679,932.9106 366.7241,933.3169 Q366.2241,933.895 365.4272,934.2231 Q364.3491,934.6763 363.0522,934.6763 Q361.5366,934.6763 360.3335,934.0513 Q359.3491,933.5513 358.6616,932.4888 Q357.9741,931.4106 357.9741,930.1294 L357.9741,928.9731 Q357.9741,927.645 358.5835,926.5044 Q359.2085,925.3481 360.3022,924.7388 Q361.396,924.1138 362.6304,924.1138 Q363.3647,924.1138 364.0054,924.2856 Q364.6616,924.4419 365.2085,924.8013 Z "
+         fill="#000000"
+         id="path40" />
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="12"
+         font-style="italic"
+         lengthAdjust="spacing"
+         textLength="59.373"
+         x="397.2114"
+         y="925.0645"
+         id="text41">«concrete»</text>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="14"
+         lengthAdjust="spacing"
+         textLength="87.9102"
+         x="382.9429"
+         y="941.7764"
+         id="text42">StockFileDAO</text>
+      <line
+         style="stroke:#181818;stroke-width:0.5;"
+         x1="287"
+         x2="534.2959"
+         y1="949.8525"
+         y2="949.8525"
+         id="line42" />
+      <g
+         data-visibility-modifier="PRIVATE_FIELD"
+         id="g42">
+        <rect
+           fill="none"
+           height="6"
+           style="stroke:#C82930;stroke-width:1;"
+           width="6"
+           x="294"
+           y="960.9282"
+           id="rect42" />
+      </g>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="14"
+         lengthAdjust="spacing"
+         textLength="105.7998"
+         x="306"
+         y="967.9277"
+         id="text43">uow: UnitOfWork</text>
+      <line
+         style="stroke:#181818;stroke-width:0.5;"
+         x1="287"
+         x2="534.2959"
+         y1="975.0039"
+         y2="975.0039"
+         id="line43" />
+      <g
+         data-visibility-modifier="PUBLIC_METHOD"
+         id="g43">
+        <ellipse
+           cx="297"
+           cy="989.0796"
+           fill="#84BE84"
+           rx="3"
+           ry="3"
+           style="stroke:#038048;stroke-width:1;"
+           id="ellipse43" />
+      </g>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="14"
+         lengthAdjust="spacing"
+         textLength="157.165"
+         x="306"
+         y="993.0791"
+         id="text44">create(stock: Stock): void</text>
+      <g
+         data-visibility-modifier="PUBLIC_METHOD"
+         id="g44">
+        <ellipse
+           cx="297"
+           cy="1006.231"
+           fill="#84BE84"
+           rx="3"
+           ry="3"
+           style="stroke:#038048;stroke-width:1;"
+           id="ellipse44" />
+      </g>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="14"
+         lengthAdjust="spacing"
+         textLength="223.2959"
+         x="306"
+         y="1010.2305"
+         id="text45">getBySymbol(symbol: String): Stock</text>
+      <g
+         data-visibility-modifier="PUBLIC_METHOD"
+         id="g45">
+        <ellipse
+           cx="297"
+           cy="1023.3823"
+           fill="#84BE84"
+           rx="3"
+           ry="3"
+           style="stroke:#038048;stroke-width:1;"
+           id="ellipse45" />
+      </g>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="14"
+         lengthAdjust="spacing"
+         textLength="161.0752"
+         x="306"
+         y="1027.3818"
+         id="text46">update(stock: Stock): void</text>
+    </g>
+    <!--class PortfolioFileDAO-->
+    <g
+       class="entity"
+       data-qualified-name="PortfolioFileDAO"
+       data-source-line="67"
+       id="ent0011">
+      <rect
+         fill="#E6F3FF"
+         height="126.458"
+         rx="2.5"
+         ry="2.5"
+         style="stroke:#181818;stroke-width:0.5;"
+         width="220.5508"
+         x="570"
+         y="908"
+         id="rect46" />
+      <ellipse
+         cx="623.8979"
+         cy="928.9263"
+         fill="#ADD1B2"
+         rx="11"
+         ry="11"
+         style="stroke:#181818;stroke-width:1;"
+         id="ellipse46" />
+      <path
+         d="M626.6636,924.8013 Q626.8198,924.5825 627.0073,924.4731 Q627.1948,924.3638 627.4136,924.3638 Q627.7886,924.3638 628.0229,924.6294 Q628.2573,924.8794 628.2573,925.4888 L628.2573,926.9419 Q628.2573,927.5513 628.0229,927.8169 Q627.7886,928.0825 627.4136,928.0825 Q627.0698,928.0825 626.8667,927.8794 Q626.6636,927.6919 626.5542,927.1763 Q626.5073,926.8169 626.3198,926.6294 Q625.9917,926.2544 625.3823,926.0356 Q624.7729,925.8169 624.1479,925.8169 Q623.3823,925.8169 622.7417,926.145 Q622.1167,926.4731 621.6167,927.2231 Q621.1323,927.9731 621.1323,929.0044 L621.1323,930.0981 Q621.1323,931.3325 622.0229,932.1606 Q622.9136,932.9731 624.5073,932.9731 Q625.4448,932.9731 626.1011,932.7231 Q626.4917,932.5669 626.9136,932.1294 Q627.1792,931.8638 627.3198,931.7856 Q627.4761,931.7075 627.6792,931.7075 Q628.0073,931.7075 628.2573,931.9731 Q628.5229,932.2231 628.5229,932.5669 Q628.5229,932.9106 628.1792,933.3169 Q627.6792,933.895 626.8823,934.2231 Q625.8042,934.6763 624.5073,934.6763 Q622.9917,934.6763 621.7886,934.0513 Q620.8042,933.5513 620.1167,932.4888 Q619.4292,931.4106 619.4292,930.1294 L619.4292,928.9731 Q619.4292,927.645 620.0386,926.5044 Q620.6636,925.3481 621.7573,924.7388 Q622.8511,924.1138 624.0854,924.1138 Q624.8198,924.1138 625.4604,924.2856 Q626.1167,924.4419 626.6636,924.8013 Z "
+         fill="#000000"
+         id="path46" />
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="12"
+         font-style="italic"
+         lengthAdjust="spacing"
+         textLength="59.373"
+         x="666.8389"
+         y="925.0645"
+         id="text47">«concrete»</text>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="14"
+         lengthAdjust="spacing"
+         textLength="104.2549"
+         x="644.3979"
+         y="941.7764"
+         id="text48">PortfolioFileDAO</text>
+      <line
+         style="stroke:#181818;stroke-width:0.5;"
+         x1="571"
+         x2="789.5508"
+         y1="949.8525"
+         y2="949.8525"
+         id="line48" />
+      <g
+         data-visibility-modifier="PRIVATE_FIELD"
+         id="g48">
+        <rect
+           fill="none"
+           height="6"
+           style="stroke:#C82930;stroke-width:1;"
+           width="6"
+           x="578"
+           y="960.9282"
+           id="rect48" />
+      </g>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="14"
+         lengthAdjust="spacing"
+         textLength="105.7998"
+         x="590"
+         y="967.9277"
+         id="text49">uow: UnitOfWork</text>
+      <line
+         style="stroke:#181818;stroke-width:0.5;"
+         x1="571"
+         x2="789.5508"
+         y1="975.0039"
+         y2="975.0039"
+         id="line49" />
+      <g
+         data-visibility-modifier="PUBLIC_METHOD"
+         id="g49">
+        <ellipse
+           cx="581"
+           cy="989.0796"
+           fill="#84BE84"
+           rx="3"
+           ry="3"
+           style="stroke:#038048;stroke-width:1;"
+           id="ellipse49" />
+      </g>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="14"
+         lengthAdjust="spacing"
+         textLength="190.6406"
+         x="590"
+         y="993.0791"
+         id="text50">create(portfolio: Portfolio): void</text>
+      <g
+         data-visibility-modifier="PUBLIC_METHOD"
+         id="g50">
+        <ellipse
+           cx="581"
+           cy="1006.231"
+           fill="#84BE84"
+           rx="3"
+           ry="3"
+           style="stroke:#038048;stroke-width:1;"
+           id="ellipse50" />
+      </g>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="14"
+         lengthAdjust="spacing"
+         textLength="168.834"
+         x="590"
+         y="1010.2305"
+         id="text51">getById(id: UUID): Portfolio</text>
+      <g
+         data-visibility-modifier="PUBLIC_METHOD"
+         id="g51">
+        <ellipse
+           cx="581"
+           cy="1023.3823"
+           fill="#84BE84"
+           rx="3"
+           ry="3"
+           style="stroke:#038048;stroke-width:1;"
+           id="ellipse51" />
+      </g>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="14"
+         lengthAdjust="spacing"
+         textLength="194.5508"
+         x="590"
+         y="1027.3818"
+         id="text52">update(portfolio: Portfolio): void</text>
+    </g>
+    <!--class OwnedStockFileDAO-->
+    <g
+       class="entity"
+       data-qualified-name="OwnedStockFileDAO"
+       data-source-line="74"
+       id="ent0013">
+      <rect
+         fill="#E6F3FF"
+         height="126.458"
+         rx="2.5"
+         ry="2.5"
+         style="stroke:#181818;stroke-width:0.5;"
+         width="312.3438"
+         x="1482.5"
+         y="908"
+         id="rect52" />
+      <ellipse
+         cx="1568.2876"
+         cy="928.9263"
+         fill="#ADD1B2"
+         rx="11"
+         ry="11"
+         style="stroke:#181818;stroke-width:1;"
+         id="ellipse52" />
+      <path
+         d="M1571.0532,924.8013 Q1571.2095,924.5825 1571.397,924.4731 Q1571.5845,924.3638 1571.8032,924.3638 Q1572.1782,924.3638 1572.4126,924.6294 Q1572.647,924.8794 1572.647,925.4888 L1572.647,926.9419 Q1572.647,927.5513 1572.4126,927.8169 Q1572.1782,928.0825 1571.8032,928.0825 Q1571.4595,928.0825 1571.2563,927.8794 Q1571.0532,927.6919 1570.9438,927.1763 Q1570.897,926.8169 1570.7095,926.6294 Q1570.3813,926.2544 1569.772,926.0356 Q1569.1626,925.8169 1568.5376,925.8169 Q1567.772,925.8169 1567.1313,926.145 Q1566.5063,926.4731 1566.0063,927.2231 Q1565.522,927.9731 1565.522,929.0044 L1565.522,930.0981 Q1565.522,931.3325 1566.4126,932.1606 Q1567.3032,932.9731 1568.897,932.9731 Q1569.8345,932.9731 1570.4907,932.7231 Q1570.8813,932.5669 1571.3032,932.1294 Q1571.5688,931.8638 1571.7095,931.7856 Q1571.8657,931.7075 1572.0688,931.7075 Q1572.397,931.7075 1572.647,931.9731 Q1572.9126,932.2231 1572.9126,932.5669 Q1572.9126,932.9106 1572.5688,933.3169 Q1572.0688,933.895 1571.272,934.2231 Q1570.1938,934.6763 1568.897,934.6763 Q1567.3813,934.6763 1566.1782,934.0513 Q1565.1938,933.5513 1564.5063,932.4888 Q1563.8188,931.4106 1563.8188,930.1294 L1563.8188,928.9731 Q1563.8188,927.645 1564.4282,926.5044 Q1565.0532,925.3481 1566.147,924.7388 Q1567.2407,924.1138 1568.4751,924.1138 Q1569.2095,924.1138 1569.8501,924.2856 Q1570.5063,924.4419 1571.0532,924.8013 Z "
+         fill="#000000"
+         id="path52" />
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="12"
+         font-style="italic"
+         lengthAdjust="spacing"
+         textLength="59.373"
+         x="1625.2354"
+         y="925.0645"
+         id="text53">«concrete»</text>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="14"
+         lengthAdjust="spacing"
+         textLength="132.2686"
+         x="1588.7876"
+         y="941.7764"
+         id="text54">OwnedStockFileDAO</text>
+      <line
+         style="stroke:#181818;stroke-width:0.5;"
+         x1="1483.5"
+         x2="1793.8438"
+         y1="949.8525"
+         y2="949.8525"
+         id="line54" />
+      <g
+         data-visibility-modifier="PRIVATE_FIELD"
+         id="g54">
+        <rect
+           fill="none"
+           height="6"
+           style="stroke:#C82930;stroke-width:1;"
+           width="6"
+           x="1490.5"
+           y="960.9282"
+           id="rect54" />
+      </g>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="14"
+         lengthAdjust="spacing"
+         textLength="105.7998"
+         x="1502.5"
+         y="967.9277"
+         id="text55">uow: UnitOfWork</text>
+      <line
+         style="stroke:#181818;stroke-width:0.5;"
+         x1="1483.5"
+         x2="1793.8438"
+         y1="975.0039"
+         y2="975.0039"
+         id="line55" />
+      <g
+         data-visibility-modifier="PUBLIC_METHOD"
+         id="g55">
+        <ellipse
+           cx="1493.5"
+           cy="989.0796"
+           fill="#84BE84"
+           rx="3"
+           ry="3"
+           style="stroke:#038048;stroke-width:1;"
+           id="ellipse55" />
+      </g>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="14"
+         lengthAdjust="spacing"
+         textLength="245.1162"
+         x="1502.5"
+         y="993.0791"
+         id="text56">create(ownedStock: OwnedStock): void</text>
+      <g
+         data-visibility-modifier="PUBLIC_METHOD"
+         id="g56">
+        <ellipse
+           cx="1493.5"
+           cy="1006.231"
+           fill="#84BE84"
+           rx="3"
+           ry="3"
+           style="stroke:#038048;stroke-width:1;"
+           id="ellipse56" />
+      </g>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="14"
+         lengthAdjust="spacing"
+         textLength="286.3438"
+         x="1502.5"
+         y="1010.2305"
+         id="text57">getByPortfolioId(id: UUID): List&lt;OwnedStock&gt;</text>
+      <g
+         data-visibility-modifier="PUBLIC_METHOD"
+         id="g57">
+        <ellipse
+           cx="1493.5"
+           cy="1023.3823"
+           fill="#84BE84"
+           rx="3"
+           ry="3"
+           style="stroke:#038048;stroke-width:1;"
+           id="ellipse57" />
+      </g>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="14"
+         lengthAdjust="spacing"
+         textLength="249.0264"
+         x="1502.5"
+         y="1027.3818"
+         id="text58">update(ownedStock: OwnedStock): void</text>
+    </g>
+    <!--class TransactionFileDAO-->
+    <g
+       class="entity"
+       data-qualified-name="TransactionFileDAO"
+       data-source-line="81"
+       id="ent0015">
+      <rect
+         fill="#E6F3FF"
+         height="109.3066"
+         rx="2.5"
+         ry="2.5"
+         style="stroke:#181818;stroke-width:0.5;"
+         width="306.1162"
+         x="1141.5"
+         y="916.5"
+         id="rect58" />
+      <ellipse
+         cx="1227.2876"
+         cy="937.4263"
+         fill="#ADD1B2"
+         rx="11"
+         ry="11"
+         style="stroke:#181818;stroke-width:1;"
+         id="ellipse58" />
+      <path
+         d="M1230.0532,933.3013 Q1230.2095,933.0825 1230.397,932.9731 Q1230.5845,932.8638 1230.8032,932.8638 Q1231.1782,932.8638 1231.4126,933.1294 Q1231.647,933.3794 1231.647,933.9888 L1231.647,935.4419 Q1231.647,936.0513 1231.4126,936.3169 Q1231.1782,936.5825 1230.8032,936.5825 Q1230.4595,936.5825 1230.2563,936.3794 Q1230.0532,936.1919 1229.9438,935.6763 Q1229.897,935.3169 1229.7095,935.1294 Q1229.3813,934.7544 1228.772,934.5356 Q1228.1626,934.3169 1227.5376,934.3169 Q1226.772,934.3169 1226.1313,934.645 Q1225.5063,934.9731 1225.0063,935.7231 Q1224.522,936.4731 1224.522,937.5044 L1224.522,938.5981 Q1224.522,939.8325 1225.4126,940.6606 Q1226.3032,941.4731 1227.897,941.4731 Q1228.8345,941.4731 1229.4907,941.2231 Q1229.8813,941.0669 1230.3032,940.6294 Q1230.5688,940.3638 1230.7095,940.2856 Q1230.8657,940.2075 1231.0688,940.2075 Q1231.397,940.2075 1231.647,940.4731 Q1231.9126,940.7231 1231.9126,941.0669 Q1231.9126,941.4106 1231.5688,941.8169 Q1231.0688,942.395 1230.272,942.7231 Q1229.1938,943.1763 1227.897,943.1763 Q1226.3813,943.1763 1225.1782,942.5513 Q1224.1938,942.0513 1223.5063,940.9888 Q1222.8188,939.9106 1222.8188,938.6294 L1222.8188,937.4731 Q1222.8188,936.145 1223.4282,935.0044 Q1224.0532,933.8481 1225.147,933.2388 Q1226.2407,932.6138 1227.4751,932.6138 Q1228.2095,932.6138 1228.8501,932.7856 Q1229.5063,932.9419 1230.0532,933.3013 Z "
+         fill="#000000"
+         id="path58" />
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="12"
+         font-style="italic"
+         lengthAdjust="spacing"
+         textLength="59.373"
+         x="1281.1216"
+         y="933.5645"
+         id="text59">«concrete»</text>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="14"
+         lengthAdjust="spacing"
+         textLength="126.041"
+         x="1247.7876"
+         y="950.2764"
+         id="text60">TransactionFileDAO</text>
+      <line
+         style="stroke:#181818;stroke-width:0.5;"
+         x1="1142.5"
+         x2="1446.6162"
+         y1="958.3525"
+         y2="958.3525"
+         id="line60" />
+      <g
+         data-visibility-modifier="PRIVATE_FIELD"
+         id="g60">
+        <rect
+           fill="none"
+           height="6"
+           style="stroke:#C82930;stroke-width:1;"
+           width="6"
+           x="1149.5"
+           y="969.4282"
+           id="rect60" />
+      </g>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="14"
+         lengthAdjust="spacing"
+         textLength="105.7998"
+         x="1161.5"
+         y="976.4277"
+         id="text61">uow: UnitOfWork</text>
+      <line
+         style="stroke:#181818;stroke-width:0.5;"
+         x1="1142.5"
+         x2="1446.6162"
+         y1="983.5039"
+         y2="983.5039"
+         id="line61" />
+      <g
+         data-visibility-modifier="PUBLIC_METHOD"
+         id="g61">
+        <ellipse
+           cx="1152.5"
+           cy="997.5796"
+           fill="#84BE84"
+           rx="3"
+           ry="3"
+           style="stroke:#038048;stroke-width:1;"
+           id="ellipse61" />
+      </g>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="14"
+         lengthAdjust="spacing"
+         textLength="231.1025"
+         x="1161.5"
+         y="1001.5791"
+         id="text62">create(transaction: Transaction): void</text>
+      <g
+         data-visibility-modifier="PUBLIC_METHOD"
+         id="g62">
+        <ellipse
+           cx="1152.5"
+           cy="1014.731"
+           fill="#84BE84"
+           rx="3"
+           ry="3"
+           style="stroke:#038048;stroke-width:1;"
+           id="ellipse62" />
+      </g>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="14"
+         lengthAdjust="spacing"
+         textLength="280.1162"
+         x="1161.5"
+         y="1018.7305"
+         id="text63">getByPortfolioId(id: UUID): List&lt;Transaction&gt;</text>
+    </g>
+    <!--class BuySharesService-->
+    <g
+       class="entity"
+       data-qualified-name="BuySharesService"
+       data-source-line="88"
+       id="ent0017">
+      <rect
+         fill="#E6FFE6"
+         height="160.7607"
+         rx="2.5"
+         ry="2.5"
+         style="stroke:#181818;stroke-width:0.5;"
+         width="310.8193"
+         x="788"
+         y="7"
+         id="rect63" />
+      <ellipse
+         cx="881.5771"
+         cy="27.9263"
+         fill="#ADD1B2"
+         rx="11"
+         ry="11"
+         style="stroke:#181818;stroke-width:1;"
+         id="ellipse63" />
+      <path
+         d="M884.3428,23.8013 Q884.499,23.5825 884.6865,23.4731 Q884.874,23.3638 885.0928,23.3638 Q885.4678,23.3638 885.7021,23.6294 Q885.9365,23.8794 885.9365,24.4888 L885.9365,25.9419 Q885.9365,26.5513 885.7021,26.8169 Q885.4678,27.0825 885.0928,27.0825 Q884.749,27.0825 884.5459,26.8794 Q884.3428,26.6919 884.2334,26.1763 Q884.1865,25.8169 883.999,25.6294 Q883.6709,25.2544 883.0615,25.0356 Q882.4521,24.8169 881.8271,24.8169 Q881.0615,24.8169 880.4209,25.145 Q879.7959,25.4731 879.2959,26.2231 Q878.8115,26.9731 878.8115,28.0044 L878.8115,29.0981 Q878.8115,30.3325 879.7021,31.1606 Q880.5928,31.9731 882.1865,31.9731 Q883.124,31.9731 883.7803,31.7231 Q884.1709,31.5669 884.5928,31.1294 Q884.8584,30.8638 884.999,30.7856 Q885.1553,30.7075 885.3584,30.7075 Q885.6865,30.7075 885.9365,30.9731 Q886.2021,31.2231 886.2021,31.5669 Q886.2021,31.9106 885.8584,32.3169 Q885.3584,32.895 884.5615,33.2231 Q883.4834,33.6763 882.1865,33.6763 Q880.6709,33.6763 879.4678,33.0513 Q878.4834,32.5513 877.7959,31.4888 Q877.1084,30.4106 877.1084,29.1294 L877.1084,27.9731 Q877.1084,26.645 877.7178,25.5044 Q878.3428,24.3481 879.4365,23.7388 Q880.5303,23.1138 881.7646,23.1138 Q882.499,23.1138 883.1396,23.2856 Q883.7959,23.4419 884.3428,23.8013 Z "
+         fill="#000000"
+         id="path63" />
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="12"
+         font-style="italic"
+         lengthAdjust="spacing"
+         textLength="51.3574"
+         x="933.981"
+         y="24.0645"
+         id="text64">«service»</text>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="14"
+         lengthAdjust="spacing"
+         textLength="115.165"
+         x="902.0771"
+         y="40.7764"
+         id="text65">BuySharesService</text>
+      <line
+         style="stroke:#181818;stroke-width:0.5;"
+         x1="789"
+         x2="1097.8193"
+         y1="48.8525"
+         y2="48.8525"
+         id="line65" />
+      <g
+         data-visibility-modifier="PRIVATE_FIELD"
+         id="g65">
+        <rect
+           fill="none"
+           height="6"
+           style="stroke:#C82930;stroke-width:1;"
+           width="6"
+           x="796"
+           y="59.9282"
+           id="rect65" />
+      </g>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="14"
+         lengthAdjust="spacing"
+         textLength="136.1445"
+         x="808"
+         y="66.9277"
+         id="text66">stockDAO: StockDAO</text>
+      <g
+         data-visibility-modifier="PRIVATE_FIELD"
+         id="g66">
+        <rect
+           fill="none"
+           height="6"
+           style="stroke:#C82930;stroke-width:1;"
+           width="6"
+           x="796"
+           y="77.0796"
+           id="rect66" />
+      </g>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="14"
+         lengthAdjust="spacing"
+         textLength="169.6201"
+         x="808"
+         y="84.0791"
+         id="text67">portfolioDAO: PortfolioDAO</text>
+      <g
+         data-visibility-modifier="PRIVATE_FIELD"
+         id="g67">
+        <rect
+           fill="none"
+           height="6"
+           style="stroke:#C82930;stroke-width:1;"
+           width="6"
+           x="796"
+           y="94.231"
+           id="rect67" />
+      </g>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="14"
+         lengthAdjust="spacing"
+         textLength="224.0957"
+         x="808"
+         y="101.2305"
+         id="text68">ownedStockDAO: OwnedStockDAO</text>
+      <g
+         data-visibility-modifier="PRIVATE_FIELD"
+         id="g68">
+        <rect
+           fill="none"
+           height="6"
+           style="stroke:#C82930;stroke-width:1;"
+           width="6"
+           x="796"
+           y="111.3823"
+           id="rect68" />
+      </g>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="14"
+         lengthAdjust="spacing"
+         textLength="210.082"
+         x="808"
+         y="118.3818"
+         id="text69">transactionDAO: TransactionDAO</text>
+      <g
+         data-visibility-modifier="PRIVATE_FIELD"
+         id="g69">
+        <rect
+           fill="none"
+           height="6"
+           style="stroke:#C82930;stroke-width:1;"
+           width="6"
+           x="796"
+           y="128.5337"
+           id="rect69" />
+      </g>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="14"
+         lengthAdjust="spacing"
+         textLength="105.7998"
+         x="808"
+         y="135.5332"
+         id="text70">uow: UnitOfWork</text>
+      <line
+         style="stroke:#181818;stroke-width:1;"
+         x1="789"
+         x2="1097.8193"
+         y1="142.6094"
+         y2="142.6094"
+         id="line70" />
+      <g
+         data-visibility-modifier="PUBLIC_METHOD"
+         id="g70">
+        <ellipse
+           cx="799"
+           cy="156.6851"
+           fill="#84BE84"
+           rx="3"
+           ry="3"
+           style="stroke:#038048;stroke-width:1;"
+           id="ellipse70" />
+      </g>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="14"
+         lengthAdjust="spacing"
+         textLength="284.8193"
+         x="808"
+         y="160.6846"
+         id="text71">buyShares(request: BuySharesRequest): void</text>
+    </g>
+    <!--class Stock-->
+    <g
+       class="entity"
+       data-qualified-name="Stock"
+       data-source-line="99"
+       id="ent0018">
+      <rect
+         fill="#F1F1F1"
+         height="48"
+         rx="2.5"
+         ry="2.5"
+         style="stroke:#181818;stroke-width:0.5;"
+         width="67.0137"
+         x="377"
+         y="1111"
+         id="rect71" />
+      <ellipse
+         cx="392"
+         cy="1127"
+         fill="#ADD1B2"
+         rx="11"
+         ry="11"
+         style="stroke:#181818;stroke-width:1;"
+         id="ellipse71" />
+      <path
+         d="M394.7656,1122.875 Q394.9219,1122.6563 395.1094,1122.5469 Q395.2969,1122.4375 395.5156,1122.4375 Q395.8906,1122.4375 396.125,1122.7031 Q396.3594,1122.9531 396.3594,1123.5625 L396.3594,1125.0156 Q396.3594,1125.625 396.125,1125.8906 Q395.8906,1126.1563 395.5156,1126.1563 Q395.1719,1126.1563 394.9688,1125.9531 Q394.7656,1125.7656 394.6563,1125.25 Q394.6094,1124.8906 394.4219,1124.7031 Q394.0938,1124.3281 393.4844,1124.1094 Q392.875,1123.8906 392.25,1123.8906 Q391.4844,1123.8906 390.8438,1124.2188 Q390.2188,1124.5469 389.7188,1125.2969 Q389.2344,1126.0469 389.2344,1127.0781 L389.2344,1128.1719 Q389.2344,1129.4063 390.125,1130.2344 Q391.0156,1131.0469 392.6094,1131.0469 Q393.5469,1131.0469 394.2031,1130.7969 Q394.5938,1130.6406 395.0156,1130.2031 Q395.2813,1129.9375 395.4219,1129.8594 Q395.5781,1129.7813 395.7813,1129.7813 Q396.1094,1129.7813 396.3594,1130.0469 Q396.625,1130.2969 396.625,1130.6406 Q396.625,1130.9844 396.2813,1131.3906 Q395.7813,1131.9688 394.9844,1132.2969 Q393.9063,1132.75 392.6094,1132.75 Q391.0938,1132.75 389.8906,1132.125 Q388.9063,1131.625 388.2188,1130.5625 Q387.5313,1129.4844 387.5313,1128.2031 L387.5313,1127.0469 Q387.5313,1125.7188 388.1406,1124.5781 Q388.7656,1123.4219 389.8594,1122.8125 Q390.9531,1122.1875 392.1875,1122.1875 Q392.9219,1122.1875 393.5625,1122.3594 Q394.2188,1122.5156 394.7656,1122.875 Z "
+         fill="#000000"
+         id="path71" />
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="14"
+         lengthAdjust="spacing"
+         textLength="35.0137"
+         x="406"
+         y="1132.4995"
+         id="text72">Stock</text>
+      <line
+         style="stroke:#181818;stroke-width:0.5;"
+         x1="378"
+         x2="443.0137"
+         y1="1143"
+         y2="1143"
+         id="line72" />
+      <line
+         style="stroke:#181818;stroke-width:0.5;"
+         x1="378"
+         x2="443.0137"
+         y1="1151"
+         y2="1151"
+         id="line73" />
+    </g>
+    <!--class Portfolio-->
+    <g
+       class="entity"
+       data-qualified-name="Portfolio"
+       data-source-line="100"
+       id="ent0019">
+      <rect
+         fill="#F1F1F1"
+         height="48"
+         rx="2.5"
+         ry="2.5"
+         style="stroke:#181818;stroke-width:0.5;"
+         width="83.3584"
+         x="639"
+         y="1111"
+         id="rect73" />
+      <ellipse
+         cx="654"
+         cy="1127"
+         fill="#ADD1B2"
+         rx="11"
+         ry="11"
+         style="stroke:#181818;stroke-width:1;"
+         id="ellipse73" />
+      <path
+         d="M656.7656,1122.875 Q656.9219,1122.6563 657.1094,1122.5469 Q657.2969,1122.4375 657.5156,1122.4375 Q657.8906,1122.4375 658.125,1122.7031 Q658.3594,1122.9531 658.3594,1123.5625 L658.3594,1125.0156 Q658.3594,1125.625 658.125,1125.8906 Q657.8906,1126.1563 657.5156,1126.1563 Q657.1719,1126.1563 656.9688,1125.9531 Q656.7656,1125.7656 656.6563,1125.25 Q656.6094,1124.8906 656.4219,1124.7031 Q656.0938,1124.3281 655.4844,1124.1094 Q654.875,1123.8906 654.25,1123.8906 Q653.4844,1123.8906 652.8438,1124.2188 Q652.2188,1124.5469 651.7188,1125.2969 Q651.2344,1126.0469 651.2344,1127.0781 L651.2344,1128.1719 Q651.2344,1129.4063 652.125,1130.2344 Q653.0156,1131.0469 654.6094,1131.0469 Q655.5469,1131.0469 656.2031,1130.7969 Q656.5938,1130.6406 657.0156,1130.2031 Q657.2813,1129.9375 657.4219,1129.8594 Q657.5781,1129.7813 657.7813,1129.7813 Q658.1094,1129.7813 658.3594,1130.0469 Q658.625,1130.2969 658.625,1130.6406 Q658.625,1130.9844 658.2813,1131.3906 Q657.7813,1131.9688 656.9844,1132.2969 Q655.9063,1132.75 654.6094,1132.75 Q653.0938,1132.75 651.8906,1132.125 Q650.9063,1131.625 650.2188,1130.5625 Q649.5313,1129.4844 649.5313,1128.2031 L649.5313,1127.0469 Q649.5313,1125.7188 650.1406,1124.5781 Q650.7656,1123.4219 651.8594,1122.8125 Q652.9531,1122.1875 654.1875,1122.1875 Q654.9219,1122.1875 655.5625,1122.3594 Q656.2188,1122.5156 656.7656,1122.875 Z "
+         fill="#000000"
+         id="path73" />
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="14"
+         lengthAdjust="spacing"
+         textLength="51.3584"
+         x="668"
+         y="1132.4995"
+         id="text73">Portfolio</text>
+      <line
+         style="stroke:#181818;stroke-width:0.5;"
+         x1="640"
+         x2="721.3584"
+         y1="1143"
+         y2="1143"
+         id="line74" />
+      <line
+         style="stroke:#181818;stroke-width:0.5;"
+         x1="640"
+         x2="721.3584"
+         y1="1151"
+         y2="1151"
+         id="line75" />
+    </g>
+    <!--class OwnedStock-->
+    <g
+       class="entity"
+       data-qualified-name="OwnedStock"
+       data-source-line="101"
+       id="ent0020">
+      <rect
+         fill="#F1F1F1"
+         height="48"
+         rx="2.5"
+         ry="2.5"
+         style="stroke:#181818;stroke-width:0.5;"
+         width="111.3721"
+         x="1583"
+         y="1111"
+         id="rect75" />
+      <ellipse
+         cx="1598"
+         cy="1127"
+         fill="#ADD1B2"
+         rx="11"
+         ry="11"
+         style="stroke:#181818;stroke-width:1;"
+         id="ellipse75" />
+      <path
+         d="M1600.7656,1122.875 Q1600.9219,1122.6563 1601.1094,1122.5469 Q1601.2969,1122.4375 1601.5156,1122.4375 Q1601.8906,1122.4375 1602.125,1122.7031 Q1602.3594,1122.9531 1602.3594,1123.5625 L1602.3594,1125.0156 Q1602.3594,1125.625 1602.125,1125.8906 Q1601.8906,1126.1563 1601.5156,1126.1563 Q1601.1719,1126.1563 1600.9688,1125.9531 Q1600.7656,1125.7656 1600.6563,1125.25 Q1600.6094,1124.8906 1600.4219,1124.7031 Q1600.0938,1124.3281 1599.4844,1124.1094 Q1598.875,1123.8906 1598.25,1123.8906 Q1597.4844,1123.8906 1596.8438,1124.2188 Q1596.2188,1124.5469 1595.7188,1125.2969 Q1595.2344,1126.0469 1595.2344,1127.0781 L1595.2344,1128.1719 Q1595.2344,1129.4063 1596.125,1130.2344 Q1597.0156,1131.0469 1598.6094,1131.0469 Q1599.5469,1131.0469 1600.2031,1130.7969 Q1600.5938,1130.6406 1601.0156,1130.2031 Q1601.2813,1129.9375 1601.4219,1129.8594 Q1601.5781,1129.7813 1601.7813,1129.7813 Q1602.1094,1129.7813 1602.3594,1130.0469 Q1602.625,1130.2969 1602.625,1130.6406 Q1602.625,1130.9844 1602.2813,1131.3906 Q1601.7813,1131.9688 1600.9844,1132.2969 Q1599.9063,1132.75 1598.6094,1132.75 Q1597.0938,1132.75 1595.8906,1132.125 Q1594.9063,1131.625 1594.2188,1130.5625 Q1593.5313,1129.4844 1593.5313,1128.2031 L1593.5313,1127.0469 Q1593.5313,1125.7188 1594.1406,1124.5781 Q1594.7656,1123.4219 1595.8594,1122.8125 Q1596.9531,1122.1875 1598.1875,1122.1875 Q1598.9219,1122.1875 1599.5625,1122.3594 Q1600.2188,1122.5156 1600.7656,1122.875 Z "
+         fill="#000000"
+         id="path75" />
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="14"
+         lengthAdjust="spacing"
+         textLength="79.3721"
+         x="1612"
+         y="1132.4995"
+         id="text75">OwnedStock</text>
+      <line
+         style="stroke:#181818;stroke-width:0.5;"
+         x1="1584"
+         x2="1693.3721"
+         y1="1143"
+         y2="1143"
+         id="line76" />
+      <line
+         style="stroke:#181818;stroke-width:0.5;"
+         x1="1584"
+         x2="1693.3721"
+         y1="1151"
+         y2="1151"
+         id="line77" />
+    </g>
+    <!--class Transaction-->
+    <g
+       class="entity"
+       data-qualified-name="Transaction"
+       data-source-line="102"
+       id="ent0021">
+      <rect
+         fill="#F1F1F1"
+         height="48"
+         rx="2.5"
+         ry="2.5"
+         style="stroke:#181818;stroke-width:0.5;"
+         width="105.1445"
+         x="1242"
+         y="1111"
+         id="rect77" />
+      <ellipse
+         cx="1257"
+         cy="1127"
+         fill="#ADD1B2"
+         rx="11"
+         ry="11"
+         style="stroke:#181818;stroke-width:1;"
+         id="ellipse77" />
+      <path
+         d="M1259.7656,1122.875 Q1259.9219,1122.6563 1260.1094,1122.5469 Q1260.2969,1122.4375 1260.5156,1122.4375 Q1260.8906,1122.4375 1261.125,1122.7031 Q1261.3594,1122.9531 1261.3594,1123.5625 L1261.3594,1125.0156 Q1261.3594,1125.625 1261.125,1125.8906 Q1260.8906,1126.1563 1260.5156,1126.1563 Q1260.1719,1126.1563 1259.9688,1125.9531 Q1259.7656,1125.7656 1259.6563,1125.25 Q1259.6094,1124.8906 1259.4219,1124.7031 Q1259.0938,1124.3281 1258.4844,1124.1094 Q1257.875,1123.8906 1257.25,1123.8906 Q1256.4844,1123.8906 1255.8438,1124.2188 Q1255.2188,1124.5469 1254.7188,1125.2969 Q1254.2344,1126.0469 1254.2344,1127.0781 L1254.2344,1128.1719 Q1254.2344,1129.4063 1255.125,1130.2344 Q1256.0156,1131.0469 1257.6094,1131.0469 Q1258.5469,1131.0469 1259.2031,1130.7969 Q1259.5938,1130.6406 1260.0156,1130.2031 Q1260.2813,1129.9375 1260.4219,1129.8594 Q1260.5781,1129.7813 1260.7813,1129.7813 Q1261.1094,1129.7813 1261.3594,1130.0469 Q1261.625,1130.2969 1261.625,1130.6406 Q1261.625,1130.9844 1261.2813,1131.3906 Q1260.7813,1131.9688 1259.9844,1132.2969 Q1258.9063,1132.75 1257.6094,1132.75 Q1256.0938,1132.75 1254.8906,1132.125 Q1253.9063,1131.625 1253.2188,1130.5625 Q1252.5313,1129.4844 1252.5313,1128.2031 L1252.5313,1127.0469 Q1252.5313,1125.7188 1253.1406,1124.5781 Q1253.7656,1123.4219 1254.8594,1122.8125 Q1255.9531,1122.1875 1257.1875,1122.1875 Q1257.9219,1122.1875 1258.5625,1122.3594 Q1259.2188,1122.5156 1259.7656,1122.875 Z "
+         fill="#000000"
+         id="path77" />
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="14"
+         lengthAdjust="spacing"
+         textLength="73.1445"
+         x="1271"
+         y="1132.4995"
+         id="text77">Transaction</text>
+      <line
+         style="stroke:#181818;stroke-width:0.5;"
+         x1="1243"
+         x2="1346.1445"
+         y1="1143"
+         y2="1143"
+         id="line78" />
+      <line
+         style="stroke:#181818;stroke-width:0.5;"
+         x1="1243"
+         x2="1346.1445"
+         y1="1151"
+         y2="1151"
+         id="line79" />
+    </g>
+    <g
+       class="entity"
+       data-qualified-name="GMN35"
+       data-source-line="123"
+       id="ent0036">
+      <path
+         d="M1037.5,246.5 L1037.5,295.5 L1002.07,299.5 L1037.5,303.5 L1037.5,352.0576 A0,0 0 0 0 1037.5,352.0576 L1241.6807,352.0576 A0,0 0 0 0 1241.6807,352.0576 L1241.6807,256.5 L1231.6807,246.5 L1037.5,246.5 A0,0 0 0 0 1037.5,246.5"
+         fill="#FEFFDD"
+         style="stroke:#181818;stroke-width:0.5;"
+         id="path79" />
+      <path
+         d="M1231.6807,246.5 L1231.6807,256.5 L1241.6807,256.5 L1231.6807,246.5"
+         fill="#FEFFDD"
+         style="stroke:#181818;stroke-width:0.5;"
+         id="path80" />
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="13"
+         font-weight="bold"
+         lengthAdjust="spacing"
+         textLength="163.9155"
+         x="1043.5"
+         y="264.5698"
+         id="text80">Unit of Work (Coordinator)</text>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="13"
+         lengthAdjust="spacing"
+         textLength="166.2261"
+         x="1043.5"
+         y="280.4961"
+         id="text81">Holder databaseforbindelsen</text>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="13"
+         lengthAdjust="spacing"
+         textLength="164.0107"
+         x="1043.5"
+         y="296.4224"
+         id="text82">Sikrer atomare transaktioner</text>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="13"
+         lengthAdjust="spacing"
+         textLength="157.917"
+         x="1043.5"
+         y="312.3486"
+         id="text83">begin() → begin transaction</text>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="13"
+         lengthAdjust="spacing"
+         textLength="165.8262"
+         x="1043.5"
+         y="328.2749"
+         id="text84">commit() → save all changes</text>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="13"
+         lengthAdjust="spacing"
+         textLength="183.1807"
+         x="1043.5"
+         y="344.2012"
+         id="text85">rollback() → discard all changes</text>
+    </g>
+    <g
+       class="entity"
+       data-qualified-name="GMN38"
+       data-source-line="132"
+       id="ent0039">
+      <path
+         d="M6,934 L6,1007.7051 A0,0 0 0 0 6,1007.7051 L251.3389,1007.7051 A0,0 0 0 0 251.3389,1007.7051 L251.3389,944 L241.3389,934 L184.86,934 L307.09,847.14 L176.86,934 L6,934 A0,0 0 0 0 6,934"
+         fill="#FEFFDD"
+         style="stroke:#181818;stroke-width:0.5;"
+         id="path85" />
+      <path
+         d="M241.3389,934 L241.3389,944 L251.3389,944 L241.3389,934"
+         fill="#FEFFDD"
+         style="stroke:#181818;stroke-width:0.5;"
+         id="path86" />
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="13"
+         font-weight="bold"
+         lengthAdjust="spacing"
+         textLength="219.6353"
+         x="12"
+         y="952.0698"
+         id="text86">Data Access Objects (Repositories)</text>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="13"
+         lengthAdjust="spacing"
+         textLength="175.5889"
+         x="12"
+         y="967.9961"
+         id="text87">Hver DAO håndterer én entitet</text>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="13"
+         lengthAdjust="spacing"
+         textLength="152.458"
+         x="12"
+         y="983.9224"
+         id="text88">Skjuler SQL/fil-operationer</text>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="13"
+         lengthAdjust="spacing"
+         textLength="224.3389"
+         x="12"
+         y="999.8486"
+         id="text89">Abstraktion = in-memory objektsamling</text>
+    </g>
+    <g
+       class="entity"
+       data-qualified-name="GMN41"
+       data-source-line="139"
+       id="ent0042">
+      <path
+         d="M1134.5,50.5 L1134.5,83.5 L1099.13,87.5 L1134.5,91.5 L1134.5,124.2051 A0,0 0 0 0 1134.5,124.2051 L1350.5762,124.2051 A0,0 0 0 0 1350.5762,124.2051 L1350.5762,60.5 L1340.5762,50.5 L1134.5,50.5 A0,0 0 0 0 1134.5,50.5"
+         fill="#FEFFDD"
+         style="stroke:#181818;stroke-width:0.5;"
+         id="path89" />
+      <path
+         d="M1340.5762,50.5 L1340.5762,60.5 L1350.5762,60.5 L1340.5762,50.5"
+         fill="#FEFFDD"
+         style="stroke:#181818;stroke-width:0.5;"
+         id="path90" />
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="13"
+         font-weight="bold"
+         lengthAdjust="spacing"
+         textLength="84.5635"
+         x="1140.5"
+         y="68.5698"
+         id="text90">Service Layer</text>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="13"
+         lengthAdjust="spacing"
+         textLength="195.0762"
+         x="1140.5"
+         y="84.4961"
+         id="text91">Afhænger KUN af DAO-interfaces</text>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="13"
+         lengthAdjust="spacing"
+         textLength="184.2852"
+         x="1140.5"
+         y="100.4224"
+         id="text92">Ingen SQL, ingen fil-operationer</text>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="13"
+         lengthAdjust="spacing"
+         textLength="159.6689"
+         x="1140.5"
+         y="116.3486"
+         id="text93">Kan testes med MockDAOs</text>
+    </g>
+    <g
+       class="entity"
+       data-qualified-name="GMN44"
+       data-source-line="146"
+       id="ent0045">
+      <path
+         d="M826.5,738 L826.5,811.7051 A0,0 0 0 0 826.5,811.7051 L1106.897,811.7051 A0,0 0 0 0 1106.897,811.7051 L1106.897,748 L1096.897,738 L969.61,738 L962.87,626.13 L961.61,738 L826.5,738 A0,0 0 0 0 826.5,738"
+         fill="#FEFFDD"
+         style="stroke:#181818;stroke-width:0.5;"
+         id="path93" />
+      <path
+         d="M1096.897,738 L1096.897,748 L1106.897,748 L1096.897,738"
+         fill="#FEFFDD"
+         style="stroke:#181818;stroke-width:0.5;"
+         id="path94" />
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="13"
+         font-weight="bold"
+         lengthAdjust="spacing"
+         textLength="156.0254"
+         x="832.5"
+         y="756.0698"
+         id="text94">Concrete Implementation</text>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="13"
+         lengthAdjust="spacing"
+         textLength="131.498"
+         x="832.5"
+         y="771.9961"
+         id="text95">Fil-baseret persistence</text>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="13"
+         lengthAdjust="spacing"
+         textLength="121.3989"
+         x="832.5"
+         y="787.9224"
+         id="text96">En fil per entitetstype</text>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="13"
+         lengthAdjust="spacing"
+         textLength="259.397"
+         x="832.5"
+         y="803.8486"
+         id="text97">Transaktioner gennem begin/commit/rollback</text>
+    </g>
+    <!--reverse link UnitOfWork to FileUnitOfWork-->
+    <g
+       class="link"
+       data-entity-1="ent0002"
+       data-entity-2="ent0007"
+       data-link-type="extension"
+       data-source-line="49"
+       id="lnk8">
+      <path
+         d="M948.8558,371.9596 C950.5758,394.8996 951.29,404.47 953.26,430.77"
+         fill="none"
+         id="UnitOfWork-backto-FileUnitOfWork"
+         style="stroke:#181818;stroke-width:1;stroke-dasharray:7,7;" />
+      <polygon
+         fill="none"
+         points="947.51,354.01,942.8726,372.4082,954.839,371.511,947.51,354.01"
+         style="stroke:#181818;stroke-width:1;"
+         id="polygon97" />
+    </g>
+    <!--reverse link StockDAO to StockFileDAO-->
+    <g
+       class="link"
+       data-entity-1="ent0003"
+       data-entity-2="ent0009"
+       data-link-type="extension"
+       data-source-line="61"
+       id="lnk10">
+      <path
+         d="M410.5,865.14 C410.5,885.03 410.5,888.5 410.5,907.83"
+         fill="none"
+         id="StockDAO-backto-StockFileDAO"
+         style="stroke:#181818;stroke-width:1;stroke-dasharray:7,7;" />
+      <polygon
+         fill="none"
+         points="410.5,847.14,404.5,865.14,416.5,865.14,410.5,847.14"
+         style="stroke:#181818;stroke-width:1;"
+         id="polygon98" />
+    </g>
+    <!--reverse link PortfolioDAO to PortfolioFileDAO-->
+    <g
+       class="link"
+       data-entity-1="ent0004"
+       data-entity-2="ent0011"
+       data-link-type="extension"
+       data-source-line="68"
+       id="lnk12">
+      <path
+         d="M680.5,856.18 C680.5,878.46 680.5,885.56 680.5,907.84"
+         fill="none"
+         id="PortfolioDAO-backto-PortfolioFileDAO"
+         style="stroke:#181818;stroke-width:1;stroke-dasharray:7,7;" />
+      <polygon
+         fill="none"
+         points="680.5,838.18,674.5,856.18,686.5,856.18,680.5,838.18"
+         style="stroke:#181818;stroke-width:1;"
+         id="polygon99" />
+    </g>
+    <!--reverse link OwnedStockDAO to OwnedStockFileDAO-->
+    <g
+       class="link"
+       data-entity-1="ent0005"
+       data-entity-2="ent0013"
+       data-link-type="extension"
+       data-source-line="75"
+       id="lnk14">
+      <path
+         d="M1638.5,865.14 C1638.5,885.03 1638.5,888.5 1638.5,907.83"
+         fill="none"
+         id="OwnedStockDAO-backto-OwnedStockFileDAO"
+         style="stroke:#181818;stroke-width:1;stroke-dasharray:7,7;" />
+      <polygon
+         fill="none"
+         points="1638.5,847.14,1632.5,865.14,1644.5,865.14,1638.5,847.14"
+         style="stroke:#181818;stroke-width:1;"
+         id="polygon100" />
+    </g>
+    <!--reverse link TransactionDAO to TransactionFileDAO-->
+    <g
+       class="link"
+       data-entity-1="ent0006"
+       data-entity-2="ent0015"
+       data-link-type="extension"
+       data-source-line="82"
+       id="lnk16">
+      <path
+         d="M1294.5,847.52 C1294.5,874.55 1294.5,889.26 1294.5,916.31"
+         fill="none"
+         id="TransactionDAO-backto-TransactionFileDAO"
+         style="stroke:#181818;stroke-width:1;stroke-dasharray:7,7;" />
+      <polygon
+         fill="none"
+         points="1294.5,829.52,1288.5,847.52,1300.5,847.52,1294.5,829.52"
+         style="stroke:#181818;stroke-width:1;"
+         id="polygon101" />
+    </g>
+    <!--reverse link FileUnitOfWork to StockDAO-->
+    <g
+       class="link"
+       data-entity-1="ent0007"
+       data-entity-2="ent0003"
+       data-link-type="aggregation"
+       data-source-line="105"
+       id="lnk22">
+      <path
+         codeLine="105"
+         d="M808.2776,591.6121 C729.2676,624.4221 640.36,662.4 552.5,703 C546.87,705.6 541.13,708.29 535.35,711.04"
+         fill="none"
+         id="FileUnitOfWork-backto-StockDAO"
+         style="stroke:#181818;stroke-width:1;" />
+      <polygon
+         fill="none"
+         points="819.36,587.01,812.2847,585.6169,808.2776,591.6121,815.3528,593.0052,819.36,587.01"
+         style="stroke:#181818;stroke-width:1;"
+         id="polygon102" />
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="13"
+         lengthAdjust="spacing"
+         textLength="49.1372"
+         x="653.5"
+         y="670.0698"
+         id="text102">provides</text>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="13"
+         lengthAdjust="spacing"
+         textLength="7.23"
+         x="804.4567"
+         y="587.893"
+         id="text103">1</text>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="13"
+         lengthAdjust="spacing"
+         textLength="7.23"
+         x="543.1693"
+         y="704.7954"
+         id="text104">1</text>
+    </g>
+    <!--reverse link FileUnitOfWork to PortfolioDAO-->
+    <g
+       class="link"
+       data-entity-1="ent0007"
+       data-entity-2="ent0004"
+       data-link-type="aggregation"
+       data-source-line="106"
+       id="lnk23">
+      <path
+         codeLine="106"
+         d="M863.1021,634.6027 C846.9221,650.7727 838.31,658.51 821.5,673 C806.11,686.27 789.03,699.57 772.22,711.95"
+         fill="none"
+         id="FileUnitOfWork-backto-PortfolioDAO"
+         style="stroke:#181818;stroke-width:1;" />
+      <polygon
+         fill="none"
+         points="871.59,626.12,864.5185,627.532,863.1021,634.6027,870.1736,633.1906,871.59,626.12"
+         style="stroke:#181818;stroke-width:1;"
+         id="polygon104" />
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="13"
+         lengthAdjust="spacing"
+         textLength="49.1372"
+         x="839.5"
+         y="670.0698"
+         id="text105">provides</text>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="13"
+         lengthAdjust="spacing"
+         textLength="7.23"
+         x="857.5242"
+         y="647.2711"
+         id="text106">1</text>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="13"
+         lengthAdjust="spacing"
+         textLength="7.23"
+         x="776.5667"
+         y="701.0106"
+         id="text107">1</text>
+    </g>
+    <!--reverse link FileUnitOfWork to OwnedStockDAO-->
+    <g
+       class="link"
+       data-entity-1="ent0007"
+       data-entity-2="ent0005"
+       data-link-type="aggregation"
+       data-source-line="107"
+       id="lnk24">
+      <path
+         codeLine="107"
+         d="M1113.0886,579.3316 C1214.7886,613.1016 1343.61,657.09 1465.5,703 C1470.97,705.06 1476.52,707.18 1482.13,709.34"
+         fill="none"
+         id="FileUnitOfWork-backto-OwnedStockDAO"
+         style="stroke:#181818;stroke-width:1;" />
+      <polygon
+         fill="none"
+         points="1101.7,575.55,1106.1337,581.237,1113.0886,579.3316,1108.6548,573.6446,1101.7,575.55"
+         style="stroke:#181818;stroke-width:1;"
+         id="polygon107" />
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="13"
+         lengthAdjust="spacing"
+         textLength="49.1372"
+         x="1384.5"
+         y="670.0698"
+         id="text108">provides</text>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="13"
+         lengthAdjust="spacing"
+         textLength="7.23"
+         x="1109.62"
+         y="575.8063"
+         id="text109">1</text>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="13"
+         lengthAdjust="spacing"
+         textLength="7.23"
+         x="1467.3835"
+         y="703.898"
+         id="text110">1</text>
+    </g>
+    <!--reverse link FileUnitOfWork to TransactionDAO-->
+    <g
+       class="link"
+       data-entity-1="ent0007"
+       data-entity-2="ent0006"
+       data-link-type="aggregation"
+       data-source-line="108"
+       id="lnk25">
+      <path
+         codeLine="108"
+         d="M1055.1156,634.6635 C1072.1456,651.2535 1081.92,659.2 1100.5,673 C1123.97,690.43 1150.87,706.52 1177.02,720.49"
+         fill="none"
+         id="FileUnitOfWork-backto-TransactionDAO"
+         style="stroke:#181818;stroke-width:1;" />
+      <polygon
+         fill="none"
+         points="1046.52,626.29,1048.0266,633.342,1055.1156,634.6635,1053.609,627.6116,1046.52,626.29"
+         style="stroke:#181818;stroke-width:1;"
+         id="polygon110" />
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="13"
+         lengthAdjust="spacing"
+         textLength="49.1372"
+         x="1101.5"
+         y="670.0698"
+         id="text111">provides</text>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="13"
+         lengthAdjust="spacing"
+         textLength="7.23"
+         x="1045.589"
+         y="647.1237"
+         id="text112">1</text>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="13"
+         lengthAdjust="spacing"
+         textLength="7.23"
+         x="1152.2594"
+         y="709.4976"
+         id="text113">1</text>
+    </g>
+    <!--link BuySharesService to StockDAO-->
+    <g
+       class="link"
+       data-entity-1="ent0017"
+       data-entity-2="ent0003"
+       data-link-type="dependency"
+       data-source-line="110"
+       id="lnk26">
+      <path
+         codeLine="110"
+         d="M876.97,168.05 C856.72,192.57 834.53,219.76 814.5,245 C686.1,406.81 543.6343,595.7557 467.1743,697.9557"
+         fill="none"
+         id="BuySharesService-to-StockDAO"
+         style="stroke:#181818;stroke-width:1;" />
+      <polygon
+         fill="#181818"
+         points="463.58,702.76,472.1743,697.9498,466.5752,698.7564,465.7686,693.1574,463.58,702.76"
+         style="stroke:#181818;stroke-width:1;"
+         id="polygon113" />
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="13"
+         lengthAdjust="spacing"
+         textLength="27.46"
+         x="703.5"
+         y="398.0698"
+         id="text114">uses</text>
+    </g>
+    <!--link BuySharesService to PortfolioDAO-->
+    <g
+       class="link"
+       data-entity-1="ent0017"
+       data-entity-2="ent0004"
+       data-link-type="dependency"
+       data-source-line="111"
+       id="lnk27">
+      <path
+         codeLine="111"
+         d="M903.09,168.3 C891.18,192.71 878.42,219.78 867.5,245 C789.83,424.45 769.58,469.6 710.5,656 C704.82,673.93 700.9288,687.8426 696.3588,705.9426"
+         fill="none"
+         id="BuySharesService-to-PortfolioDAO"
+         style="stroke:#181818;stroke-width:1;" />
+      <polygon
+         fill="#181818"
+         points="694.89,711.76,700.9715,704.0131,696.114,706.9121,693.2149,702.0546,694.89,711.76"
+         style="stroke:#181818;stroke-width:1;"
+         id="polygon114" />
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="13"
+         lengthAdjust="spacing"
+         textLength="27.46"
+         x="808.5"
+         y="398.0698"
+         id="text115">uses</text>
+    </g>
+    <!--link BuySharesService to OwnedStockDAO-->
+    <g
+       class="link"
+       data-entity-1="ent0017"
+       data-entity-2="ent0005"
+       data-link-type="dependency"
+       data-source-line="112"
+       id="lnk28">
+      <path
+         codeLine="112"
+         d="M1099.11,160.84 C1105.29,163.32 1111.44,165.72 1117.5,168 C1203.55,200.39 1241.81,182.78 1309.5,245 C1455.41,379.13 1558.6066,586.7924 1606.8366,697.1124"
+         fill="none"
+         id="BuySharesService-to-OwnedStockDAO"
+         style="stroke:#181818;stroke-width:1;" />
+      <polygon
+         fill="#181818"
+         points="1609.24,702.61,1609.2999,692.7613,1607.2371,698.0287,1601.9698,695.9659,1609.24,702.61"
+         style="stroke:#181818;stroke-width:1;"
+         id="polygon115" />
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="13"
+         lengthAdjust="spacing"
+         textLength="27.46"
+         x="1441.5"
+         y="398.0698"
+         id="text116">uses</text>
+    </g>
+    <!--link BuySharesService to TransactionDAO-->
+    <g
+       class="link"
+       data-entity-1="ent0017"
+       data-entity-2="ent0006"
+       data-link-type="dependency"
+       data-source-line="113"
+       id="lnk29">
+      <path
+         codeLine="113"
+         d="M1099.24,161.51 C1176.29,198.34 1254.1,236.92 1259.5,245 C1357.98,392.56 1329.2072,611.9307 1308.3772,714.2207"
+         fill="none"
+         id="BuySharesService-to-TransactionDAO"
+         style="stroke:#181818;stroke-width:1;" />
+      <polygon
+         fill="#181818"
+         points="1307.18,720.1,1312.8954,712.0792,1308.1777,715.2006,1305.0563,710.4828,1307.18,720.1"
+         style="stroke:#181818;stroke-width:1;"
+         id="polygon116" />
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="13"
+         lengthAdjust="spacing"
+         textLength="27.46"
+         x="1318.5"
+         y="398.0698"
+         id="text117">uses</text>
+    </g>
+    <!--link BuySharesService to UnitOfWork-->
+    <g
+       class="link"
+       data-entity-1="ent0017"
+       data-entity-2="ent0002"
+       data-link-type="dependency"
+       data-source-line="114"
+       id="lnk30">
+      <path
+         codeLine="114"
+         d="M943.5,168.19 C943.5,193.83 943.5,215.62 943.5,238.92"
+         fill="none"
+         id="BuySharesService-to-UnitOfWork"
+         style="stroke:#181818;stroke-width:1;" />
+      <polygon
+         fill="#181818"
+         points="943.5,244.92,947.5,235.92,943.5,239.92,939.5,235.92,943.5,244.92"
+         style="stroke:#181818;stroke-width:1;"
+         id="polygon117" />
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="13"
+         lengthAdjust="spacing"
+         textLength="93.939"
+         x="944.5"
+         y="212.0698"
+         id="text118">coordinates with</text>
+    </g>
+    <!--link StockFileDAO to Stock-->
+    <g
+       class="link"
+       data-entity-1="ent0009"
+       data-entity-2="ent0018"
+       data-link-type="dependency"
+       data-source-line="116"
+       id="lnk31">
+      <path
+         codeLine="116"
+         d="M410.5,1034.17 C410.5,1061.12 410.5,1085.01 410.5,1104.99"
+         fill="none"
+         id="StockFileDAO-to-Stock"
+         style="stroke:#181818;stroke-width:1;" />
+      <polygon
+         fill="#181818"
+         points="410.5,1110.99,414.5,1101.99,410.5,1105.99,406.5,1101.99,410.5,1110.99"
+         style="stroke:#181818;stroke-width:1;"
+         id="polygon118" />
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="13"
+         lengthAdjust="spacing"
+         textLength="53.479"
+         x="411.5"
+         y="1078.0698"
+         id="text119">manages</text>
+    </g>
+    <!--link PortfolioFileDAO to Portfolio-->
+    <g
+       class="link"
+       data-entity-1="ent0011"
+       data-entity-2="ent0019"
+       data-link-type="dependency"
+       data-source-line="117"
+       id="lnk32">
+      <path
+         codeLine="117"
+         d="M680.5,1034.17 C680.5,1061.12 680.5,1085.01 680.5,1104.99"
+         fill="none"
+         id="PortfolioFileDAO-to-Portfolio"
+         style="stroke:#181818;stroke-width:1;" />
+      <polygon
+         fill="#181818"
+         points="680.5,1110.99,684.5,1101.99,680.5,1105.99,676.5,1101.99,680.5,1110.99"
+         style="stroke:#181818;stroke-width:1;"
+         id="polygon119" />
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="13"
+         lengthAdjust="spacing"
+         textLength="53.479"
+         x="681.5"
+         y="1078.0698"
+         id="text120">manages</text>
+    </g>
+    <!--link OwnedStockFileDAO to OwnedStock-->
+    <g
+       class="link"
+       data-entity-1="ent0013"
+       data-entity-2="ent0020"
+       data-link-type="dependency"
+       data-source-line="118"
+       id="lnk33">
+      <path
+         codeLine="118"
+         d="M1638.5,1034.17 C1638.5,1061.12 1638.5,1085.01 1638.5,1104.99"
+         fill="none"
+         id="OwnedStockFileDAO-to-OwnedStock"
+         style="stroke:#181818;stroke-width:1;" />
+      <polygon
+         fill="#181818"
+         points="1638.5,1110.99,1642.5,1101.99,1638.5,1105.99,1634.5,1101.99,1638.5,1110.99"
+         style="stroke:#181818;stroke-width:1;"
+         id="polygon120" />
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="13"
+         lengthAdjust="spacing"
+         textLength="53.479"
+         x="1639.5"
+         y="1078.0698"
+         id="text121">manages</text>
+    </g>
+    <!--link TransactionFileDAO to Transaction-->
+    <g
+       class="link"
+       data-entity-1="ent0015"
+       data-entity-2="ent0021"
+       data-link-type="dependency"
+       data-source-line="119"
+       id="lnk34">
+      <path
+         codeLine="119"
+         d="M1294.5,1025.94 C1294.5,1054.85 1294.5,1082.94 1294.5,1104.99"
+         fill="none"
+         id="TransactionFileDAO-to-Transaction"
+         style="stroke:#181818;stroke-width:1;" />
+      <polygon
+         fill="#181818"
+         points="1294.5,1110.99,1298.5,1101.99,1294.5,1105.99,1290.5,1101.99,1294.5,1110.99"
+         style="stroke:#181818;stroke-width:1;"
+         id="polygon121" />
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="13"
+         lengthAdjust="spacing"
+         textLength="53.479"
+         x="1295.5"
+         y="1078.0698"
+         id="text122">manages</text>
+    </g>
+<?plantuml-src nLVBRkCs5DtxA-vC5xMT6a5H80iX4y1nP8mGnqfjfuEk2bgYROubqYNf1CPWjls0_aC7cE_8d_HBIb8lKdx8MJMBsDOzbppdwjuZwbsC5uHY2COpVpBi3_m_1k4edC0Fmw5_vL-rtkNnGJWUJFnP6VQlXhyCXsLuwaz-2mPsLAMtMc9Dw0Pnb4AK825kKRHUShQbyO0bZ5zV4oenNw08tzpK6JJcHen674kTwf9hp1IOFnEpfqExrVeHFkW_U1e7CmY7y2cSt5Uyic2hv0nFbCXmyOdnDRXIlhG0lg2va1n5yYjSpF6Iq7R7WsT6ubeiOcbAv94WPqaoL_JByDUAv5q_hBXDzyXD9OlM6dEQcYeXahWjDDhBaWvJMM9vkvlkqZbBsi9yQ3WdTDd9y_OJ-acYcO-8aDS6SbF3R3VnURl7EC4QMD-uA4gb-v5nkM09OMThtnGPNfLyeWP1t2Qn1qzFmLt7oZYjleGTgS0f3ewyy8NY-6ttbfKfdfL-LA5DkuBV72f5ITMjIKDgBlajjCw__JEEg519XD6p2oIh7CzUuAmIMVWtryZ9jKQxy3C87Xv7_eC_dlLdGJWkXjou6Wn9WXq7iWoHf9i4fvXAOPkKbjy3aJUFLrg4kRonviPpfiY4cTrtdjk61Y2Tmdkr6w4XFVNl0bHHYhnsn-5WOlR6xSuU4ODnDjUWEXk3SWbeM8sIAdXMIPEfovbrpE4wbZENLN7BNZohjcRJarvgE3Kxw0MSyCIISLcL9jQE6pOoF-s4kOBZ_bToRt2pJ4Drqvf4k9xNgAB9M78TvvjNgUlqogKogy-QfDNigb5RirMTeUwOxUId8HZrV_SdZjVSRdVJ5U9OJBEZ4zY7gF_PLWwKAxUQUS6wpV6VMooaLmcPP5SEdQl2XtumXeVmpX-vZflDQ6q2zxfvlmcgjIV-A7FoZy5ZiNRDnz___1vOhsS-ovxtOCFPCucnE0LtXlsy57UqpikfzQoLrDhharxlnbQn5Gfr45JZVXnOPtmSkSVpEDHIwa7468y9LUCcu8N8LQlbk5GfIK5JHD5IBRhdnuua2xXlUguc2th0HMggB73POUDmLhuCK2OnSB9SIM0BTqAwNVrJNpQYsuD2C-ETRbS1Fh8anXoKxQ4v4dZ1-9nGTGmJcAhebAovYYfugagP3-bQSy9SXVFt7VZthx-px_OOgtZnpcC00ZrZG4a2qGfHhGMWUkqnY9Y82F7O0M4QWzRNobJEcLHSj1xBFRhTEqKV-b64zOJEF-D8MMvxWZTC4AMKO96BVLPYT85Nh__GM9qNrS_NxnIKHHE9fHQy_hnDrDNfhwFB1KbwR8CvAlNspPdFw8SFG6WlnIdZEs1goxKKA4tKGxvEkRmnzOuqp8lk7A4TvePaVx5w_QQqSxX_6WDQQCAzydIhonQeADKKVr8SzDTzflT8tGlbUwgrKnp3GrQh4-LqVS1G6-HFCWYAvvXPtv1Ky9xk5nK7jR5GZnjCZIJVqD4NYx8AkTleoCpk7lNqeXIdMTjSPeroMVH3HVC_?>  </g>
+</svg>

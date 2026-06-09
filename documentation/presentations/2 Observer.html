@@ -151,6 +151,8 @@
 
 <div class="slide">
     <h2>Implementering:</h2>
+    <p style="color: #666; margin-bottom: 1.5rem;"><strong>StockMarket-Subject: src/business/stockmarket/StockMarket.java</strong></p>
+    <p style="color: #666; margin-bottom: 1.5rem;"><strong>Observer: src/business/observer/StockMarketObserver.java</strong></p>
     <p> StockMarket-Subject og Observer</p>
     <!-- "Observer Pattern implementeres gennem StockMarketObserver interfacet.
      StockMarket er Subject, den vedligeholder en liste af observers og notificerer dem via update() når lagersituationen ændrer sig.
@@ -186,35 +188,12 @@
 <div class="slide">
     <h2>Testbarhed MED Observer</h2>
     <p style="color: #666; margin-bottom: 1.5rem;"><strong>Se: test/unit/business/stockmarket/StockMarketTest.java</strong></p>
-    <pre><code>@Test void testStockMarketNotifiesObservers() {
-    // Arrange: Create a mock observer
-    MockObserver mockObserver = new MockObserver();
-    market.addObserver(mockObserver);
-    market.addNewStock("AAPL");
 
-    // Act: Update all live stocks
-    market.updateAllLiveStocks();
-
-    // Assert: Verify that the observer was notified
-    assertTrue(mockObserver.wasNotified());
-    assertEquals(1, mockObserver.getCallCount());
-    // Ingen dependencies til rigtige DAOs, services eller databaser!
-}
-
-// MockObserver - implementer StockMarketObserver interface
-private static class MockObserver implements StockMarketObserver {
-    private int callCount = 0;
-
-    public void update(StockUpdateEvent event) {
-        callCount++;
-    }
-}
-    </code></pre>
 </div>
 
 <div class="slide">
     <h2>Faldgruber</h2>
-    <p><strong>The Lapsed Listener Problem</strong></p>
+   <p><strong>The Lapsed Listener Problem</strong></p>
     <!--
         Hvis en observer lukkes, men glemmer at afmelde sig fra Subject
         (via removeObserver()), bliver Subject ved med at holde en reference

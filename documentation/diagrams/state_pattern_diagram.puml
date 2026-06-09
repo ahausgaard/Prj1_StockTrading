@@ -1,0 +1,122 @@
+@startuml State Pattern - Stock Market Simulation
+
+!define CONTEXT_COLOR #FFE6E6
+!define STATE_COLOR #E6F3FF
+
+skinparam classBackgroundColor<<context>> CONTEXT_COLOR
+skinparam classBackgroundColor<<state>> STATE_COLOR
+
+' ===== STATE INTERFACE =====
+interface StockState <<state>> {
+  {abstract} +updatePrice(): void
+  {abstract} +getState(): String
+}
+
+' ===== CONTEXT =====
+class LiveStock <<context>> {
+  - currentPrice: BigDecimal
+  - currentState: StockState
+  - symbol: String
+  --
+  + updatePrice(): void
+  + setCurrentState(state: StockState): void
+  + getCurrentState(): StockState
+}
+
+' ===== CONCRETE STATES =====
+class GrowingState <<state>> implements StockState {
+  + updatePrice(): void
+  + getState(): String
+  --
+  Price increases by 2-5%
+  May transition to SteadyState or DecliningState
+}
+
+class DecliningState <<state>> implements StockState {
+  + updatePrice(): void
+  + getState(): String
+  --
+  Price decreases by 2-5%
+  May transition to SteadyState or BankruptState
+}
+
+class SteadyState <<state>> implements StockState {
+  + updatePrice(): void
+  + getState(): String
+  --
+  Price stays relatively stable ±1%
+  May transition to GrowingState or DecliningState
+}
+
+class BankruptState <<state>> implements StockState {
+  + updatePrice(): void
+  + getState(): String
+  --
+  Price drops to near zero
+  Final state - no transitions out
+}
+
+class LiveStockState <<state>> implements StockState {
+  + updatePrice(): void
+  + getState(): String
+  --
+  Base class for all states
+  Contains common state logic
+}
+
+' ===== TRANSITION MANAGER =====
+class TransitionManager <<context>> {
+  - volatilityThreshold: BigDecimal
+  - transitionProbability: double
+  --
+  + shouldTransition(current: StockState): boolean
+  + getNextState(current: StockState): StockState
+  + determineNewPrice(oldPrice: BigDecimal, state: StockState): BigDecimal
+}
+
+' ===== RELATIONSHIPS =====
+LiveStock "1" o-- "1" StockState : "currentState"
+LiveStock --> TransitionManager : "uses for transitions"
+
+GrowingState --|> LiveStockState
+DecliningState --|> LiveStockState
+SteadyState --|> LiveStockState
+BankruptState --|> LiveStockState
+
+' ===== NOTES =====
+note right of LiveStock
+  **Context**
+  Represents a stock in the market
+  Delegates price updates to current state
+  State objects manage their own transitions
+end note
+
+note bottom of StockState
+  **State Interface**
+  Defines what all states can do
+  updatePrice() - modify price according to state
+  getState() - return current state name
+end note
+
+note right of GrowingState
+  **Growing State**
+  Price increases 2-5%
+  High probability to stay growing
+  Can transition to Steady or Declining
+end note
+
+note left of BankruptState
+  **Bankrupt State**
+  Final state - no escape
+  Price frozen near zero
+  No transitions possible
+end note
+
+note bottom of TransitionManager
+  **Orchestrates State Transitions**
+  Decides when and how to change states
+  Manages probability of transitions
+  Calculates new prices per state
+end note
+
+@enduml

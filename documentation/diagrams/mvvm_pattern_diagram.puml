@@ -1,0 +1,155 @@
+@startuml MVVM Pattern - Stock Trading
+
+!define VIEW_COLOR #FFE6E6
+!define VIEWMODEL_COLOR #E6F3FF
+!define MODEL_COLOR #E6FFE6
+
+skinparam classBackgroundColor<<view>> VIEW_COLOR
+skinparam classBackgroundColor<<viewmodel>> VIEWMODEL_COLOR
+skinparam classBackgroundColor<<model>> MODEL_COLOR
+
+' ===== VIEW LAYER (JavaFX) =====
+class MainMenuView <<view>> {
+  - primaryStage: Stage
+  - controllers: ControllerFactory
+  --
+  Displays main menu
+  User interactions trigger events
+}
+
+class BuyStockView <<view>> {
+  - quantityInput: TextField
+  - buyButton: Button
+  --
+  Form for buying stocks
+  Binds to BuyStockViewModel
+}
+
+class PortfolioView <<view>> {
+  - tableView: TableView
+  - balanceLabel: Label
+  --
+  Displays owned stocks
+  Updates when data changes
+}
+
+' ===== VIEWMODEL LAYER =====
+class MainMenuViewModel <<viewmodel>> {
+  - gameService: GameService
+  --
+  + startNewGame(): void
+  + loadGame(): void
+  + getGameStatus(): String
+}
+
+class BuyStockViewModel <<viewmodel>> {
+  - selectedStock: StockDTO
+  - quantity: int
+  - estimatedCost: BigDecimal
+  - buySharesService: BuySharesService
+  --
+  + calculateEstimatedCost(): void
+  + buyShares(): void
+  + getAvailableStocks(): List<StockDTO>
+}
+
+class PortfolioViewModel <<viewmodel>> {
+  - ownedStocks: List<OwnedStockDTO>
+  - balance: BigDecimal
+  - totalValue: BigDecimal
+  - portfolioQueryService: PortfolioQueryService
+  --
+  + loadPortfolioData(): void
+  + calculateTotalValue(): void
+  + getPortfolioSnapshot(): BalanceSnapshotDTO
+}
+
+' ===== MODEL LAYER =====
+class BuySharesService <<model>> {
+  - stockDAO: StockDAO
+  - portfolioDAO: PortfolioDAO
+  - uow: UnitOfWork
+  --
+  + buyShares(request: BuySharesRequest): void
+}
+
+class PortfolioQueryService <<model>> {
+  - ownedStockDAO: OwnedStockDAO
+  - portfolioDAO: PortfolioDAO
+  --
+  + getOwnedStocks(portfolioId: UUID): List<OwnedStockDTO>
+  + getTotalPortfolioValue(portfolioId: UUID): BigDecimal
+}
+
+class GameService <<model>> {
+  - stockMarket: StockMarket
+  - gameState: GameState
+  --
+  + initializeNewGame(): void
+  + simulateMarket(): void
+}
+
+' ===== DATA OBJECTS =====
+class StockDTO {
+  - symbol: String
+  - currentPrice: BigDecimal
+  - state: StockState
+}
+
+class OwnedStockDTO {
+  - symbol: String
+  - quantity: int
+  - currentPrice: BigDecimal
+  - holdingValue: BigDecimal
+}
+
+' ===== RELATIONSHIPS =====
+MainMenuView --> MainMenuViewModel : "DataBinding\n(View updates)"
+MainMenuViewModel --> GameService : "Calls methods"
+
+BuyStockView --> BuyStockViewModel : "DataBinding\n(Two-way binding)"
+BuyStockViewModel --> BuySharesService : "Executes"
+BuyStockViewModel --> PortfolioQueryService : "Queries"
+
+PortfolioView --> PortfolioViewModel : "DataBinding"
+PortfolioViewModel --> PortfolioQueryService : "Queries"
+PortfolioViewModel --> OwnedStockDTO : "Uses"
+
+BuyStockViewModel --> StockDTO : "Uses"
+BuySharesService --> StockDTO : "Returns"
+
+' ===== NOTES =====
+note right of MainMenuView
+  **View Layer (JavaFX)**
+  Pure presentation
+  No business logic
+  Binds to ViewModel
+  Events trigger ViewModel methods
+end note
+
+note bottom of MainMenuViewModel
+  **ViewModel Layer**
+  Presentation logic
+  Holds UI state
+  Calls Services/Models
+  Exposes data for binding
+  NO direct UI element references
+end note
+
+note right of BuySharesService
+  **Model Layer**
+  Business logic
+  DAOs, Services
+  Database access
+  Domain objects
+  Pure logic (no UI references)
+end note
+
+note bottom of BuyStockView
+  **Data Binding**
+  Two-way: View ↔ ViewModel
+  Updates flow automatically
+  No manual property setting
+end note
+
+@enduml

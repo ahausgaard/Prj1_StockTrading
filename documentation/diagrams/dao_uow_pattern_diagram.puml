@@ -1,0 +1,153 @@
+@startuml DAO & Unit of Work Pattern - Stock Trading
+
+!define INTERFACE_COLOR #FFE6E6
+!define CONCRETE_COLOR #E6F3FF
+!define SERVICE_COLOR #E6FFE6
+
+skinparam classBackgroundColor<<interface>> INTERFACE_COLOR
+skinparam classBackgroundColor<<concrete>> CONCRETE_COLOR
+skinparam classBackgroundColor<<service>> SERVICE_COLOR
+
+' ===== UNIT OF WORK INTERFACE =====
+interface UnitOfWork <<interface>> {
+  {abstract} +begin(): void
+  {abstract} +commit(): void
+  {abstract} +rollback(): void
+}
+
+' ===== DAO INTERFACES =====
+interface StockDAO <<interface>> {
+  {abstract} +create(stock: Stock): void
+  {abstract} +getBySymbol(symbol: String): Stock
+  {abstract} +getAll(): List<Stock>
+  {abstract} +update(stock: Stock): void
+  {abstract} +delete(symbol: String): void
+}
+
+interface PortfolioDAO <<interface>> {
+  {abstract} +create(portfolio: Portfolio): void
+  {abstract} +getById(id: UUID): Portfolio
+  {abstract} +getAll(): List<Portfolio>
+  {abstract} +update(portfolio: Portfolio): void
+}
+
+interface OwnedStockDAO <<interface>> {
+  {abstract} +create(ownedStock: OwnedStock): void
+  {abstract} +getAll(): List<OwnedStock>
+  {abstract} +getByPortfolioId(id: UUID): List<OwnedStock>
+  {abstract} +update(ownedStock: OwnedStock): void
+  {abstract} +delete(symbol: String): void
+}
+
+interface TransactionDAO <<interface>> {
+  {abstract} +create(transaction: Transaction): void
+  {abstract} +getAll(): List<Transaction>
+  {abstract} +getByPortfolioId(id: UUID): List<Transaction>
+}
+
+' ===== CONCRETE IMPLEMENTATIONS =====
+class FileUnitOfWork <<concrete>> implements UnitOfWork {
+  - stockDAO: StockDAO
+  - portfolioDAO: PortfolioDAO
+  - ownedStockDAO: OwnedStockDAO
+  - transactionDAO: TransactionDAO
+  --
+  + getStockDAO(): StockDAO
+  + getPortfolioDAO(): PortfolioDAO
+  + getOwnedStockDAO(): OwnedStockDAO
+  + getTransactionDAO(): TransactionDAO
+}
+
+class StockFileDAO <<concrete>> implements StockDAO {
+  - uow: UnitOfWork
+  + create(stock: Stock): void
+  + getBySymbol(symbol: String): Stock
+  + update(stock: Stock): void
+}
+
+class PortfolioFileDAO <<concrete>> implements PortfolioDAO {
+  - uow: UnitOfWork
+  + create(portfolio: Portfolio): void
+  + getById(id: UUID): Portfolio
+  + update(portfolio: Portfolio): void
+}
+
+class OwnedStockFileDAO <<concrete>> implements OwnedStockDAO {
+  - uow: UnitOfWork
+  + create(ownedStock: OwnedStock): void
+  + getByPortfolioId(id: UUID): List<OwnedStock>
+  + update(ownedStock: OwnedStock): void
+}
+
+class TransactionFileDAO <<concrete>> implements TransactionDAO {
+  - uow: UnitOfWork
+  + create(transaction: Transaction): void
+  + getByPortfolioId(id: UUID): List<Transaction>
+}
+
+' ===== SERVICE LAYER =====
+class BuySharesService <<service>> {
+  - stockDAO: StockDAO
+  - portfolioDAO: PortfolioDAO
+  - ownedStockDAO: OwnedStockDAO
+  - transactionDAO: TransactionDAO
+  - uow: UnitOfWork
+  --
+  + buyShares(request: BuySharesRequest): void
+}
+
+' ===== DOMAIN MODELS =====
+class Stock
+class Portfolio
+class OwnedStock
+class Transaction
+
+' ===== RELATIONSHIPS =====
+FileUnitOfWork "1" o-- "1" StockDAO : provides
+FileUnitOfWork "1" o-- "1" PortfolioDAO : provides
+FileUnitOfWork "1" o-- "1" OwnedStockDAO : provides
+FileUnitOfWork "1" o-- "1" TransactionDAO : provides
+
+BuySharesService --> StockDAO : uses
+BuySharesService --> PortfolioDAO : uses
+BuySharesService --> OwnedStockDAO : uses
+BuySharesService --> TransactionDAO : uses
+BuySharesService --> UnitOfWork : coordinates with
+
+StockFileDAO --> Stock : manages
+PortfolioFileDAO --> Portfolio : manages
+OwnedStockFileDAO --> OwnedStock : manages
+TransactionFileDAO --> Transaction : manages
+
+' ===== NOTES =====
+note right of UnitOfWork
+  **Unit of Work (Coordinator)**
+  Holder databaseforbindelsen
+  Sikrer atomare transaktioner
+  begin() → begin transaction
+  commit() → save all changes
+  rollback() → discard all changes
+end note
+
+note bottom of StockDAO
+  **Data Access Objects (Repositories)**
+  Hver DAO håndterer én entitet
+  Skjuler SQL/fil-operationer
+  Abstraktion = in-memory objektsamling
+end note
+
+note right of BuySharesService
+  **Service Layer**
+  Afhænger KUN af DAO-interfaces
+  Ingen SQL, ingen fil-operationer
+  Kan testes med MockDAOs
+end note
+
+note bottom of FileUnitOfWork
+  **Concrete Implementation**
+  Fil-baseret persistence
+  En fil per entitetstype
+  Transaktioner gennem begin/commit/rollback
+end note
+
+@enduml

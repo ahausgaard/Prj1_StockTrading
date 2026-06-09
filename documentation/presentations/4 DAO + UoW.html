@@ -11,7 +11,6 @@
         --text-color: #222222;
         --muted-color: #666666;
         --code-bg: #f4f4f4;
-        --accent-color: #4f46e5; /* Indigo accentfarve */
       }
 
       body, html {
@@ -52,9 +51,6 @@
         font-weight: 600;
         margin-bottom: 2rem;
         color: var(--text-color);
-        border-bottom: 3px solid var(--accent-color);
-        padding-bottom: 10px;
-        display: inline-block;
       }
 
       h3 {
@@ -84,19 +80,11 @@
         font-size: 1.2rem;
         overflow-x: auto;
         width: 100%;
-        border-left: 4px solid var(--accent-color);
-        margin-top: 1rem;
+        border-left: 4px solid #ccc;
       }
 
       code {
         font-family: inherit;
-      }
-
-      .grid-2 {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 4rem;
-        width: 100%;
       }
 
       .quote {
@@ -120,8 +108,6 @@
 </head>
 <body>
 
-<div class="hint">Brug piletasterne &rarr;</div>
-
 <div class="slide active">
     <h1>DAO & Unit of Work</h1>
     <h3>Sikker datahåndtering og abstrakte databaser</h3>
@@ -129,17 +115,12 @@
 </div>
 
 <div class="slide">
-    <h2>Hvilket problem løser de to mønstre?</h2>
-    <div class="grid-2">
-        <div>
-            <h3 style="color: var(--accent-color)">Problemet med Data Access</h3>
-            <p>Når forretningslogik skriver direkte SQL eller bruger specifikke database-frameworks, bliver logikken bundet (tightly coupled) til den specifikke database.</p>
-        </div>
-        <div>
-            <h3 style="color: var(--accent-color)">Problemet med Transaktioner</h3>
-            <p>Delvise opdateringer: Hvad sker der, hvis vi trækker penge fra en kunde, men databasen crasher lige inden, vi opdaterer lagerbeholdningen? Vi får ødelagt, inkonsekvent data.</p>
-        </div>
-    </div>
+    <h2>Hvilket problem løser disse mønstre?</h2>
+    <ul>
+        <li><strong>Tæt kobling til database</strong> — SQL direkte i forretningslogik</li>
+        <li><strong>Uatomare transaktioner</strong> — Delvise opdateringer, inkonsistent data</li>
+        <li><strong>Svær testning</strong> — Kan ikke teste uden database</li>
+    </ul>
 </div>
 
 <div class="slide">
@@ -148,76 +129,119 @@
         "Abstraktion og 'Alt-eller-intet'."
     </div>
     <ul>
-        <li><strong>DAO (Data Access Object / Repository):</strong> Giver en illusion om, at databasen blot er en in-memory samling af objekter (f.eks. en `List&lt;User&gt;`). Den skjuler SQL.</li>
-        <li><strong>Unit of Work (UoW):</strong> Holder styr på alle de ændringer, du laver i systemet i løbet af en forretningshandling. Til sidst siger du "Gem", og den sikrer, at alt gemmes som én atomar transaktion (Alt lykkes, eller intet gemmes).</li>
+        <li><strong>DAO:</strong> Database som in-memory objektsamling</li>
+        <li><strong>UoW:</strong> Sikrer atomare transaktioner (alt eller intet)</li>
     </ul>
 </div>
 
 <div class="slide">
-    <h2>Løsningen i praksis (Designet)</h2>
-    <p>De to mønstre arbejder næsten altid sammen.</p>
-    <p><strong>Unit of Work</strong> er "chefen". Den ejer databaseforbindelsen og transaktionen. Den indeholder også en række <strong>DAO'er / Repositories</strong>, som udfører det specifikke arbejde for hver tabel (Kunder, Ordrer etc.).</p>
+    <h2>DAO & UoW & SOLID Principperne</h2>
+    <ul>
+        <li><strong>Single Responsibility Principle</strong>
+            <!--Hver DAO håndterer én entitet (Stock, Portfolio, etc.). UoW koordinerer transaktioner. Klart opdelt ansvar.-->
+        </li>
+
+        <li><strong>Open/Closed Principle</strong>
+            <!--Tilføj en ny DAO uden at ændre eksisterende kode. Interface er lukket for ændring, åbent for udvidelse.-->
+        </li>
+
+        <li><strong>Dependency Inversion Principle</strong>
+            <!--Services afhænger af DAO-interfaces, ikke konkrete implementeringer. Vi kan skifte fra SQL til MongoDB uden at ændre forretningslogik!-->
+        </li>
+    </ul>
 </div>
 
 <div class="slide">
-    <h2>Eksempel: Med Design (Det rene snit)</h2>
-    <pre><code>public void GennemførKøb(int kundeId, Ordre ordre) {
-    // Vi bruger uow - vi kender IKKE til SQL eller EF Core her!
-    var kunde = _uow.Kunder.Hent(kundeId); // DAO (Repository)
+    <h2>Design</h2>
+    <img src="../diagrams/daoUowCD.svg" alt="DAO & Unit of Work UML Diagram" style="width: 90%; height: auto; margin-top: 2rem;" />
+</div>
 
-    kunde.TrækPenge(ordre.Total);
-    _uow.Ordrer.Tilføj(ordre);           // DAO (Repository)
-
-    // Udfører alt som én sikker transaktion
-    _uow.Commit();                       // Unit of Work
-}</code></pre>
+<div class="slide">
+    <h2>Implementering:</h2>
+    <p style="color: #666; margin-bottom: 1.5rem;"><strong>DAO Interfaces: src/persistence/interfaces/</strong></p>
+    <p style="color: #666; margin-bottom: 1.5rem;"><strong>DAO Implementation: src/persistence/fileImplementation/</strong></p>
+    <p style="color: #666; margin-bottom: 1.5rem;"><strong>Unit of Work: src/persistence/interfaces/UnitOfWork.java</strong></p>
+    <!-- Vores implementation bruger fil-baseret persistence i stedet for SQL database.
+         Hver DAO (StockFileDAO, PortfolioFileDAO, etc.) gemmer data som JSON filer.
+         FileUnitOfWork koordinerer alle DAOs og sikrer atomare multi-fil transaktioner.
+    -->
 </div>
 
 <div class="slide">
     <h2>Hvordan ser det ud UDEN designet?</h2>
-    <p>Uden UoW udføres forespørgsler én ad gangen uden et sikkerhedsnet.</p>
-    <pre><code>public void GennemførKøb(int kundeId, Ordre ordre) {
-    // 1. Trækker pengene. Gemmes direkte i DB!
-    _db.Execute("UPDATE Kunder SET Saldo = Saldo - ... ");
+    <pre><code>public class BuySharesService {
+    // TÆT KOBLING: SQL direkte i logik
+    private String dbConnection = "server=localhost;db=stock";
 
-    // SERVER CRASH HER = Penge er trukket, men ingen ordre oprettet!
+    public void buyShares(String symbol, int quantity) {
+        // UPDATE statement direkte her!
+        String sql = "UPDATE Portfolio SET balance = balance - " + cost;
+        database.execute(sql);
 
-    // 2. Opretter ordren
-    _db.Execute("INSERT INTO Ordrer ...");
-}</code></pre>
+        // Hvis der crashes her, er pengene trukket men aktie ikke købt!
+        sql = "INSERT INTO OwnedStock ...";
+        database.execute(sql);
+    }
+}
+    </code></pre>
 </div>
 
 <div class="slide">
-    <h2>Konsekvensen</h2>
-    <p>Uden **Unit of Work** mister vi **Atomicity** (fra ACID-principperne i databaser). Vores data bliver inkonsistent ved uventede fejl.</p>
-    <p>Uden **DAO/Repository** bløder vores database-sprog (SQL, connection strings) ind i domænelogikken. Det gør systemet ufleksibelt; hvis vi vil skifte fra MySQL til MongoDB, skal vi omskrive hele kernesystemet.</p>
+    <h2>Testbarhed MED DAO & UoW</h2>
+    <p style="color: #666; margin-bottom: 1.5rem;"><strong>Se: test/unit/business/services/trading/ (Integration tests bruger FileUnitOfWork)</strong></p>
+    <pre><code>// Unit test - Forretningslogik testes UDEN database
+@Test void buyShares_validPurchase_updatesBuyersBalance() {
+    // Arrange: Mock DAO'er - INGEN database!
+    MockStockDAO stockDAO = new MockStockDAO();
+    MockPortfolioDAO portfolioDAO = new MockPortfolioDAO();
+    MockUnitOfWork uow = new MockUnitOfWork();
+
+    BuySharesService service = new BuySharesService(
+        stockDAO, portfolioDAO, ..., uow);
+
+    // Act
+    service.buyShares(new BuySharesRequest(...));
+
+    // Assert
+    assertTrue(portfolioDAO.updateWasCalled());
+}
+
+// Integration test - Rigtig fil-baseret transaktion
+@Test void buyShares_multipleChanges_committedAtomically() {
+    FileUnitOfWork uow = new FileUnitOfWork(tempDir);
+    // ... test med rigtig fil-persistence
+}
+    </code></pre>
 </div>
 
 <div class="slide">
-    <h2>Gør det koden mere testbar?</h2>
-    <p><strong>Dette er selve fundamentet for at teste forretningslogik!</strong></p>
-    <ul>
-        <li>Forretningslogikken (BLL) afhænger nu kun af et <code>IUnitOfWork</code> interface.</li>
-        <li>I vores Unit Tests kan vi indsætte en <strong>MockUnitOfWork</strong>.</li>
-        <li>Mock'en bruger falske in-memory lister i stedet for en rigtig database. Vi kan lynhurtigt teste: "Blev `Kunder.Opdater()` og `Ordrer.Tilføj()` kaldt før `Commit()`?" uden at røre et rigtigt filsystem.</li>
-    </ul>
-</div>
+    <h2>Faldgruber</h2>
+    <p><strong>Lazy Loading og N+1 Queries</strong></p>
+    <!--
+        Hvis en DAO lazy-loader relaterede objekter, kan du ved at iterere gennem resultater
+        udløse mange skjulte database-queries (N+1 problem).
 
-<div class="slide">
-    <h2>Den kritiske vinkel: Faldgruben</h2>
-    <p><strong>"Dobbeltkonfekt" i moderne frameworks.</strong></p>
-    <p>Hvis du bruger Entity Framework Core (C#) eller Hibernate (Java), implementerer de allerede disse mønstre indbygget!</p>
-    <p>I EF Core er <code>DbContext</code> faktisk en <em>Unit of Work</em>, og <code>DbSet&lt;T&gt;</code> er en <em>DAO/Repository</em>. At skrive sine egne UoW- og Repository-klasser udenom EF Core betragtes i dag af mange som "over-engineering", da man pakker et framework ind i et andet framework.</p>
+        Løsning: Være eksplicit om hvad du loader (eager vs. lazy).
+        I vores fil-baserede implementation: Load kun hvad du skal bruge.
+    -->
 </div>
 
 <div class="slide">
     <h2>Opsummering</h2>
     <ul>
-        <li><strong>DAO / Repository:</strong> Skjuler databasens detaljer og lader os arbejde med data som in-memory objekter.</li>
-        <li><strong>Unit of Work:</strong> Koordinerer ændringer og sikrer, at enten gemmes alt, eller også rulles alt tilbage (Transaktionssikkerhed).</li>
-        <li><strong>Testbarhed:</strong> Interfacene gør det muligt fuldstændig at afkoble og mocke databasen under unit testing.</li>
+        <li>✅ <strong>Løs kobling</strong>
+            <!-- Services afhænger af DAO-interfaces, ikke SQL -->
+        </li>
+        <li>✅ <strong>Atomare transaktioner</strong>
+            <!-- UoW sikrer alt-eller-intet semantik -->
+        </li>
+        <li>✅ <strong>Testbar</strong>
+            <!-- Mock DAOs + UoW for hurtigt at teste logik uden DB -->
+        </li>
+        <li>✅ <strong>Database-agnostisk</strong>
+            <!-- Skift fra SQL til NoSQL uden at ændre services -->
+        </li>
     </ul>
-    <h3 style="margin-top: 4rem;">Spørgsmål?</h3>
 </div>
 
 <script>

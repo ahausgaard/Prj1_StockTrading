@@ -11,7 +11,6 @@
       --text-color: #222222;
       --muted-color: #666666;
       --code-bg: #f4f4f4;
-      --accent-color: #059669; /* Grøn (Test Passed) accentfarve */
     }
 
     body, html {
@@ -52,9 +51,6 @@
       font-weight: 600;
       margin-bottom: 2rem;
       color: var(--text-color);
-      border-bottom: 3px solid var(--accent-color);
-      padding-bottom: 10px;
-      display: inline-block;
     }
 
     h3 {
@@ -84,19 +80,11 @@
       font-size: 1.2rem;
       overflow-x: auto;
       width: 100%;
-      border-left: 4px solid var(--accent-color);
-      margin-top: 1rem;
+      border-left: 4px solid #ccc;
     }
 
     code {
       font-family: inherit;
-    }
-
-    .grid-2 {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 4rem;
-      width: 100%;
     }
 
     .quote {
@@ -107,25 +95,6 @@
       padding-left: 2rem;
       margin: 2rem 0;
     }
-
-    /* V-Model specifik styling */
-    .v-model-container {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      width: 100%;
-      margin-top: 2rem;
-    }
-    .v-side { display: flex; flex-direction: column; gap: 1rem; width: 45%; }
-    .v-box {
-      padding: 1rem;
-      border: 2px solid var(--accent-color);
-      border-radius: 8px;
-      text-align: center;
-      font-weight: bold;
-      background-color: #f0fdf4;
-    }
-    .v-box.left { border-color: #3b82f6; background-color: #eff6ff; }
 
     /* Navigation hint */
     .hint {
@@ -139,146 +108,146 @@
 </head>
 <body>
 
-<div class="hint">Brug piletasterne &rarr;</div>
-
 <div class="slide active">
   <h1>Software Testing</h1>
-  <h3>Del A: V-Modellen & Del B: Teststrategier</h3>
+  <h3>V-Modellen & Teststrategier</h3>
   <p style="color: #aaa; margin-top: 4rem;">Software Design og Test</p>
 </div>
 
 <div class="slide">
-  <h2>Del A: Hvad er V-modellen?</h2>
-  <div class="quote">
-    "For hver udviklingsfase findes en tilsvarende testfase."
-  </div>
-  <p>V-modellen er en udvidelse af vandfaldsmodellen.</p>
-  <p>I stedet for at udvikle alt først, og teste det hele til sidst, planlægger man tests parallelt med designet. Den venstre side (Design/Verifikation) spejler direkte den højre side (Test/Validering).</p>
+  <img src="https://teachingagile.com/_next/image?url=%2Fblog%2Fenglish%2Fv-model.png&w=3840&q=75" alt="V-Modellen" style="width: 100%; margin: 2rem auto;">
+  <!--
+    V-modellen er en udvidelse af vandfaldsmodellen. Nu om dage bruges den mere som en mental model og arkitekturværktøj.
+    For hver udviklingsfase findes en tilsvarende testfase.
+    Venstre side: Design/Requirements → System Arkitektur → Komponent Design → Kode
+    Højre side: Accepttest → Systemtest → Integrationstest → Unit Test
+
+    I stedet for at teste alt til sidst, planlægger man tests parallelt med designet.
+  -->
 </div>
 
 <div class="slide">
-  <h2>V-modellens Niveauer</h2>
-  <div class="v-model-container">
-    <div class="v-side">
-      <h3 style="text-align: center; color: #3b82f6;">Venstre: Design (Verifikation)</h3>
-      <div class="v-box left">1. Kravspecifikation (Requirements)</div>
-      <div class="v-box left">2. System Arkitektur</div>
-      <div class="v-box left">3. Komponent Design</div>
-      <div class="v-box left">4. Modul / Logik Design</div>
-    </div>
-    <div style="font-size: 3rem; margin-top: 10rem;">&xrarr;</div>
-    <div class="v-side">
-      <h3 style="text-align: center; color: var(--accent-color);">Højre: Test (Validering)</h3>
-      <div class="v-box">1. Accepttest (Gør systemet det kunden vil?)</div>
-      <div class="v-box">2. Systemtest (Virker hele systemet samlet?)</div>
-      <div class="v-box">3. Integrationstest (Snakker modulerne sammen?)</div>
-      <div class="v-box">4. Unit Test (Virker den enkelte metode?)</div>
-    </div>
-  </div>
-  <p style="text-align: center; width: 100%; margin-top: 2rem; font-weight: bold;">I bunden af V'et finder vi selve KODNINGEN.</p>
+  <h2>Unit Test vs. Integration Test</h2>
+  <ul>
+    <li><strong>Unit Test:</strong> Tester én isoleret metode med mocks</li>
+    <li><strong>Integration Test:</strong> Tester moduler sammen (f.eks. service + rigtig database)</li>
+  </ul>
+  <!--
+    Unit Test:
+    - Lynhurtig (millisekunder)
+    - Total isolation: ingen database, ingen filer, ingen API'er
+    - Tester logik
+
+    Integration Test:
+    - Langsommere
+    - Bruger rigtig infrastruktur
+    - Fanger konfigurationsfejl og "lednings-problemer"
+  -->
 </div>
 
 <div class="slide">
-  <h2>Del B: Unit Test vs. Integration Test</h2>
-  <div class="grid-2">
-    <div>
-      <h3 style="color: var(--accent-color)">Unit Test (Enhedstest)</h3>
-      <ul>
-        <li>Tester den mindste del af koden (f.eks. én metode).</li>
-        <li><strong>Total isolation:</strong> Ingen rigtige databaser, filer eller eksterne API'er.</li>
-        <li>Lynhurtig. Eksekverer på millisekunder.</li>
-      </ul>
-    </div>
-    <div>
-      <h3 style="color: var(--accent-color)">Integration Test</h3>
-      <ul>
-        <li>Tester om to eller flere moduler fungerer <em>sammen</em>.</li>
-        <li><strong>Interaktion:</strong> F.eks. Forretningslogik der snakker med en rigtig database via Entity Framework.</li>
-        <li>Langsommere, men fanger konfigurationsfejl.</li>
-      </ul>
-    </div>
-  </div>
-</div>
+  <h2>Unit Test Strategi: Boundary Value Analysis</h2>
+  <p style="color: #666; margin-bottom: 1.5rem;"><strong>Gien eksempler fra: test/unit/business/services/trading/</strong></p>
+  <pre><code>// Boundary Value Analysis - test grænserne
+@Test void percentageMinimumFeeStrategy_usesMinimumWhenLowerThanPercentage() {
+    FeeStrategy strategy = new PercentageMinimumFeeStrategy(
+        0.01,           // 1% gebyr
+        BigDecimal.valueOf(15)  // 15 DKK minimum
+    );
 
-<div class="slide">
-  <h2>Strategi for Unit Test: Grænseværdier</h2>
-  <p>En af de stærkeste strategier til unit test kaldes <strong>Boundary Value Analysis</strong> (Grænseværdianalyse).</p>
-  <p>I stedet for at teste tilfældige tal, fokuserer vi på kanterne af de lovlige værdier (Equivalence Partitions), fordi det er her, programmører oftest laver fejl (f.eks. `<` i stedet for `<=`).</p>
-  <p><em>Eksempel: Adgang forbudt under 18 år.</em><br>
-    Vi tester grænserne: <strong>17</strong> (skal fejle), <strong>18</strong> (skal lykkes), og <strong>19</strong> (skal lykkes).</p>
-</div>
-
-<div class="slide">
-  <h2>Eksempel: Unit Test i kode (Boundary Value)</h2>
-  <pre><code>// Logikken vi tester
-public bool IsEligibleForDiscount(int age) {
-    return age >= 65; // Pensionistrabat
+    // Test grænsværdier:
+    // Under minimum (5 DKK < 15 DKK) → bør returnere 15
+    BigDecimal fee = strategy.calculateFee(new BigDecimal("500"));
+    assertEquals(new BigDecimal("15"), fee);
 }
 
-// Testen (XUnit syntax)
-[Theory]
-[InlineData(64, false)] // Lige under grænsen
-[InlineData(65, true)]  // Lige på grænsen
-[InlineData(66, true)]  // Lige over grænsen
-public void Discount_CalculatesBoundaryValuesCorrectly(int age, bool expected) {
-    // Arrange
-    var calculator = new DiscountCalculator();
+// Over minimum (50 DKK > 15 DKK) → bør returnere 50
+BigDecimal fee2 = strategy.calculateFee(new BigDecimal("5000"));
+assertEquals(new BigDecimal("50"), fee2);
+  </code></pre>
+  <!--
+    Boundary Value Analysis fokuserer på grænserne af lovlige værdier.
+    Det er her programmører laver fejl (< vs <=, >= vs >).
 
-    // Act
-    bool result = calculator.IsEligibleForDiscount(age);
+    Eksempel: Adgang forbudt under 18 år.
+    Vi tester: 17 (fejl), 18 (ok), 19 (ok)
 
-    // Assert
-    Assert.Equal(expected, result);
-}</code></pre>
+    I dit projekt tester vi fee-strategierne ved grænsen hvor:
+    - 1% af beløbet = minimum-gebyr
+    - 1% < minimum → minimum bruges
+    - 1% > minimum → 1% bruges
+  -->
 </div>
 
 <div class="slide">
-  <h2>Strategi for Integration Test: Bottom-up</h2>
-  <p>Når vi skal teste hvordan moduler snakker sammen, kan vi bruge en <strong>Bottom-Up</strong> (Nedefra-og-op) strategi.</p>
+  <h2>Integration Test Strategi: Bottom-Up</h2>
   <ul>
-    <li>Vi starter med at teste de underste lag i vores arkitektur (f.eks. Database Repositories).</li>
-    <li>Når vi er sikre på, at databasen virker, bygger vi Forretningslogikken (BLL) ovenpå og tester dem samlet.</li>
-    <li><strong>Fordel:</strong> Vi fanger database/infrastruktur-fejl tidligt, før de forplanter sig til UI'et. Mocks er unødvendige for det nederste lag.</li>
+    <li><strong>Start forneden:</strong> Test Database/Repository-laget først</li>
+    <li><strong>Byg op:</strong> Test Service-lagog Business Logic oven på</li>
+    <li><strong>Fordel:</strong> Fanger DB-fejl tidligt, før de når UI'et</li>
   </ul>
+  <!--
+    Bottom-up strategi betyder:
+    1. Test DAO'erne (FileUnitOfWork + DAOs) med rigtig fil-persistence
+    2. Test Services (BuySharesService, SellSharesService) sammen med DAOs
+    3. Mocks bruges IKKE - vi bruger rigtig test-data
+
+    I dit projekt: test/integration/business/services/trading/
+    - BuySharesServiceIntTest bruger FileUnitOfWork med rigtige filer
+    - Fanger fejl i fil-håndtering før service-logikken fejler
+  -->
 </div>
 
 <div class="slide">
-  <h2>Eksempel: Integration Test i kode</h2>
-  <p>Her tester vi Service-laget SAMMEN MED en ægte (ofte in-memory eller test-specifik) database.</p>
-  <pre><code>[Fact]
-public void GennemførKøb_TrækkerPengeFraRigtigDatabase() {
-    // Arrange: Sæt rigtig DB op (In-Memory eller Test Container)
-    var dbContext = new TestDbContext("IntegrationTestDB");
-    dbContext.Kunder.Add(new Kunde { Id = 1, Saldo = 500 });
-    dbContext.SaveChanges();
+  <h2>Eksempel: Integration Test</h2>
+  <p style="color: #666; margin-bottom: 1.5rem;"><strong>Se: test/integration/business/services/trading/BuySharesServiceIntTest.java</strong></p>
+  <pre><code>@Test void buyShares_validPurchase_persistsOwnedStockDeductsBalance() {
+    // Arrange: Rigtig fil-baseret UoW (ikke mock!)
+    FileUnitOfWork uow = new FileUnitOfWork(tempDir);
+    StockFileDAO stockDAO = new StockFileDAO(uow);
+    PortfolioFileDAO portfolioDAO = new PortfolioFileDAO(uow);
 
-    // Inject rigtig DB i servicen
-    var ordreService = new OrdreService(dbContext);
+    // Opret initial data
+    Stock stock = Stock.createNew("PNDORA", new BigDecimal("100"));
+    Portfolio portfolio = Portfolio.createNew(new BigDecimal("10000"));
 
-    // Act
-    ordreService.GennemførKøb(kundeId: 1, pris: 200);
+    BuySharesService service = new BuySharesService(
+        stockDAO, portfolioDAO, ..., uow);
 
-    // Assert: Tjek databasen for ændringer
-    var opdateretKunde = dbContext.Kunder.Find(1);
-    Assert.Equal(300, opdateretKunde.Saldo);
-}</code></pre>
+    // Act: Rigtig transaktion
+    service.buyShares(new BuySharesRequest(portfolio.getId(), "PNDORA", 10));
+
+    // Assert: Tjek fil-baseret persistering
+    assertEquals(1, ownedStocks.size());
+    assertTrue(updatedPortfolio.getCurrentBalance().compareTo(
+        new BigDecimal("10000")) < 0);
+}
+  </code></pre>
 </div>
 
 <div class="slide">
-  <h2>Den kritiske vinkel: Faldgruben</h2>
-  <p><strong>Overlapping Tests (Test-duplikering)</strong></p>
-  <p>Mange teams ender med at teste nøjagtig det samme i deres Integration Tests som de allerede har gjort i deres Unit Tests. Dette fører til en utrolig langsom test-suite (ofte kaldet "The Ice Cream Cone anti-pattern").</p>
-  <p><em>Husk reglen:</em> Unit tests tjekker al din komplekse forretningslogik (ifs, loops, math). Integration tests tjekker KUN, om "ledningerne" mellem systemerne er sat rigtigt sammen.</p>
+  <h2>Faldgruber</h2>
+  <p><strong>Test Overlap (Ice Cream Cone Anti-Pattern)</strong></p>
+  <!--
+    Problem: Mange teams tester nøjagtig det samme i unit tests og integration tests.
+
+    Unit tests: Tjek al logik isoleret (if, loops, math med mocks)
+    Integration tests: Tjek KUN om "ledningerne" er sat rigtigt sammen (DB, file I/O)
+
+    Hvis du gør begge på samme tid, bliver test-suiten utrolig langsom og svær at vedligeholde.
+
+    Regel: Unit tests → logik-detaljer. Integration tests → integration-punkter.
+  -->
 </div>
 
 <div class="slide">
   <h2>Opsummering</h2>
   <ul>
-    <li><strong>V-modellen:</strong> Forbinder krav og design på venstre side med konkrete testfaser på højre side.</li>
-    <li><strong>Unit Test Strategi:</strong> Brug Boundary Value Analysis til effektivt at teste kerne-logikken isoleret.</li>
-    <li><strong>Integration Test Strategi:</strong> Brug Bottom-up til at sikre, at dit Data Access lag og logiklag kan snakke fejlfrit sammen.</li>
+    <li>✅ <strong>V-Modellen:</strong> Kravspec/Design på venstre, Test på højre</li>
+    <li>✅ <strong>Unit Tests:</strong> Isoleret logik med Boundary Value Analysis</li>
+    <li>✅ <strong>Integration Tests:</strong> Bottom-up fra DAOs til Services</li>
+    <li>✅ <strong>Ingen overlap:</strong> Unit tester logik, Integration tester integration</li>
   </ul>
-  <h3 style="margin-top: 4rem;">Spørgsmål?</h3>
 </div>
 
 <script>

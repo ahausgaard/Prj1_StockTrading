@@ -11,7 +11,6 @@
         --text-color: #222222;
         --muted-color: #666666;
         --code-bg: #f4f4f4;
-        --accent-color: #7c3aed; /* Lilla / Violet accentfarve */
       }
 
       body, html {
@@ -52,9 +51,6 @@
         font-weight: 600;
         margin-bottom: 2rem;
         color: var(--text-color);
-        border-bottom: 3px solid var(--accent-color);
-        padding-bottom: 10px;
-        display: inline-block;
       }
 
       h3 {
@@ -84,19 +80,11 @@
         font-size: 1.2rem;
         overflow-x: auto;
         width: 100%;
-        border-left: 4px solid var(--accent-color);
-        margin-top: 1rem;
+        border-left: 4px solid #ccc;
       }
 
       code {
         font-family: inherit;
-      }
-
-      .grid-2 {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 4rem;
-        width: 100%;
       }
 
       .quote {
@@ -106,64 +94,6 @@
         border-left: 8px solid var(--code-bg);
         padding-left: 2rem;
         margin: 2rem 0;
-      }
-
-      /* UML Diagram Styling */
-      .uml-wrapper {
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        background: #f3e8ff;
-        padding: 2rem;
-        border-radius: 8px;
-        border: 1px solid #d8b4fe;
-        margin-top: 2rem;
-      }
-      .uml-top {
-        display: flex;
-        width: 100%;
-        justify-content: space-around;
-        align-items: center;
-      }
-      .uml-box {
-        background: white;
-        border: 3px solid var(--accent-color);
-        padding: 1.5rem;
-        text-align: center;
-        border-radius: 8px;
-        width: 250px;
-        box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-      }
-      .uml-box h4 { margin: 0 0 1rem 0; font-size: 1.5rem; color: var(--accent-color); }
-      .uml-box p { font-size: 1rem; margin: 0; font-family: monospace; }
-
-      .uml-arrow {
-        display: flex;
-        align-items: center;
-        font-weight: bold;
-        color: var(--muted-color);
-      }
-      .uml-bottom {
-        display: flex;
-        justify-content: space-around;
-        width: 80%;
-        margin-top: 3rem;
-        position: relative;
-      }
-      .uml-bottom::before {
-        content: "↑ Implementerer";
-        position: absolute;
-        top: -30px;
-        color: var(--muted-color);
-        font-weight: bold;
-      }
-      .uml-box-concrete {
-        background: white;
-        border: 2px dashed var(--accent-color);
-        padding: 1rem;
-        border-radius: 8px;
-        text-align: center;
       }
 
       /* Navigation hint */
@@ -178,156 +108,205 @@
 </head>
 <body>
 
-<div class="hint">Brug piletasterne &rarr;</div>
-
 <div class="slide active">
     <h1>State Pattern</h1>
-    <h3>Sikker tilstandsstyring uden if/else-spaghetti</h3>
+    <h3>Tilstandsmaskiner uden if/else-spaghetti</h3>
     <p style="color: #aaa; margin-top: 4rem;">Software Design og Test</p>
 </div>
 
 <div class="slide">
-    <h2>Del A: Hvad er formålet med mønstret?</h2>
+    <h2>Hvad problem løser State?</h2>
+    <ul>
+        <li><strong>Massive if/switch statements</strong> — Hver tilstand har egen logik</li>
+        <li><strong>Uoverskueligt flow</strong> — Vanskelig at følge tilstands-overgange</li>
+        <li><strong>Ufleksibelt</strong> — Tilføj ny tilstand = redigér eksisterende kode</li>
+    </ul>
+    <!--
+        State Pattern løser Tilstandsmaskine-problemet.
+
+        Uden: if (state == LIVE) price++; else if (state == BANKRUPT) price = 0;
+        Med: currentState.updatePrice();
+
+        Hver tilstand er sin egen klasse som implementerer StateInterface.
+        Tilstande skifter selv når betingelser er opfyldt.
+    -->
+</div>
+
+<div class="slide">
+    <h2>Filosofien bag</h2>
     <div class="quote">
-        "Lad objektet skifte adfærd, når dets interne tilstand ændres."
+        "Lad objektet skifte adfærd når dets interne tilstand ændres."
     </div>
-    <p>State Pattern er et adfærdsmønster. Det bruges til at bygge <strong>State Machines (Tilstandsmaskiner)</strong>.</p>
-    <p>Formålet er at isolere den logik, der hører til en bestemt tilstand (f.eks. om et dokument er en "Kladde", "Til Godkendelse" eller "Udgivet"). Objektet ser ud til at skifte sin klasse undervejs i programmet.</p>
+    <!--
+        State Pattern handler om at modellere systemers tilstandsovergange (State Machines).
+
+        Eksempel: En ordre har tilstande: Ny → Betalt → Sendt → Leveret
+        Eller: En aktie har tilstande: Live → Growing → Declining → Bankrupt
+
+        Hver tilstand styrer sin egen adfærd og hvem den kan blive.
+        Objektet delegerer arbejdet til sin aktuelle tilstand.
+    -->
 </div>
 
 <div class="slide">
-    <h2>Mønstrets UML-struktur</h2>
-    <div class="uml-wrapper">
-        <div class="uml-top">
-            <div class="uml-box" style="border-color: #333;">
-                <h4 style="color: #333;">Context (Ordre)</h4>
-                <p>IState _tilstand;<br><br>Request() {<br>&nbsp;&nbsp;_tilstand.Handle();<br>}</p>
-            </div>
-            <div class="uml-arrow">
-                &rarr; <i>Har en</i> &rarr;
-            </div>
-            <div class="uml-box">
-                <h4>&lt;&lt;Interface&gt;&gt; IState</h4>
-                <p>Handle();</p>
-            </div>
-        </div>
-        <div class="uml-bottom">
-            <div class="uml-box-concrete">State A<br><span style="font-size: 0.8rem">(F.eks. Oprettet)</span></div>
-            <div class="uml-box-concrete">State B<br><span style="font-size: 0.8rem">(F.eks. Betalt)</span></div>
-            <div class="uml-box-concrete">State C<br><span style="font-size: 0.8rem">(F.eks. Afsendt)</span></div>
-        </div>
-    </div>
+    <h2>Design</h2>
+    <img src="../diagrams/stateCD.svg" alt="State Pattern UML Diagram" style="width: 90%; height: auto; margin-top: 2rem;" />
 </div>
 
 <div class="slide">
-    <h2>Del B: Hvordan ser det ud UDEN mønstret?</h2>
-    <p>Uden State Pattern ender klasser med komplekse livscyklusser med gigantiske, uoverskuelige <code>switch</code>-statements, der bryder <em>Single Responsibility Principle</em>.</p>
-    <pre><code>public class Ordre {
-    private string _tilstand = "Oprettet"; // "Betalt", "Afsendt"
+    <h2>Implementering:</h2>
+    <p style="color: #666; margin-bottom: 1.5rem;"><strong>State Interface: src/domain/StockState.java</strong></p>
+    <p style="color: #666; margin-bottom: 1.5rem;"><strong>Context: src/business/stockmarket/simulation/LiveStock.java</strong></p>
+    <p style="color: #666; margin-bottom: 1.5rem;"><strong>Concrete States: src/business/stockmarket/simulation/</strong></p>
+    <!--
+        I dit projekt:
+        - StockState interface: defineerer hvad alle states skal gøre (updatePrice, getState)
+        - LiveStock: Context - holder på currentState og delegerer updatePrice()
+        - GrowingState, DecliningState, SteadyState, BankruptState: Konkrete tilstands-klasser
 
-    public void Betal() {
-        if (_tilstand == "Oprettet") {
-            // Godkend betaling
-            _tilstand = "Betalt";
+        TransitionManager bestemmer når og hvordan tilstandene skifter.
+        Hver state skifter sig selv når betingelser er opfyldt.
+    -->
+</div>
+
+<div class="slide">
+    <h2>Hvordan ser det ud UDEN State?</h2>
+    <pre><code>// Massive if/else uden State Pattern
+public class LiveStockBad {
+    public void updatePrice() {
+        if (currentState == StockState.LIVE) {
+            price = price.multiply(new BigDecimal("1.03")); // +3%
         }
-        else if (_tilstand == "Betalt") {
-            throw new Exception("Ordren er allerede betalt!");
+        else if (currentState == StockState.BANKRUPT) {
+            price = BigDecimal.ZERO;
         }
-        else if (_tilstand == "Afsendt") {
-            throw new Exception("Ordren er allerede afsendt!");
+        else if (currentState == StockState.GROWING) {
+            price = price.multiply(new BigDecimal("1.05")); // +5%
+            // Sjekk for transition...
+            if (volatilityHighNow) {
+                currentState = StockState.DECLINING;
+            }
         }
-    }
-}</code></pre>
-</div>
-
-<div class="slide">
-    <h2>Del B: Implementering - Interfacet og Context</h2>
-    <p>Vi starter med at definere Interfacet og give vores Ordre (Context) en tilstand, den kan ændre på.</p>
-    <pre><code>// Interfacet: Definerer hvad man kan gøre med ordren
-public interface IOrdreTilstand {
-    void Betal(Ordre context);
-    void Afsend(Ordre context);
-}
-
-// Context: Selve Ordren
-public class Ordre {
-    public IOrdreTilstand Tilstand { get; set; }
-
-    public Ordre() {
-        Tilstand = new NyOrdreTilstand(); // Start-tilstand
-    }
-
-    // Ordren delegerer arbejdet videre til sin nuværende tilstand!
-    public void Betal() => Tilstand.Betal(this);
-    public void Afsend() => Tilstand.Afsend(this);
-}</code></pre>
-</div>
-
-<div class="slide">
-    <h2>Del B: Implementering - Konkrete Tilstande</h2>
-    <p>Vi bryder nu if-statements op i separate, testbare klasser.</p>
-    <pre><code>public class NyOrdreTilstand : IOrdreTilstand {
-    public void Betal(Ordre context) {
-        Console.WriteLine("Betaling modtaget.");
-        // Tilstanden udskifter sig selv med den næste tilstand!
-        context.Tilstand = new BetaltTilstand();
-    }
-
-    public void Afsend(Ordre context) {
-        throw new Exception("Kan ikke afsende ubetalt ordre!");
+        // ... 10 mere else-if statements
     }
 }
+    </code></pre>
+</div>
 
-public class BetaltTilstand : IOrdreTilstand {
-    public void Betal(Ordre context) => throw new Exception("Allerede betalt.");
+<div class="slide">
+    <h2>Implementering MED State</h2>
+    <p style="color: #666; margin-bottom: 1.5rem;"><strong>Se: src/business/stockmarket/simulation/GrowingState.java</strong></p>
+    <pre><code>// State Pattern: Ren logik per tilstand
+public class GrowingState extends LiveStockState {
+    @Override
+    public void updatePrice(LiveStock context) {
+        // Kun logik for GROWING tilstand
+        BigDecimal newPrice = context.getCurrentPrice()
+            .multiply(new BigDecimal("1.04")); // +4%
+        context.setCurrentPrice(newPrice);
 
-    public void Afsend(Ordre context) {
-        Console.WriteLine("Pakken er sendt afsted.");
-        context.Tilstand = new AfsendtTilstand();
+        // Tilstanden bestemmer selv om den skal skifte
+        if (shouldTransitionToDeclining()) {
+            context.setCurrentState(new DecliningState());
+        }
     }
-}</code></pre>
+
+    private boolean shouldTransitionToDeclining() {
+        // Simpel logik - ingen Store if/switch statements her
+        return Math.random() < 0.1; // 10% chance
+    }
+}
+    </code></pre>
 </div>
 
 <div class="slide">
-    <h2>Hvor og hvordan er det brugt? (Del B)</h2>
-    <div class="grid-2">
-        <div>
-            <h3 style="color: var(--accent-color)">Anvendelsesscenarier</h3>
-            <ul>
-                <li><strong>E-commerce Ordrer:</strong> (Ny &rarr; Betalt &rarr; Plukket &rarr; Sendt).</li>
-                <li><strong>Spiludvikling (AI):</strong> En fjende-NPC skifter mellem <code>IdleState</code>, <code>ChaseState</code>, og <code>AttackState</code> afhængigt af afstanden til spilleren.</li>
-                <li><strong>Hardware/Automater:</strong> En kaffemaskine, en hæveautomat eller en elevator.</li>
-            </ul>
-        </div>
-        <div>
-            <h3 style="color: var(--accent-color)">Gør det koden mere testbar?</h3>
-            <p><strong>Ja!</strong> I stedet for at skrive én massiv Unit Test for `Ordre`-klassen, kan vi nu skrive små, isolerede tests for `NyOrdreTilstand` og bekræfte, at den kaster de rigtige exceptions og skifter til den korrekte næste tilstand.</p>
-        </div>
-    </div>
+    <h2>Context delegerer til State</h2>
+    <p style="color: #666; margin-bottom: 1.5rem;"><strong>Se: src/business/stockmarket/simulation/LiveStock.java</strong></p>
+    <pre><code>// Context: Delegerer helt til sin state
+public class LiveStock {
+    private StockState currentState;
+    private BigDecimal currentPrice;
+
+    public void updatePrice() {
+        // Konteksten ved ikke HVORDAN
+        // Den spørger bare sin state "gør dit job"
+        currentState.updatePrice(this);
+
+        // State'n har selv opdateret prisen og eventuel skiftet til ny state
+    }
+
+    // Helpers som states kan bruge
+    public void setCurrentState(StockState newState) {
+        currentState = newState;
+    }
+
+    public void setCurrentPrice(BigDecimal price) {
+        currentPrice = price;
+    }
+}
+    </code></pre>
 </div>
 
 <div class="slide">
-    <h2>Filosofien: Polymorfi frem for Betingelser</h2>
-    <p>State-mønstret udnytter objektorienteret programmerings kernekoncept: <strong>Polymorfi</strong> (at objekter kan antage flere former).</p>
-    <p>I stedet for at koden spørger: <em>"Hvilken tilstand er jeg i, og hvad skal jeg så gøre?"</em>, siger Context blot: <em>"Gør dit job!"</em> til den aktuelle tilstandsobjekt.</p>
-    <p>Det gør det ekstremt nemt at overholde <strong>Open/Closed Principle</strong>. Hvis vi får brug for en <code>RefunderetTilstand</code>, opretter vi bare en ny klasse – vi behøver ikke rette i den eksisterende kode.</p>
+    <h2>Testbarhed MED State</h2>
+    <pre><code>@Test void growingState_increasesPrice() {
+    LiveStock stock = new LiveStock();
+    stock.setCurrentPrice(new BigDecimal("100"));
+    stock.setCurrentState(new GrowingState());
+
+    stock.updatePrice();
+
+    BigDecimal newPrice = stock.getCurrentPrice();
+    assertTrue(newPrice.compareTo(new BigDecimal("100")) > 0);
+}
+
+@Test void decliningState_decreasesPrice() {
+    LiveStock stock = new LiveStock();
+    stock.setCurrentPrice(new BigDecimal("100"));
+    stock.setCurrentState(new DecliningState());
+
+    stock.updatePrice();
+
+    BigDecimal newPrice = stock.getCurrentPrice();
+    assertTrue(newPrice.compareTo(new BigDecimal("100")) < 0);
+}
+// Hver tilstand testes isoleret - ingen massive if/else!
+    </code></pre>
 </div>
 
 <div class="slide">
-    <h2>Den kritiske vinkel: Faldgruben</h2>
-    <p><strong>Eksplosion af klasser og Over-engineering.</strong></p>
-    <p>Hvis dit system kun har to tilstande (f.eks. "Tændt" / "Slukket"), og logikken for at skifte er meget simpel (f.eks. ændre en boolean), er State-mønstret "overkill". Det tvinger dig til at oprette adskillige klasser for at gøre noget, der kunne være løst med en simpel <code>if</code>-sætning.</p>
-    <p>Brug det kun, når tilstandene dikterer markant forskellig <em>adfærd</em>.</p>
+    <h2>Faldgruber</h2>
+    <p><strong>Over-engineering for simple systemer</strong></p>
+    <!--
+        Hvis dit system kun har 2 tilstande (f.eks. ON/OFF med simpel toggle),
+        er State Pattern overkill. Det tvinger mange klasser for noget der kunne være
+        en simpel boolean eller enum-check.
+
+        State Pattern payer sig selv når:
+        - 3+ tilstande
+        - Hver tilstand har markant forskellig logik
+        - Tilstands-overgange er komplekse
+
+        I dit projekt: Stock har 5 tilstande med forskellig logik = perfekt for State Pattern.
+    -->
 </div>
 
 <div class="slide">
     <h2>Opsummering</h2>
     <ul>
-        <li><strong>Mønstret:</strong> Erstatter komplekse if/else og switch-statements med dedikerede State-klasser.</li>
-        <li><strong>State Machine:</strong> Context-objektet har en reference til den aktuelle IState, og State-klasserne orkestrerer selv overgangen til næste tilstand.</li>
-        <li><strong>Vedligeholdelse:</strong> Ny adfærd tilføjes som nye klasser (Open/Closed), hvilket gør koden ren og isoleret.</li>
+        <li>✅ <strong>Encapsulation</strong>
+            <!-- Hver tilstand har sin egen logik, isoleret -->
+        </li>
+        <li>✅ <strong>State Machines</strong>
+            <!-- Tilstands-overgange er klare og testbare -->
+        </li>
+        <li>✅ <strong>Open/Closed</strong>
+            <!-- Ny tilstand = ny klasse, ingen eksisterende kode ændres -->
+        </li>
+        <li>✅ <strong>Testbar</strong>
+            <!-- Hver state testes uafhængigt af andre -->
+        </li>
     </ul>
-    <h3 style="margin-top: 4rem;">Spørgsmål?</h3>
 </div>
 
 <script>
