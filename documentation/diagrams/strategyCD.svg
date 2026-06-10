@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg"
+     width="1380" height="560"
+     viewBox="0 0 1380 560"
+     style="background:#FFFFFF;">
+
+  <!-- ═══════════════════════════════════════════════
+       FeeStrategy  «interface»  (center top)
+       x=480, y=20, w=390, h=80
+  ════════════════════════════════════════════════ -->
+  <g>
+    <rect x="480" y="20" width="390" height="80" rx="2.5" ry="2.5"
+          fill="#FFE6E6" style="stroke:#181818;stroke-width:0.5;"/>
+    <!-- purple «I» badge -->
+    <ellipse cx="620" cy="42" rx="11" ry="11"
+             fill="#B4A7E5" style="stroke:#181818;stroke-width:1;"/>
+    <text fill="#000" font-family="sans-serif" font-size="11"
+          font-weight="bold" x="616" y="47">I</text>
+    <text fill="#000" font-family="sans-serif" font-size="12"
+          font-style="italic" x="645" y="38">«interface»</text>
+    <text fill="#000" font-family="sans-serif" font-size="14"
+          font-style="italic" font-weight="bold" x="640" y="56">FeeStrategy</text>
+    <!-- separator: header / fields -->
+    <line x1="481" x2="869" y1="65" y2="65"
+          style="stroke:#181818;stroke-width:0.5;"/>
+    <!-- separator: fields / methods  (fields section is empty) -->
+    <line x1="481" x2="869" y1="73" y2="73"
+          style="stroke:#181818;stroke-width:0.5;"/>
+    <!-- method -->
+    <ellipse cx="491" cy="87" rx="3" ry="3"
+             fill="#84BE84" style="stroke:#038048;stroke-width:1;"/>
+    <text fill="#000" font-family="sans-serif" font-size="14"
+          font-style="italic" x="500" y="91">
+      calculateFee(transactionAmount: BigDecimal): BigDecimal
+    </text>
+  </g>
+
+  <!-- ═══════════════════════════════════════════════
+       BuySharesService  «context»  (top-left)
+       x=20, y=20, w=320, h=112
+  ════════════════════════════════════════════════ -->
+  <g>
+    <rect x="20" y="20" width="320" height="112" rx="2.5" ry="2.5"
+          fill="#E6FFE6" style="stroke:#181818;stroke-width:0.5;"/>
+    <ellipse cx="106" cy="42" rx="11" ry="11"
+             fill="#ADD1B2" style="stroke:#181818;stroke-width:1;"/>
+    <text fill="#000" font-family="sans-serif" font-size="11"
+          font-weight="bold" x="101" y="47">C</text>
+    <text fill="#000" font-family="sans-serif" font-size="12"
+          font-style="italic" x="162" y="38">«context»</text>
+    <text fill="#000" font-family="sans-serif" font-size="14"
+          x="120" y="56">BuySharesService</text>
+    <line x1="21" x2="339" y1="65" y2="65"
+          style="stroke:#181818;stroke-width:0.5;"/>
+    <rect fill="none" height="6" style="stroke:#C82930;stroke-width:1;"
+          width="6" x="28" y="74"/>
+    <text fill="#000" font-family="sans-serif" font-size="14"
+          x="40" y="81">feeStrategy: FeeStrategy</text>
+    <line x1="21" x2="339" y1="89" y2="89"
+          style="stroke:#181818;stroke-width:1;"/>
+    <ellipse cx="30" cy="103" rx="3" ry="3"
+             fill="#84BE84" style="stroke:#038048;stroke-width:1;"/>
+    <text fill="#000" font-family="sans-serif" font-size="14"
+          x="39" y="107">buyShares(request: BuySharesRequest): void</text>
+  </g>
+
+  <!-- ═══════════════════════════════════════════════
+       SellSharesService  «context»  (top-right)
+       x=1040, y=20, w=320, h=112
+  ════════════════════════════════════════════════ -->
+  <g>
+    <rect x="1040" y="20" width="320" height="112" rx="2.5" ry="2.5"
+          fill="#E6FFE6" style="stroke:#181818;stroke-width:0.5;"/>
+    <ellipse cx="1126" cy="42" rx="11" ry="11"
+             fill="#ADD1B2" style="stroke:#181818;stroke-width:1;"/>
+    <text fill="#000" font-family="sans-serif" font-size="11"
+          font-weight="bold" x="1121" y="47">C</text>
+    <text fill="#000" font-family="sans-serif" font-size="12"
+          font-style="italic" x="1182" y="38">«context»</text>
+    <text fill="#000" font-family="sans-serif" font-size="14"
+          x="1140" y="56">SellSharesService</text>
+    <line x1="1041" x2="1359" y1="65" y2="65"
+          style="stroke:#181818;stroke-width:0.5;"/>
+    <rect fill="none" height="6" style="stroke:#C82930;stroke-width:1;"
+          width="6" x="1048" y="74"/>
+    <text fill="#000" font-family="sans-serif" font-size="14"
+          x="1060" y="81">feeStrategy: FeeStrategy</text>
+    <line x1="1041" x2="1359" y1="89" y2="89"
+          style="stroke:#181818;stroke-width:1;"/>
+    <ellipse cx="1050" cy="103" rx="3" ry="3"
+             fill="#84BE84" style="stroke:#038048;stroke-width:1;"/>
+    <text fill="#000" font-family="sans-serif" font-size="14"
+          x="1059" y="107">sellShares(request: SellSharesRequest): void</text>
+  </g>
+
+  <!-- ═══════════════════════════════════════════════
+       FlatFeeStrategy  (concrete, bottom-left)
+       x=60, y=340, w=330, h=114
+  ════════════════════════════════════════════════ -->
+  <g>
+    <rect x="60" y="340" width="330" height="114" rx="2.5" ry="2.5"
+          fill="#E6F3FF" style="stroke:#181818;stroke-width:0.5;"/>
+    <ellipse cx="158" cy="361" rx="11" ry="11"
+             fill="#ADD1B2" style="stroke:#181818;stroke-width:1;"/>
+    <text fill="#000" font-family="sans-serif" font-size="11"
+          font-weight="bold" x="153" y="366">C</text>
+    <text fill="#000" font-family="sans-serif" font-size="14"
+          x="173" y="375">FlatFeeStrategy</text>
+    <line x1="61" x2="389" y1="383" y2="383"
+          style="stroke:#181818;stroke-width:0.5;"/>
+    <rect fill="none" height="6" style="stroke:#C82930;stroke-width:1;"
+          width="6" x="68" y="392"/>
+    <text fill="#000" font-family="sans-serif" font-size="14"
+          x="80" y="399">flatFee: BigDecimal</text>
+    <line x1="61" x2="389" y1="407" y2="407"
+          style="stroke:#181818;stroke-width:1;"/>
+    <ellipse cx="70" cy="421" rx="3" ry="3"
+             fill="#84BE84" style="stroke:#038048;stroke-width:1;"/>
+    <text fill="#000" font-family="sans-serif" font-size="14"
+          x="79" y="425">FlatFeeStrategy(flatFee: BigDecimal)</text>
+    <ellipse cx="70" cy="438" rx="3" ry="3"
+             fill="#84BE84" style="stroke:#038048;stroke-width:1;"/>
+    <text fill="#000" font-family="sans-serif" font-size="14"
+          x="79" y="442">calculateFee(amount: BigDecimal): BigDecimal</text>
+  </g>
+
+  <!-- ═══════════════════════════════════════════════
+       PercentageFeeStrategy  (concrete, bottom-center)
+       x=465, y=340, w=340, h=114
+  ════════════════════════════════════════════════ -->
+  <g>
+    <rect x="465" y="340" width="340" height="114" rx="2.5" ry="2.5"
+          fill="#E6F3FF" style="stroke:#181818;stroke-width:0.5;"/>
+    <ellipse cx="563" cy="361" rx="11" ry="11"
+             fill="#ADD1B2" style="stroke:#181818;stroke-width:1;"/>
+    <text fill="#000" font-family="sans-serif" font-size="11"
+          font-weight="bold" x="558" y="366">C</text>
+    <text fill="#000" font-family="sans-serif" font-size="14"
+          x="578" y="375">PercentageFeeStrategy</text>
+    <line x1="466" x2="804" y1="383" y2="383"
+          style="stroke:#181818;stroke-width:0.5;"/>
+    <rect fill="none" height="6" style="stroke:#C82930;stroke-width:1;"
+          width="6" x="473" y="392"/>
+    <text fill="#000" font-family="sans-serif" font-size="14"
+          x="485" y="399">feeRate: BigDecimal</text>
+    <line x1="466" x2="804" y1="407" y2="407"
+          style="stroke:#181818;stroke-width:1;"/>
+    <ellipse cx="474" cy="421" rx="3" ry="3"
+             fill="#84BE84" style="stroke:#038048;stroke-width:1;"/>
+    <text fill="#000" font-family="sans-serif" font-size="14"
+          x="483" y="425">PercentageFeeStrategy(feeRate: double)</text>
+    <ellipse cx="474" cy="438" rx="3" ry="3"
+             fill="#84BE84" style="stroke:#038048;stroke-width:1;"/>
+    <text fill="#000" font-family="sans-serif" font-size="14"
+          x="483" y="442">calculateFee(amount: BigDecimal): BigDecimal</text>
+  </g>
+
+  <!-- ═══════════════════════════════════════════════
+       PercentageMinimumFeeStrategy  (concrete, bottom-right)
+       x=880, y=325, w=470, h=132
+  ════════════════════════════════════════════════ -->
+  <g>
+    <rect x="880" y="325" width="470" height="132" rx="2.5" ry="2.5"
+          fill="#E6F3FF" style="stroke:#181818;stroke-width:0.5;"/>
+    <ellipse cx="998" cy="346" rx="11" ry="11"
+             fill="#ADD1B2" style="stroke:#181818;stroke-width:1;"/>
+    <text fill="#000" font-family="sans-serif" font-size="11"
+          font-weight="bold" x="993" y="351">C</text>
+    <text fill="#000" font-family="sans-serif" font-size="14"
+          x="1013" y="360">PercentageMinimumFeeStrategy</text>
+    <line x1="881" x2="1349" y1="368" y2="368"
+          style="stroke:#181818;stroke-width:0.5;"/>
+    <rect fill="none" height="6" style="stroke:#C82930;stroke-width:1;"
+          width="6" x="888" y="377"/>
+    <text fill="#000" font-family="sans-serif" font-size="14"
+          x="900" y="384">feeRate: BigDecimal</text>
+    <rect fill="none" height="6" style="stroke:#C82930;stroke-width:1;"
+          width="6" x="888" y="394"/>
+    <text fill="#000" font-family="sans-serif" font-size="14"
+          x="900" y="401">minimumFee: BigDecimal</text>
+    <line x1="881" x2="1349" y1="409" y2="409"
+          style="stroke:#181818;stroke-width:1;"/>
+    <ellipse cx="890" cy="423" rx="3" ry="3"
+             fill="#84BE84" style="stroke:#038048;stroke-width:1;"/>
+    <text fill="#000" font-family="sans-serif" font-size="14"
+          x="899" y="427">PercentageMinimumFeeStrategy(feeRate: double, minimum: BigDecimal)</text>
+    <ellipse cx="890" cy="440" rx="3" ry="3"
+             fill="#84BE84" style="stroke:#038048;stroke-width:1;"/>
+    <text fill="#000" font-family="sans-serif" font-size="14"
+          x="899" y="444">calculateFee(amount: BigDecimal): BigDecimal</text>
+  </g>
+
+  <!-- ═══════════════════════════════════════════════
+       ARROWS
+  ════════════════════════════════════════════════ -->
+
+  <!-- BuySharesService → FeeStrategy  (solid line + filled arrowhead, "uses") -->
+  <!-- From right of BuySharesService (340, 65) curving to left of FeeStrategy (480, 60) -->
+  <path d="M340,65 C410,65 480,60 480,60"
+        fill="none" style="stroke:#181818;stroke-width:1;"/>
+  <!-- filled arrowhead pointing right at (480,60) -->
+  <polygon fill="#181818" points="480,60 468,54 468,66"
+           style="stroke:#181818;stroke-width:1;"/>
+  <text fill="#000" font-family="sans-serif" font-size="13" x="378" y="55">uses</text>
+
+  <!-- SellSharesService → FeeStrategy  (solid line + filled arrowhead, "uses") -->
+  <!-- From left of SellSharesService (1040, 65) curving to right of FeeStrategy (870, 60) -->
+  <path d="M1040,65 C970,65 870,60 870,60"
+        fill="none" style="stroke:#181818;stroke-width:1;"/>
+  <!-- filled arrowhead pointing left at (870,60) -->
+  <polygon fill="#181818" points="870,60 882,54 882,66"
+           style="stroke:#181818;stroke-width:1;"/>
+  <text fill="#000" font-family="sans-serif" font-size="13" x="940" y="55">uses</text>
+
+  <!-- FlatFeeStrategy → FeeStrategy  (dashed + open triangle, realization) -->
+  <!-- From top of FlatFeeStrategy center (225, 340) up to FeeStrategy bottom area (590, 113) -->
+  <path d="M225,340 C225,230 590,200 590,113"
+        fill="none" style="stroke:#181818;stroke-width:1;stroke-dasharray:7,7;"/>
+  <!-- open triangle at FeeStrategy bottom (apex at top) -->
+  <polygon fill="none" points="590,100 582,116 598,116"
+           style="stroke:#181818;stroke-width:1;"/>
+
+  <!-- PercentageFeeStrategy → FeeStrategy  (dashed + open triangle, realization) -->
+  <!-- From top of PercentageFeeStrategy center (635, 340) straight up to FeeStrategy bottom (675, 100) -->
+  <path d="M635,340 C635,220 675,200 675,113"
+        fill="none" style="stroke:#181818;stroke-width:1;stroke-dasharray:7,7;"/>
+  <polygon fill="none" points="675,100 667,116 683,116"
+           style="stroke:#181818;stroke-width:1;"/>
+
+  <!-- PercentageMinimumFeeStrategy → FeeStrategy  (dashed + open triangle, realization) -->
+  <!-- From top of PercentageMin center (1115, 325) up to FeeStrategy bottom (780, 100) -->
+  <path d="M1115,325 C1115,210 780,200 780,113"
+        fill="none" style="stroke:#181818;stroke-width:1;stroke-dasharray:7,7;"/>
+  <polygon fill="none" points="780,100 772,116 788,116"
+           style="stroke:#181818;stroke-width:1;"/>
+
+</svg>
