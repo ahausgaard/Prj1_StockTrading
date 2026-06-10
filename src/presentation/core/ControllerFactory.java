@@ -2,6 +2,7 @@ package presentation.core;
 
 import presentation.controllers.*;
 import presentation.viewModels.*;
+import shared.notifications.NotificationService;
 
 import javafx.util.Callback;
 
@@ -28,7 +29,7 @@ public class ControllerFactory implements Callback<Class<?>, Object>
             StockPriceChartViewModel viewModel = new StockPriceChartViewModel(
                     context.getStockListenerService(),
                     context.getPortfolioQueryService());
-            return new StockPriceChartController(viewModel);
+            return new StockPriceChartController(viewModel, context.getNotificationService());
         }
         if (type == BuyStockController.class)
         {
@@ -36,14 +37,14 @@ public class ControllerFactory implements Callback<Class<?>, Object>
                     context.getBuySharesService(),
                     context.getPortfolioQueryService(),
                     context.getFeeStrategy());
-            return new BuyStockController(viewModel);
+            return new BuyStockController(viewModel, context.getNotificationService());
         }
         if (type == PortfolioController.class)
         {
             PortfolioViewModel viewModel = new PortfolioViewModel(
                     context.getPortfolioQueryService(),
                     context.getSellSharesService());
-            return new PortfolioController(viewModel);
+            return new PortfolioController(viewModel, context.getNotificationService());
         }
         if (type == NewGameSettingsController.class)
         {
@@ -56,7 +57,7 @@ public class ControllerFactory implements Callback<Class<?>, Object>
                     context.getSellSharesService(),
                     context.getPortfolioQueryService(),
                     context.getFeeStrategy());
-            return new SellStockController(viewModel);
+            return new SellStockController(viewModel, context.getNotificationService());
         }
 
         // Fallback

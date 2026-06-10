@@ -2,18 +2,18 @@ package presentation.controllers;
 
 import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Label;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.stage.Stage;
 import presentation.core.AcceptsStringArgument;
 import presentation.viewModels.SellStockViewModel;
+import shared.notifications.NotificationService;
 
 public class SellStockController implements AcceptsStringArgument
 {
     private final SellStockViewModel viewModel;
+    private final NotificationService notificationService;
 
     @FXML private Label symbolLabel;
     @FXML private Label priceLabel;
@@ -22,9 +22,10 @@ public class SellStockController implements AcceptsStringArgument
     @FXML private Label estimatedProceedsLabel;
     @FXML private Label statusLabel;
 
-    public SellStockController(SellStockViewModel viewModel)
+    public SellStockController(SellStockViewModel viewModel, NotificationService notificationService)
     {
         this.viewModel = viewModel;
+        this.notificationService = notificationService;
     }
 
     @FXML
@@ -71,7 +72,7 @@ public class SellStockController implements AcceptsStringArgument
         boolean success = viewModel.sell();
         if (success)
         {
-            new Alert(AlertType.INFORMATION, "Sale successful!").showAndWait();
+            notificationService.showInfo("Salg gennemført", "Sale successful!");
             closeWindow();
         }
     }

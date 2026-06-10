@@ -4,13 +4,14 @@ import business.dto.OwnedStockDTO;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.control.Alert.AlertType;
 import presentation.core.ViewManager;
 import presentation.viewModels.PortfolioViewModel;
+import shared.notifications.NotificationService;
 
 public class PortfolioController
 {
     private final PortfolioViewModel viewModel;
+    private final NotificationService notificationService;
 
     @FXML private TableView<OwnedStockDTO> holdingsTable;
     @FXML private TableColumn<OwnedStockDTO, String> symbolColumn;
@@ -24,9 +25,10 @@ public class PortfolioController
     @FXML private Label profitLossLabel;
     @FXML private Label statusLabel;
 
-    public PortfolioController(PortfolioViewModel viewModel)
+    public PortfolioController(PortfolioViewModel viewModel, NotificationService notificationService)
     {
         this.viewModel = viewModel;
+        this.notificationService = notificationService;
     }
 
     @FXML
@@ -62,7 +64,7 @@ public class PortfolioController
 
         if (selected.state() == domain.StockState.BANKRUPT)
         {
-            new Alert(AlertType.WARNING, "Cannot sell a bankrupt stock.").show();
+            notificationService.showWarning("Advarsel", "Cannot sell a bankrupt stock.");
             return;
         }
 

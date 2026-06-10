@@ -1,1161 +1,130 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<?plantuml 1.2026.2?><svg
-   contentStyleType="text/css"
-   data-diagram-type="CLASS"
-   height="580px"
-   preserveAspectRatio="none"
-   style="width:1363px;height:580px;background:#FFFFFF;"
-   version="1.1"
-   viewBox="0 0 1363 580"
-   width="1363px"
-   zoomAndPan="magnify"
-   id="svg52"
-   sodipodi:docname="adapterCD.svg"
-   inkscape:version="1.4.3 (0d15f75, 2025-12-25)"
-   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-   xmlns="http://www.w3.org/2000/svg"
-   xmlns:svg="http://www.w3.org/2000/svg">
-  <sodipodi:namedview
-     id="namedview52"
-     pagecolor="#ffffff"
-     bordercolor="#000000"
-     borderopacity="0.25"
-     inkscape:showpageshadow="2"
-     inkscape:pageopacity="0.0"
-     inkscape:pagecheckerboard="0"
-     inkscape:deskcolor="#d1d1d1"
-     inkscape:zoom="2.705796"
-     inkscape:cx="681.5"
-     inkscape:cy="289.93316"
-     inkscape:window-width="3840"
-     inkscape:window-height="2054"
-     inkscape:window-x="-11"
-     inkscape:window-y="-11"
-     inkscape:window-maximized="1"
-     inkscape:current-layer="svg52" />
-  <defs
-     id="defs1" />
-  <g
-     id="g52">
-    <!--class FeeStrategy-->
-    <g
-       class="entity"
-       data-qualified-name="FeeStrategy"
-       data-source-line="11"
-       id="ent0002">
-      <rect
-         fill="#FFE6E6"
-         height="75.0039"
-         rx="2.5"
-         ry="2.5"
-         style="stroke:#181818;stroke-width:0.5;"
-         width="388.5918"
-         x="485"
-         y="193"
-         id="rect1" />
-      <ellipse
-         cx="636.915"
-         cy="213.9263"
-         fill="#B4A7E5"
-         rx="11"
-         ry="11"
-         style="stroke:#181818;stroke-width:1;"
-         id="ellipse1" />
-      <path
-         d="M637.8682,210.5669 L637.8682,217.2231 L639.5869,217.2231 Q640.1963,217.2231 640.4619,217.4575 Q640.7275,217.6919 640.7275,218.0825 Q640.7275,218.4575 640.4619,218.6919 Q640.1963,218.9263 639.5869,218.9263 L634.4463,218.9263 Q633.8369,218.9263 633.5713,218.6919 Q633.3057,218.4575 633.3057,218.0669 Q633.3057,217.6919 633.5713,217.4575 Q633.8369,217.2231 634.4463,217.2231 L636.165,217.2231 L636.165,210.5669 L634.4463,210.5669 Q633.8369,210.5669 633.5713,210.3325 Q633.3057,210.0981 633.3057,209.7075 Q633.3057,209.3325 633.5713,209.0981 Q633.8369,208.8638 634.4463,208.8638 L639.5869,208.8638 Q640.1963,208.8638 640.4619,209.0981 Q640.7275,209.3325 640.7275,209.7075 Q640.7275,210.0981 640.4619,210.3325 Q640.1963,210.5669 639.5869,210.5669 L637.8682,210.5669 Z "
-         fill="#000000"
-         id="path1" />
-      <text
-         fill="#000000"
-         font-family="sans-serif"
-         font-size="12"
-         font-style="italic"
-         lengthAdjust="spacing"
-         textLength="59.373"
-         x="665.8594"
-         y="210.0645"
-         id="text1">«interface»</text>
-      <text
-         fill="#000000"
-         font-family="sans-serif"
-         font-size="14"
-         font-style="italic"
-         lengthAdjust="spacing"
-         textLength="76.2617"
-         x="657.415"
-         y="226.7764"
-         id="text2">FeeStrategy</text>
-      <line
-         style="stroke:#181818;stroke-width:0.5;"
-         x1="486"
-         x2="872.5918"
-         y1="234.8525"
-         y2="234.8525"
-         id="line2" />
-      <line
-         style="stroke:#181818;stroke-width:0.5;"
-         x1="486"
-         x2="872.5918"
-         y1="242.8525"
-         y2="242.8525"
-         id="line3" />
-      <g
-         data-visibility-modifier="PUBLIC_METHOD"
-         id="g3">
-        <ellipse
-           cx="496"
-           cy="256.9282"
-           fill="#84BE84"
-           rx="3"
-           ry="3"
-           style="stroke:#038048;stroke-width:1;"
-           id="ellipse3" />
-      </g>
-      <text
-         fill="#000000"
-         font-family="sans-serif"
-         font-size="14"
-         font-style="italic"
-         lengthAdjust="spacing"
-         textLength="362.5918"
-         x="505"
-         y="260.9277"
-         id="text3">calculateFee(transactionAmount: BigDecimal): BigDecimal</text>
-    </g>
-    <!--class FlatFeeStrategy-->
-    <g
-       class="entity"
-       data-qualified-name="FlatFeeStrategy"
-       data-source-line="16"
-       id="ent0003">
-      <rect
-         fill="#E6F3FF"
-         height="109.3066"
-         rx="2.5"
-         ry="2.5"
-         style="stroke:#181818;stroke-width:0.5;"
-         width="318.5576"
-         x="166"
-         y="337.5"
-         id="rect3" />
-      <ellipse
-         cx="271.229"
-         cy="358.4263"
-         fill="#ADD1B2"
-         rx="11"
-         ry="11"
-         style="stroke:#181818;stroke-width:1;"
-         id="ellipse4" />
-      <path
-         d="M273.9946,354.3013 Q274.1509,354.0825 274.3384,353.9731 Q274.5259,353.8638 274.7446,353.8638 Q275.1196,353.8638 275.354,354.1294 Q275.5884,354.3794 275.5884,354.9888 L275.5884,356.4419 Q275.5884,357.0513 275.354,357.3169 Q275.1196,357.5825 274.7446,357.5825 Q274.4009,357.5825 274.1978,357.3794 Q273.9946,357.1919 273.8853,356.6763 Q273.8384,356.3169 273.6509,356.1294 Q273.3228,355.7544 272.7134,355.5356 Q272.104,355.3169 271.479,355.3169 Q270.7134,355.3169 270.0728,355.645 Q269.4478,355.9731 268.9478,356.7231 Q268.4634,357.4731 268.4634,358.5044 L268.4634,359.5981 Q268.4634,360.8325 269.354,361.6606 Q270.2446,362.4731 271.8384,362.4731 Q272.7759,362.4731 273.4321,362.2231 Q273.8228,362.0669 274.2446,361.6294 Q274.5103,361.3638 274.6509,361.2856 Q274.8071,361.2075 275.0103,361.2075 Q275.3384,361.2075 275.5884,361.4731 Q275.854,361.7231 275.854,362.0669 Q275.854,362.4106 275.5103,362.8169 Q275.0103,363.395 274.2134,363.7231 Q273.1353,364.1763 271.8384,364.1763 Q270.3228,364.1763 269.1196,363.5513 Q268.1353,363.0513 267.4478,361.9888 Q266.7603,360.9106 266.7603,359.6294 L266.7603,358.4731 Q266.7603,357.145 267.3696,356.0044 Q267.9946,354.8481 269.0884,354.2388 Q270.1821,353.6138 271.4165,353.6138 Q272.1509,353.6138 272.7915,353.7856 Q273.4478,353.9419 273.9946,354.3013 Z "
-         fill="#000000"
-         id="path4" />
-      <text
-         fill="#000000"
-         font-family="sans-serif"
-         font-size="12"
-         font-style="italic"
-         lengthAdjust="spacing"
-         textLength="54.0469"
-         x="314.5054"
-         y="354.5645"
-         id="text4">«adapter»</text>
-      <text
-         fill="#000000"
-         font-family="sans-serif"
-         font-size="14"
-         lengthAdjust="spacing"
-         textLength="99.5996"
-         x="291.729"
-         y="371.2764"
-         id="text5">FlatFeeStrategy</text>
-      <line
-         style="stroke:#181818;stroke-width:0.5;"
-         x1="167"
-         x2="483.5576"
-         y1="379.3525"
-         y2="379.3525"
-         id="line5" />
-      <g
-         data-visibility-modifier="PRIVATE_FIELD"
-         id="g5">
-        <rect
-           fill="none"
-           height="6"
-           style="stroke:#C82930;stroke-width:1;"
-           width="6"
-           x="174"
-           y="390.4282"
-           id="rect5" />
-      </g>
-      <text
-         fill="#000000"
-         font-family="sans-serif"
-         font-size="14"
-         lengthAdjust="spacing"
-         textLength="121.3789"
-         x="186"
-         y="397.4277"
-         id="text6">flatFee: BigDecimal</text>
-      <line
-         style="stroke:#181818;stroke-width:1;"
-         x1="167"
-         x2="483.5576"
-         y1="404.5039"
-         y2="404.5039"
-         id="line6" />
-      <g
-         data-visibility-modifier="PUBLIC_METHOD"
-         id="g6">
-        <ellipse
-           cx="177"
-           cy="418.5796"
-           fill="#84BE84"
-           rx="3"
-           ry="3"
-           style="stroke:#038048;stroke-width:1;"
-           id="ellipse6" />
-      </g>
-      <text
-         fill="#000000"
-         font-family="sans-serif"
-         font-size="14"
-         lengthAdjust="spacing"
-         textLength="230.3027"
-         x="186"
-         y="422.5791"
-         id="text7">FlatFeeStrategy(flatFee: BigDecimal)</text>
-      <g
-         data-visibility-modifier="PUBLIC_METHOD"
-         id="g7">
-        <ellipse
-           cx="177"
-           cy="435.731"
-           fill="#84BE84"
-           rx="3"
-           ry="3"
-           style="stroke:#038048;stroke-width:1;"
-           id="ellipse7" />
-      </g>
-      <text
-         fill="#000000"
-         font-family="sans-serif"
-         font-size="14"
-         lengthAdjust="spacing"
-         textLength="292.5576"
-         x="186"
-         y="439.7305"
-         id="text8">calculateFee(amount: BigDecimal): BigDecimal</text>
-    </g>
-    <!--class PercentageFeeStrategy-->
-    <g
-       class="entity"
-       data-qualified-name="PercentageFeeStrategy"
-       data-source-line="23"
-       id="ent0005">
-      <rect
-         fill="#E6F3FF"
-         height="109.3066"
-         rx="2.5"
-         ry="2.5"
-         style="stroke:#181818;stroke-width:0.5;"
-         width="318.5576"
-         x="520"
-         y="337.5"
-         id="rect8" />
-      <ellipse
-         cx="601.0947"
-         cy="358.4263"
-         fill="#ADD1B2"
-         rx="11"
-         ry="11"
-         style="stroke:#181818;stroke-width:1;"
-         id="ellipse8" />
-      <path
-         d="M603.8604,354.3013 Q604.0166,354.0825 604.2041,353.9731 Q604.3916,353.8638 604.6104,353.8638 Q604.9854,353.8638 605.2197,354.1294 Q605.4541,354.3794 605.4541,354.9888 L605.4541,356.4419 Q605.4541,357.0513 605.2197,357.3169 Q604.9854,357.5825 604.6104,357.5825 Q604.2666,357.5825 604.0635,357.3794 Q603.8604,357.1919 603.751,356.6763 Q603.7041,356.3169 603.5166,356.1294 Q603.1885,355.7544 602.5791,355.5356 Q601.9697,355.3169 601.3447,355.3169 Q600.5791,355.3169 599.9385,355.645 Q599.3135,355.9731 598.8135,356.7231 Q598.3291,357.4731 598.3291,358.5044 L598.3291,359.5981 Q598.3291,360.8325 599.2197,361.6606 Q600.1104,362.4731 601.7041,362.4731 Q602.6416,362.4731 603.2979,362.2231 Q603.6885,362.0669 604.1104,361.6294 Q604.376,361.3638 604.5166,361.2856 Q604.6729,361.2075 604.876,361.2075 Q605.2041,361.2075 605.4541,361.4731 Q605.7197,361.7231 605.7197,362.0669 Q605.7197,362.4106 605.376,362.8169 Q604.876,363.395 604.0791,363.7231 Q603.001,364.1763 601.7041,364.1763 Q600.1885,364.1763 598.9854,363.5513 Q598.001,363.0513 597.3135,361.9888 Q596.626,360.9106 596.626,359.6294 L596.626,358.4731 Q596.626,357.145 597.2354,356.0044 Q597.8604,354.8481 598.9541,354.2388 Q600.0479,353.6138 601.2822,353.6138 Q602.0166,353.6138 602.6572,353.7856 Q603.3135,353.9419 603.8604,354.3013 Z "
-         fill="#000000"
-         id="path8" />
-      <text
-         fill="#000000"
-         font-family="sans-serif"
-         font-size="12"
-         font-style="italic"
-         lengthAdjust="spacing"
-         textLength="54.0469"
-         x="668.5054"
-         y="354.5645"
-         id="text9">«adapter»</text>
-      <text
-         fill="#000000"
-         font-family="sans-serif"
-         font-size="14"
-         lengthAdjust="spacing"
-         textLength="147.8682"
-         x="621.5947"
-         y="371.2764"
-         id="text10">PercentageFeeStrategy</text>
-      <line
-         style="stroke:#181818;stroke-width:0.5;"
-         x1="521"
-         x2="837.5576"
-         y1="379.3525"
-         y2="379.3525"
-         id="line10" />
-      <g
-         data-visibility-modifier="PRIVATE_FIELD"
-         id="g10">
-        <rect
-           fill="none"
-           height="6"
-           style="stroke:#C82930;stroke-width:1;"
-           width="6"
-           x="528"
-           y="390.4282"
-           id="rect10" />
-      </g>
-      <text
-         fill="#000000"
-         font-family="sans-serif"
-         font-size="14"
-         lengthAdjust="spacing"
-         textLength="127.6133"
-         x="540"
-         y="397.4277"
-         id="text11">feeRate: BigDecimal</text>
-      <line
-         style="stroke:#181818;stroke-width:1;"
-         x1="521"
-         x2="837.5576"
-         y1="404.5039"
-         y2="404.5039"
-         id="line11" />
-      <g
-         data-visibility-modifier="PUBLIC_METHOD"
-         id="g11">
-        <ellipse
-           cx="531"
-           cy="418.5796"
-           fill="#84BE84"
-           rx="3"
-           ry="3"
-           style="stroke:#038048;stroke-width:1;"
-           id="ellipse11" />
-      </g>
-      <text
-         fill="#000000"
-         font-family="sans-serif"
-         font-size="14"
-         lengthAdjust="spacing"
-         textLength="256.0469"
-         x="540"
-         y="422.5791"
-         id="text12">PercentageFeeStrategy(feeRate: double)</text>
-      <g
-         data-visibility-modifier="PUBLIC_METHOD"
-         id="g12">
-        <ellipse
-           cx="531"
-           cy="435.731"
-           fill="#84BE84"
-           rx="3"
-           ry="3"
-           style="stroke:#038048;stroke-width:1;"
-           id="ellipse12" />
-      </g>
-      <text
-         fill="#000000"
-         font-family="sans-serif"
-         font-size="14"
-         lengthAdjust="spacing"
-         textLength="292.5576"
-         x="540"
-         y="439.7305"
-         id="text13">calculateFee(amount: BigDecimal): BigDecimal</text>
-    </g>
-    <!--class PercentageMinimumFeeStrategy-->
-    <g
-       class="entity"
-       data-qualified-name="PercentageMinimumFeeStrategy"
-       data-source-line="30"
-       id="ent0007">
-      <rect
-         fill="#E6F3FF"
-         height="126.458"
-         rx="2.5"
-         ry="2.5"
-         style="stroke:#181818;stroke-width:0.5;"
-         width="481.9639"
-         x="874.5"
-         y="329"
-         id="rect13" />
-      <ellipse
-         cx="1008.9082"
-         cy="349.9263"
-         fill="#ADD1B2"
-         rx="11"
-         ry="11"
-         style="stroke:#181818;stroke-width:1;"
-         id="ellipse13" />
-      <path
-         d="M1011.6738,345.8013 Q1011.8301,345.5825 1012.0176,345.4731 Q1012.2051,345.3638 1012.4238,345.3638 Q1012.7988,345.3638 1013.0332,345.6294 Q1013.2676,345.8794 1013.2676,346.4888 L1013.2676,347.9419 Q1013.2676,348.5513 1013.0332,348.8169 Q1012.7988,349.0825 1012.4238,349.0825 Q1012.0801,349.0825 1011.877,348.8794 Q1011.6738,348.6919 1011.5645,348.1763 Q1011.5176,347.8169 1011.3301,347.6294 Q1011.002,347.2544 1010.3926,347.0356 Q1009.7832,346.8169 1009.1582,346.8169 Q1008.3926,346.8169 1007.752,347.145 Q1007.127,347.4731 1006.627,348.2231 Q1006.1426,348.9731 1006.1426,350.0044 L1006.1426,351.0981 Q1006.1426,352.3325 1007.0332,353.1606 Q1007.9238,353.9731 1009.5176,353.9731 Q1010.4551,353.9731 1011.1113,353.7231 Q1011.502,353.5669 1011.9238,353.1294 Q1012.1895,352.8638 1012.3301,352.7856 Q1012.4863,352.7075 1012.6895,352.7075 Q1013.0176,352.7075 1013.2676,352.9731 Q1013.5332,353.2231 1013.5332,353.5669 Q1013.5332,353.9106 1013.1895,354.3169 Q1012.6895,354.895 1011.8926,355.2231 Q1010.8145,355.6763 1009.5176,355.6763 Q1008.002,355.6763 1006.7988,355.0513 Q1005.8145,354.5513 1005.127,353.4888 Q1004.4395,352.4106 1004.4395,351.1294 L1004.4395,349.9731 Q1004.4395,348.645 1005.0488,347.5044 Q1005.6738,346.3481 1006.7676,345.7388 Q1007.8613,345.1138 1009.0957,345.1138 Q1009.8301,345.1138 1010.4707,345.2856 Q1011.127,345.4419 1011.6738,345.8013 Z "
-         fill="#000000"
-         id="path13" />
-      <text
-         fill="#000000"
-         font-family="sans-serif"
-         font-size="12"
-         font-style="italic"
-         lengthAdjust="spacing"
-         textLength="54.0469"
-         x="1104.7085"
-         y="346.0645"
-         id="text14">«adapter»</text>
-      <text
-         fill="#000000"
-         font-family="sans-serif"
-         font-size="14"
-         lengthAdjust="spacing"
-         textLength="204.6475"
-         x="1029.4082"
-         y="362.7764"
-         id="text15">PercentageMinimumFeeStrategy</text>
-      <line
-         style="stroke:#181818;stroke-width:0.5;"
-         x1="875.5"
-         x2="1355.4639"
-         y1="370.8525"
-         y2="370.8525"
-         id="line15" />
-      <g
-         data-visibility-modifier="PRIVATE_FIELD"
-         id="g15">
-        <rect
-           fill="none"
-           height="6"
-           style="stroke:#C82930;stroke-width:1;"
-           width="6"
-           x="882.5"
-           y="381.9282"
-           id="rect15" />
-      </g>
-      <text
-         fill="#000000"
-         font-family="sans-serif"
-         font-size="14"
-         lengthAdjust="spacing"
-         textLength="127.6133"
-         x="894.5"
-         y="388.9277"
-         id="text16">feeRate: BigDecimal</text>
-      <g
-         data-visibility-modifier="PRIVATE_FIELD"
-         id="g16">
-        <rect
-           fill="none"
-           height="6"
-           style="stroke:#C82930;stroke-width:1;"
-           width="6"
-           x="882.5"
-           y="399.0796"
-           id="rect16" />
-      </g>
-      <text
-         fill="#000000"
-         font-family="sans-serif"
-         font-size="14"
-         lengthAdjust="spacing"
-         textLength="159.4824"
-         x="894.5"
-         y="406.0791"
-         id="text17">minimumFee: BigDecimal</text>
-      <line
-         style="stroke:#181818;stroke-width:1;"
-         x1="875.5"
-         x2="1355.4639"
-         y1="413.1553"
-         y2="413.1553"
-         id="line17" />
-      <g
-         data-visibility-modifier="PUBLIC_METHOD"
-         id="g17">
-        <ellipse
-           cx="885.5"
-           cy="427.231"
-           fill="#84BE84"
-           rx="3"
-           ry="3"
-           style="stroke:#038048;stroke-width:1;"
-           id="ellipse17" />
-      </g>
-      <text
-         fill="#000000"
-         font-family="sans-serif"
-         font-size="14"
-         lengthAdjust="spacing"
-         textLength="455.9639"
-         x="894.5"
-         y="431.2305"
-         id="text18">PercentageMinimumFeeStrategy(feeRate: double, minimum: BigDecimal)</text>
-      <g
-         data-visibility-modifier="PUBLIC_METHOD"
-         id="g18">
-        <ellipse
-           cx="885.5"
-           cy="444.3823"
-           fill="#84BE84"
-           rx="3"
-           ry="3"
-           style="stroke:#038048;stroke-width:1;"
-           id="ellipse18" />
-      </g>
-      <text
-         fill="#000000"
-         font-family="sans-serif"
-         font-size="14"
-         lengthAdjust="spacing"
-         textLength="292.5576"
-         x="894.5"
-         y="448.3818"
-         id="text19">calculateFee(amount: BigDecimal): BigDecimal</text>
-    </g>
-    <!--class BuySharesService-->
-    <g
-       class="entity"
-       data-qualified-name="BuySharesService"
-       data-source-line="39"
-       id="ent0009">
-      <rect
-         fill="#E6FFE6"
-         height="109.3066"
-         rx="2.5"
-         ry="2.5"
-         style="stroke:#181818;stroke-width:0.5;"
-         width="310.8193"
-         x="7"
-         y="7"
-         id="rect19" />
-      <ellipse
-         cx="100.5771"
-         cy="27.9263"
-         fill="#ADD1B2"
-         rx="11"
-         ry="11"
-         style="stroke:#181818;stroke-width:1;"
-         id="ellipse19" />
-      <path
-         d="M103.3428,23.8013 Q103.499,23.5825 103.6865,23.4731 Q103.874,23.3638 104.0928,23.3638 Q104.4678,23.3638 104.7021,23.6294 Q104.9365,23.8794 104.9365,24.4888 L104.9365,25.9419 Q104.9365,26.5513 104.7021,26.8169 Q104.4678,27.0825 104.0928,27.0825 Q103.749,27.0825 103.5459,26.8794 Q103.3428,26.6919 103.2334,26.1763 Q103.1865,25.8169 102.999,25.6294 Q102.6709,25.2544 102.0615,25.0356 Q101.4521,24.8169 100.8271,24.8169 Q100.0615,24.8169 99.4209,25.145 Q98.7959,25.4731 98.2959,26.2231 Q97.8115,26.9731 97.8115,28.0044 L97.8115,29.0981 Q97.8115,30.3325 98.7021,31.1606 Q99.5928,31.9731 101.1865,31.9731 Q102.124,31.9731 102.7803,31.7231 Q103.1709,31.5669 103.5928,31.1294 Q103.8584,30.8638 103.999,30.7856 Q104.1553,30.7075 104.3584,30.7075 Q104.6865,30.7075 104.9365,30.9731 Q105.2021,31.2231 105.2021,31.5669 Q105.2021,31.9106 104.8584,32.3169 Q104.3584,32.895 103.5615,33.2231 Q102.4834,33.6763 101.1865,33.6763 Q99.6709,33.6763 98.4678,33.0513 Q97.4834,32.5513 96.7959,31.4888 Q96.1084,30.4106 96.1084,29.1294 L96.1084,27.9731 Q96.1084,26.645 96.7178,25.5044 Q97.3428,24.3481 98.4365,23.7388 Q99.5303,23.1138 100.7646,23.1138 Q101.499,23.1138 102.1396,23.2856 Q102.7959,23.4419 103.3428,23.8013 Z "
-         fill="#000000"
-         id="path19" />
-      <text
-         fill="#000000"
-         font-family="sans-serif"
-         font-size="12"
-         font-style="italic"
-         lengthAdjust="spacing"
-         textLength="41.3613"
-         x="157.979"
-         y="24.0645"
-         id="text20">«client»</text>
-      <text
-         fill="#000000"
-         font-family="sans-serif"
-         font-size="14"
-         lengthAdjust="spacing"
-         textLength="115.165"
-         x="121.0771"
-         y="40.7764"
-         id="text21">BuySharesService</text>
-      <line
-         style="stroke:#181818;stroke-width:0.5;"
-         x1="8"
-         x2="316.8193"
-         y1="48.8525"
-         y2="48.8525"
-         id="line21" />
-      <g
-         data-visibility-modifier="PRIVATE_FIELD"
-         id="g21">
-        <rect
-           fill="none"
-           height="6"
-           style="stroke:#C82930;stroke-width:1;"
-           width="6"
-           x="15"
-           y="59.9282"
-           id="rect21" />
-      </g>
-      <text
-         fill="#000000"
-         font-family="sans-serif"
-         font-size="14"
-         lengthAdjust="spacing"
-         textLength="155.6406"
-         x="27"
-         y="66.9277"
-         id="text22">feeStrategy: FeeStrategy</text>
-      <line
-         style="stroke:#181818;stroke-width:1;"
-         x1="8"
-         x2="316.8193"
-         y1="74.0039"
-         y2="74.0039"
-         id="line22" />
-      <g
-         data-visibility-modifier="PUBLIC_METHOD"
-         id="g22">
-        <ellipse
-           cx="18"
-           cy="88.0796"
-           fill="#84BE84"
-           rx="3"
-           ry="3"
-           style="stroke:#038048;stroke-width:1;"
-           id="ellipse22" />
-      </g>
-      <text
-         fill="#000000"
-         font-family="sans-serif"
-         font-size="14"
-         lengthAdjust="spacing"
-         textLength="271.5645"
-         x="27"
-         y="92.0791"
-         id="text23">setFeeStrategy(strategy: FeeStrategy): void</text>
-      <g
-         data-visibility-modifier="PUBLIC_METHOD"
-         id="g23">
-        <ellipse
-           cx="18"
-           cy="105.231"
-           fill="#84BE84"
-           rx="3"
-           ry="3"
-           style="stroke:#038048;stroke-width:1;"
-           id="ellipse23" />
-      </g>
-      <text
-         fill="#000000"
-         font-family="sans-serif"
-         font-size="14"
-         lengthAdjust="spacing"
-         textLength="284.8193"
-         x="27"
-         y="109.2305"
-         id="text24">buyShares(request: BuySharesRequest): void</text>
-    </g>
-    <!--class SellSharesService-->
-    <g
-       class="entity"
-       data-qualified-name="SellSharesService"
-       data-source-line="46"
-       id="ent0010">
-      <rect
-         fill="#E6FFE6"
-         height="109.3066"
-         rx="2.5"
-         ry="2.5"
-         style="stroke:#181818;stroke-width:0.5;"
-         width="308.4746"
-         x="1043.5"
-         y="7"
-         id="rect24" />
-      <ellipse
-         cx="1136.2944"
-         cy="27.9263"
-         fill="#ADD1B2"
-         rx="11"
-         ry="11"
-         style="stroke:#181818;stroke-width:1;"
-         id="ellipse24" />
-      <path
-         d="M1139.0601,23.8013 Q1139.2163,23.5825 1139.4038,23.4731 Q1139.5913,23.3638 1139.8101,23.3638 Q1140.1851,23.3638 1140.4194,23.6294 Q1140.6538,23.8794 1140.6538,24.4888 L1140.6538,25.9419 Q1140.6538,26.5513 1140.4194,26.8169 Q1140.1851,27.0825 1139.8101,27.0825 Q1139.4663,27.0825 1139.2632,26.8794 Q1139.0601,26.6919 1138.9507,26.1763 Q1138.9038,25.8169 1138.7163,25.6294 Q1138.3882,25.2544 1137.7788,25.0356 Q1137.1694,24.8169 1136.5444,24.8169 Q1135.7788,24.8169 1135.1382,25.145 Q1134.5132,25.4731 1134.0132,26.2231 Q1133.5288,26.9731 1133.5288,28.0044 L1133.5288,29.0981 Q1133.5288,30.3325 1134.4194,31.1606 Q1135.3101,31.9731 1136.9038,31.9731 Q1137.8413,31.9731 1138.4976,31.7231 Q1138.8882,31.5669 1139.3101,31.1294 Q1139.5757,30.8638 1139.7163,30.7856 Q1139.8726,30.7075 1140.0757,30.7075 Q1140.4038,30.7075 1140.6538,30.9731 Q1140.9194,31.2231 1140.9194,31.5669 Q1140.9194,31.9106 1140.5757,32.3169 Q1140.0757,32.895 1139.2788,33.2231 Q1138.2007,33.6763 1136.9038,33.6763 Q1135.3882,33.6763 1134.1851,33.0513 Q1133.2007,32.5513 1132.5132,31.4888 Q1131.8257,30.4106 1131.8257,29.1294 L1131.8257,27.9731 Q1131.8257,26.645 1132.4351,25.5044 Q1133.0601,24.3481 1134.1538,23.7388 Q1135.2476,23.1138 1136.4819,23.1138 Q1137.2163,23.1138 1137.8569,23.2856 Q1138.5132,23.4419 1139.0601,23.8013 Z "
-         fill="#000000"
-         id="path24" />
-      <text
-         fill="#000000"
-         font-family="sans-serif"
-         font-size="12"
-         font-style="italic"
-         lengthAdjust="spacing"
-         textLength="41.3613"
-         x="1193.3066"
-         y="24.0645"
-         id="text25">«client»</text>
-      <text
-         fill="#000000"
-         font-family="sans-serif"
-         font-size="14"
-         lengthAdjust="spacing"
-         textLength="114.3857"
-         x="1156.7944"
-         y="40.7764"
-         id="text26">SellSharesService</text>
-      <line
-         style="stroke:#181818;stroke-width:0.5;"
-         x1="1044.5"
-         x2="1350.9746"
-         y1="48.8525"
-         y2="48.8525"
-         id="line26" />
-      <g
-         data-visibility-modifier="PRIVATE_FIELD"
-         id="g26">
-        <rect
-           fill="none"
-           height="6"
-           style="stroke:#C82930;stroke-width:1;"
-           width="6"
-           x="1051.5"
-           y="59.9282"
-           id="rect26" />
-      </g>
-      <text
-         fill="#000000"
-         font-family="sans-serif"
-         font-size="14"
-         lengthAdjust="spacing"
-         textLength="155.6406"
-         x="1063.5"
-         y="66.9277"
-         id="text27">feeStrategy: FeeStrategy</text>
-      <line
-         style="stroke:#181818;stroke-width:1;"
-         x1="1044.5"
-         x2="1350.9746"
-         y1="74.0039"
-         y2="74.0039"
-         id="line27" />
-      <g
-         data-visibility-modifier="PUBLIC_METHOD"
-         id="g27">
-        <ellipse
-           cx="1054.5"
-           cy="88.0796"
-           fill="#84BE84"
-           rx="3"
-           ry="3"
-           style="stroke:#038048;stroke-width:1;"
-           id="ellipse27" />
-      </g>
-      <text
-         fill="#000000"
-         font-family="sans-serif"
-         font-size="14"
-         lengthAdjust="spacing"
-         textLength="271.5645"
-         x="1063.5"
-         y="92.0791"
-         id="text28">setFeeStrategy(strategy: FeeStrategy): void</text>
-      <g
-         data-visibility-modifier="PUBLIC_METHOD"
-         id="g28">
-        <ellipse
-           cx="1054.5"
-           cy="105.231"
-           fill="#84BE84"
-           rx="3"
-           ry="3"
-           style="stroke:#038048;stroke-width:1;"
-           id="ellipse28" />
-      </g>
-      <text
-         fill="#000000"
-         font-family="sans-serif"
-         font-size="14"
-         lengthAdjust="spacing"
-         textLength="282.4746"
-         x="1063.5"
-         y="109.2305"
-         id="text29">sellShares(request: SellSharesRequest): void</text>
-    </g>
-    <g
-       class="entity"
-       data-qualified-name="GMN13"
-       data-source-line="59"
-       id="ent0014">
-      <path
-         d="M909.5,201.5 L909.5,226.5 L874.32,230.5 L909.5,234.5 L909.5,259.2788 A0,0 0 0 0 909.5,259.2788 L1209.4478,259.2788 A0,0 0 0 0 1209.4478,259.2788 L1209.4478,211.5 L1199.4478,201.5 L909.5,201.5 A0,0 0 0 0 909.5,201.5"
-         fill="#FEFFDD"
-         style="stroke:#181818;stroke-width:0.5;"
-         id="path29" />
-      <path
-         d="M1199.4478,201.5 L1199.4478,211.5 L1209.4478,211.5 L1199.4478,201.5"
-         fill="#FEFFDD"
-         style="stroke:#181818;stroke-width:0.5;"
-         id="path30" />
-      <text
-         fill="#000000"
-         font-family="sans-serif"
-         font-size="13"
-         font-weight="bold"
-         lengthAdjust="spacing"
-         textLength="97.5317"
-         x="915.5"
-         y="219.5698"
-         id="text30">Target Interface</text>
-      <text
-         fill="#000000"
-         font-family="sans-serif"
-         font-size="13"
-         lengthAdjust="spacing"
-         textLength="278.9478"
-         x="915.5"
-         y="235.4961"
-         id="text31">Definerem hvordan gebyrberegning skal fungere</text>
-      <text
-         fill="#000000"
-         font-family="sans-serif"
-         font-size="13"
-         lengthAdjust="spacing"
-         textLength="252.1924"
-         x="915.5"
-         y="251.4224"
-         id="text32">Alle adapters implementerer denne kontrakt</text>
-    </g>
-    <g
-       class="entity"
-       data-qualified-name="GMN16"
-       data-source-line="65"
-       id="ent0017">
-      <path
-         d="M189.5,516 L189.5,573.7788 A0,0 0 0 0 189.5,573.7788 L461.2324,573.7788 A0,0 0 0 0 461.2324,573.7788 L461.2324,526 L451.2324,516 L329.5,516 L325.5,446.66 L321.5,516 L189.5,516 A0,0 0 0 0 189.5,516"
-         fill="#FEFFDD"
-         style="stroke:#181818;stroke-width:0.5;"
-         id="path32" />
-      <path
-         d="M451.2324,516 L451.2324,526 L461.2324,526 L451.2324,516"
-         fill="#FEFFDD"
-         style="stroke:#181818;stroke-width:0.5;"
-         id="path33" />
-      <text
-         fill="#000000"
-         font-family="sans-serif"
-         font-size="13"
-         font-weight="bold"
-         lengthAdjust="spacing"
-         textLength="133.6436"
-         x="195.5"
-         y="534.0698"
-         id="text33">Adapter 1: Fast gebyr</text>
-      <text
-         fill="#000000"
-         font-family="sans-serif"
-         font-size="13"
-         lengthAdjust="spacing"
-         textLength="250.7324"
-         x="195.5"
-         y="549.9961"
-         id="text34">Returnerer altid samme gebyr uanset beløb</text>
-      <text
-         fill="#000000"
-         font-family="sans-serif"
-         font-size="13"
-         lengthAdjust="spacing"
-         textLength="198.707"
-         x="195.5"
-         y="565.9224"
-         id="text35">Eksempel: 15 DKK per transaktion</text>
-    </g>
-    <g
-       class="entity"
-       data-qualified-name="GMN19"
-       data-source-line="71"
-       id="ent0020">
-      <path
-         d="M556,516 L556,573.7788 A0,0 0 0 0 556,573.7788 L803.1797,573.7788 A0,0 0 0 0 803.1797,573.7788 L803.1797,526 L793.1797,516 L683.5,516 L679.5,446.66 L675.5,516 L556,516 A0,0 0 0 0 556,516"
-         fill="#FEFFDD"
-         style="stroke:#181818;stroke-width:0.5;"
-         id="path35" />
-      <path
-         d="M793.1797,516 L793.1797,526 L803.1797,526 L793.1797,516"
-         fill="#FEFFDD"
-         style="stroke:#181818;stroke-width:0.5;"
-         id="path36" />
-      <text
-         fill="#000000"
-         font-family="sans-serif"
-         font-size="13"
-         font-weight="bold"
-         lengthAdjust="spacing"
-         textLength="174.0972"
-         x="562"
-         y="534.0698"
-         id="text36">Adapter 2: Procentuel gebyr</text>
-      <text
-         fill="#000000"
-         font-family="sans-serif"
-         font-size="13"
-         lengthAdjust="spacing"
-         textLength="226.1797"
-         x="562"
-         y="549.9961"
-         id="text37">Beregner gebyr som procent af beløbet</text>
-      <text
-         fill="#000000"
-         font-family="sans-serif"
-         font-size="13"
-         lengthAdjust="spacing"
-         textLength="214.6079"
-         x="562"
-         y="565.9224"
-         id="text38">Eksempel: 1% af transaktionsbeløbet</text>
-    </g>
-    <g
-       class="entity"
-       data-qualified-name="GMN22"
-       data-source-line="77"
-       id="ent0023">
-      <path
-         d="M984.5,516 L984.5,573.7788 A0,0 0 0 0 984.5,573.7788 L1246.7935,573.7788 A0,0 0 0 0 1246.7935,573.7788 L1246.7935,526 L1236.7935,516 L1119.5,516 L1115.5,455.29 L1111.5,516 L984.5,516 A0,0 0 0 0 984.5,516"
-         fill="#FEFFDD"
-         style="stroke:#181818;stroke-width:0.5;"
-         id="path38" />
-      <path
-         d="M1236.7935,516 L1236.7935,526 L1246.7935,526 L1236.7935,516"
-         fill="#FEFFDD"
-         style="stroke:#181818;stroke-width:0.5;"
-         id="path39" />
-      <text
-         fill="#000000"
-         font-family="sans-serif"
-         font-size="13"
-         font-weight="bold"
-         lengthAdjust="spacing"
-         textLength="208.0381"
-         x="990.5"
-         y="534.0698"
-         id="text39">Adapter 3: Procent med minimum</text>
-      <text
-         fill="#000000"
-         font-family="sans-serif"
-         font-size="13"
-         lengthAdjust="spacing"
-         textLength="241.2935"
-         x="990.5"
-         y="549.9961"
-         id="text40">Maksimum af procent eller minimumgebyr</text>
-      <text
-         fill="#000000"
-         font-family="sans-serif"
-         font-size="13"
-         lengthAdjust="spacing"
-         textLength="218.918"
-         x="990.5"
-         y="565.9224"
-         id="text41">Eksempel: max(1% af beløb, 15 DKK)</text>
-    </g>
-    <g
-       class="entity"
-       data-qualified-name="GMN25"
-       data-source-line="83"
-       id="ent0026">
-      <path
-         d="M353,24.5 L353,57.5 L318.02,61.5 L353,65.5 L353,98.2051 A0,0 0 0 0 353,98.2051 L671.7051,98.2051 A0,0 0 0 0 671.7051,98.2051 L671.7051,34.5 L661.7051,24.5 L353,24.5 A0,0 0 0 0 353,24.5"
-         fill="#FEFFDD"
-         style="stroke:#181818;stroke-width:0.5;"
-         id="path41" />
-      <path
-         d="M661.7051,24.5 L661.7051,34.5 L671.7051,34.5 L661.7051,24.5"
-         fill="#FEFFDD"
-         style="stroke:#181818;stroke-width:0.5;"
-         id="path42" />
-      <text
-         fill="#000000"
-         font-family="sans-serif"
-         font-size="13"
-         font-weight="bold"
-         lengthAdjust="spacing"
-         textLength="36.1118"
-         x="359"
-         y="42.5698"
-         id="text42">Client</text>
-      <text
-         fill="#000000"
-         font-family="sans-serif"
-         font-size="13"
-         lengthAdjust="spacing"
-         textLength="166.918"
-         x="359"
-         y="58.4961"
-         id="text43">Bruger FeeStrategy interface</text>
-      <text
-         fill="#000000"
-         font-family="sans-serif"
-         font-size="13"
-         lengthAdjust="spacing"
-         textLength="297.7051"
-         x="359"
-         y="74.4224"
-         id="text44">Afhænger KUN af interfacet, ikke konkrete adapters</text>
-      <text
-         fill="#000000"
-         font-family="sans-serif"
-         font-size="13"
-         lengthAdjust="spacing"
-         textLength="295.5151"
-         x="359"
-         y="90.3486"
-         id="text45">Kan skifte strategi ved runtime via setFeeStrategy()</text>
-    </g>
-    <g
-       class="entity"
-       data-qualified-name="GMN28"
-       data-source-line="90"
-       id="ent0029">
-      <path
-         d="M707,32.5 L707,90.2788 A0,0 0 0 0 707,90.2788 L1008.3696,90.2788 A0,0 0 0 0 1008.3696,90.2788 L1008.3696,65.5 L1043.36,61.5 L1008.3696,57.5 L1008.3696,42.5 L998.3696,32.5 L707,32.5 A0,0 0 0 0 707,32.5"
-         fill="#FEFFDD"
-         style="stroke:#181818;stroke-width:0.5;"
-         id="path45" />
-      <path
-         d="M998.3696,32.5 L998.3696,42.5 L1008.3696,42.5 L998.3696,32.5"
-         fill="#FEFFDD"
-         style="stroke:#181818;stroke-width:0.5;"
-         id="path46" />
-      <text
-         fill="#000000"
-         font-family="sans-serif"
-         font-size="13"
-         font-weight="bold"
-         lengthAdjust="spacing"
-         textLength="36.1118"
-         x="713"
-         y="50.5698"
-         id="text46">Client</text>
-      <text
-         fill="#000000"
-         font-family="sans-serif"
-         font-size="13"
-         lengthAdjust="spacing"
-         textLength="183.5107"
-         x="713"
-         y="66.4961"
-         id="text47">Samme som BuySharesService</text>
-      <text
-         fill="#000000"
-         font-family="sans-serif"
-         font-size="13"
-         lengthAdjust="spacing"
-         textLength="280.3696"
-         x="713"
-         y="82.4224"
-         id="text48">Begge services kan bruges med vilkårlig adapter</text>
-    </g>
-    <!--reverse link FeeStrategy to FlatFeeStrategy-->
-    <g
-       class="link"
-       data-entity-1="ent0002"
-       data-entity-2="ent0003"
-       data-link-type="extension"
-       data-source-line="17"
-       id="lnk4">
-      <path
-         d="M581.879,275.4845 C536.249,296.0445 494.89,314.68 444.27,337.49"
-         fill="none"
-         id="FeeStrategy-backto-FlatFeeStrategy"
-         style="stroke:#181818;stroke-width:1;stroke-dasharray:7,7;" />
-      <polygon
-         fill="none"
-         points="598.29,268.09,579.4142,270.0141,584.3438,280.9548,598.29,268.09"
-         style="stroke:#181818;stroke-width:1;"
-         id="polygon48" />
-    </g>
-    <!--reverse link FeeStrategy to PercentageFeeStrategy-->
-    <g
-       class="link"
-       data-entity-1="ent0002"
-       data-entity-2="ent0005"
-       data-link-type="extension"
-       data-source-line="24"
-       id="lnk6">
-      <path
-         d="M679.5,286.09 C679.5,306.6 679.5,314.56 679.5,337.33"
-         fill="none"
-         id="FeeStrategy-backto-PercentageFeeStrategy"
-         style="stroke:#181818;stroke-width:1;stroke-dasharray:7,7;" />
-      <polygon
-         fill="none"
-         points="679.5,268.09,673.5,286.09,685.5,286.09,679.5,268.09"
-         style="stroke:#181818;stroke-width:1;"
-         id="polygon49" />
-    </g>
-    <!--reverse link FeeStrategy to PercentageMinimumFeeStrategy-->
-    <g
-       class="link"
-       data-entity-1="ent0002"
-       data-entity-2="ent0007"
-       data-link-type="extension"
-       data-source-line="31"
-       id="lnk8">
-      <path
-         d="M796.4337,274.2758 C845.7037,292.3058 889.59,308.36 945.85,328.94"
-         fill="none"
-         id="FeeStrategy-backto-PercentageMinimumFeeStrategy"
-         style="stroke:#181818;stroke-width:1;stroke-dasharray:7,7;" />
-      <polygon
-         fill="none"
-         points="779.53,268.09,794.3718,279.9104,798.4957,268.6412,779.53,268.09"
-         style="stroke:#181818;stroke-width:1;"
-         id="polygon50" />
-    </g>
-    <!--link BuySharesService to FeeStrategy-->
-    <g
-       class="link"
-       data-entity-1="ent0009"
-       data-entity-2="ent0002"
-       data-link-type="dependency"
-       data-source-line="54"
-       id="lnk11">
-      <path
-         codeLine="54"
-         d="M318.32,112.83 C398.15,138.62 487.8706,167.5955 560.5806,191.0855"
-         fill="none"
-         id="BuySharesService-to-FeeStrategy"
-         style="stroke:#181818;stroke-width:1;" />
-      <polygon
-         fill="#181818"
-         points="566.29,192.93,558.9555,186.3569,561.5321,191.3929,556.4962,193.9695,566.29,192.93"
-         style="stroke:#181818;stroke-width:1;"
-         id="polygon51" />
-      <text
-         fill="#000000"
-         font-family="sans-serif"
-         font-size="13"
-         lengthAdjust="spacing"
-         textLength="27.46"
-         x="468.5"
-         y="160.0698"
-         id="text51">uses</text>
-    </g>
-    <!--link SellSharesService to FeeStrategy-->
-    <g
-       class="link"
-       data-entity-1="ent0010"
-       data-entity-2="ent0002"
-       data-link-type="dependency"
-       data-source-line="55"
-       id="lnk12">
-      <path
-         codeLine="55"
-         d="M1043.49,112.15 C963.11,138.06 872.2106,167.3689 798.7306,191.0589"
-         fill="none"
-         id="SellSharesService-to-FeeStrategy"
-         style="stroke:#181818;stroke-width:1;" />
-      <polygon
-         fill="#181818"
-         points="793.02,192.9,802.8132,193.9454,797.7788,191.3658,800.3584,186.3313,793.02,192.9"
-         style="stroke:#181818;stroke-width:1;"
-         id="polygon52" />
-      <text
-         fill="#000000"
-         font-family="sans-serif"
-         font-size="13"
-         lengthAdjust="spacing"
-         textLength="27.46"
-         x="939.5"
-         y="160.0698"
-         id="text52">uses</text>
-    </g>
-<?plantuml-src lPRDRjf04CVlVeg9gghaWqCQDGUKHkB3j2W9H43FrTeUcvNNQxgxHesYF4xx3BtdnJfUOni34LKRbGFIpiVExxyxEt0KOCWbmcWyTwV3Rj_zsf_SJgRmPZXqBzrBvsZjxmwwznHHUjtBuSLmM7dxjoDtFDzmKhBZw9ZB9LCi0LymhNlCZoELPZBefo9LLrTS6bGXy_7wUhl-mLmMi2LbKsQ3x62UBpXAGscRo8xp3Zxc7vXtfv_SUKrJc9sA58Q8CwEOmUW1cWeU7O17vcdo-kO9Jdqc_4nG9AMqo2WrsNagkmdXc0xqU3H0doTC76ykdAUQfZyPzwVkt2qrpjOuLXeCQVCcJdqeF5aAJ4YfRX3dZ6q8YyH6LRAtwUjqUzVMdk1Z6zZGnmwBAg3lKVc4nIByEtJ4AQtte-_TkrMb16dc2NmT-3ikUP8bhwa1achFG_9sgs-hF2jt-_TxgvhHFfX61_QoXzc2ATGpL2jEhsFZVLLQIyJEvb7KgZGssatlYoQcLSe36--LDLiAlsMeS_ZID2qiPNXrRpCKuh-3wgfeJLg3xAAMvpnrRxlpqMGy-powBn_ypa6tszUDpkf0fb4xkq9V2AogZITpjwmYKuEWUBGma8PRXt1oCcSgGWEZSkITd91vOEU_mWGMgrG5J4A4teFoo1H9BYFGCHCGPZ8Y2yLtXK1OlnDTFnDoAWXGqaz9d4gg6Xi7PG0vaLDmUQanQMB1cXFAmdMBBU6SheDfKr1OmYcQJ4bRW0d30z0iIR08W8ocCcdoK3p_yYZOZJKcInGTEFy0WviRM59QCRlZV7Q_3BLtzZJGtdVWNgLvK8PY0x1dpue22YHD-osBE63X6WrD4-vjxjhWqbNO7m3kJey6vqN52Ga6vHong7SirlaYhruoKiTHqZhAIcYW9knxgy0j4C_M9tkyJLhrtNQlMxY-VQt5UQcCcgdHrDNFSDvXuUBvPzvkSFDbdDUjdEOCU1pR3eiLcheFAUk6EfV-EeHaNJzi3YjIhsWwScgN5MVR0s17WS3G2jXvXDiAPhO3yulUexM7KKJEOgqX9Z0lLwpjRQouY9z_AC6Zahwc-0q0?>  </g>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg"
+     width="1410" height="205"
+     viewBox="0 0 1410 205"
+     style="background:#FFFFFF;">
+
+  <!-- ═══════════════════════════════════════════════
+       Logger  «client»  (far left)
+       x=15, y=25, w=265, h=135
+  ════════════════════════════════════════════════ -->
+  <g>
+    <rect x="15" y="25" width="265" height="135" rx="2.5" ry="2.5"
+          fill="#E6FFE6" style="stroke:#181818;stroke-width:0.5;"/>
+    <ellipse cx="100" cy="47" rx="11" ry="11"
+             fill="#ADD1B2" style="stroke:#181818;stroke-width:1;"/>
+    <text fill="#000" font-family="sans-serif" font-size="11"
+          font-weight="bold" x="95" y="52">C</text>
+    <text fill="#000" font-family="sans-serif" font-size="12"
+          font-style="italic" x="119" y="43">«client»</text>
+    <text fill="#000" font-family="sans-serif" font-size="14"
+          font-weight="bold" x="113" y="62">Logger</text>
+    <line x1="16"  x2="279" y1="70"  y2="70"  style="stroke:#181818;stroke-width:0.5;"/>
+    <rect fill="none" height="6" style="stroke:#C82930;stroke-width:1;" width="6" x="23" y="79"/>
+    <text fill="#000" font-family="sans-serif" font-size="13" x="35" y="86">output: LogOutput</text>
+    <line x1="16"  x2="279" y1="94"  y2="94"  style="stroke:#181818;stroke-width:1;"/>
+    <ellipse cx="23" cy="108" rx="3" ry="3" fill="#84BE84" style="stroke:#038048;stroke-width:1;"/>
+    <text fill="#000" font-family="sans-serif" font-size="13" x="32" y="112">log(LoggerLevel, String): void</text>
+    <ellipse cx="23" cy="125" rx="3" ry="3" fill="#84BE84" style="stroke:#038048;stroke-width:1;"/>
+    <text fill="#000" font-family="sans-serif" font-size="13" x="32" y="129">setOutput(LogOutput): void</text>
+  </g>
+
+  <!-- ═══════════════════════════════════════════════
+       LogOutput  «interface»  (target interface)
+       x=310, y=25, w=370, h=110
+  ════════════════════════════════════════════════ -->
+  <g>
+    <rect x="310" y="25" width="370" height="110" rx="2.5" ry="2.5"
+          fill="#FFE6E6" style="stroke:#181818;stroke-width:0.5;"/>
+    <ellipse cx="425" cy="47" rx="11" ry="11"
+             fill="#B4A7E5" style="stroke:#181818;stroke-width:1;"/>
+    <text fill="#000" font-family="sans-serif" font-size="11"
+          font-weight="bold" x="421" y="52">I</text>
+    <text fill="#000" font-family="sans-serif" font-size="12"
+          font-style="italic" x="445" y="43">«interface»</text>
+    <text fill="#000" font-family="sans-serif" font-size="14"
+          font-style="italic" font-weight="bold" x="450" y="62">LogOutput</text>
+    <line x1="311" x2="679" y1="70"  y2="70"  style="stroke:#181818;stroke-width:0.5;"/>
+    <line x1="311" x2="679" y1="78"  y2="78"  style="stroke:#181818;stroke-width:0.5;"/>
+    <ellipse cx="318" cy="91" rx="3" ry="3" fill="#84BE84" style="stroke:#038048;stroke-width:1;"/>
+    <text fill="#000" font-family="sans-serif" font-size="13"
+          font-style="italic" x="327" y="95">log(LoggerLevel, String): void</text>
+    <ellipse cx="318" cy="108" rx="3" ry="3" fill="#84BE84" style="stroke:#038048;stroke-width:1;"/>
+    <text fill="#000" font-family="sans-serif" font-size="13"
+          font-style="italic" x="327" y="112">log(LoggerLevel, String, Throwable): void</text>
+  </g>
+
+  <!-- ═══════════════════════════════════════════════
+       FileLogOutputterAdapter  «adapter»  (center-right)
+       x=715, y=25, w=380, h=135
+  ════════════════════════════════════════════════ -->
+  <g>
+    <rect x="715" y="25" width="380" height="135" rx="2.5" ry="2.5"
+          fill="#E6F3FF" style="stroke:#181818;stroke-width:0.5;"/>
+    <ellipse cx="800" cy="47" rx="11" ry="11"
+             fill="#ADD1B2" style="stroke:#181818;stroke-width:1;"/>
+    <text fill="#000" font-family="sans-serif" font-size="11"
+          font-weight="bold" x="795" y="52">C</text>
+    <text fill="#000" font-family="sans-serif" font-size="12"
+          font-style="italic" x="820" y="43">«adapter»</text>
+    <text fill="#000" font-family="sans-serif" font-size="14"
+          font-weight="bold" x="815" y="62">FileLogOutputterAdapter</text>
+    <line x1="716" x2="1094" y1="70"  y2="70"  style="stroke:#181818;stroke-width:0.5;"/>
+    <rect fill="none" height="6" style="stroke:#C82930;stroke-width:1;" width="6" x="723" y="79"/>
+    <text fill="#000" font-family="sans-serif" font-size="13" x="735" y="86">adaptee: FileLogOutputter</text>
+    <line x1="716" x2="1094" y1="94"  y2="94"  style="stroke:#181818;stroke-width:1;"/>
+    <ellipse cx="723" cy="108" rx="3" ry="3" fill="#84BE84" style="stroke:#038048;stroke-width:1;"/>
+    <text fill="#000" font-family="sans-serif" font-size="13" x="732" y="112">log(LoggerLevel, String): void</text>
+    <ellipse cx="723" cy="125" rx="3" ry="3" fill="#84BE84" style="stroke:#038048;stroke-width:1;"/>
+    <text fill="#000" font-family="sans-serif" font-size="13" x="732" y="129">log(LoggerLevel, String, Throwable): void</text>
+  </g>
+
+  <!-- ═══════════════════════════════════════════════
+       FileLogOutputter  «adaptee»  (far right, library)
+       x=1130, y=25, w=265, h=155
+  ════════════════════════════════════════════════ -->
+  <g>
+    <rect x="1130" y="25" width="265" height="155" rx="2.5" ry="2.5"
+          fill="#FFFDE6" style="stroke:#181818;stroke-width:0.5;"/>
+    <ellipse cx="1180" cy="47" rx="11" ry="11"
+             fill="#ADD1B2" style="stroke:#181818;stroke-width:1;"/>
+    <text fill="#000" font-family="sans-serif" font-size="11"
+          font-weight="bold" x="1175" y="52">C</text>
+    <text fill="#000" font-family="sans-serif" font-size="12"
+          font-style="italic" x="1200" y="43">«adaptee»</text>
+    <text fill="#000" font-family="sans-serif" font-size="14"
+          font-weight="bold" x="1192" y="62">FileLogOutputter</text>
+    <line x1="1131" x2="1394" y1="70"  y2="70"  style="stroke:#181818;stroke-width:0.5;"/>
+    <line x1="1131" x2="1394" y1="78"  y2="78"  style="stroke:#181818;stroke-width:0.5;"/>
+    <ellipse cx="1138" cy="91" rx="3" ry="3" fill="#84BE84" style="stroke:#038048;stroke-width:1;"/>
+    <text fill="#000" font-family="sans-serif" font-size="13" x="1147" y="95">logInfo(String): void</text>
+    <ellipse cx="1138" cy="108" rx="3" ry="3" fill="#84BE84" style="stroke:#038048;stroke-width:1;"/>
+    <text fill="#000" font-family="sans-serif" font-size="13" x="1147" y="112">logWarning(String): void</text>
+    <ellipse cx="1138" cy="125" rx="3" ry="3" fill="#84BE84" style="stroke:#038048;stroke-width:1;"/>
+    <text fill="#000" font-family="sans-serif" font-size="13" x="1147" y="129">logError(String): void</text>
+    <line x1="1131" x2="1394" y1="138" y2="138" style="stroke:#181818;stroke-width:0.5;"/>
+    <text fill="#888" font-family="sans-serif" font-size="11"
+          font-style="italic" x="1138" y="153">// loggingLibrary — do not modify</text>
+  </g>
+
+  <!-- ═══════════════════════════════════════════════
+       ARROWS
+  ════════════════════════════════════════════════ -->
+
+  <!-- 1. Logger --[uses]--> LogOutput  (solid + filled arrowhead) -->
+  <path d="M280,80 L310,80" fill="none" style="stroke:#181818;stroke-width:1;"/>
+  <polygon fill="#181818" points="310,80 298,74 298,86" style="stroke:#181818;stroke-width:1;"/>
+  <text fill="#555" font-family="sans-serif" font-size="12" x="282" y="73">uses</text>
+
+  <!-- 2. FileLogOutputterAdapter ---[implements]--> LogOutput  (dashed + open triangle) -->
+  <!-- arrow goes FROM Adapter LEFT to LogOutput, open triangle apex at LogOutput right edge -->
+  <path d="M715,86 L691,86" fill="none" style="stroke:#181818;stroke-width:1;stroke-dasharray:6,6;"/>
+  <polygon fill="none" points="680,86 691,80 691,92" style="stroke:#181818;stroke-width:1;"/>
+  <text fill="#555" font-family="sans-serif" font-size="12" x="674" y="73">implements</text>
+
+  <!-- 3. FileLogOutputterAdapter --[wraps]--> FileLogOutputter  (solid + filled arrowhead) -->
+  <path d="M1095,92 L1130,92" fill="none" style="stroke:#181818;stroke-width:1;"/>
+  <polygon fill="#181818" points="1130,92 1118,86 1118,98" style="stroke:#181818;stroke-width:1;"/>
+  <text fill="#555" font-family="sans-serif" font-size="12" x="1097" y="73">wraps</text>
+
 </svg>

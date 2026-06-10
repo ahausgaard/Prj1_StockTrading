@@ -1,4 +1,4 @@
-package loggingLibrary;
+package adapters;
 
 import java.io.File;
 import java.io.FileWriter;

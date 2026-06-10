@@ -5,18 +5,18 @@ import domain.StockState;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import presentation.core.ViewManager;
 import presentation.viewModels.StockPriceChartViewModel;
+import shared.notifications.NotificationService;
 
 public class StockPriceChartController
 {
     private final StockPriceChartViewModel viewModel;
+    private final NotificationService notificationService;
     private String selectedSymbol;
 
     @FXML private TableView<StockDTO> stockTable;
@@ -26,9 +26,10 @@ public class StockPriceChartController
     @FXML private Button buyButton;
     @FXML private Label liquidityLabel;
 
-    public StockPriceChartController(StockPriceChartViewModel viewModel)
+    public StockPriceChartController(StockPriceChartViewModel viewModel, NotificationService notificationService)
     {
         this.viewModel = viewModel;
+        this.notificationService = notificationService;
     }
 
     @FXML
@@ -81,7 +82,7 @@ public class StockPriceChartController
 
         if (selected.state() == StockState.BANKRUPT)
         {
-            new Alert(AlertType.WARNING, "Cannot buy a bankrupt stock.").show();
+            notificationService.showWarning("Advarsel", "Cannot buy a bankrupt stock.");
             return;
         }
 

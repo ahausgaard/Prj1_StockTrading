@@ -9,8 +9,13 @@ import business.services.trading.fees.PercentageFeeStrategy;
 import business.stockmarket.StockMarket;
 import persistence.fileImplementation.*;
 import persistence.interfaces.*;
+import adapters.CustomAlertBox;
+import adapters.FileLogOutputter;
 import shared.configuration.AppConfig;
+import shared.logging.FileLogOutputterAdapter;
 import shared.logging.Logger;
+import shared.notifications.CustomAlertBoxAdapter;
+import shared.notifications.NotificationService;
 
 import java.math.BigDecimal;
 
@@ -36,11 +41,20 @@ public class ApplicationContext
     private final StockBankruptService stockBankruptService;
     private final StockAlertService stockAlertService;
 
+    // Notifications
+    private final NotificationService notificationService;
+
     // Presentation
     private final ControllerFactory controllerFactory;
 
     public ApplicationContext()
     {
+        Logger.getInstance().setOutput(
+            new FileLogOutputterAdapter(
+                new FileLogOutputter("resources/logs/app.log", "INFO")
+            )
+        );
+
         AppConfig config = AppConfig.getInstance();
         this.feeStrategy = new PercentageFeeStrategy(config.getTransactionFee());
 
@@ -78,6 +92,9 @@ public class ApplicationContext
         market.addObserver(stockListenerService);
         market.addObserver(stockAlertService);
 
+        // Notifications
+        this.notificationService = new CustomAlertBoxAdapter(new CustomAlertBox());
+
         // Presentation
         this.controllerFactory = new ControllerFactory(this);
     }
@@ -88,6 +105,11 @@ public class ApplicationContext
     }
 
     // Getters
+
+    public NotificationService getNotificationService()
+    {
+        return notificationService;
+    }
 
     public ControllerFactory getControllerFactory()
     {

@@ -153,7 +153,7 @@
 <div class="slide">
     <h2>Design</h2>
     <!-- Samme diagram som Adapter eftersom FeeStrategy er begge pattern -->
-    <img src="../diagrams/adapterCD.svg" alt="Strategy Pattern UML Diagram" style="width: 90%; height: auto; margin-top: 2rem;" />
+    <img src="../diagrams/strategyCD.svg" alt="Strategy Pattern UML Diagram" style="width: 90%; height: auto; margin-top: 2rem;" />
 </div>
 
 <div class="slide">
@@ -233,41 +233,6 @@ public class PercentageFeeStrategy implements FeeStrategy {
 </div>
 
 <div class="slide">
-    <h2>Context bruger injiceret strategi</h2>
-    <p style="color: #666; margin-bottom: 1.5rem;"><strong>Se: src/business/services/trading/BuySharesService.java</strong></p>
-    <pre><code>// Context: Modtager strategi som dependency
-public class BuySharesService {
-    private FeeStrategy feeStrategy;
-
-    public BuySharesService(StockDAO stockDAO,
-            OwnedStockDAO ownedStockDAO,
-            PortfolioDAO portfolioDAO,
-            TransactionDAO transactionDAO,
-            UnitOfWork uow,
-            FeeStrategy feeStrategy) { // ← Injiceret strategi
-        this.feeStrategy = feeStrategy;
-    }
-
-    public void buyShares(BuySharesRequest request) {
-        BigDecimal totalAmount = stock.getCurrentPrice()
-            .multiply(new BigDecimal(request.quantity()));
-
-        // Context ved ikke HVILKEN algoritme
-        // Den bruger bare sin strategi
-        BigDecimal fee = feeStrategy.calculateFee(totalAmount);
-
-        // Resten af logikken...
-    }
-
-    // Strategien kan skiftes ved runtime
-    public void setFeeStrategy(FeeStrategy newStrategy) {
-        this.feeStrategy = newStrategy;
-    }
-}
-    </code></pre>
-</div>
-
-<div class="slide">
     <h2>Testbarhed MED Strategy</h2>
     <pre><code>@Test void flatFeeStrategy_returnsFlatFee() {
     FeeStrategy strategy = new FlatFeeStrategy(BigDecimal.valueOf(15));
@@ -299,7 +264,7 @@ public class BuySharesService {
 
 <div class="slide">
     <h2>Faldgruber</h2>
-    <p><strong>Klienten skal vælge rigtig strategi</strong></p>
+    <p><strong>Ansvar flyttes</strong></p>
     <!--
         Strategy Pattern skubber ansvaret for at vælge strategi ud til klienten.
 

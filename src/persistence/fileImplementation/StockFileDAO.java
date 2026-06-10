@@ -20,6 +20,18 @@ public class StockFileDAO implements StockDAO
     uow.getStocks().add(stock);
   }
 
+  @Override public Stock getBySymbol(String symbol)
+  {
+    return uow.getStocks().stream()
+        .filter(s -> s.getSymbol().equals(symbol))
+        .findFirst().orElse(null);
+  }
+
+  @Override public List<Stock> getAll()
+  {
+    return new ArrayList<>(uow.getStocks());
+  }
+
   @Override public void update(Stock stock)
   {
     List<Stock> all = uow.getStocks();
@@ -36,17 +48,5 @@ public class StockFileDAO implements StockDAO
   @Override public void delete(String symbol)
   {
     uow.getStocks().removeIf(s -> s.getSymbol().equals(symbol));
-  }
-
-  @Override public Stock getBySymbol(String symbol)
-  {
-    return uow.getStocks().stream()
-        .filter(s -> s.getSymbol().equals(symbol))
-        .findFirst().orElse(null);
-  }
-
-  @Override public List<Stock> getAll()
-  {
-    return new ArrayList<>(uow.getStocks());
   }
 }

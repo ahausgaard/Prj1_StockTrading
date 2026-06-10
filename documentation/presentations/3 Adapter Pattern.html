@@ -148,59 +148,72 @@
 
 <div class="slide">
     <h2>Implementering:</h2>
-    <p style="color: #666; margin-bottom: 1.5rem;"><strong>Target Interface: src/business/services/trading/fees/FeeStrategy.java</strong></p>
-    <p style="color: #666; margin-bottom: 1.5rem;"><strong>Konkrete Adapters: src/business/services/trading/fees/</strong></p>
-    <!-- Adapter Pattern bruges her til at tilpasse forskellige gebyrberegningsmetoder (Flat, Percentage, PercentageMinimum) til et fælles FeeStrategy interface.
-         Dette gør det muligt at skifte mellem gebyrtyper uden at ændre trading services.
+    <p style="color: #666; margin-bottom: 1.5rem;"><strong>Target Interface: src/shared/logging/LogOutput.java</strong></p>
+    <p style="color: #666; margin-bottom: 1.5rem;"><strong>Adaptee (library): src/loggingLibrary/FileLogOutputter.java</strong></p>
+    <p style="color: #666; margin-bottom: 1.5rem;"><strong>Adapter: src/shared/logging/FileLogOutputterAdapter.java</strong></p>
+    <p style="color: #666; margin-bottom: 1.5rem;"><strong>Client / Wiring: src/presentation/core/ApplicationContext.java</strong></p>
+    <!--
+        FileLogOutputter er en "tredjeparts" klasse vi IKKE må ændre.
+        Den har logInfo()/logWarning()/logError() — ikke den LogOutput.log(level, message) vi bruger.
+        FileLogOutputterAdapter bygger bro: implementerer LogOutput og delegerer til FileLogOutputter.
+        Logger ved intet om FileLogOutputter — den arbejder kun med LogOutput-interfacet.
     -->
 </div>
 
 <div class="slide">
-    <h2>Hvordan ser det ud UDEN designet?</h2>
-    <pre><code>public class BuySharesService {
-    // TÆT KOBLING: Service skal kende alle gebyrtyper
-    public void buyShares(BuySharesRequest request) {
-        // Hvis gebyrtype er FLAT...
-        if (feeType == FeeType.FLAT) {
-            BigDecimal fee = BigDecimal.valueOf(15);
-        }
-        // Hvis gebyrtype er PERCENTAGE...
-        else if (feeType == FeeType.PERCENTAGE) {
-            BigDecimal fee = totalAmount.multiply(new BigDecimal("0.01"));
-        }
-        // Hvis gebyrtype er PERCENTAGE_MINIMUM...
-        else if (feeType == FeeType.PERCENTAGE_MINIMUM) {
-            // Kompleks logik...
-        }
+    <h2>Hvordan ser det ud UDEN adapter?</h2>
+    <pre><code>// PROBLEM: FileLogOutputter har ikke den interface Logger forventer
+// Logger er TÆTT koblet til loggingLibrary-klassen
+public class Logger {
+    private FileLogOutputter fileLog =
+        new FileLogOutputter("app.log", "INFO");
+
+    public void log(LoggerLevel level, String message) {
+        // Logger skal kende ALLE FileLogOutputter's metoder
+        if (level == LoggerLevel.INFO)
+            fileLog.logInfo(message);
+        else if (level == LoggerLevel.WARNING)
+            fileLog.logWarning(message);
+        else if (level == LoggerLevel.ERROR)
+            fileLog.logError(message);
     }
+    // Kan ikke byttes ud — Logger er låst til FileLogOutputter
 }
     </code></pre>
 </div>
 
 <div class="slide">
-    <h2>Testbarhed MED Adapter</h2>
-    <p style="color: #666; margin-bottom: 1.5rem;"><strong>Se: test/unit/business/services/trading/ (FeeStrategy tests)</strong></p>
-    <pre><code>// Adapter Pattern gør det muligt at teste hver gebyrtype isoleret
-@Test void flatFeeStrategy_calculatesFlatFee() {
-    FeeStrategy strategy = new FlatFeeStrategy(BigDecimal.valueOf(15));
-    BigDecimal fee = strategy.calculateFee(new BigDecimal("100"));
+    <h2>Implementering MED Adapter</h2>
+    <p style="color: #666; margin-bottom: 1.5rem;"><strong>Se: src/shared/logging/FileLogOutputterAdapter.java</strong></p>
+    <pre><code>// Adapter oversætter LogOutput → FileLogOutputter
+public class FileLogOutputterAdapter implements LogOutput {
+    private final FileLogOutputter adaptee;
 
-    assertEquals(new BigDecimal("15"), fee);
+    public FileLogOutputterAdapter(FileLogOutputter adaptee) {
+        this.adaptee = adaptee;
+    }
+
+    @Override
+    public void log(LoggerLevel level, String message) {
+        switch (level) {
+            case INFO    -> adaptee.logInfo(message);
+            case WARNING -> adaptee.logWarning(message);
+            case ERROR   -> adaptee.logError(message);
+        }
+    }
+
+    @Override
+    public void log(LoggerLevel level, String message, Throwable ex) {
+        log(level, message + " | " + ex.getMessage());
+    }
 }
 
-@Test void percentageFeeStrategy_calculatesPercentage() {
-    FeeStrategy strategy = new PercentageFeeStrategy(0.01);
-    BigDecimal fee = strategy.calculateFee(new BigDecimal("1000"));
-
-    assertEquals(new BigDecimal("10"), fee);
-}
-
-// Services kan testes med MockStrategy uden afhængigheder
-@Test void buySharesService_usesInjectedFeeStrategy() {
-    FeeStrategy mockFee = new FakeStrategy(); // En simpel adapter
-    BuySharesService service = new BuySharesService(..., mockFee);
-    // Test uden at kende konkrete gebyrtyper!
-}
+// ApplicationContext.java — sæt adapteren ind i Logger:
+Logger.getInstance().setOutput(
+    new FileLogOutputterAdapter(
+        new FileLogOutputter("resources/logs/app.log", "INFO")
+    )
+);
     </code></pre>
 </div>
 
@@ -208,10 +221,11 @@
     <h2>Faldgruber</h2>
     <p><strong>Adapter Proliferation</strong></p>
     <!--
-        Hvis du opretter for mange små adapters, bliver systemet uoversigtligt.
-        Undgå at lave adapters for alt - brug det kun når der er ukompatible interfaces.
+        Hvis du opretter for mange små adapters, bliver systemet uoverskueligt.
+        Undgå at lave adapters for alt — brug det kun når der er ukompatible interfaces.
 
-        Husk: Adapteren skal være tynd, den skal ikke indeholde kompleks logik!
+        Husk: Adapteren skal være tynd. Den må ikke indeholde forretningslogik —
+        kun oversætte kald fra Target interface til Adaptee's metoder.
     -->
 </div>
 
@@ -219,16 +233,16 @@
     <h2>Opsummering</h2>
     <ul>
         <li>✅ <strong>Løs kobling</strong>
-            <!-- Service afhænger af FeeStrategy interface, ikke konkrete implementeringer -->
+            <!-- Logger afhænger af LogOutput interface, ikke af FileLogOutputter direkte -->
         </li>
         <li>✅ <strong>Open/Closed</strong>
-            <!-- Tilføj nye gebyrtyper uden at ændre BuySharesService -->
+            <!-- Skift logging-udbyder uden at ændre Logger eller resten af systemet -->
         </li>
-        <li>✅ <strong>Fleksibilitet</strong>
-            <!-- Skifte gebyrstrategi ved runtime via dependency injection -->
+        <li>✅ <strong>Tredjepartskode uændret</strong>
+            <!-- FileLogOutputter røres ikke — vi wrapper den i stedet -->
         </li>
         <li>✅ <strong>Testbar</strong>
-            <!-- Mock eller fake adapters i tests -->
+            <!-- Logger kan testes med en mock LogOutput uden at skrive filer -->
         </li>
     </ul>
 </div>

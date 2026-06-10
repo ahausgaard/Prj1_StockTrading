@@ -160,7 +160,8 @@ public class TradingSessionScenarioTest {
         System.out.println("STEP 3: Market update - PNDORA price increases to 120 DKK");
         uow.begin();
         Stock updatedPndora = stockDAO.getBySymbol("PNDORA");
-        updatedPndora.setCurrentPrice(new BigDecimal("120.00"));
+        updatedPndora = Stock.createFromStorage(updatedPndora.getSymbol(),
+            updatedPndora.getCurrentState(), new BigDecimal("120.00"));
         stockDAO.update(updatedPndora);
         uow.commit();
         System.out.println("  → PNDORA: 100 → 120 DKK (+20%)\n");
