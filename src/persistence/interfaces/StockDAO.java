@@ -8,8 +8,8 @@ import java.util.UUID;
 public interface StockDAO
 {
   void create(Stock stock);
-  void update(Stock stock);
-  void delete(String symbol);
   Stock getBySymbol(String symbol);
   List<Stock> getAll();
+  void update(Stock stock);
+  void delete(String symbol);
 }

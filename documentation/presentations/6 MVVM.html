@@ -132,7 +132,7 @@
     <h2>Lagene</h2>
     <ul>
         <li><strong>View:</strong>FXML + Controller</li>
-        <li><strong>Model-view:</strong>JavaFX properites</li>
+        <li><strong>Model-view:</strong>JavaFX properties</li>
         <li><strong>Model:</strong> Services + DTO'er</li>
     </ul>
 
@@ -188,16 +188,25 @@
 
 <div class="slide">
     <h2>Hvordan ser det ud UDEN MVVM?</h2>
-</div>
+    <pre><code>// PROBLEM: Al logik tæt koblet i knap-handleren
+@FXML
+private void onBuy() {
+    String symbol = symbolLabel.getText();
+    int qty = quantitySpinner.getValue();
 
-<div class="slide">
-    <h2>Implementering MED MVVM</h2>
-    <p style="color: #666; margin-bottom: 1.5rem;"><strong>Se: src/presentation/viewModels/BuyStockViewModel.java</strong></p>
-</div>
+    // Direkte DAO-kald fra UI-laget
+    Portfolio p = new PortfolioFileDAO(uow).getById(portfolioId);
+    Stock s = new StockFileDAO(uow).getBySymbol(symbol);
 
-<div class="slide">
-    <h2>Controller har KUN DataBinding</h2>
-    <p style="color: #666; margin-bottom: 1.5rem;"><strong>Se: src/presentation/controllers/BuyStockController.java</strong></p>
+    BigDecimal cost = s.getCurrentPrice().multiply(new BigDecimal(qty));
+    if (p.getCurrentBalance().compareTo(cost) < 0) {
+        statusLabel.setText("Insufficient funds"); // UI + logik blandet
+        return;
+    }
+    p.setCurrentBalance(p.getCurrentBalance().subtract(cost));
+    new PortfolioFileDAO(uow).update(p);
+    // Kan ikke testes uden JavaFX-runtime + rigtige filer
+}</code></pre>
 </div>
 
 <div class="slide">

@@ -125,16 +125,25 @@
 <div class="slide">
     <h2>Adapter & SOLID Principperne</h2>
     <ul>
-        <li><strong>Single Responsibility Principle</strong>
-            <!--Adapteren har én rolle: oversætte mellem Target interface og Adaptee. Klart og fokuseret ansvar.-->
-        </li>
-
-        <li><strong>Open/Closed Principle</strong>
-            <!--Tilføj nye adapters uden at ændre eksisterende kode. Lukket for ændring, åbent for udvidelse.-->
+        <li><strong>Liskov Substitution Principle</strong>
+            <!-- Adapter-mønsterets kerneopgave er substituerbarhed.
+                 UDEN adapter: FileLogOutputter og ConsoleLogOutput har forskellige signaturer
+                 og kan ikke byttes ud bag et fælles interface — LSP er brudt.
+                 MED adapter: FileLogOutputterAdapter implementerer LogOutput korrekt og kan
+                 substitueres overalt hvor LogOutput forventes, uden at Logger bemærker det. -->
         </li>
 
         <li><strong>Dependency Inversion Principle</strong>
-            <!--Klient afhænger af Target interface, ikke den konkrete Adaptee. Klienten afhænger af abstraktionen!-->
+            <!-- Logger (høj-niveau modul) afhænger af LogOutput-interfacet (abstraktion),
+                 ikke af FileLogOutputter (lavniveau modul) direkte.
+                 Adapteren er det bindeled der gør dette muligt uden at røre hverken
+                 Logger eller det umodificerbare FileLogOutputter. -->
+        </li>
+
+        <li><strong>Open/Closed Principle</strong>
+            <!-- Ny log-destination (f.eks. en CloudLogAdapter) kræver kun én ny klasse.
+                 Logger og LogOutput-interfacet forbliver uændrede —
+                 åbent for udvidelse, lukket for ændring. -->
         </li>
     </ul>
 </div>

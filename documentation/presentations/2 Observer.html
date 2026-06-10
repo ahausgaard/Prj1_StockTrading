@@ -132,6 +132,11 @@
 </div>
 
 <div class="slide">
+    <h2>Design</h2>
+    <img src="../diagrams/observerCD.svg" alt="Observer Pattern UML Diagram" style="width: 90%; height: auto; margin-top: 2rem;" />
+</div>
+
+<div class="slide">
     <h2>Observer & SOLID Principperne</h2>
     <ul>
         <li><strong>Single Responsibility Principle:</strong> </br>StockMarket, StockListenerService, StockAlertService.</li>
@@ -142,11 +147,6 @@
 
         <!--Observer Pattern er en praktisk implementering af DIP og OCP!</p> -->
     </ul>
-</div>
-
-<div class="slide">
-    <h2>Design</h2>
-    <img src="../diagrams/observerCD.svg" alt="Observer Pattern UML Diagram" style="width: 90%; height: auto; margin-top: 2rem;" />
 </div>
 
 <div class="slide">
@@ -162,6 +162,19 @@
 
 <div class="slide">
     <h2>Hvordan ser det ud UDEN designet?</h2>
+    <pre><code>// PROBLEM: StockMarket kender ALLE konkrete lyttere direkte
+public class StockMarket {
+    private StockListenerService listenerService; // ← konkret afhængighed
+    private StockAlertService alertService;       // ← konkret afhængighed
+
+    public void updateAllLiveStocks() {
+        for (LiveStock ls : liveStocks) ls.updatePrice();
+
+        listenerService.recordPrices(liveStocks);  // kaldt direkte
+        alertService.checkForBankruptcy(liveStocks); // kaldt direkte
+        // Ny lytter? → Redigér DENNE klasse  ← Open/Closed-brud
+    }
+}</code></pre>
 </div>
 
 

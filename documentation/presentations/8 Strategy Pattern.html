@@ -117,9 +117,8 @@
 <div class="slide">
     <h2>Hvilket problem løser Strategy Pattern?</h2>
     <ul>
-        <li><strong>Hardcoded algoritmer</strong> — Gebyrberegning, sortering, komprimering</li>
-        <li><strong>Massive switch-statements</strong> — "Hvilken algoritme skal jeg bruge?"</li>
-        <li><strong>Inflexible kode</strong> — Tilføj ny algoritme = redigér Context</li>
+        <li><strong>Hardcoded algoritmer</strong></li>
+        <li><strong>Massive switch-statements</strong></li>
     </ul>
     <!--
         Strategy Pattern løser algoritmisk variation.
@@ -152,7 +151,6 @@
 
 <div class="slide">
     <h2>Design</h2>
-    <!-- Samme diagram som Adapter eftersom FeeStrategy er begge pattern -->
     <img src="../diagrams/strategyCD.svg" alt="Strategy Pattern UML Diagram" style="width: 90%; height: auto; margin-top: 2rem;" />
 </div>
 
@@ -173,12 +171,24 @@
 
 <div class="slide">
     <h2>Hvordan ser det ud UDEN Strategy?</h2>
+    <pre><code>//BuySharesService
+public void buyShares(BuySharesRequest request) {
+    BigDecimal total = stock.getPrice().multiply(BigDecimal.valueOf(qty));
+
+    BigDecimal fee;
+    if (feeType == FeeType.FLAT) {
+        fee = new BigDecimal("15.00");
+    } else if (feeType == FeeType.PERCENTAGE) {
+        fee = total.multiply(new BigDecimal("0.01"));
+    } else if (feeType == FeeType.PERCENTAGE_MINIMUM) {
+        fee = total.multiply(new BigDecimal("0.01"));
+        if (fee.compareTo(new BigDecimal("15.00")) < 0)
+            fee = new BigDecimal("15.00");
+    }
+    // ...Ny gebyrmodel?
+}</code></pre>
 </div>
 
-<div class="slide">
-    <h2>Implementering MED Strategy</h2>
-    <p style="color: #666; margin-bottom: 1.5rem;"><strong>Se: src/business/services/trading/fees/</strong></p>
-</div>
 
 <div class="slide">
     <h2>Testbarhed MED Strategy</h2>

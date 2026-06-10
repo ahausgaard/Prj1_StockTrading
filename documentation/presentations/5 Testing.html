@@ -118,7 +118,8 @@
 </div>
 
 <div class="slide">
-  <img src="https://teachingagile.com/_next/image?url=%2Fblog%2Fenglish%2Fv-model.png&w=3840&q=75" alt="V-Modellen" style="width: 100%; margin: 2rem auto;">
+  <img src="https://teachingagile.com/_next/image?url=%2Fblog%2Fenglish%2Fv-model.png&w=3840&q=75"
+       alt="V-Modellen" style="width: 100%; margin: 2rem auto;">
   <!--
     V-modellen er en udvidelse af vandfaldsmodellen. Nu om dage bruges den mere som en mental model og arkitekturværktøj.
     For hver udviklingsfase findes en tilsvarende testfase.
@@ -130,63 +131,7 @@
 </div>
 
 <div class="slide">
-  <h2>Unit Test vs. Integration Test</h2>
-  <ul>
-    <li><strong>Unit Test:</strong> Tester én isoleret metode med mocks</li>
-    <li><strong>Integration Test:</strong> Tester moduler sammen (f.eks. service + rigtig database)</li>
-  </ul>
-  <!--
-    Unit Test:
-    - Lynhurtig (millisekunder)
-    - Total isolation: ingen database, ingen filer, ingen API'er
-    - Tester logik
-
-    Integration Test:
-    - Langsommere
-    - Bruger rigtig infrastruktur
-    - Fanger konfigurationsfejl og "lednings-problemer"
-  -->
-</div>
-
-<div class="slide">
-  <h2>Unit Test Strategi: Boundary Value Analysis</h2>
-  <p style="color: #666; margin-bottom: 1.5rem;"><strong>Se: test/unit/business/services/trading/fees/FeeStrategyTest.java</strong></p>
-  <!--
-    Boundary Value Analysis fokuserer på grænserne af lovlige værdier.
-    Det er her programmører laver fejl (< vs <=, >= vs >).
-
-    Eksempel: Adgang forbudt under 18 år.
-    Vi tester: 17 (fejl), 18 (ok), 19 (ok)
-
-    I dit projekt tester vi fee-strategierne ved grænsen hvor:
-    - 1% af beløbet = minimum-gebyr
-    - 1% < minimum → minimum bruges
-    - 1% > minimum → 1% bruges
-  -->
-</div>
-
-<div class="slide">
-  <h2>Integration Test Strategi: Bottom-Up</h2>
-  <ul>
-    <li><strong>Start forneden:</strong> Test Database/Repository-laget først</li>
-    <li><strong>Byg op:</strong> Test Service-lagog Business Logic oven på</li>
-    <li><strong>Fordel:</strong> Fanger DB-fejl tidligt, før de når UI'et</li>
-  </ul>
-  <!--
-    Bottom-up strategi betyder:
-    1. Test DAO'erne (FileUnitOfWork + DAOs) med rigtig fil-persistence
-    2. Test Services (BuySharesService, SellSharesService) sammen med DAOs
-    3. Mocks bruges IKKE - vi bruger rigtig test-data
-
-    I dit projekt: test/integration/business/services/trading/
-    - BuySharesServiceIntTest bruger FileUnitOfWork med rigtige filer
-    - Fanger fejl i fil-håndtering før service-logikken fejler
-  -->
-</div>
-
-<div class="slide">
-  <h2>Eksempel: Integration Test</h2>
-  <p style="color: #666; margin-bottom: 1.5rem;"><strong>Se: test/integration/business/services/trading/BuySharesServiceIntTest.java</strong></p>
+  <img src="https://blog.qatestlab.com/wp-content/uploads/2011/03/Zombie_Testing.jpg">
 </div>
 
 <div class="slide">

@@ -117,37 +117,9 @@
 <div class="slide">
     <h2>Hvilket problem løser DAO & Unit of Work?</h2>
     <ul>
-        <li><strong>Tæt kobling til database</strong> — SQL direkte i forretningslogik</li>
-        <li><strong>Uatomare transaktioner</strong> — Delvise opdateringer, inkonsistent data</li>
-        <li><strong>Svær testning</strong> — Kan ikke teste uden database</li>
-    </ul>
-</div>
-
-<div class="slide">
-    <h2>Filosofien bag</h2>
-    <div class="quote">
-        "Abstraktion og 'Alt-eller-intet'."
-    </div>
-    <ul>
-        <li><strong>DAO:</strong> Database som in-memory objektsamling</li>
-        <li><strong>UoW:</strong> Sikrer atomare transaktioner (alt eller intet)</li>
-    </ul>
-</div>
-
-<div class="slide">
-    <h2>DAO & UoW & SOLID Principperne</h2>
-    <ul>
-        <li><strong>Single Responsibility Principle</strong>
-            <!--Hver DAO håndterer én entitet (Stock, Portfolio, etc.). UoW koordinerer transaktioner. Klart opdelt ansvar.-->
-        </li>
-
-        <li><strong>Open/Closed Principle</strong>
-            <!--Tilføj en ny DAO uden at ændre eksisterende kode. Interface er lukket for ændring, åbent for udvidelse.-->
-        </li>
-
-        <li><strong>Dependency Inversion Principle</strong>
-            <!--Services afhænger af DAO-interfaces, ikke konkrete implementeringer. Vi kan skifte fra SQL til MongoDB uden at ændre forretningslogik!-->
-        </li>
+        <li><strong>Tæt kobling til database</strong></li>
+        <li><strong>Uatomare transaktioner</strong> </li>
+        <li><strong>Svær testning</strong></li>
     </ul>
 </div>
 
@@ -168,26 +140,10 @@
 </div>
 
 <div class="slide">
-    <h2>Hvordan ser det ud UDEN designet?</h2>
-</div>
-
-<div class="slide">
     <h2>Testbarhed MED DAO & UoW</h2>
     <p style="color: #666; margin-bottom: 1.5rem;"><strong>Unit Test: test/unit/business/services/trading/BuySharesServiceTest.java</strong></p>
-    <p style="color: #666; margin-bottom: 1.5rem;"><strong>Integration Test: test/integration/business/services/trading/BuySharesServiceIntTest.java</strong></p>
 </div>
 
-<div class="slide">
-    <h2>Faldgruber</h2>
-    <p><strong>Lazy Loading og N+1 Queries</strong></p>
-    <!--
-        Hvis en DAO lazy-loader relaterede objekter, kan du ved at iterere gennem resultater
-        udløse mange skjulte database-queries (N+1 problem).
-
-        Løsning: Være eksplicit om hvad du loader (eager vs. lazy).
-        I vores fil-baserede implementation: Load kun hvad du skal bruge.
-    -->
-</div>
 
 <div class="slide">
     <h2>Opsummering</h2>
