@@ -48,24 +48,37 @@ public class BuySharesServiceTest
 
   }
 
-  //Zero and One
-  @Test void buyShares_oneValidShare_commitsTransaction()
-  {
-    BuySharesRequest request = new BuySharesRequest(
-        portfolioDAO.getMockPortfolio().getId(), "PNDORA", 1);
-    service.buyShares(request);
-    assertEquals(1, uow.getCommitCount());
-  }
-
+  //Zero
   @Test void buyShares_0_throwsException()
   {
+    //Arrange
+
     BuySharesRequest request = new BuySharesRequest(
         portfolioDAO.getMockPortfolio().getId(), "PNDORA", 0);
+
+    //Act
     Exception exception = assertThrows(IllegalArgumentException.class,
         () -> service.buyShares(request));
+
+    //Assert
     assertEquals("Number of shares must be greater than zero.",
         exception.getMessage());
   }
+
+  //One
+  @Test void buyShares_oneValidShare_commitsTransaction()
+  {
+    //Arrange
+    BuySharesRequest request = new BuySharesRequest(
+        portfolioDAO.getMockPortfolio().getId(), "PNDORA", 1);
+
+    //Act
+    service.buyShares(request);
+
+    //Assert
+    assertEquals(1, uow.getCommitCount());
+  }
+
 
   @Test void buyShares_newStock_createsOwnedStockEntry()
   {
@@ -91,7 +104,7 @@ public class BuySharesServiceTest
     assertEquals(2, ownedStockDAO.getAll().get(0).getQuantity());
   }
 
-  //Boundaries
+  //Many
   @Test void buyShares_largeQuantity_updatesOwnedStockQuantity()
   {
     BuySharesRequest request = new BuySharesRequest(
@@ -99,7 +112,7 @@ public class BuySharesServiceTest
     service.buyShares(request);
     assertEquals(100, ownedStockDAO.getAll().get(0).getQuantity());
   }
-
+  //Boundaries
   @Test void buyShares_exactBalance_zerosPortfolioBalance()
   {
     BuySharesRequest request = new BuySharesRequest(
@@ -134,7 +147,8 @@ public class BuySharesServiceTest
     assertEquals("Number of shares must be greater than zero.",
         exception.getMessage());
   }
-  
+
+  //Exception
   @Test void buyShares_bankrupt_stock_throwsException()
   {
     stockDAO.setMockStock(Stock.createFromStorage("PNDORA", domain.StockState.BANKRUPT, new BigDecimal("10.0")));
@@ -187,7 +201,7 @@ public class BuySharesServiceTest
     assertEquals("Stock with symbol TEST not found.", exception.getMessage());
   }
 
-  //State & Behaviour
+  //Interface
   @Test void buyShares_validPurchase_updatesPortfolioAndOwnedStock()
   {
     BuySharesRequest request = new BuySharesRequest(

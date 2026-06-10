@@ -123,6 +123,8 @@
 
 <div class="hint">Brug piletasterne &rarr;</div>
 
+<!-- ═══════════ DEL 1: TRELAGSARKITEKTUR ═══════════ -->
+
 <div class="slide active">
     <h1>Trelagsarkitektur & Transaction Script</h1>
     <h3>Struktur og logik i moderne software</h3>
@@ -130,205 +132,125 @@
 </div>
 
 <div class="slide">
-    <h2>Hvilket problem løser Trelagsarkitektur & Transaction Script?</h2>
+    <h2>Trelagsarkitektur: Hvilket problem løser det?</h2>
     <ul>
-        <li><strong>Tæt kobling</strong> — SQL og logik blandet sammen</li>
-        <li><strong>"Smart UI" anti-pattern</strong> — Forretningslogik sidder i UI-event handlers</li>
-        <li><strong>Umulig at teste</strong> — Kan ikke teste uden at starte hele systemet</li>
+        <li><strong>Tæt kobling</strong></li>
+        <li><strong>"Smart UI" anti-pattern</strong></li>
+        <li><strong>Umulig at teste</strong></li>
     </ul>
     <!--
-        Trelagsarkitektur + Transaction Script løser både strukturel og procedural uorden.
-        Uden: Alt sidder i UI'et eller blandet tilsammen
-        Med: Klart ansvar i hvert lag, hver logik-handling er isoleret i en metode
+        Uden trelagsarkitektur sidder alt i UI-handleren:
+        filhåndtering, beregning, validering og databasekald på samme sted.
+        Det er svært at genbruge, svært at teste og svært at vedligeholde.
     -->
 </div>
 
 <div class="slide">
-    <h2>To begreber, ét system</h2>
-    <div class="grid-2">
-        <div>
-            <h3 style="color: var(--accent-color)">1. Trelagsarkitektur</h3>
-            <p><strong>Hvor</strong> koden skal bo.</p>
-        </div>
-        <div>
-            <h3 style="color: var(--accent-color)">2. Transaction Script</h3>
-            <p><strong>Hvordan</strong> forretningslogikken skrives.</p>
-        </div>
-    </div>
-    <!--
-        Trelagsarkitektur: Det makroskopiske mønster. Deler applikationen op i ansvarsområder (UI, Logik, Database).
-        Transaction Script: Det mikroskopiske mønster. Én metode håndterer én fuld handling fra start til slut.
-    -->
-</div>
-
-<div class="slide">
-    <h2>Design</h2>
+    <h2>Design: De tre lag</h2>
     <div style="width: 60%; margin: 0 auto;">
-        <div class="layer-box">1. Præsentationslag (UI / API)</div>
+        <div class="layer-box">1. Præsentationslag (UI / Controllers)</div>
         <div style="text-align: center;">&darr;</div>
-        <div class="layer-box" style="background-color: #e0f2fe;">2. Logiklag (Business Logic)</div>
+        <div class="layer-box">2. Logiklag (Business Services)</div>
         <div style="text-align: center;">&darr;</div>
-        <div class="layer-box">3. Datalag (Data Access Layer)</div>
+        <div class="layer-box">3. Datalag (DAOs / UnitOfWork)</div>
     </div>
     <!--
-        Trelagsarkitektur (Separation of Concerns):
-        - Lag 1: Viser data, tager imod input. Ingen logik!
-        - Lag 2: Hjernen. Transaction Scripts bor her.
-        - Lag 3: Gemmer og henter fra database.
+        Hvert lag har ét ansvarsområde (Single Responsibility):
+        - Lag 1: Viser data og modtager input — ingen logik
+        - Lag 2: Al forretningslogik bor her — Transaction Scripts
+        - Lag 3: Gemmer og henter data — ingen logik
+        Lagene afhænger kun af laget nedenunder (Dependency Inversion).
     -->
 </div>
 
 <div class="slide">
-    <h2>Filosofien bag Transaction Script</h2>
-    <p><strong>Én brugerhandling = Ét script (én metode).</strong></p>
+    <h2>Implementering: Lagene i projektet</h2>
+    <p style="color: #666; margin-bottom: 1.5rem;"><strong>Præsentationslag: src/presentation/controllers/BuyStockController.java</strong></p>
+    <p style="color: #666; margin-bottom: 1.5rem;"><strong>Logiklag: src/business/services/trading/BuySharesService.java</strong></p>
+    <p style="color: #666; margin-bottom: 1.5rem;"><strong>Datalag: src/persistence/fileImplementation/</strong></p>
     <!--
-        I stedet for komplekse objekt-netværk, er logikken procedural.
-        Scriptet orkestrerer hele processen: Validering → Beregning → Gem → Returner svar.
-        Fordel: Lynhurtigt at udvikle, nemt at læse fra top til bund.
+        Controller: Modtager knap-klik, delegerer til service — ingen logik
+        BuySharesService: Validering, beregning, persistering — alt forretningslogik
+        DAOs + FileUnitOfWork: Håndterer JSON-filer — ved intet om forretningsregler
     -->
 </div>
 
-<div class="slide">
-    <h2>Implementering:</h2>
-    <p style="color: #666; margin-bottom: 1.5rem;"><strong>Presentation: src/presentation/controllers/BuyStockController.java</strong></p>
-    <p style="color: #666; margin-bottom: 1.5rem;"><strong>Business Logic: src/business/services/trading/BuySharesService.java</strong></p>
-    <p style="color: #666; margin-bottom: 1.5rem;"><strong>Data Access: src/persistence/fileImplementation/</strong></p>
-    <!--
-        I dit projekt:
-        - Presentation: Controllers håndterer UI events og delegerer til Services
-        - Business Logic: BuySharesService, SellSharesService etc. - Transaction Scripts
-        - Data Access: DAOs (StockFileDAO, PortfolioFileDAO, etc.) + UnitOfWork for transaktioner
 
+<!-- ═══════════ DEL 2: TRANSACTION SCRIPT ═══════════ -->
+
+<div class="slide">
+    <h1>Transaction Script</h1>
+    <h3>Én brugerhandling = ét script</h3>
+</div>
+    <!--
+        I stedet for at sprede logikken ud i domæneobjekter (Domain Model),
+        samler Transaction Script al logik for én handling i én procedural metode.
+        Det er nemt at læse fra top til bund og nemt at forstå hvad der sker.
+        buyShares(): uow.begin → valider → beregn → opdater → commit/rollback
+    -->
+
+<div class="slide">
+    <h2>Implementering: Transaction Script</h2>
+    <p style="color: #666; margin-bottom: 1.5rem;"><strong>Se: src/business/services/trading/BuySharesService.java</strong></p>
+    <!--
         BuySharesService.buyShares() er et klassisk Transaction Script:
-        1. Validering (stock exists, sufficient balance)
-        2. Beregning (total cost + fee)
-        3. Update (via DAOs)
-        4. Commit (via UnitOfWork)
+        1. uow.begin()
+        2. Validér symbol, portfolio, quantity, konkurscheck
+        3. Beregn totalAmount + fee via FeeStrategy
+        4. Tjek sufficient balance
+        5. Opret eller opdater OwnedStock via DAO
+        6. Træk balance fra Portfolio via DAO
+        7. Opret Transaction via DAO
+        8. uow.commit() — eller uow.rollback() ved fejl
     -->
 </div>
 
 <div class="slide">
-    <h2>Løsningen i kode: Trelag + Script</h2>
-    <p style="color: #666; margin-bottom: 1.5rem;"><strong>Se: src/presentation/controllers/BuyStockController.java</strong></p>
-    <pre><code>// 1. UI Laget (JavaFX Controller - modtager brugerhandling)
-@FXML private void onBuyButtonClicked() {
-    // Delegerer til viewModel (ikke direkte til service!)
-    viewModel.buyShares();
-}
+    <h2>Alternativet: Domain Model</h2>
+    <p>I <strong>Domain Model</strong> bor logikken <em>inde i domæneobjekterne</em> — ikke i en service udefra.</p>
+    <pre><code>// Transaction Script: service orkestrerer alt udefra
+buySharesService.buyShares(request);
+// → henter Portfolio, Stock, beregner gebyr, skriver 3 DAOs
 
-// 2. Logik Laget (Business Service - Transaction Script)
-public void buyShares(BuySharesRequest request) {
-    uow.begin();  // Start transaktion
-    try {
-        Stock stock = stockDAO.getBySymbol(request.stockSymbol());
-        if (stock == null) throw new IllegalArgumentException(...);
-
-        Portfolio portfolio = portfolioDAO.getById(request.portfolioId());
-        BigDecimal totalAmount = stock.getCurrentPrice()
-            .multiply(new BigDecimal(request.quantity()));
-        BigDecimal fee = feeStrategy.calculateFee(totalAmount);
-
-        portfolio.setCurrentBalance(
-            portfolio.getCurrentBalance().subtract(totalAmount.add(fee)));
-
-        portfolioDAO.update(portfolio);
-        uow.commit();  // Sikrer atomaritet
-    } catch (Exception e) {
-        uow.rollback();
-    }
-}</code></pre>
-</div>
-
-<div class="slide">
-    <h2>Hvordan ser det ud UDEN designet?</h2>
-    <p>Anti-mønsteret: <strong>Smart UI / Pærevælling</strong> — Alt i knap-klikket!</p>
-    <pre><code>// FORKERT: Alt blandet sammen direkte i Controller
-@FXML private void onBuyButtonClicked() {
-    // Direkte fil I/O i UI-handler!
-    String json = Files.readString(Path.of("stocks.json"));
-    Stock stock = parseStock(json);
-
-    if (stock == null) {
-        alertLabel.setText("Stock not found!");
-        return;
-    }
-
-    int quantity = Integer.parseInt(quantityField.getText());
-    BigDecimal cost = stock.getPrice().multiply(quantity);
-
-    // Direkte fil-opdatering uden transaktion!
-    Portfolio portfolio = loadPortfolioFromFile();
-    portfolio.setBalance(portfolio.getBalance().subtract(cost));
-    savePortfolioToFile(portfolio);  // ← Hvis denne fejler, er penge væk!
-
-    // Direkte UI manipulation
-    balanceLabel.setText(portfolio.getBalance().toString());
-}
-// Umuligt at teste uden at gemme/læse rigtige filer!</code></pre>
-</div>
-
-<div class="slide">
-    <h2>Konsekvensen af "Smart UI"</h2>
+// Domain Model: objektet ved selv hvad "køb" betyder
+portfolio.buy(stock, quantity, feeStrategy);
+// → Portfolio validerer, beregner og opdaterer sig selv</code></pre>
     <ul>
-        <li><strong>Umuligt at genbruge:</strong> Logik i UI-handler</li>
-        <li><strong>Sikkerhedsrisiko:</strong> Fil I/O blandet i UI</li>
-        <li><strong>Test-mareridt:</strong> Kan ikke unit-teste uden rigtige filer</li>
-        <li><strong>Atomaritet tabt:</strong> Ingen rollback mulighed</li>
+        <li><strong>Transaction Script:</strong> Dumme objekter — smart service</li>
+        <li><strong>Domain Model:</strong> Smarte objekter — tynd service</li>
     </ul>
     <!--
-        - Ny feature kræver kopi-indsæt af hele metoden
-        - DB-forbindelser blandet i UI, intet validering
-        - Tests bliver langsomme og skøre
-        - Hvis ét write fejler, er data i ukendt tilstand
+        Transaction Script: Portfolio er en ren dataklasse. BuySharesService kender hele flowet.
+        Domain Model: Portfolio har metoder som buy(), sell() med logik indeni.
+        Domain Model passer bedre når domænet er komplekst og objekterne har rig adfærd.
+        Transaction Script passer bedre til simpelt CRUD — som dette projekt.
     -->
 </div>
 
-<div class="slide">
-    <h2>Testbarhed i Trelagsarkitektur</h2>
-    <p>Ved at adskille lagene kan vi <strong>isolere logikken</strong> og teste den uden infrastruktur.</p>
-    <p>I testen af <code>BuySharesService.buyShares()</code>, bytter vi de rigtige DAOs ud med <strong>Mock DAOs</strong>.</p>
-    <pre><code>// Unit test - Ingen fil-I/O, ingen database!
-@Test void buyShares_validPurchase_updatesBuyersBalance() {
-    // Arrange: Mock DAOs - INGEN database!
-    MockStockDAO stockDAO = new MockStockDAO();
-    MockPortfolioDAO portfolioDAO = new MockPortfolioDAO();
-    MockUnitOfWork uow = new MockUnitOfWork();
 
-    BuySharesService service = new BuySharesService(
-        stockDAO, portfolioDAO, ..., uow);
-
-    // Act
-    service.buyShares(new BuySharesRequest(...));
-
-    // Assert - Tests uden infrastruktur, ~50ms
-    assertTrue(portfolioDAO.updateWasCalled());
-    assertEquals(1, uow.getCommitCount());
-}
-    </code></pre>
-</div>
 
 <div class="slide">
     <h2>Faldgruber</h2>
     <p><strong>Script Proliferation</strong></p>
     <!--
         Transaction Script har sine grænser:
-        - Kode-duplikering: Hvis 5 scripts skal validere stock-køb, ender du med copy-paste
-        - Ingen genbrug: Common logik skrevet igen og igen
-        - Kompleksitet vokser ulineært: Ved 20+ scripts bliver basen uoverskuelig
+        - Kode-duplikering: Hvis mange scripts deler validering, ender det i copy-paste
+        - Kompleksitet vokser ulineært: Ved 20+ scripts er det svært at holde overblik
+        - Ingen genbrug: Fælles logik skrives igen og igen
 
-        Løsning: I større systemer, brug Domain Model pattern hvor logik ligger i intelligente objekter.
-        Dit projekt: Transaction Script passer fint — få, klare scripts (BuySharesService, SellSharesService, GameService).
+        Løsning: I større systemer brug Domain Model — logik i intelligente objekter.
+        Dit projekt: Transaction Script passer fint — få, klare scripts
+        (BuySharesService, SellSharesService, GameService).
     -->
 </div>
 
 <div class="slide">
     <h2>Opsummering</h2>
     <ul>
-        <li><strong>Trelagsarkitektur:</strong> Deler koden i UI, Logik og Data. Giver overblik og genbrugelighed.</li>
-        <li><strong>Transaction Script:</strong> Simpel, procedural organisering af logik. Én handling = ét script.</li>
-        <li><strong>Testbarhed:</strong> Lagdelingen tillader os at mocke databasen og teste forretningsreglerne isoleret.</li>
+        <li><strong>Trelagsarkitektur:</strong> Deler koden i Præsentation, Logik og Data — ét ansvar per lag</li>
+        <li><strong>Transaction Script:</strong> Én handling = ét script — proceduralt, lineært, nemt at forstå</li>
+        <li><strong>Testbarhed:</strong> Lagdelingen gør det muligt at mocke DAOs og teste forretningslogik isoleret</li>
     </ul>
-    <h3 style="margin-top: 4rem;">Spørgsmål?</h3>
 </div>
 
 <script>

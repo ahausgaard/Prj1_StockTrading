@@ -173,93 +173,16 @@
 
 <div class="slide">
     <h2>Hvordan ser det ud UDEN Strategy?</h2>
-    <pre><code>// Massive if/switch uden Strategy Pattern
-public class BuySharesServiceBad {
-    private String feeType; // "FLAT", "PERCENT", "PERCENT_MIN"
-
-    private BigDecimal calculateFee(BigDecimal amount) {
-        if (feeType.equals("FLAT")) {
-            return BigDecimal.valueOf(15);
-        }
-        else if (feeType.equals("PERCENT")) {
-            return amount.multiply(new BigDecimal("0.01"));
-        }
-        else if (feeType.equals("PERCENT_MIN")) {
-            BigDecimal percentFee = amount.multiply(new BigDecimal("0.01"));
-            BigDecimal minimum = BigDecimal.valueOf(15);
-            return percentFee.compareTo(minimum) < 0 ? minimum : percentFee;
-        }
-        throw new IllegalArgumentException("Unknown fee type");
-    }
-}
-    </code></pre>
 </div>
 
 <div class="slide">
     <h2>Implementering MED Strategy</h2>
     <p style="color: #666; margin-bottom: 1.5rem;"><strong>Se: src/business/services/trading/fees/</strong></p>
-    <pre><code>// Strategy Interface
-public interface FeeStrategy {
-    BigDecimal calculateFee(BigDecimal transactionAmount);
-}
-
-// Konkrete Strategier
-public class FlatFeeStrategy implements FeeStrategy {
-    private final BigDecimal flatFee;
-
-    public FlatFeeStrategy(BigDecimal flatFee) {
-        this.flatFee = flatFee;
-    }
-
-    @Override
-    public BigDecimal calculateFee(BigDecimal amount) {
-        return flatFee; // Simpel logik, isoleret klasse
-    }
-}
-
-public class PercentageFeeStrategy implements FeeStrategy {
-    private final BigDecimal feeRate;
-
-    public PercentageFeeStrategy(double feeRate) {
-        this.feeRate = BigDecimal.valueOf(feeRate);
-    }
-
-    @Override
-    public BigDecimal calculateFee(BigDecimal amount) {
-        return amount.multiply(feeRate);
-    }
-}
-    </code></pre>
 </div>
 
 <div class="slide">
     <h2>Testbarhed MED Strategy</h2>
-    <pre><code>@Test void flatFeeStrategy_returnsFlatFee() {
-    FeeStrategy strategy = new FlatFeeStrategy(BigDecimal.valueOf(15));
-    BigDecimal fee = strategy.calculateFee(new BigDecimal("1000"));
-    assertEquals(new BigDecimal("15"), fee);
-}
-
-@Test void percentageFeeStrategy_scalesWithAmount() {
-    FeeStrategy strategy = new PercentageFeeStrategy(0.01);
-    assertEquals(new BigDecimal("10"),
-        strategy.calculateFee(new BigDecimal("1000")));
-    assertEquals(new BigDecimal("1"),
-        strategy.calculateFee(new BigDecimal("100")));
-}
-
-// Services kan testes med mock-strategi
-@Test void buySharesService_appliesFeeCorrectly() {
-    FeeStrategy mockFee = new FlatFeeStrategy(BigDecimal.valueOf(20));
-    BuySharesService service = new BuySharesService(
-        stockDAO, ownedStockDAO, portfolioDAO, transactionDAO, uow, mockFee);
-
-    service.buyShares(request);
-
-    verify(portfolioDAO).update(argThat(p ->
-        p.getCurrentBalance() < initialBalance - 20)); // Gebyr blev fratrukket
-}
-    </code></pre>
+    <p style="color: #666; margin-bottom: 1.5rem;"><strong>Se: test/unit/business/services/trading/fees/FeeStrategyTest.java</strong></p>
 </div>
 
 <div class="slide">

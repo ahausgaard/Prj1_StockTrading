@@ -118,8 +118,6 @@
     <h2>Hvilket problem løser Adapter Pattern?</h2>
     <ul>
         <li><strong>Inkompatible interfaces</strong></li>
-        <li><strong>Tredjepartskode vi ikke kan ændre</strong></li>
-        <li><strong>Legacy systemer</strong></li>
     </ul>
     <img src="https://www.selfietime.dk/cdn/shop/products/adapter2.jpg?v=1614868296" alt="Physical adapter" style="width: 300px; margin-top: 2rem;" />
 </div>
@@ -162,59 +160,30 @@
 
 <div class="slide">
     <h2>Hvordan ser det ud UDEN adapter?</h2>
-    <pre><code>// PROBLEM: FileLogOutputter har ikke den interface Logger forventer
-// Logger er TÆTT koblet til loggingLibrary-klassen
+    <pre><code>// PROBLEM: Logger kender BEGGE konkrete output-typer direkte
 public class Logger {
-    private FileLogOutputter fileLog =
-        new FileLogOutputter("app.log", "INFO");
+    private FileLogOutputter fileLog;
+    private ConsoleLogOutput consoleLog;
+    private boolean useFile; // ← flag i stedet for abstraktion
 
     public void log(LoggerLevel level, String message) {
-        // Logger skal kende ALLE FileLogOutputter's metoder
-        if (level == LoggerLevel.INFO)
-            fileLog.logInfo(message);
-        else if (level == LoggerLevel.WARNING)
-            fileLog.logWarning(message);
-        else if (level == LoggerLevel.ERROR)
-            fileLog.logError(message);
+        if (useFile) {
+            if (level == LoggerLevel.INFO)    fileLog.logInfo(message);
+            else if (level == LoggerLevel.WARNING) fileLog.logWarning(message);
+            else if (level == LoggerLevel.ERROR)   fileLog.logError(message);
+        } else {
+            consoleLog.log(level, message); // anden signatur!
+        }
     }
-    // Kan ikke byttes ud — Logger er låst til FileLogOutputter
-}
-    </code></pre>
+    // Liskov: FileLogOutputter og ConsoleLogOutput er IKKE substituerbare
+    // Logger MÅ kende begge typer — de kan ikke byttes ud bag et fælles interface
+}</code></pre>
 </div>
 
 <div class="slide">
     <h2>Implementering MED Adapter</h2>
-    <p style="color: #666; margin-bottom: 1.5rem;"><strong>Se: src/shared/logging/FileLogOutputterAdapter.java</strong></p>
-    <pre><code>// Adapter oversætter LogOutput → FileLogOutputter
-public class FileLogOutputterAdapter implements LogOutput {
-    private final FileLogOutputter adaptee;
-
-    public FileLogOutputterAdapter(FileLogOutputter adaptee) {
-        this.adaptee = adaptee;
-    }
-
-    @Override
-    public void log(LoggerLevel level, String message) {
-        switch (level) {
-            case INFO    -> adaptee.logInfo(message);
-            case WARNING -> adaptee.logWarning(message);
-            case ERROR   -> adaptee.logError(message);
-        }
-    }
-
-    @Override
-    public void log(LoggerLevel level, String message, Throwable ex) {
-        log(level, message + " | " + ex.getMessage());
-    }
-}
-
-// ApplicationContext.java — sæt adapteren ind i Logger:
-Logger.getInstance().setOutput(
-    new FileLogOutputterAdapter(
-        new FileLogOutputter("resources/logs/app.log", "INFO")
-    )
-);
-    </code></pre>
+    <p style="color: #666; margin-bottom: 1.5rem;"><strong>Logging: src/shared/logging/FileLogOutputterAdapter.java</strong></p>
+    <p style="color: #666; margin-bottom: 1.5rem;"><strong>Notifications: src/shared/notifications/CustomAlertBoxAdapter.java</strong></p>
 </div>
 
 <div class="slide">

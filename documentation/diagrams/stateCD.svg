@@ -1,216 +1,1155 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg"
-     width="1220" height="430"
-     viewBox="0 0 1220 430"
-     style="background:#FFFFFF;">
-
-  <!-- ═══════════════════════════════════════════════
-       LiveStock  «context»  (top-left)
-       x=20, y=25, w=315, h=150
-  ════════════════════════════════════════════════ -->
-  <g>
-    <rect x="20" y="25" width="315" height="150" rx="2.5" ry="2.5"
-          fill="#E6FFE6" style="stroke:#181818;stroke-width:0.5;"/>
-    <ellipse cx="104" cy="47" rx="11" ry="11"
-             fill="#ADD1B2" style="stroke:#181818;stroke-width:1;"/>
-    <text fill="#000" font-family="sans-serif" font-size="11"
-          font-weight="bold" x="99" y="52">C</text>
-    <text fill="#000" font-family="sans-serif" font-size="12"
-          font-style="italic" x="160" y="43">«context»</text>
-    <text fill="#000" font-family="sans-serif" font-size="14"
-          font-weight="bold" x="120" y="61">LiveStock</text>
-    <!-- separator: header / fields -->
-    <line x1="21"  x2="334" y1="70"  y2="70"  style="stroke:#181818;stroke-width:0.5;"/>
-    <!-- fields -->
-    <rect fill="none" height="6" style="stroke:#C82930;stroke-width:1;" width="6" x="28" y="79"/>
-    <text fill="#000" font-family="sans-serif" font-size="13" x="40" y="86">symbol: String</text>
-    <rect fill="none" height="6" style="stroke:#C82930;stroke-width:1;" width="6" x="28" y="96"/>
-    <text fill="#000" font-family="sans-serif" font-size="13" x="40" y="103">currentPrice: BigDecimal</text>
-    <rect fill="none" height="6" style="stroke:#C82930;stroke-width:1;" width="6" x="28" y="113"/>
-    <text fill="#000" font-family="sans-serif" font-size="13" x="40" y="120">currentState: LiveStockState</text>
-    <!-- separator: fields / methods -->
-    <line x1="21" x2="334" y1="129" y2="129" style="stroke:#181818;stroke-width:1;"/>
-    <!-- methods -->
-    <ellipse cx="30" cy="143" rx="3" ry="3"
-             fill="#84BE84" style="stroke:#038048;stroke-width:1;"/>
-    <text fill="#000" font-family="sans-serif" font-size="13" x="39" y="147">updatePrice(): void</text>
-    <ellipse cx="30" cy="160" rx="3" ry="3"
-             fill="#84BE84" style="stroke:#038048;stroke-width:1;"/>
-    <text fill="#000" font-family="sans-serif" font-size="13" x="39" y="164">getCurrentState(): LiveStockState</text>
-  </g>
-
-  <!-- ═══════════════════════════════════════════════
-       LiveStockState  «interface»  (top center-right)
-       x=390, y=25, w=425, h=90
-  ════════════════════════════════════════════════ -->
-  <g>
-    <rect x="390" y="25" width="425" height="90" rx="2.5" ry="2.5"
-          fill="#FFE6E6" style="stroke:#181818;stroke-width:0.5;"/>
-    <!-- purple «I» badge -->
-    <ellipse cx="530" cy="47" rx="11" ry="11"
-             fill="#B4A7E5" style="stroke:#181818;stroke-width:1;"/>
-    <text fill="#000" font-family="sans-serif" font-size="11"
-          font-weight="bold" x="526" y="52">I</text>
-    <text fill="#000" font-family="sans-serif" font-size="12"
-          font-style="italic" x="555" y="43">«interface»</text>
-    <text fill="#000" font-family="sans-serif" font-size="14"
-          font-style="italic" font-weight="bold" x="567" y="61">LiveStockState</text>
-    <!-- separator: header / fields (empty) -->
-    <line x1="391" x2="814" y1="70"  y2="70"  style="stroke:#181818;stroke-width:0.5;"/>
-    <line x1="391" x2="814" y1="78"  y2="78"  style="stroke:#181818;stroke-width:0.5;"/>
-    <!-- methods -->
-    <ellipse cx="400" cy="92" rx="3" ry="3"
-             fill="#84BE84" style="stroke:#038048;stroke-width:1;"/>
-    <text fill="#000" font-family="sans-serif" font-size="13"
-          font-style="italic" x="409" y="96">calculatePriceChange(): BigDecimal</text>
-    <ellipse cx="400" cy="109" rx="3" ry="3"
-             fill="#84BE84" style="stroke:#038048;stroke-width:1;"/>
-    <text fill="#000" font-family="sans-serif" font-size="13"
-          font-style="italic" x="409" y="113">getName(): String</text>
-  </g>
-
-  <!-- ═══════════════════════════════════════════════
-       BankruptState  (bottom-left)
-       x=20, y=285, w=265, h=118
-  ════════════════════════════════════════════════ -->
-  <g>
-    <rect x="20" y="285" width="265" height="118" rx="2.5" ry="2.5"
-          fill="#E6F3FF" style="stroke:#181818;stroke-width:0.5;"/>
-    <ellipse cx="99" cy="307" rx="11" ry="11"
-             fill="#ADD1B2" style="stroke:#181818;stroke-width:1;"/>
-    <text fill="#000" font-family="sans-serif" font-size="11"
-          font-weight="bold" x="94" y="312">C</text>
-    <text fill="#000" font-family="sans-serif" font-size="14"
-          font-weight="bold" x="114" y="321">BankruptState</text>
-    <line x1="21"  x2="284" y1="330" y2="330" style="stroke:#181818;stroke-width:0.5;"/>
-    <ellipse cx="30" cy="344" rx="3" ry="3"
-             fill="#84BE84" style="stroke:#038048;stroke-width:1;"/>
-    <text fill="#000" font-family="sans-serif" font-size="13" x="39" y="348">calculatePriceChange(): BigDecimal</text>
-    <ellipse cx="30" cy="361" rx="3" ry="3"
-             fill="#84BE84" style="stroke:#038048;stroke-width:1;"/>
-    <text fill="#000" font-family="sans-serif" font-size="13" x="39" y="365">getName(): String</text>
-    <line x1="21" x2="284" y1="373" y2="373" style="stroke:#181818;stroke-width:1;"/>
-    <text fill="#888" font-family="sans-serif" font-size="12"
-          font-style="italic" x="28" y="391">Price frozen — returns 0%</text>
-  </g>
-
-  <!-- ═══════════════════════════════════════════════
-       DecliningState  (bottom, 2nd)
-       x=300, y=285, w=265, h=118
-  ════════════════════════════════════════════════ -->
-  <g>
-    <rect x="300" y="285" width="265" height="118" rx="2.5" ry="2.5"
-          fill="#E6F3FF" style="stroke:#181818;stroke-width:0.5;"/>
-    <ellipse cx="382" cy="307" rx="11" ry="11"
-             fill="#ADD1B2" style="stroke:#181818;stroke-width:1;"/>
-    <text fill="#000" font-family="sans-serif" font-size="11"
-          font-weight="bold" x="377" y="312">C</text>
-    <text fill="#000" font-family="sans-serif" font-size="14"
-          font-weight="bold" x="397" y="321">DecliningState</text>
-    <line x1="301" x2="564" y1="330" y2="330" style="stroke:#181818;stroke-width:0.5;"/>
-    <ellipse cx="310" cy="344" rx="3" ry="3"
-             fill="#84BE84" style="stroke:#038048;stroke-width:1;"/>
-    <text fill="#000" font-family="sans-serif" font-size="13" x="319" y="348">calculatePriceChange(): BigDecimal</text>
-    <ellipse cx="310" cy="361" rx="3" ry="3"
-             fill="#84BE84" style="stroke:#038048;stroke-width:1;"/>
-    <text fill="#000" font-family="sans-serif" font-size="13" x="319" y="365">getName(): String</text>
-    <line x1="301" x2="564" y1="373" y2="373" style="stroke:#181818;stroke-width:1;"/>
-    <text fill="#888" font-family="sans-serif" font-size="12"
-          font-style="italic" x="308" y="391">Price falls −1% to −8%</text>
-  </g>
-
-  <!-- ═══════════════════════════════════════════════
-       SteadyState  (bottom, 3rd)
-       x=580, y=285, w=265, h=118
-  ════════════════════════════════════════════════ -->
-  <g>
-    <rect x="580" y="285" width="265" height="118" rx="2.5" ry="2.5"
-          fill="#E6F3FF" style="stroke:#181818;stroke-width:0.5;"/>
-    <ellipse cx="657" cy="307" rx="11" ry="11"
-             fill="#ADD1B2" style="stroke:#181818;stroke-width:1;"/>
-    <text fill="#000" font-family="sans-serif" font-size="11"
-          font-weight="bold" x="652" y="312">C</text>
-    <text fill="#000" font-family="sans-serif" font-size="14"
-          font-weight="bold" x="672" y="321">SteadyState</text>
-    <line x1="581" x2="844" y1="330" y2="330" style="stroke:#181818;stroke-width:0.5;"/>
-    <ellipse cx="590" cy="344" rx="3" ry="3"
-             fill="#84BE84" style="stroke:#038048;stroke-width:1;"/>
-    <text fill="#000" font-family="sans-serif" font-size="13" x="599" y="348">calculatePriceChange(): BigDecimal</text>
-    <ellipse cx="590" cy="361" rx="3" ry="3"
-             fill="#84BE84" style="stroke:#038048;stroke-width:1;"/>
-    <text fill="#000" font-family="sans-serif" font-size="13" x="599" y="365">getName(): String</text>
-    <line x1="581" x2="844" y1="373" y2="373" style="stroke:#181818;stroke-width:1;"/>
-    <text fill="#888" font-family="sans-serif" font-size="12"
-          font-style="italic" x="588" y="391">Price changes ±2%</text>
-  </g>
-
-  <!-- ═══════════════════════════════════════════════
-       GrowingState  (bottom-right)
-       x=860, y=285, w=265, h=118
-  ════════════════════════════════════════════════ -->
-  <g>
-    <rect x="860" y="285" width="265" height="118" rx="2.5" ry="2.5"
-          fill="#E6F3FF" style="stroke:#181818;stroke-width:0.5;"/>
-    <ellipse cx="940" cy="307" rx="11" ry="11"
-             fill="#ADD1B2" style="stroke:#181818;stroke-width:1;"/>
-    <text fill="#000" font-family="sans-serif" font-size="11"
-          font-weight="bold" x="935" y="312">C</text>
-    <text fill="#000" font-family="sans-serif" font-size="14"
-          font-weight="bold" x="955" y="321">GrowingState</text>
-    <line x1="861" x2="1124" y1="330" y2="330" style="stroke:#181818;stroke-width:0.5;"/>
-    <ellipse cx="870" cy="344" rx="3" ry="3"
-             fill="#84BE84" style="stroke:#038048;stroke-width:1;"/>
-    <text fill="#000" font-family="sans-serif" font-size="13" x="879" y="348">calculatePriceChange(): BigDecimal</text>
-    <ellipse cx="870" cy="361" rx="3" ry="3"
-             fill="#84BE84" style="stroke:#038048;stroke-width:1;"/>
-    <text fill="#000" font-family="sans-serif" font-size="13" x="879" y="365">getName(): String</text>
-    <line x1="861" x2="1124" y1="373" y2="373" style="stroke:#181818;stroke-width:1;"/>
-    <text fill="#888" font-family="sans-serif" font-size="12"
-          font-style="italic" x="868" y="391">Price rises +1% to +9%</text>
-  </g>
-
-  <!-- ═══════════════════════════════════════════════
-       ARROWS
-  ════════════════════════════════════════════════ -->
-
-  <!-- LiveStock → LiveStockState (solid, association, "currentState") -->
-  <!-- From right of LiveStock (335, 100) → left of LiveStockState (390, 75) -->
-  <!-- Right-angle path: across then up -->
-  <path d="M335,100 L362,100 L362,75 L384,75"
-        fill="none" style="stroke:#181818;stroke-width:1;"/>
-  <!-- filled arrowhead pointing right at (390, 75) -->
-  <polygon fill="#181818" points="390,75 379,69 379,81"
-           style="stroke:#181818;stroke-width:1;"/>
-  <text fill="#555" font-family="sans-serif" font-size="12"
-        font-style="italic" x="338" y="118">currentState</text>
-
-  <!-- BankruptState → LiveStockState (dashed, realization) -->
-  <!-- From BankruptState top-center (152, 285) curving up to interface bottom (450, 130) -->
-  <path d="M152,285 C152,210 450,200 450,130"
-        fill="none" style="stroke:#181818;stroke-width:1;stroke-dasharray:7,7;"/>
-  <!-- open triangle apex at (450, 115), base at y=130 -->
-  <polygon fill="none" points="450,115 442,130 458,130"
-           style="stroke:#181818;stroke-width:1;"/>
-
-  <!-- DecliningState → LiveStockState (dashed, realization) -->
-  <!-- From DecliningState top-center (432, 285) → interface bottom (545, 130) -->
-  <path d="M432,285 C432,210 545,200 545,130"
-        fill="none" style="stroke:#181818;stroke-width:1;stroke-dasharray:7,7;"/>
-  <polygon fill="none" points="545,115 537,130 553,130"
-           style="stroke:#181818;stroke-width:1;"/>
-
-  <!-- SteadyState → LiveStockState (dashed, realization) -->
-  <!-- From SteadyState top-center (712, 285) → interface bottom (655, 130) -->
-  <path d="M712,285 C712,210 655,200 655,130"
-        fill="none" style="stroke:#181818;stroke-width:1;stroke-dasharray:7,7;"/>
-  <polygon fill="none" points="655,115 647,130 663,130"
-           style="stroke:#181818;stroke-width:1;"/>
-
-  <!-- GrowingState → LiveStockState (dashed, realization) -->
-  <!-- From GrowingState top-center (992, 285) → interface bottom (760, 130) -->
-  <path d="M992,285 C992,210 760,200 760,130"
-        fill="none" style="stroke:#181818;stroke-width:1;stroke-dasharray:7,7;"/>
-  <polygon fill="none" points="760,115 752,130 768,130"
-           style="stroke:#181818;stroke-width:1;"/>
-
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?plantuml 1.2026.2?><svg
+   contentStyleType="text/css"
+   data-diagram-type="CLASS"
+   height="496px"
+   preserveAspectRatio="none"
+   style="width:1376px;height:496px;background:#FFFFFF;"
+   version="1.1"
+   viewBox="0 0 1376 496"
+   width="1376px"
+   zoomAndPan="magnify"
+   id="svg51"
+   sodipodi:docname="stateCD.svg"
+   inkscape:version="1.4.3 (0d15f75, 2025-12-25)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview51"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="2.6802326"
+     inkscape:cx="688"
+     inkscape:cy="247.92625"
+     inkscape:window-width="3840"
+     inkscape:window-height="2054"
+     inkscape:window-x="-11"
+     inkscape:window-y="-11"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg51" />
+  <defs
+     id="defs1" />
+  <g
+     id="g51">
+    <!--class LiveStockState-->
+    <g
+       class="entity"
+       data-qualified-name="LiveStockState"
+       data-source-line="12"
+       id="ent0002">
+      <rect
+         fill="#FFE6E6"
+         height="84.8047"
+         rx="2.5"
+         ry="2.5"
+         style="stroke:#181818;stroke-width:0.5;"
+         width="218.082"
+         x="685"
+         y="206"
+         id="rect1" />
+      <ellipse
+         cx="749.7686"
+         cy="225.7012"
+         fill="#B4A7E5"
+         rx="11"
+         ry="11"
+         style="stroke:#181818;stroke-width:1;"
+         id="ellipse1" />
+      <path
+         d="M750.7217,222.3418 L750.7217,228.998 L752.4404,228.998 Q753.0498,228.998 753.3154,229.2324 Q753.5811,229.4668 753.5811,229.8574 Q753.5811,230.2324 753.3154,230.4668 Q753.0498,230.7012 752.4404,230.7012 L747.2998,230.7012 Q746.6904,230.7012 746.4248,230.4668 Q746.1592,230.2324 746.1592,229.8418 Q746.1592,229.4668 746.4248,229.2324 Q746.6904,228.998 747.2998,228.998 L749.0186,228.998 L749.0186,222.3418 L747.2998,222.3418 Q746.6904,222.3418 746.4248,222.1074 Q746.1592,221.873 746.1592,221.4824 Q746.1592,221.1074 746.4248,220.873 Q746.6904,220.6387 747.2998,220.6387 L752.4404,220.6387 Q753.0498,220.6387 753.3154,220.873 Q753.5811,221.1074 753.5811,221.4824 Q753.5811,221.873 753.3154,222.1074 Q753.0498,222.3418 752.4404,222.3418 L750.7217,222.3418 Z "
+         fill="#000000"
+         id="path1" />
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="12"
+         font-style="italic"
+         lengthAdjust="spacing"
+         textLength="59.373"
+         x="780.6045"
+         y="223.0645"
+         id="text1">«interface»</text>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="12"
+         font-style="italic"
+         lengthAdjust="spacing"
+         textLength="80.0449"
+         x="770.2686"
+         y="237.7656"
+         id="text2">LiveStockState</text>
+      <line
+         style="stroke:#181818;stroke-width:0.5;"
+         x1="686"
+         x2="902.082"
+         y1="245.4023"
+         y2="245.4023"
+         id="line2" />
+      <line
+         style="stroke:#181818;stroke-width:0.5;"
+         x1="686"
+         x2="902.082"
+         y1="253.4023"
+         y2="253.4023"
+         id="line3" />
+      <g
+         data-visibility-modifier="PUBLIC_METHOD"
+         id="g3">
+        <ellipse
+           cx="696"
+           cy="266.2529"
+           fill="#84BE84"
+           rx="3"
+           ry="3"
+           style="stroke:#038048;stroke-width:1;"
+           id="ellipse3" />
+      </g>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="12"
+         font-style="italic"
+         lengthAdjust="spacing"
+         textLength="192.082"
+         x="705"
+         y="269.4668"
+         id="text3">calculatePriceChange(): BigDecimal</text>
+      <g
+         data-visibility-modifier="PUBLIC_METHOD"
+         id="g4">
+        <ellipse
+           cx="696"
+           cy="280.9541"
+           fill="#84BE84"
+           rx="3"
+           ry="3"
+           style="stroke:#038048;stroke-width:1;"
+           id="ellipse4" />
+      </g>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="12"
+         font-style="italic"
+         lengthAdjust="spacing"
+         textLength="94.6992"
+         x="705"
+         y="284.168"
+         id="text4">getName(): String</text>
+    </g>
+    <!--class LiveStock-->
+    <g
+       class="entity"
+       data-qualified-name="LiveStock"
+       data-source-line="18"
+       id="ent0003">
+      <rect
+         fill="#E6FFE6"
+         height="128.9082"
+         rx="2.5"
+         ry="2.5"
+         style="stroke:#181818;stroke-width:0.5;"
+         width="205.4199"
+         x="81.5"
+         y="184"
+         id="rect4" />
+      <ellipse
+         cx="153.9473"
+         cy="203.7012"
+         fill="#ADD1B2"
+         rx="11"
+         ry="11"
+         style="stroke:#181818;stroke-width:1;"
+         id="ellipse5" />
+      <path
+         d="M156.7129,199.5762 Q156.8691,199.3574 157.0566,199.248 Q157.2441,199.1387 157.4629,199.1387 Q157.8379,199.1387 158.0723,199.4043 Q158.3066,199.6543 158.3066,200.2637 L158.3066,201.7168 Q158.3066,202.3262 158.0723,202.5918 Q157.8379,202.8574 157.4629,202.8574 Q157.1191,202.8574 156.916,202.6543 Q156.7129,202.4668 156.6035,201.9512 Q156.5566,201.5918 156.3691,201.4043 Q156.041,201.0293 155.4316,200.8105 Q154.8223,200.5918 154.1973,200.5918 Q153.4316,200.5918 152.791,200.9199 Q152.166,201.248 151.666,201.998 Q151.1816,202.748 151.1816,203.7793 L151.1816,204.873 Q151.1816,206.1074 152.0723,206.9355 Q152.9629,207.748 154.5566,207.748 Q155.4941,207.748 156.1504,207.498 Q156.541,207.3418 156.9629,206.9043 Q157.2285,206.6387 157.3691,206.5605 Q157.5254,206.4824 157.7285,206.4824 Q158.0566,206.4824 158.3066,206.748 Q158.5723,206.998 158.5723,207.3418 Q158.5723,207.6855 158.2285,208.0918 Q157.7285,208.6699 156.9316,208.998 Q155.8535,209.4512 154.5566,209.4512 Q153.041,209.4512 151.8379,208.8262 Q150.8535,208.3262 150.166,207.2637 Q149.4785,206.1855 149.4785,204.9043 L149.4785,203.748 Q149.4785,202.4199 150.0879,201.2793 Q150.7129,200.123 151.8066,199.5137 Q152.9004,198.8887 154.1348,198.8887 Q154.8691,198.8887 155.5098,199.0605 Q156.166,199.2168 156.7129,199.5762 Z "
+         fill="#000000"
+         id="path5" />
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="12"
+         font-style="italic"
+         lengthAdjust="spacing"
+         textLength="52.0371"
+         x="174.4414"
+         y="201.0645"
+         id="text5">«context»</text>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="12"
+         lengthAdjust="spacing"
+         textLength="52.0254"
+         x="174.4473"
+         y="215.7656"
+         id="text6">LiveStock</text>
+      <line
+         style="stroke:#181818;stroke-width:0.5;"
+         x1="82.5"
+         x2="285.9199"
+         y1="223.4023"
+         y2="223.4023"
+         id="line6" />
+      <g
+         data-visibility-modifier="PRIVATE_FIELD"
+         id="g6">
+        <rect
+           fill="none"
+           height="6"
+           style="stroke:#C82930;stroke-width:1;"
+           width="6"
+           x="89.5"
+           y="233.2529"
+           id="rect6" />
+      </g>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="12"
+         lengthAdjust="spacing"
+         textLength="76.0254"
+         x="101.5"
+         y="239.4668"
+         id="text7">symbol: String</text>
+      <g
+         data-visibility-modifier="PRIVATE_FIELD"
+         id="g7">
+        <rect
+           fill="none"
+           height="6"
+           style="stroke:#C82930;stroke-width:1;"
+           width="6"
+           x="89.5"
+           y="247.9541"
+           id="rect7" />
+      </g>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="12"
+         lengthAdjust="spacing"
+         textLength="132.041"
+         x="101.5"
+         y="254.168"
+         id="text8">currentPrice: BigDecimal</text>
+      <g
+         data-visibility-modifier="PRIVATE_FIELD"
+         id="g8">
+        <rect
+           fill="none"
+           height="6"
+           style="stroke:#C82930;stroke-width:1;"
+           width="6"
+           x="89.5"
+           y="262.6553"
+           id="rect8" />
+      </g>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="12"
+         lengthAdjust="spacing"
+         textLength="152.0801"
+         x="101.5"
+         y="268.8691"
+         id="text9">currentState: LiveStockState</text>
+      <line
+         style="stroke:#181818;stroke-width:1;"
+         x1="82.5"
+         x2="285.9199"
+         y1="275.5059"
+         y2="275.5059"
+         id="line9" />
+      <g
+         data-visibility-modifier="PUBLIC_METHOD"
+         id="g9">
+        <ellipse
+           cx="92.5"
+           cy="288.3564"
+           fill="#84BE84"
+           rx="3"
+           ry="3"
+           style="stroke:#038048;stroke-width:1;"
+           id="ellipse9" />
+      </g>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="12"
+         lengthAdjust="spacing"
+         textLength="100.7168"
+         x="101.5"
+         y="291.5703"
+         id="text10">updatePrice(): void</text>
+      <g
+         data-visibility-modifier="PUBLIC_METHOD"
+         id="g10">
+        <ellipse
+           cx="92.5"
+           cy="303.0576"
+           fill="#84BE84"
+           rx="3"
+           ry="3"
+           style="stroke:#038048;stroke-width:1;"
+           id="ellipse10" />
+      </g>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="12"
+         lengthAdjust="spacing"
+         textLength="179.4199"
+         x="101.5"
+         y="306.2715"
+         id="text11">getCurrentState(): LiveStockState</text>
+    </g>
+    <!--class GrowingState-->
+    <g
+       class="entity"
+       data-qualified-name="GrowingState"
+       data-source-line="28"
+       id="ent0004">
+      <rect
+         fill="#E6F3FF"
+         height="99.5059"
+         rx="2.5"
+         ry="2.5"
+         style="stroke:#181818;stroke-width:0.5;"
+         width="218.082"
+         x="392"
+         y="7"
+         id="rect11" />
+      <ellipse
+         cx="460.4395"
+         cy="26.7012"
+         fill="#ADD1B2"
+         rx="11"
+         ry="11"
+         style="stroke:#181818;stroke-width:1;"
+         id="ellipse11" />
+      <path
+         d="M463.2051,22.5762 Q463.3613,22.3574 463.5488,22.248 Q463.7363,22.1387 463.9551,22.1387 Q464.3301,22.1387 464.5645,22.4043 Q464.7988,22.6543 464.7988,23.2637 L464.7988,24.7168 Q464.7988,25.3262 464.5645,25.5918 Q464.3301,25.8574 463.9551,25.8574 Q463.6113,25.8574 463.4082,25.6543 Q463.2051,25.4668 463.0957,24.9512 Q463.0488,24.5918 462.8613,24.4043 Q462.5332,24.0293 461.9238,23.8105 Q461.3145,23.5918 460.6895,23.5918 Q459.9238,23.5918 459.2832,23.9199 Q458.6582,24.248 458.1582,24.998 Q457.6738,25.748 457.6738,26.7793 L457.6738,27.873 Q457.6738,29.1074 458.5645,29.9355 Q459.4551,30.748 461.0488,30.748 Q461.9863,30.748 462.6426,30.498 Q463.0332,30.3418 463.4551,29.9043 Q463.7207,29.6387 463.8613,29.5605 Q464.0176,29.4824 464.2207,29.4824 Q464.5488,29.4824 464.7988,29.748 Q465.0645,29.998 465.0645,30.3418 Q465.0645,30.6855 464.7207,31.0918 Q464.2207,31.6699 463.4238,31.998 Q462.3457,32.4512 461.0488,32.4512 Q459.5332,32.4512 458.3301,31.8262 Q457.3457,31.3262 456.6582,30.2637 Q455.9707,29.1855 455.9707,27.9043 L455.9707,26.748 Q455.9707,25.4199 456.5801,24.2793 Q457.2051,23.123 458.2988,22.5137 Q459.3926,21.8887 460.627,21.8887 Q461.3613,21.8887 462.002,22.0605 Q462.6582,22.2168 463.2051,22.5762 Z "
+         fill="#000000"
+         id="path11" />
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="12"
+         font-style="italic"
+         lengthAdjust="spacing"
+         textLength="39.3633"
+         x="497.6094"
+         y="24.0645"
+         id="text12">«state»</text>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="12"
+         lengthAdjust="spacing"
+         textLength="72.7031"
+         x="480.9395"
+         y="38.7656"
+         id="text13">GrowingState</text>
+      <line
+         style="stroke:#181818;stroke-width:0.5;"
+         x1="393"
+         x2="609.082"
+         y1="46.4023"
+         y2="46.4023"
+         id="line13" />
+      <g
+         data-visibility-modifier="PUBLIC_METHOD"
+         id="g13">
+        <ellipse
+           cx="403"
+           cy="59.2529"
+           fill="#84BE84"
+           rx="3"
+           ry="3"
+           style="stroke:#038048;stroke-width:1;"
+           id="ellipse13" />
+      </g>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="12"
+         lengthAdjust="spacing"
+         textLength="192.082"
+         x="412"
+         y="62.4668"
+         id="text14">calculatePriceChange(): BigDecimal</text>
+      <g
+         data-visibility-modifier="PUBLIC_METHOD"
+         id="g14">
+        <ellipse
+           cx="403"
+           cy="73.9541"
+           fill="#84BE84"
+           rx="3"
+           ry="3"
+           style="stroke:#038048;stroke-width:1;"
+           id="ellipse14" />
+      </g>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="12"
+         lengthAdjust="spacing"
+         textLength="94.6992"
+         x="412"
+         y="77.168"
+         id="text15">getName(): String</text>
+      <line
+         style="stroke:#181818;stroke-width:1;stroke-dasharray:1,2;"
+         x1="393"
+         x2="609.082"
+         y1="83.8047"
+         y2="83.8047"
+         id="line15" />
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="12"
+         lengthAdjust="spacing"
+         textLength="124.7227"
+         x="398"
+         y="99.8691"
+         id="text16">Price rises +1% to +9%</text>
+    </g>
+    <!--class DecliningState-->
+    <g
+       class="entity"
+       data-qualified-name="DecliningState"
+       data-source-line="35"
+       id="ent0005">
+      <rect
+         fill="#E6F3FF"
+         height="99.5059"
+         rx="2.5"
+         ry="2.5"
+         style="stroke:#181818;stroke-width:0.5;"
+         width="218.082"
+         x="645"
+         y="7"
+         id="rect16" />
+      <ellipse
+         cx="711.1016"
+         cy="26.7012"
+         fill="#ADD1B2"
+         rx="11"
+         ry="11"
+         style="stroke:#181818;stroke-width:1;"
+         id="ellipse16" />
+      <path
+         d="M713.8672,22.5762 Q714.0234,22.3574 714.2109,22.248 Q714.3984,22.1387 714.6172,22.1387 Q714.9922,22.1387 715.2266,22.4043 Q715.4609,22.6543 715.4609,23.2637 L715.4609,24.7168 Q715.4609,25.3262 715.2266,25.5918 Q714.9922,25.8574 714.6172,25.8574 Q714.2734,25.8574 714.0703,25.6543 Q713.8672,25.4668 713.7578,24.9512 Q713.7109,24.5918 713.5234,24.4043 Q713.1953,24.0293 712.5859,23.8105 Q711.9766,23.5918 711.3516,23.5918 Q710.5859,23.5918 709.9453,23.9199 Q709.3203,24.248 708.8203,24.998 Q708.3359,25.748 708.3359,26.7793 L708.3359,27.873 Q708.3359,29.1074 709.2266,29.9355 Q710.1172,30.748 711.7109,30.748 Q712.6484,30.748 713.3047,30.498 Q713.6953,30.3418 714.1172,29.9043 Q714.3828,29.6387 714.5234,29.5605 Q714.6797,29.4824 714.8828,29.4824 Q715.2109,29.4824 715.4609,29.748 Q715.7266,29.998 715.7266,30.3418 Q715.7266,30.6855 715.3828,31.0918 Q714.8828,31.6699 714.0859,31.998 Q713.0078,32.4512 711.7109,32.4512 Q710.1953,32.4512 708.9922,31.8262 Q708.0078,31.3262 707.3203,30.2637 Q706.6328,29.1855 706.6328,27.9043 L706.6328,26.748 Q706.6328,25.4199 707.2422,24.2793 Q707.8672,23.123 708.9609,22.5137 Q710.0547,21.8887 711.2891,21.8887 Q712.0234,21.8887 712.6641,22.0605 Q713.3203,22.2168 713.8672,22.5762 Z "
+         fill="#000000"
+         id="path16" />
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="12"
+         font-style="italic"
+         lengthAdjust="spacing"
+         textLength="39.3633"
+         x="750.6094"
+         y="24.0645"
+         id="text17">«state»</text>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="12"
+         lengthAdjust="spacing"
+         textLength="77.3789"
+         x="731.6016"
+         y="38.7656"
+         id="text18">DecliningState</text>
+      <line
+         style="stroke:#181818;stroke-width:0.5;"
+         x1="646"
+         x2="862.082"
+         y1="46.4023"
+         y2="46.4023"
+         id="line18" />
+      <g
+         data-visibility-modifier="PUBLIC_METHOD"
+         id="g18">
+        <ellipse
+           cx="656"
+           cy="59.2529"
+           fill="#84BE84"
+           rx="3"
+           ry="3"
+           style="stroke:#038048;stroke-width:1;"
+           id="ellipse18" />
+      </g>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="12"
+         lengthAdjust="spacing"
+         textLength="192.082"
+         x="665"
+         y="62.4668"
+         id="text19">calculatePriceChange(): BigDecimal</text>
+      <g
+         data-visibility-modifier="PUBLIC_METHOD"
+         id="g19">
+        <ellipse
+           cx="656"
+           cy="73.9541"
+           fill="#84BE84"
+           rx="3"
+           ry="3"
+           style="stroke:#038048;stroke-width:1;"
+           id="ellipse19" />
+      </g>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="12"
+         lengthAdjust="spacing"
+         textLength="94.6992"
+         x="665"
+         y="77.168"
+         id="text20">getName(): String</text>
+      <line
+         style="stroke:#181818;stroke-width:1;stroke-dasharray:1,2;"
+         x1="646"
+         x2="862.082"
+         y1="83.8047"
+         y2="83.8047"
+         id="line20" />
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="12"
+         lengthAdjust="spacing"
+         textLength="114.7031"
+         x="651"
+         y="99.8691"
+         id="text21">Price falls -1% to -8%</text>
+    </g>
+    <!--class SteadyState-->
+    <g
+       class="entity"
+       data-qualified-name="SteadyState"
+       data-source-line="42"
+       id="ent0006">
+      <rect
+         fill="#E6F3FF"
+         height="99.5059"
+         rx="2.5"
+         ry="2.5"
+         style="stroke:#181818;stroke-width:0.5;"
+         width="218.082"
+         x="898"
+         y="7"
+         id="rect21" />
+      <ellipse
+         cx="970.1016"
+         cy="26.7012"
+         fill="#ADD1B2"
+         rx="11"
+         ry="11"
+         style="stroke:#181818;stroke-width:1;"
+         id="ellipse21" />
+      <path
+         d="M972.8672,22.5762 Q973.0234,22.3574 973.2109,22.248 Q973.3984,22.1387 973.6172,22.1387 Q973.9922,22.1387 974.2266,22.4043 Q974.4609,22.6543 974.4609,23.2637 L974.4609,24.7168 Q974.4609,25.3262 974.2266,25.5918 Q973.9922,25.8574 973.6172,25.8574 Q973.2734,25.8574 973.0703,25.6543 Q972.8672,25.4668 972.7578,24.9512 Q972.7109,24.5918 972.5234,24.4043 Q972.1953,24.0293 971.5859,23.8105 Q970.9766,23.5918 970.3516,23.5918 Q969.5859,23.5918 968.9453,23.9199 Q968.3203,24.248 967.8203,24.998 Q967.3359,25.748 967.3359,26.7793 L967.3359,27.873 Q967.3359,29.1074 968.2266,29.9355 Q969.1172,30.748 970.7109,30.748 Q971.6484,30.748 972.3047,30.498 Q972.6953,30.3418 973.1172,29.9043 Q973.3828,29.6387 973.5234,29.5605 Q973.6797,29.4824 973.8828,29.4824 Q974.2109,29.4824 974.4609,29.748 Q974.7266,29.998 974.7266,30.3418 Q974.7266,30.6855 974.3828,31.0918 Q973.8828,31.6699 973.0859,31.998 Q972.0078,32.4512 970.7109,32.4512 Q969.1953,32.4512 967.9922,31.8262 Q967.0078,31.3262 966.3203,30.2637 Q965.6328,29.1855 965.6328,27.9043 L965.6328,26.748 Q965.6328,25.4199 966.2422,24.2793 Q966.8672,23.123 967.9609,22.5137 Q969.0547,21.8887 970.2891,21.8887 Q971.0234,21.8887 971.6641,22.0605 Q972.3203,22.2168 972.8672,22.5762 Z "
+         fill="#000000"
+         id="path21" />
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="12"
+         font-style="italic"
+         lengthAdjust="spacing"
+         textLength="39.3633"
+         x="1003.6094"
+         y="24.0645"
+         id="text22">«state»</text>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="12"
+         lengthAdjust="spacing"
+         textLength="65.3789"
+         x="990.6016"
+         y="38.7656"
+         id="text23">SteadyState</text>
+      <line
+         style="stroke:#181818;stroke-width:0.5;"
+         x1="899"
+         x2="1115.082"
+         y1="46.4023"
+         y2="46.4023"
+         id="line23" />
+      <g
+         data-visibility-modifier="PUBLIC_METHOD"
+         id="g23">
+        <ellipse
+           cx="909"
+           cy="59.2529"
+           fill="#84BE84"
+           rx="3"
+           ry="3"
+           style="stroke:#038048;stroke-width:1;"
+           id="ellipse23" />
+      </g>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="12"
+         lengthAdjust="spacing"
+         textLength="192.082"
+         x="918"
+         y="62.4668"
+         id="text24">calculatePriceChange(): BigDecimal</text>
+      <g
+         data-visibility-modifier="PUBLIC_METHOD"
+         id="g24">
+        <ellipse
+           cx="909"
+           cy="73.9541"
+           fill="#84BE84"
+           rx="3"
+           ry="3"
+           style="stroke:#038048;stroke-width:1;"
+           id="ellipse24" />
+      </g>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="12"
+         lengthAdjust="spacing"
+         textLength="94.6992"
+         x="918"
+         y="77.168"
+         id="text25">getName(): String</text>
+      <line
+         style="stroke:#181818;stroke-width:1;stroke-dasharray:1,2;"
+         x1="899"
+         x2="1115.082"
+         y1="83.8047"
+         y2="83.8047"
+         id="line25" />
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="12"
+         lengthAdjust="spacing"
+         textLength="103.3066"
+         x="904"
+         y="99.8691"
+         id="text26">Price changes ±2%</text>
+    </g>
+    <!--class BankruptState-->
+    <g
+       class="entity"
+       data-qualified-name="BankruptState"
+       data-source-line="49"
+       id="ent0007">
+      <rect
+         fill="#E6F3FF"
+         height="99.5059"
+         rx="2.5"
+         ry="2.5"
+         style="stroke:#181818;stroke-width:0.5;"
+         width="218.082"
+         x="1151"
+         y="7"
+         id="rect26" />
+      <ellipse
+         cx="1217.7666"
+         cy="26.7012"
+         fill="#ADD1B2"
+         rx="11"
+         ry="11"
+         style="stroke:#181818;stroke-width:1;"
+         id="ellipse26" />
+      <path
+         d="M1220.5322,22.5762 Q1220.6885,22.3574 1220.876,22.248 Q1221.0635,22.1387 1221.2822,22.1387 Q1221.6572,22.1387 1221.8916,22.4043 Q1222.126,22.6543 1222.126,23.2637 L1222.126,24.7168 Q1222.126,25.3262 1221.8916,25.5918 Q1221.6572,25.8574 1221.2822,25.8574 Q1220.9385,25.8574 1220.7354,25.6543 Q1220.5322,25.4668 1220.4229,24.9512 Q1220.376,24.5918 1220.1885,24.4043 Q1219.8604,24.0293 1219.251,23.8105 Q1218.6416,23.5918 1218.0166,23.5918 Q1217.251,23.5918 1216.6104,23.9199 Q1215.9854,24.248 1215.4854,24.998 Q1215.001,25.748 1215.001,26.7793 L1215.001,27.873 Q1215.001,29.1074 1215.8916,29.9355 Q1216.7822,30.748 1218.376,30.748 Q1219.3135,30.748 1219.9697,30.498 Q1220.3604,30.3418 1220.7822,29.9043 Q1221.0479,29.6387 1221.1885,29.5605 Q1221.3447,29.4824 1221.5479,29.4824 Q1221.876,29.4824 1222.126,29.748 Q1222.3916,29.998 1222.3916,30.3418 Q1222.3916,30.6855 1222.0479,31.0918 Q1221.5479,31.6699 1220.751,31.998 Q1219.6729,32.4512 1218.376,32.4512 Q1216.8604,32.4512 1215.6572,31.8262 Q1214.6729,31.3262 1213.9854,30.2637 Q1213.2979,29.1855 1213.2979,27.9043 L1213.2979,26.748 Q1213.2979,25.4199 1213.9072,24.2793 Q1214.5322,23.123 1215.626,22.5137 Q1216.7197,21.8887 1217.9541,21.8887 Q1218.6885,21.8887 1219.3291,22.0605 Q1219.9854,22.2168 1220.5322,22.5762 Z "
+         fill="#000000"
+         id="path26" />
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="12"
+         font-style="italic"
+         lengthAdjust="spacing"
+         textLength="39.3633"
+         x="1256.6094"
+         y="24.0645"
+         id="text27">«state»</text>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="12"
+         lengthAdjust="spacing"
+         textLength="76.0488"
+         x="1238.2666"
+         y="38.7656"
+         id="text28">BankruptState</text>
+      <line
+         style="stroke:#181818;stroke-width:0.5;"
+         x1="1152"
+         x2="1368.082"
+         y1="46.4023"
+         y2="46.4023"
+         id="line28" />
+      <g
+         data-visibility-modifier="PUBLIC_METHOD"
+         id="g28">
+        <ellipse
+           cx="1162"
+           cy="59.2529"
+           fill="#84BE84"
+           rx="3"
+           ry="3"
+           style="stroke:#038048;stroke-width:1;"
+           id="ellipse28" />
+      </g>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="12"
+         lengthAdjust="spacing"
+         textLength="192.082"
+         x="1171"
+         y="62.4668"
+         id="text29">calculatePriceChange(): BigDecimal</text>
+      <g
+         data-visibility-modifier="PUBLIC_METHOD"
+         id="g29">
+        <ellipse
+           cx="1162"
+           cy="73.9541"
+           fill="#84BE84"
+           rx="3"
+           ry="3"
+           style="stroke:#038048;stroke-width:1;"
+           id="ellipse29" />
+      </g>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="12"
+         lengthAdjust="spacing"
+         textLength="94.6992"
+         x="1171"
+         y="77.168"
+         id="text30">getName(): String</text>
+      <line
+         style="stroke:#181818;stroke-width:1;stroke-dasharray:1,2;"
+         x1="1152"
+         x2="1368.082"
+         y1="83.8047"
+         y2="83.8047"
+         id="line30" />
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="12"
+         lengthAdjust="spacing"
+         textLength="140.7188"
+         x="1157"
+         y="99.8691"
+         id="text31">Price frozen — returns 0%</text>
+    </g>
+    <!--class TransitionManager-->
+    <g
+       class="entity"
+       data-qualified-name="TransitionManager"
+       data-source-line="57"
+       id="ent0008">
+      <rect
+         fill="#FFF8E1"
+         height="99.5059"
+         rx="2.5"
+         ry="2.5"
+         style="stroke:#181818;stroke-width:0.5;"
+         width="353.5215"
+         x="7"
+         y="390"
+         id="rect31" />
+      <ellipse
+         cx="129.4863"
+         cy="409.7012"
+         fill="#ADD1B2"
+         rx="11"
+         ry="11"
+         style="stroke:#181818;stroke-width:1;"
+         id="ellipse31" />
+      <path
+         d="M132.252,405.5762 Q132.4082,405.3574 132.5957,405.248 Q132.7832,405.1387 133.002,405.1387 Q133.377,405.1387 133.6113,405.4043 Q133.8457,405.6543 133.8457,406.2637 L133.8457,407.7168 Q133.8457,408.3262 133.6113,408.5918 Q133.377,408.8574 133.002,408.8574 Q132.6582,408.8574 132.4551,408.6543 Q132.252,408.4668 132.1426,407.9512 Q132.0957,407.5918 131.9082,407.4043 Q131.5801,407.0293 130.9707,406.8105 Q130.3613,406.5918 129.7363,406.5918 Q128.9707,406.5918 128.3301,406.9199 Q127.7051,407.248 127.2051,407.998 Q126.7207,408.748 126.7207,409.7793 L126.7207,410.873 Q126.7207,412.1074 127.6113,412.9355 Q128.502,413.748 130.0957,413.748 Q131.0332,413.748 131.6895,413.498 Q132.0801,413.3418 132.502,412.9043 Q132.7676,412.6387 132.9082,412.5605 Q133.0645,412.4824 133.2676,412.4824 Q133.5957,412.4824 133.8457,412.748 Q134.1113,412.998 134.1113,413.3418 Q134.1113,413.6855 133.7676,414.0918 Q133.2676,414.6699 132.4707,414.998 Q131.3926,415.4512 130.0957,415.4512 Q128.5801,415.4512 127.377,414.8262 Q126.3926,414.3262 125.7051,413.2637 Q125.0176,412.1855 125.0176,410.9043 L125.0176,409.748 Q125.0176,408.4199 125.627,407.2793 Q126.252,406.123 127.3457,405.5137 Q128.4395,404.8887 129.6738,404.8887 Q130.4082,404.8887 131.0488,405.0605 Q131.7051,405.2168 132.252,405.5762 Z "
+         fill="#000000"
+         id="path31" />
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="12"
+         font-style="italic"
+         lengthAdjust="spacing"
+         textLength="60.709"
+         x="169.6563"
+         y="407.0645"
+         id="text32">«manager»</text>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="12"
+         lengthAdjust="spacing"
+         textLength="100.0488"
+         x="149.9863"
+         y="421.7656"
+         id="text33">TransitionManager</text>
+      <line
+         style="stroke:#181818;stroke-width:0.5;"
+         x1="8"
+         x2="359.5215"
+         y1="429.4023"
+         y2="429.4023"
+         id="line33" />
+      <g
+         data-visibility-modifier="PRIVATE_FIELD"
+         id="g33">
+        <rect
+           fill="none"
+           height="6"
+           style="stroke:#C82930;stroke-width:1;"
+           width="6"
+           x="15"
+           y="439.2529"
+           id="rect33" />
+      </g>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="12"
+         lengthAdjust="spacing"
+         textLength="327.5215"
+         x="27"
+         y="445.4668"
+         id="text34">transitionTable: Map&lt;StockState, Map&lt;StockState, Double&gt;&gt;</text>
+      <g
+         data-visibility-modifier="PRIVATE_FIELD"
+         id="g34">
+        <rect
+           fill="none"
+           height="6"
+           style="stroke:#C82930;stroke-width:1;"
+           width="6"
+           x="15"
+           y="453.9541"
+           id="rect34" />
+      </g>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="12"
+         lengthAdjust="spacing"
+         textLength="92.7129"
+         x="27"
+         y="460.168"
+         id="text35">random: Random</text>
+      <line
+         style="stroke:#181818;stroke-width:1;"
+         x1="8"
+         x2="359.5215"
+         y1="466.8047"
+         y2="466.8047"
+         id="line35" />
+      <g
+         data-visibility-modifier="PUBLIC_METHOD"
+         id="g35">
+        <ellipse
+           cx="18"
+           cy="479.6553"
+           fill="#84BE84"
+           rx="3"
+           ry="3"
+           style="stroke:#038048;stroke-width:1;"
+           id="ellipse35" />
+      </g>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="12"
+         lengthAdjust="spacing"
+         textLength="272.1328"
+         x="27"
+         y="482.8691"
+         id="text36">getNextState(currentState: StockState): StockState</text>
+    </g>
+    <g
+       class="entity"
+       data-qualified-name="GMN15"
+       data-source-line="75"
+       id="ent0016">
+      <path
+         d="M322,219.5 L322,244.5 L286.63,248.5 L322,252.5 L322,277.2788 A0,0 0 0 0 322,277.2788 L650.0806,277.2788 A0,0 0 0 0 650.0806,277.2788 L650.0806,229.5 L640.0806,219.5 L322,219.5 A0,0 0 0 0 322,219.5"
+         fill="#FEFFDD"
+         style="stroke:#181818;stroke-width:0.5;"
+         id="path36" />
+      <path
+         d="M640.0806,219.5 L640.0806,229.5 L650.0806,229.5 L640.0806,219.5"
+         fill="#FEFFDD"
+         style="stroke:#181818;stroke-width:0.5;"
+         id="path37" />
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="13"
+         font-weight="bold"
+         lengthAdjust="spacing"
+         textLength="48.3882"
+         x="328"
+         y="237.5698"
+         id="text37">Context</text>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="13"
+         lengthAdjust="spacing"
+         textLength="247.8569"
+         x="328"
+         y="253.4961"
+         id="text38">Delegates price calculation to currentState.</text>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="13"
+         lengthAdjust="spacing"
+         textLength="307.0806"
+         x="328"
+         y="269.4224"
+         id="text39">Asks TransitionManager for next state after each tick.</text>
+    </g>
+    <g
+       class="entity"
+       data-qualified-name="GMN18"
+       data-source-line="81"
+       id="ent0019">
+      <path
+         d="M396,395 L396,436 L361.41,440 L396,444 L396,484.6313 A0,0 0 0 0 396,484.6313 L906.4614,484.6313 A0,0 0 0 0 906.4614,484.6313 L906.4614,405 L896.4614,395 L396,395 A0,0 0 0 0 396,395"
+         fill="#FEFFDD"
+         style="stroke:#181818;stroke-width:0.5;"
+         id="path39" />
+      <path
+         d="M896.4614,395 L896.4614,405 L906.4614,405 L896.4614,395"
+         fill="#FEFFDD"
+         style="stroke:#181818;stroke-width:0.5;"
+         id="path40" />
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="13"
+         font-weight="bold"
+         lengthAdjust="spacing"
+         textLength="164.709"
+         x="402"
+         y="413.0698"
+         id="text40">Manages State Transitions</text>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="13"
+         lengthAdjust="spacing"
+         textLength="150.3062"
+         x="402"
+         y="428.9961"
+         id="text41">Probability table per state:</text>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="13"
+         lengthAdjust="spacing"
+         textLength="379.6343"
+         x="402"
+         y="444.9224"
+         id="text42">GROWING  → {GROWING 75%, STEADY 20%, DECLINING 5%}</text>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="13"
+         lengthAdjust="spacing"
+         textLength="489.4614"
+         x="402"
+         y="460.8486"
+         id="text43">DECLINING → {DECLINING 65%, STEADY 25%, GROWING 10%, BANKRUPT 1%}</text>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="13"
+         lengthAdjust="spacing"
+         textLength="377.4951"
+         x="402"
+         y="476.7749"
+         id="text44">STEADY   → {STEADY 80%, GROWING 10%, DECLINING 10%}</text>
+    </g>
+    <!--reverse link LiveStock to LiveStockState-->
+    <g
+       class="link"
+       data-entity-1="ent0003"
+       data-entity-2="ent0002"
+       data-link-type="aggregation"
+       data-source-line="65"
+       id="lnk9">
+      <path
+         codeLine="65"
+         d="M297.0806,178.5983 C322.1906,166.0283 338.93,160.2 366,154 C445.31,135.82 621.25,169.84 667,184 C684.95,189.56 703.44,197.5 720.56,205.92"
+         fill="none"
+         id="LiveStock-backto-LiveStockState"
+         style="stroke:#181818;stroke-width:1;" />
+      <polygon
+         fill="none"
+         points="286.35,183.97,293.5058,184.861,297.0806,178.5983,289.9247,177.7073,286.35,183.97"
+         style="stroke:#181818;stroke-width:1;"
+         id="polygon44" />
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="13"
+         lengthAdjust="spacing"
+         textLength="70.8145"
+         x="367"
+         y="151.0698"
+         id="text45">currentState</text>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="13"
+         lengthAdjust="spacing"
+         textLength="7.23"
+         x="291.3858"
+         y="173.3232"
+         id="text46">1</text>
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="13"
+         lengthAdjust="spacing"
+         textLength="7.23"
+         x="699.8682"
+         y="195.1692"
+         id="text47">1</text>
+    </g>
+    <!--link LiveStock to TransitionManager-->
+    <g
+       class="link"
+       data-entity-1="ent0003"
+       data-entity-2="ent0008"
+       data-link-type="dependency"
+       data-source-line="66"
+       id="lnk10">
+      <path
+         codeLine="66"
+         d="M184,313.13 C184,338.18 184,360.5 184,383.92"
+         fill="none"
+         id="LiveStock-to-TransitionManager"
+         style="stroke:#181818;stroke-width:1;stroke-dasharray:7,7;" />
+      <polygon
+         fill="#181818"
+         points="184,389.92,188,380.92,184,384.92,180,380.92,184,389.92"
+         style="stroke:#181818;stroke-width:1;"
+         id="polygon47" />
+      <text
+         fill="#000000"
+         font-family="sans-serif"
+         font-size="13"
+         lengthAdjust="spacing"
+         textLength="27.46"
+         x="185"
+         y="357.0698"
+         id="text48">uses</text>
+    </g>
+    <!--link GrowingState to LiveStockState-->
+    <g
+       class="link"
+       data-entity-1="ent0004"
+       data-entity-2="ent0002"
+       data-link-type="extension"
+       data-source-line="68"
+       id="lnk11">
+      <path
+         codeLine="68"
+         d="M576.84,107.05 C624.14,137.64 669.2661,166.824 714.2861,195.944"
+         fill="none"
+         id="GrowingState-to-LiveStockState"
+         style="stroke:#181818;stroke-width:1;stroke-dasharray:7,7;" />
+      <polygon
+         fill="none"
+         points="729.4,205.72,717.5448,190.906,711.0274,200.9819,729.4,205.72"
+         style="stroke:#181818;stroke-width:1;"
+         id="polygon48" />
+    </g>
+    <!--link DecliningState to LiveStockState-->
+    <g
+       class="link"
+       data-entity-1="ent0005"
+       data-entity-2="ent0002"
+       data-link-type="extension"
+       data-source-line="69"
+       id="lnk12">
+      <path
+         codeLine="69"
+         d="M764.41,107.29 C770.86,137.89 775.3548,159.1576 781.4848,188.2176"
+         fill="none"
+         id="DecliningState-to-LiveStockState"
+         style="stroke:#181818;stroke-width:1;stroke-dasharray:7,7;" />
+      <polygon
+         fill="none"
+         points="785.2,205.83,787.3556,186.9792,775.614,189.456,785.2,205.83"
+         style="stroke:#181818;stroke-width:1;"
+         id="polygon49" />
+    </g>
+    <!--link SteadyState to LiveStockState-->
+    <g
+       class="link"
+       data-entity-1="ent0006"
+       data-entity-2="ent0002"
+       data-link-type="extension"
+       data-source-line="70"
+       id="lnk13">
+      <path
+         codeLine="70"
+         d="M951.87,107.05 C917.48,137.64 887.1379,164.6353 854.4079,193.7553"
+         fill="none"
+         id="SteadyState-to-LiveStockState"
+         style="stroke:#181818;stroke-width:1;stroke-dasharray:7,7;" />
+      <polygon
+         fill="none"
+         points="840.96,205.72,858.3961,198.238,850.4197,189.2727,840.96,205.72"
+         style="stroke:#181818;stroke-width:1;"
+         id="polygon50" />
+    </g>
+    <!--link BankruptState to LiveStockState-->
+    <g
+       class="link"
+       data-entity-1="ent0007"
+       data-entity-2="ent0002"
+       data-link-type="extension"
+       data-source-line="71"
+       id="lnk14">
+      <path
+         codeLine="71"
+         d="M1150.74,102.43 C1073.81,133.72 988.1848,168.5412 912.8648,199.1612"
+         fill="none"
+         id="BankruptState-to-LiveStockState"
+         style="stroke:#181818;stroke-width:1;stroke-dasharray:7,7;" />
+      <polygon
+         fill="none"
+         points="896.19,205.94,915.1244,204.7194,910.6051,193.6029,896.19,205.94"
+         style="stroke:#181818;stroke-width:1;"
+         id="polygon51" />
+    </g>
+<?plantuml-src jLHTRjf047xtAKP4g0q4518bfIX5SeoXg8b1jgksZujPd1N6YtRNQHEArASUeEf5UeKU9IVfxXhmJwYIbu1aUxpppNmp_cRudCHBnD02WWXnVec2USXe4ayj6b5sSH7GME1lejk50_kytxVF3Vu4WaW0cw40Aun2F0F31H9ua-Eqtt_IVu5Y56AMPkYtxTOZ16LJpBGt7BJQwbzswSlAF7AFeNLQFZA5O6II29pvdEHy46FqQp6syGhUgHzulkdRC7Hys-sRbfs-DNOzWIjoYpr1WxcdIePYkrO6m0fDk60e46ke1oWAaaZwZHa9i7M3uX2_Fkp09GbxE20B59K08HOEMcWVJvOGXyOwesQD9AlF_eQIBZIZ0_bFhNWqWDyj9ZJQHLAlWeGn70jDfqHZTwWBwvGALGuDUQb3ifnk2r8qRocPwlUIkfKBeCvA8OgbMAuj6wtRxHLA6iYF8_bk-xkLrafdULP7DPbI7m6QJNdHC624OmxrLXK4XVhRggAM9fT18XA_SFePYY8EZJHzevrBxmcCfdSlcJlGE0v__vpaybwYUCwIfNZHgXcznp4y_FWD38k4nHoEgtbH-AxfU4D_E7BWsdJCWUqMTE4p57CY28slq-q1-JsIIbxiV7mqYQIAhz7o8fFWqIExHnFfr-rgj0HFwQ83hhvdabU5oS5ATLsSaYpMOTx8b-NQLwOgodi_76-LderjfLK1sc0al14DRPGMJ0Sg-OoL7BJPxEvfYWGaKjqLmoWCaleKtxlbaIp9VPzBNfB_YL9KprwNNJUSKJRlCHLg5cNfG6SPGlQyLhFIPLQhIQk78npAA1oMgOOtUfHLgmdAzqV9pUJpVMgPoNKVov2WnGre9lSsO1JSW231l6dWU0gAaL7YzIYIvfS-gubLmJ8VhXcF6PsW2Oc8k0EXb0XBcKmdxiZZWJlwD7G600y_Vy5gQxqvgnx9XMYRlIzmSYoVUxPrDNJKqLbrhVgmipKkCy_pIFMy3TbIOIvDvuFxSUn3IqVP-6sIRwpsSHcLHPVcEklEFm00?>  </g>
 </svg>

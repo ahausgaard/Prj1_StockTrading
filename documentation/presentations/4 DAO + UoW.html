@@ -169,49 +169,12 @@
 
 <div class="slide">
     <h2>Hvordan ser det ud UDEN designet?</h2>
-    <pre><code>public class BuySharesService {
-    // TÆT KOBLING: SQL direkte i logik
-    private String dbConnection = "server=localhost;db=stock";
-
-    public void buyShares(String symbol, int quantity) {
-        // UPDATE statement direkte her!
-        String sql = "UPDATE Portfolio SET balance = balance - " + cost;
-        database.execute(sql);
-
-        // Hvis der crashes her, er pengene trukket men aktie ikke købt!
-        sql = "INSERT INTO OwnedStock ...";
-        database.execute(sql);
-    }
-}
-    </code></pre>
 </div>
 
 <div class="slide">
     <h2>Testbarhed MED DAO & UoW</h2>
-    <p style="color: #666; margin-bottom: 1.5rem;"><strong>Se: test/unit/business/services/trading/ (Integration tests bruger FileUnitOfWork)</strong></p>
-    <pre><code>// Unit test - Forretningslogik testes UDEN database
-@Test void buyShares_validPurchase_updatesBuyersBalance() {
-    // Arrange: Mock DAO'er - INGEN database!
-    MockStockDAO stockDAO = new MockStockDAO();
-    MockPortfolioDAO portfolioDAO = new MockPortfolioDAO();
-    MockUnitOfWork uow = new MockUnitOfWork();
-
-    BuySharesService service = new BuySharesService(
-        stockDAO, portfolioDAO, ..., uow);
-
-    // Act
-    service.buyShares(new BuySharesRequest(...));
-
-    // Assert
-    assertTrue(portfolioDAO.updateWasCalled());
-}
-
-// Integration test - Rigtig fil-baseret transaktion
-@Test void buyShares_multipleChanges_committedAtomically() {
-    FileUnitOfWork uow = new FileUnitOfWork(tempDir);
-    // ... test med rigtig fil-persistence
-}
-    </code></pre>
+    <p style="color: #666; margin-bottom: 1.5rem;"><strong>Unit Test: test/unit/business/services/trading/BuySharesServiceTest.java</strong></p>
+    <p style="color: #666; margin-bottom: 1.5rem;"><strong>Integration Test: test/integration/business/services/trading/BuySharesServiceIntTest.java</strong></p>
 </div>
 
 <div class="slide">

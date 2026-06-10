@@ -129,17 +129,13 @@
 </div>
 
 <div class="slide">
-    <h2>MVVM vs. 3-lagsarkitektur</h2>
+    <h2>Lagene</h2>
     <ul>
-        <li><strong>3-lag:</strong> Services testbar, men UI-logik blandet i Controllers</li>
-        <li><strong>MVVM:</strong> ViewModels er UI-agnostiske, 100% testbar uden JavaFX simulator</li>
-        <li><strong>Data binding:</strong> 3-lag bruger manual opdatering; MVVM har automatisk binding</li>
-        <li><strong>Reusability:</strong> Samme ViewModel kan bruges af flere Views</li>
+        <li><strong>View:</strong>FXML + Controller</li>
+        <li><strong>Model-view:</strong>JavaFX properites</li>
+        <li><strong>Model:</strong> Services + DTO'er</li>
     </ul>
-    <!--
-        Kort: MVVM løser "smart UI" problemet hvor logik sidder i Controllers.
-        ViewModels betyder at ALT kan unit-testes uden simulator.
-    -->
+
 </div>
 
 <div class="slide">
@@ -192,123 +188,21 @@
 
 <div class="slide">
     <h2>Hvordan ser det ud UDEN MVVM?</h2>
-    <pre><code>// Tæt kobling: Logik i Controller
-public class BuyStockControllerBad {
-    @FXML private TextField quantityField;
-    @FXML private Label balanceLabel;
-
-    @FXML
-    private void onBuyButtonClicked() {
-        // Direkte databasekald i event handler!
-        String symbol = getSelectedStock();
-        int qty = Integer.parseInt(quantityField.getText());
-
-        database.updatePortfolio(...);
-        database.createTransaction(...);
-
-        // Direkte UI manipulation
-        balanceLabel.setText("Nu opdateret!");
-    }
-    // Umuligt at unit-teste uden en JavaFX test-simulator!
-}
-    </code></pre>
 </div>
 
 <div class="slide">
     <h2>Implementering MED MVVM</h2>
     <p style="color: #666; margin-bottom: 1.5rem;"><strong>Se: src/presentation/viewModels/BuyStockViewModel.java</strong></p>
-    <pre><code>// ViewModel: Properties for binding, ingen UI-elementer
-public class BuyStockViewModel {
-    private final BuySharesService buySharesService;
-    private final PortfolioQueryService portfolioQueryService;
-
-    // JavaFX Properties - binder til View
-    private final StringProperty stockSymbol = new SimpleStringProperty("");
-    private final IntegerProperty quantity = new SimpleIntegerProperty(1);
-    private final ObjectProperty<BigDecimal> estimatedCost =
-        new SimpleObjectProperty<>(BigDecimal.ZERO);
-
-    public BuyStockViewModel(BuySharesService buySharesService,
-            PortfolioQueryService portfolioQueryService, FeeStrategy feeStrategy) {
-        this.buySharesService = buySharesService;
-        this.portfolioQueryService = portfolioQueryService;
-
-        // Auto-recalculate når quantity ændres
-        quantity.addListener((obs, old, newVal) -> recalculateEstimatedCost());
-    }
-
-    public boolean buy() {
-        // Logik uden JavaFX-referencer!
-        BuySharesRequest request = new BuySharesRequest(
-            portfolioId, stockSymbol.get(), quantity.get());
-        buySharesService.buyShares(request);
-        return true;
-    }
-
-    // Properties for binding
-    public IntegerProperty quantityProperty() { return quantity; }
-    public ObjectProperty<BigDecimal> estimatedCostProperty() {
-        return estimatedCost;
-    }
-}
-    </code></pre>
 </div>
 
 <div class="slide">
     <h2>Controller har KUN DataBinding</h2>
     <p style="color: #666; margin-bottom: 1.5rem;"><strong>Se: src/presentation/controllers/BuyStockController.java</strong></p>
-    <pre><code>// Controller: Bindkle mellem View og ViewModel
-public class BuyStockController {
-    @FXML private TextField quantityField;
-    @FXML private Label estimatedCostLabel;
-    @FXML private Button buyButton;
-
-    private BuyStockViewModel viewModel;
-
-    @FXML
-    public void initialize() {
-        // Binding: Når quantity ændrer sig, opdater cost
-        quantityField.textProperty().addListener((obs, old, newValue) -> {
-            viewModel.setQuantity(Integer.parseInt(newValue));
-            viewModel.calculateEstimatedCost();
-            estimatedCostLabel.setText(
-                viewModel.getEstimatedCost().toString());
-        });
-
-        // Knaptryk delegeres til ViewModel
-        buyButton.setOnAction(e -> viewModel.buyShares());
-    }
-    // Ingen forretningslogik, KUN UI og binding!
-}
-    </code></pre>
 </div>
 
 <div class="slide">
     <h2>Testbarhed MED MVVM</h2>
-    <pre><code>// Unit test: Tester ViewModel uden JavaFX!
-@Test void buyStockViewModel_calculatesCostCorrectly() {
-    BuyStockViewModel vm = new BuyStockViewModel(
-        mockBuyService, mockQueryService);
-
-    vm.setSelectedStock(new StockDTO("PNDORA",
-        new BigDecimal("100"), StockState.LIVE));
-    vm.setQuantity(5);
-
-    vm.calculateEstimatedCost();
-
-    // 5 * 100 * 1.01 = 505
-    assertEquals(new BigDecimal("505.00"),
-        vm.getEstimatedCost());
-}
-
-@Test void buyStockViewModel_executesServiceCall() {
-    vm.buyShares();
-
-    verify(mockBuyService).buyShares(
-        any(BuySharesRequest.class));
-}
-// Ingen GUI simulator nødvendig, lynhurtigt!
-    </code></pre>
+    <p style="color: #666; margin-bottom: 1.5rem;"><strong>Se: test/unit/business/services/trading/BuySharesServiceTest.java</strong></p>
 </div>
 
 <div class="slide">

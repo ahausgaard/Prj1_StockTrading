@@ -150,24 +150,7 @@
 
 <div class="slide">
   <h2>Unit Test Strategi: Boundary Value Analysis</h2>
-  <p style="color: #666; margin-bottom: 1.5rem;"><strong>Gien eksempler fra: test/unit/business/services/trading/</strong></p>
-  <pre><code>// Boundary Value Analysis - test grænserne
-@Test void percentageMinimumFeeStrategy_usesMinimumWhenLowerThanPercentage() {
-    FeeStrategy strategy = new PercentageMinimumFeeStrategy(
-        0.01,           // 1% gebyr
-        BigDecimal.valueOf(15)  // 15 DKK minimum
-    );
-
-    // Test grænsværdier:
-    // Under minimum (5 DKK < 15 DKK) → bør returnere 15
-    BigDecimal fee = strategy.calculateFee(new BigDecimal("500"));
-    assertEquals(new BigDecimal("15"), fee);
-}
-
-// Over minimum (50 DKK > 15 DKK) → bør returnere 50
-BigDecimal fee2 = strategy.calculateFee(new BigDecimal("5000"));
-assertEquals(new BigDecimal("50"), fee2);
-  </code></pre>
+  <p style="color: #666; margin-bottom: 1.5rem;"><strong>Se: test/unit/business/services/trading/fees/FeeStrategyTest.java</strong></p>
   <!--
     Boundary Value Analysis fokuserer på grænserne af lovlige værdier.
     Det er her programmører laver fejl (< vs <=, >= vs >).
@@ -204,28 +187,6 @@ assertEquals(new BigDecimal("50"), fee2);
 <div class="slide">
   <h2>Eksempel: Integration Test</h2>
   <p style="color: #666; margin-bottom: 1.5rem;"><strong>Se: test/integration/business/services/trading/BuySharesServiceIntTest.java</strong></p>
-  <pre><code>@Test void buyShares_validPurchase_persistsOwnedStockDeductsBalance() {
-    // Arrange: Rigtig fil-baseret UoW (ikke mock!)
-    FileUnitOfWork uow = new FileUnitOfWork(tempDir);
-    StockFileDAO stockDAO = new StockFileDAO(uow);
-    PortfolioFileDAO portfolioDAO = new PortfolioFileDAO(uow);
-
-    // Opret initial data
-    Stock stock = Stock.createNew("PNDORA", new BigDecimal("100"));
-    Portfolio portfolio = Portfolio.createNew(new BigDecimal("10000"));
-
-    BuySharesService service = new BuySharesService(
-        stockDAO, portfolioDAO, ..., uow);
-
-    // Act: Rigtig transaktion
-    service.buyShares(new BuySharesRequest(portfolio.getId(), "PNDORA", 10));
-
-    // Assert: Tjek fil-baseret persistering
-    assertEquals(1, ownedStocks.size());
-    assertTrue(updatedPortfolio.getCurrentBalance().compareTo(
-        new BigDecimal("10000")) < 0);
-}
-  </code></pre>
 </div>
 
 <div class="slide">

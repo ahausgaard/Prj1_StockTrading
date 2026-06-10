@@ -1,130 +1,112 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg"
-     width="1410" height="205"
-     viewBox="0 0 1410 205"
-     style="background:#FFFFFF;">
+<svg xmlns="http://www.w3.org/2000/svg" width="1410" height="395"
+     viewBox="0 0 1410 395"
+     font-family="'JetBrains Mono', Consolas, 'Courier New', monospace">
 
-  <!-- ═══════════════════════════════════════════════
-       Logger  «client»  (far left)
-       x=15, y=25, w=265, h=135
-  ════════════════════════════════════════════════ -->
-  <g>
-    <rect x="15" y="25" width="265" height="135" rx="2.5" ry="2.5"
-          fill="#E6FFE6" style="stroke:#181818;stroke-width:0.5;"/>
-    <ellipse cx="100" cy="47" rx="11" ry="11"
-             fill="#ADD1B2" style="stroke:#181818;stroke-width:1;"/>
-    <text fill="#000" font-family="sans-serif" font-size="11"
-          font-weight="bold" x="95" y="52">C</text>
-    <text fill="#000" font-family="sans-serif" font-size="12"
-          font-style="italic" x="119" y="43">«client»</text>
-    <text fill="#000" font-family="sans-serif" font-size="14"
-          font-weight="bold" x="113" y="62">Logger</text>
-    <line x1="16"  x2="279" y1="70"  y2="70"  style="stroke:#181818;stroke-width:0.5;"/>
-    <rect fill="none" height="6" style="stroke:#C82930;stroke-width:1;" width="6" x="23" y="79"/>
-    <text fill="#000" font-family="sans-serif" font-size="13" x="35" y="86">output: LogOutput</text>
-    <line x1="16"  x2="279" y1="94"  y2="94"  style="stroke:#181818;stroke-width:1;"/>
-    <ellipse cx="23" cy="108" rx="3" ry="3" fill="#84BE84" style="stroke:#038048;stroke-width:1;"/>
-    <text fill="#000" font-family="sans-serif" font-size="13" x="32" y="112">log(LoggerLevel, String): void</text>
-    <ellipse cx="23" cy="125" rx="3" ry="3" fill="#84BE84" style="stroke:#038048;stroke-width:1;"/>
-    <text fill="#000" font-family="sans-serif" font-size="13" x="32" y="129">setOutput(LogOutput): void</text>
-  </g>
+  <rect width="1410" height="395" fill="white"/>
 
-  <!-- ═══════════════════════════════════════════════
-       LogOutput  «interface»  (target interface)
-       x=310, y=25, w=370, h=110
-  ════════════════════════════════════════════════ -->
-  <g>
-    <rect x="310" y="25" width="370" height="110" rx="2.5" ry="2.5"
-          fill="#FFE6E6" style="stroke:#181818;stroke-width:0.5;"/>
-    <ellipse cx="425" cy="47" rx="11" ry="11"
-             fill="#B4A7E5" style="stroke:#181818;stroke-width:1;"/>
-    <text fill="#000" font-family="sans-serif" font-size="11"
-          font-weight="bold" x="421" y="52">I</text>
-    <text fill="#000" font-family="sans-serif" font-size="12"
-          font-style="italic" x="445" y="43">«interface»</text>
-    <text fill="#000" font-family="sans-serif" font-size="14"
-          font-style="italic" font-weight="bold" x="450" y="62">LogOutput</text>
-    <line x1="311" x2="679" y1="70"  y2="70"  style="stroke:#181818;stroke-width:0.5;"/>
-    <line x1="311" x2="679" y1="78"  y2="78"  style="stroke:#181818;stroke-width:0.5;"/>
-    <ellipse cx="318" cy="91" rx="3" ry="3" fill="#84BE84" style="stroke:#038048;stroke-width:1;"/>
-    <text fill="#000" font-family="sans-serif" font-size="13"
-          font-style="italic" x="327" y="95">log(LoggerLevel, String): void</text>
-    <ellipse cx="318" cy="108" rx="3" ry="3" fill="#84BE84" style="stroke:#038048;stroke-width:1;"/>
-    <text fill="#000" font-family="sans-serif" font-size="13"
-          font-style="italic" x="327" y="112">log(LoggerLevel, String, Throwable): void</text>
-  </g>
+  <!-- Title -->
+  <text x="705" y="26" text-anchor="middle" font-size="16" font-weight="bold" fill="#333">Adapter Pattern</text>
 
-  <!-- ═══════════════════════════════════════════════
-       FileLogOutputterAdapter  «adapter»  (center-right)
-       x=715, y=25, w=380, h=135
-  ════════════════════════════════════════════════ -->
-  <g>
-    <rect x="715" y="25" width="380" height="135" rx="2.5" ry="2.5"
-          fill="#E6F3FF" style="stroke:#181818;stroke-width:0.5;"/>
-    <ellipse cx="800" cy="47" rx="11" ry="11"
-             fill="#ADD1B2" style="stroke:#181818;stroke-width:1;"/>
-    <text fill="#000" font-family="sans-serif" font-size="11"
-          font-weight="bold" x="795" y="52">C</text>
-    <text fill="#000" font-family="sans-serif" font-size="12"
-          font-style="italic" x="820" y="43">«adapter»</text>
-    <text fill="#000" font-family="sans-serif" font-size="14"
-          font-weight="bold" x="815" y="62">FileLogOutputterAdapter</text>
-    <line x1="716" x2="1094" y1="70"  y2="70"  style="stroke:#181818;stroke-width:0.5;"/>
-    <rect fill="none" height="6" style="stroke:#C82930;stroke-width:1;" width="6" x="723" y="79"/>
-    <text fill="#000" font-family="sans-serif" font-size="13" x="735" y="86">adaptee: FileLogOutputter</text>
-    <line x1="716" x2="1094" y1="94"  y2="94"  style="stroke:#181818;stroke-width:1;"/>
-    <ellipse cx="723" cy="108" rx="3" ry="3" fill="#84BE84" style="stroke:#038048;stroke-width:1;"/>
-    <text fill="#000" font-family="sans-serif" font-size="13" x="732" y="112">log(LoggerLevel, String): void</text>
-    <ellipse cx="723" cy="125" rx="3" ry="3" fill="#84BE84" style="stroke:#038048;stroke-width:1;"/>
-    <text fill="#000" font-family="sans-serif" font-size="13" x="732" y="129">log(LoggerLevel, String, Throwable): void</text>
-  </g>
+  <!-- ═══════════ ROW 1: LOGGING ═══════════ -->
+  <text x="705" y="52" text-anchor="middle" font-size="12" fill="#aaa" font-style="italic">Logging</text>
 
-  <!-- ═══════════════════════════════════════════════
-       FileLogOutputter  «adaptee»  (far right, library)
-       x=1130, y=25, w=265, h=155
-  ════════════════════════════════════════════════ -->
-  <g>
-    <rect x="1130" y="25" width="265" height="155" rx="2.5" ry="2.5"
-          fill="#FFFDE6" style="stroke:#181818;stroke-width:0.5;"/>
-    <ellipse cx="1180" cy="47" rx="11" ry="11"
-             fill="#ADD1B2" style="stroke:#181818;stroke-width:1;"/>
-    <text fill="#000" font-family="sans-serif" font-size="11"
-          font-weight="bold" x="1175" y="52">C</text>
-    <text fill="#000" font-family="sans-serif" font-size="12"
-          font-style="italic" x="1200" y="43">«adaptee»</text>
-    <text fill="#000" font-family="sans-serif" font-size="14"
-          font-weight="bold" x="1192" y="62">FileLogOutputter</text>
-    <line x1="1131" x2="1394" y1="70"  y2="70"  style="stroke:#181818;stroke-width:0.5;"/>
-    <line x1="1131" x2="1394" y1="78"  y2="78"  style="stroke:#181818;stroke-width:0.5;"/>
-    <ellipse cx="1138" cy="91" rx="3" ry="3" fill="#84BE84" style="stroke:#038048;stroke-width:1;"/>
-    <text fill="#000" font-family="sans-serif" font-size="13" x="1147" y="95">logInfo(String): void</text>
-    <ellipse cx="1138" cy="108" rx="3" ry="3" fill="#84BE84" style="stroke:#038048;stroke-width:1;"/>
-    <text fill="#000" font-family="sans-serif" font-size="13" x="1147" y="112">logWarning(String): void</text>
-    <ellipse cx="1138" cy="125" rx="3" ry="3" fill="#84BE84" style="stroke:#038048;stroke-width:1;"/>
-    <text fill="#000" font-family="sans-serif" font-size="13" x="1147" y="129">logError(String): void</text>
-    <line x1="1131" x2="1394" y1="138" y2="138" style="stroke:#181818;stroke-width:0.5;"/>
-    <text fill="#888" font-family="sans-serif" font-size="11"
-          font-style="italic" x="1138" y="153">// loggingLibrary — do not modify</text>
-  </g>
+  <!-- Logger «client» -->
+  <rect x="15" y="58" width="185" height="140" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5" rx="4"/>
+  <text x="107" y="76" text-anchor="middle" font-size="11" fill="#2e7d32" font-style="italic">«client»</text>
+  <text x="107" y="94" text-anchor="middle" font-size="14" font-weight="bold" fill="#1b5e20">Logger</text>
+  <line x1="15" y1="105" x2="200" y2="105" stroke="#388e3c" stroke-width="1"/>
+  <text x="22" y="121" font-size="11" fill="#444">setOutput(out: LogOutput)</text>
 
-  <!-- ═══════════════════════════════════════════════
-       ARROWS
-  ════════════════════════════════════════════════ -->
+  <!-- LogOutput «interface» -->
+  <rect x="240" y="58" width="270" height="140" fill="#fce4ec" stroke="#c62828" stroke-width="1.5" rx="4"/>
+  <text x="375" y="76" text-anchor="middle" font-size="11" fill="#b71c1c" font-style="italic">«interface»</text>
+  <text x="375" y="94" text-anchor="middle" font-size="14" font-weight="bold" fill="#7f0000">LogOutput</text>
+  <line x1="240" y1="105" x2="510" y2="105" stroke="#c62828" stroke-width="1"/>
+  <text x="247" y="121" font-size="11" fill="#444">log(level: LoggerLevel, msg: String)</text>
+  <text x="247" y="137" font-size="11" fill="#444">log(level, msg, ex: Throwable)</text>
 
-  <!-- 1. Logger --[uses]--> LogOutput  (solid + filled arrowhead) -->
-  <path d="M280,80 L310,80" fill="none" style="stroke:#181818;stroke-width:1;"/>
-  <polygon fill="#181818" points="310,80 298,74 298,86" style="stroke:#181818;stroke-width:1;"/>
-  <text fill="#555" font-family="sans-serif" font-size="12" x="282" y="73">uses</text>
+  <!-- FileLogOutputterAdapter «adapter» -->
+  <rect x="565" y="58" width="315" height="140" fill="#e3f2fd" stroke="#1565c0" stroke-width="1.5" rx="4"/>
+  <text x="722" y="76" text-anchor="middle" font-size="11" fill="#0d47a1" font-style="italic">«adapter»</text>
+  <text x="722" y="94" text-anchor="middle" font-size="14" font-weight="bold" fill="#0d2b70">FileLogOutputterAdapter</text>
+  <line x1="565" y1="105" x2="880" y2="105" stroke="#1565c0" stroke-width="1"/>
+  <text x="572" y="121" font-size="11" fill="#444">implements LogOutput</text>
+  <text x="572" y="137" font-size="11" fill="#666">- adaptee: FileLogOutputter</text>
 
-  <!-- 2. FileLogOutputterAdapter ---[implements]--> LogOutput  (dashed + open triangle) -->
-  <!-- arrow goes FROM Adapter LEFT to LogOutput, open triangle apex at LogOutput right edge -->
-  <path d="M715,86 L691,86" fill="none" style="stroke:#181818;stroke-width:1;stroke-dasharray:6,6;"/>
-  <polygon fill="none" points="680,86 691,80 691,92" style="stroke:#181818;stroke-width:1;"/>
-  <text fill="#555" font-family="sans-serif" font-size="12" x="674" y="73">implements</text>
+  <!-- FileLogOutputter «adaptee» -->
+  <rect x="925" y="58" width="455" height="140" fill="#fff8e1" stroke="#e65100" stroke-width="1.5" rx="4"/>
+  <text x="1152" y="76" text-anchor="middle" font-size="11" fill="#bf360c" font-style="italic">«adaptee»</text>
+  <text x="1152" y="94" text-anchor="middle" font-size="14" font-weight="bold" fill="#7c2900">FileLogOutputter</text>
+  <line x1="925" y1="105" x2="1380" y2="105" stroke="#e65100" stroke-width="1"/>
+  <text x="932" y="121" font-size="11" fill="#999" font-style="italic">// adapters — DO NOT MODIFY</text>
+  <text x="932" y="137" font-size="11" fill="#444">logInfo(msg) / logWarning(msg) / logError(msg)</text>
 
-  <!-- 3. FileLogOutputterAdapter --[wraps]--> FileLogOutputter  (solid + filled arrowhead) -->
-  <path d="M1095,92 L1130,92" fill="none" style="stroke:#181818;stroke-width:1;"/>
-  <polygon fill="#181818" points="1130,92 1118,86 1118,98" style="stroke:#181818;stroke-width:1;"/>
-  <text fill="#555" font-family="sans-serif" font-size="12" x="1097" y="73">wraps</text>
+  <!-- Row 1: uses arrow (→) -->
+  <line x1="200" y1="81" x2="228" y2="81" stroke="#444" stroke-width="1.5"/>
+  <polygon points="240,81 228,75 228,87" fill="#444"/>
+  <text x="220" y="73" text-anchor="middle" font-size="10" fill="#666">uses</text>
+
+  <!-- Row 1: implements arrow (← dashed, hollow triangle at interface) -->
+  <line x1="522" y1="81" x2="565" y2="81" stroke="#444" stroke-width="1.5" stroke-dasharray="5,4"/>
+  <polygon points="510,81 522,75 522,87" fill="white" stroke="#444" stroke-width="1.5"/>
+  <text x="537" y="73" text-anchor="middle" font-size="10" fill="#666">implements</text>
+
+  <!-- Row 1: wraps arrow (→) -->
+  <line x1="880" y1="81" x2="913" y2="81" stroke="#444" stroke-width="1.5"/>
+  <polygon points="925,81 913,75 913,87" fill="#444"/>
+  <text x="902" y="73" text-anchor="middle" font-size="10" fill="#666">wraps</text>
+
+
+  <!-- ═══════════ ROW 2: NOTIFICATIONS ═══════════ -->
+  <text x="705" y="228" text-anchor="middle" font-size="12" fill="#aaa" font-style="italic">Notifications</text>
+
+  <!-- Controllers «client» -->
+  <rect x="15" y="234" width="185" height="140" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5" rx="4"/>
+  <text x="107" y="252" text-anchor="middle" font-size="11" fill="#2e7d32" font-style="italic">«client»</text>
+  <text x="107" y="270" text-anchor="middle" font-size="14" font-weight="bold" fill="#1b5e20">Controllers</text>
+  <line x1="15" y1="281" x2="200" y2="281" stroke="#388e3c" stroke-width="1"/>
+  <text x="22" y="297" font-size="11" fill="#444">BuyStockController</text>
+  <text x="22" y="313" font-size="11" fill="#444">SellStockController (+2)</text>
+
+  <!-- NotificationService «interface» -->
+  <rect x="240" y="234" width="270" height="140" fill="#fce4ec" stroke="#c62828" stroke-width="1.5" rx="4"/>
+  <text x="375" y="252" text-anchor="middle" font-size="11" fill="#b71c1c" font-style="italic">«interface»</text>
+  <text x="375" y="270" text-anchor="middle" font-size="14" font-weight="bold" fill="#7f0000">NotificationService</text>
+  <line x1="240" y1="281" x2="510" y2="281" stroke="#c62828" stroke-width="1"/>
+  <text x="247" y="297" font-size="11" fill="#444">showInfo(title, msg)</text>
+  <text x="247" y="313" font-size="11" fill="#444">showWarning(title, msg)</text>
+  <text x="247" y="329" font-size="11" fill="#444">showError(title, msg)</text>
+
+  <!-- CustomAlertBoxAdapter «adapter» -->
+  <rect x="565" y="234" width="315" height="140" fill="#e3f2fd" stroke="#1565c0" stroke-width="1.5" rx="4"/>
+  <text x="722" y="252" text-anchor="middle" font-size="11" fill="#0d47a1" font-style="italic">«adapter»</text>
+  <text x="722" y="270" text-anchor="middle" font-size="14" font-weight="bold" fill="#0d2b70">CustomAlertBoxAdapter</text>
+  <line x1="565" y1="281" x2="880" y2="281" stroke="#1565c0" stroke-width="1"/>
+  <text x="572" y="297" font-size="11" fill="#444">implements NotificationService</text>
+  <text x="572" y="313" font-size="11" fill="#666">- adaptee: CustomAlertBox</text>
+
+  <!-- CustomAlertBox «adaptee» -->
+  <rect x="925" y="234" width="455" height="140" fill="#fff8e1" stroke="#e65100" stroke-width="1.5" rx="4"/>
+  <text x="1152" y="252" text-anchor="middle" font-size="11" fill="#bf360c" font-style="italic">«adaptee»</text>
+  <text x="1152" y="270" text-anchor="middle" font-size="14" font-weight="bold" fill="#7c2900">CustomAlertBox</text>
+  <line x1="925" y1="281" x2="1380" y2="281" stroke="#e65100" stroke-width="1"/>
+  <text x="932" y="297" font-size="11" fill="#999" font-style="italic">// adapters — DO NOT MODIFY</text>
+  <text x="932" y="313" font-size="11" fill="#444">showAlert(msg, title, type: AlertType)</text>
+
+  <!-- Row 2: uses arrow (→) -->
+  <line x1="200" y1="257" x2="228" y2="257" stroke="#444" stroke-width="1.5"/>
+  <polygon points="240,257 228,251 228,263" fill="#444"/>
+  <text x="220" y="249" text-anchor="middle" font-size="10" fill="#666">uses</text>
+
+  <!-- Row 2: implements arrow (← dashed, hollow triangle at interface) -->
+  <line x1="522" y1="257" x2="565" y2="257" stroke="#444" stroke-width="1.5" stroke-dasharray="5,4"/>
+  <polygon points="510,257 522,251 522,263" fill="white" stroke="#444" stroke-width="1.5"/>
+  <text x="537" y="249" text-anchor="middle" font-size="10" fill="#666">implements</text>
+
+  <!-- Row 2: wraps arrow (→) -->
+  <line x1="880" y1="257" x2="913" y2="257" stroke="#444" stroke-width="1.5"/>
+  <polygon points="925,257 913,251 913,263" fill="#444"/>
+  <text x="902" y="249" text-anchor="middle" font-size="10" fill="#666">wraps</text>
 
 </svg>

@@ -166,119 +166,32 @@
 
 <div class="slide">
     <h2>Hvordan ser det ud UDEN State?</h2>
-    <pre><code>// Massive switch uden State Pattern - uoverskueligt!
-public class LiveStockBad {
-    public void updatePrice() {
-        switch (currentState) {
-            case LIVE:
-                price = price.multiply(new BigDecimal("1.03")); // +3%
-                break;
-            case GROWING:
-                price = price.multiply(new BigDecimal("1.05")); // +5%
-                if (volatility > 0.3) currentState = StockState.DECLINING;
-                if (volatility < 0.05) currentState = StockState.STEADY;
-                break;
-            case DECLINING:
-                price = price.multiply(new BigDecimal("0.95")); // -5%
-                if (volatility < 0.15) currentState = StockState.STEADY;
-                if (price.compareTo(BigDecimal.valueOf(0.5)) < 0)
-                    currentState = StockState.BANKRUPT;
-                break;
-            case STEADY:
-                price = price.multiply(new BigDecimal("1.01")); // +1%
-                if (volatility > 0.2) currentState = StockState.GROWING;
-                if (volatility < -0.2) currentState = StockState.DECLINING;
-                break;
-            case BANKRUPT:
-                price = BigDecimal.ZERO; // Kan aldrig vende tilbage
-                break;
-            default:
-                throw new IllegalStateException("Unknown state");
-        }
-    }
-}
-    </code></pre>
-</div>
-
-<div class="slide">
-    <h2>Implementering MED State</h2>
-    <p style="color: #666; margin-bottom: 1.5rem;"><strong>Se: src/business/stockmarket/simulation/GrowingState.java</strong></p>
-    <pre><code>// State Pattern: Ren logik per tilstand
-public class GrowingState extends LiveStockState {
-    @Override
-    public void updatePrice(LiveStock context) {
-        // Kun logik for GROWING tilstand
-        BigDecimal newPrice = context.getCurrentPrice()
-            .multiply(new BigDecimal("1.04")); // +4%
-        context.setCurrentPrice(newPrice);
-
-        // Tilstanden bestemmer selv om den skal skifte
-        if (shouldTransitionToDeclining()) {
-            context.setCurrentState(new DecliningState());
-        }
-    }
-
-    private boolean shouldTransitionToDeclining() {
-        // Simpel logik - ingen Store if/switch statements her
-        return Math.random() < 0.1; // 10% chance
-    }
-}
-    </code></pre>
-</div>
-
-<div class="slide">
-    <h2>Context delegerer til State</h2>
-    <p style="color: #666; margin-bottom: 1.5rem;"><strong>Se: src/business/stockmarket/simulation/LiveStock.java</strong></p>
-    <pre><code>// Context: Delegerer helt til sin state
+    <pre><code>// PROBLEM: Al tilstandslogik samlet i én metode
 public class LiveStock {
-    private StockState currentState;
-    private BigDecimal currentPrice;
+    private StockState state; // enum: STEADY, GROWING, DECLINING, BANKRUPT
 
     public void updatePrice() {
-        // Konteksten ved ikke HVORDAN
-        // Den spørger bare sin state "gør dit job"
-        currentState.updatePrice(this);
-
-        // State'n har selv opdateret prisen og eventuel skiftet til ny state
+        if (state == StockState.BANKRUPT) {
+            return;
+        } else if (state == StockState.GROWING) {
+            price = price.multiply(new BigDecimal("1.02"));
+            if (price.compareTo(peakPrice) > 0)
+                state = StockState.DECLINING; // manuel tilstandsskift
+        } else if (state == StockState.DECLINING) {
+            price = price.multiply(new BigDecimal("0.98"));
+            if (price.compareTo(new BigDecimal("1.00")) < 0)
+                state = StockState.BANKRUPT; // manuel tilstandsskift
+        } else if (state == StockState.STEADY) {
+            // tjekker alle grene — gør ingenting
+        }
+        // Ny tilstand? → Redigér DENNE metode  ← Open/Closed-brud
     }
-
-    // Helpers som states kan bruge
-    public void setCurrentState(StockState newState) {
-        currentState = newState;
-    }
-
-    public void setCurrentPrice(BigDecimal price) {
-        currentPrice = price;
-    }
-}
-    </code></pre>
+}</code></pre>
 </div>
 
 <div class="slide">
     <h2>Testbarhed MED State</h2>
-    <pre><code>@Test void growingState_increasesPrice() {
-    LiveStock stock = new LiveStock();
-    stock.setCurrentPrice(new BigDecimal("100"));
-    stock.setCurrentState(new GrowingState());
-
-    stock.updatePrice();
-
-    BigDecimal newPrice = stock.getCurrentPrice();
-    assertTrue(newPrice.compareTo(new BigDecimal("100")) > 0);
-}
-
-@Test void decliningState_decreasesPrice() {
-    LiveStock stock = new LiveStock();
-    stock.setCurrentPrice(new BigDecimal("100"));
-    stock.setCurrentState(new DecliningState());
-
-    stock.updatePrice();
-
-    BigDecimal newPrice = stock.getCurrentPrice();
-    assertTrue(newPrice.compareTo(new BigDecimal("100")) < 0);
-}
-// Hver tilstand testes isoleret - ingen massive if/else!
-    </code></pre>
+    <p style="color: #666; margin-bottom: 1.5rem;"><strong>Se: test/unit/business/stockmarket/StockMarketTest.java</strong></p>
 </div>
 
 <div class="slide">
